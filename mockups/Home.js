@@ -1,5 +1,5 @@
 import React from 'react';
-import {BackHandler, ScrollView, StyleSheet} from 'react-native';
+import {BackHandler} from 'react-native';
 import {View, Colors, Text, ConnectionStatusBar, Toast} from'react-native-ui-lib';
 import {connect} from 'react-redux';
 import HomeNavBar from '../components/HomeNavBar';
@@ -64,8 +64,14 @@ class HomeScreen extends React.Component {
     navigateBookMark = () => {
         this.props.navigation.navigate('BookMark');
     }
-    navigateSettings = () => {
-        this.props.navigation.navigate('Settings');
+    navigateCart = () => {
+        this.props.navigation.navigate('Cart');
+    }
+    navigateNotifications = () => {
+        this.props.navigation.navigate('Notifications');
+    }
+    navigateMenu = () => {
+        this.props.navigation.navigate('Menu');
     }
 
     render() {
@@ -74,7 +80,9 @@ class HomeScreen extends React.Component {
                 <HomeNavBar
                     navigateSearch={this.navigateSearch}
                     navigateBookMark={this.navigateBookMark}
-                    navigateSettings={this.navigateSettings}
+                    navigateCart={this.navigateCart}
+                    navigateNotifications={this.navigateNotifications}
+                    navigateMenu={this.navigateMenu}
                 />
                 <ConnectionStatusBar
                     useAbsolutePosition
