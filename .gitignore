@@ -1,0 +1,10 @@
+  
+/ios/*
+/android/*
+/node_modules/*
+.*
+/__tests__/*
+assets/images/.DS_Store
+.DS_Store
+package-lock.json
+app.json
