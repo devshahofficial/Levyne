@@ -41,6 +41,17 @@ const HomeStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+const config = {
+    animation: 'spring',
+    config: {
+      stiffness: 1000,
+      damping: 500,
+      mass: 3,
+      overshootClamping: true,
+      restDisplacementThreshold: 0.01,
+      restSpeedThreshold: 0.01,
+    },
+  };
 
 class BottomTabNavigation extends React.PureComponent {
 
@@ -132,7 +143,13 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='FabricUpload' component={FabricUpload}/>
 				<HomeStack.Screen name='Cart' component={Cart}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
-				<HomeStack.Screen name='Menu' component={Menu}/>
+				<HomeStack.Screen
+                    name='Menu'
+                    component={Menu}
+                    options={{
+                        gestureDirection: 'horizontal-inverted'
+                    }}
+                />
 			</HomeStack.Navigator>
 		)
 	}
