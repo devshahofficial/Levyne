@@ -5,20 +5,23 @@ const IntialAuthStates = {
 	refresh_token : '',
     timestamp : '',
     Mobile : '',
-    BrandID : ''
+    UserID : '',
+    SkipLogin: false
 }
 
 const AuthReducer = (state = IntialAuthStates, action) => {
 	switch(action.type)
 	{
+        case 'setSkipLogin' :
+			return {...state, SkipLogin : action.value}
 		case 'setAccess_token' :
 			return {...state, access_token : action.value}
 		case 'setRefresh_token' :
 			return {...state, refresh_token : action.value}
 		case 'setTimestamp' :
             return {...state, timestamp : action.value}
-        case 'setBrandID' :
-            return {...state, BrandID : action.value}
+        case 'setUserID' :
+            return {...state, UserID : action.value}
         case 'setMobile' :
             return {...state, Mobile : action.value}
         case 'ResetAuth' :
@@ -34,6 +37,7 @@ const IntialProfileStates = {
 	ProfileImage : '',
     About : '',
     Address : '',
+    ProfileStatus: 0
 }
 
 const ProfileReducer = (state = IntialProfileStates, action) => {
