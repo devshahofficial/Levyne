@@ -15,23 +15,34 @@ import CustomRequest from './CustomRequest';
 }
 */
 
-export const AuthCheck = async (setAccess_token, setRefresh_token, setTimestamp, setName, setEmail, setAbout, setAddress, setProfileImage, setBrandID, setMobile) => {
+export const AuthCheck = async (setAuth, setProfile) => {
     try {
-        const Response = await AsyncStorage.multiGet(['access_token', 'refresh_token', 'timestamp', 'BrandID', 'Mobile', 'ProfileStatus']);
+
+        const SkipLogin = await AsyncStorage.getItem('SkipLogin');
+
+        if(SkipLogin) {
+            setAuth({SkipLogin: true});
+            return 'MainHomeStack'
+        }
+
+        const Response = await AsyncStorage.multiGet(['access_token', 'refresh_token', 'timestamp', 'UserID', 'Mobile', 'ProfileStatus']);
         if(!(Response[0][1] && Response[1][1] && Response[2][1] && Response[3][1]))
-            throw new Error('Async storage error');
+            throw new Error('Tokens not found');
 
         let access_token = Response[0][1];
         
-        setAccess_token(Response[0][1]);
-        setRefresh_token(Response[1][1]);
-        setTimestamp(Response[2][1]);
-        setBrandID(Response[3][1]);
-        setMobile(Response[4][1]);
+        setAuth({
+            access_token : Response[0][1],
+            refresh_token : Response[1][1],
+            timestamp : Response[2][1],
+            Mobile : Response[4][1],
+            UserID : Response[3][1]
+        });
 
-        const BrandID = Response[3][1];
+        const UserID = Response[3][1];
 
-        const ProfileStatus = Response[5][1];
+        const ProfileStatus = parseInt(Response[5][1]);
+
         const today = new Date();
         const yesterday = new Date(today);
 
@@ -40,7 +51,7 @@ export const AuthCheck = async (setAccess_token, setRefresh_token, setTimestamp,
 
         if(Timestamp < yesterday)
         {
-            const RefreshTokenJSON = await CustomRequest('refreshtoken', 'POST', true, undefined, {BrandID, refreshToken: Response[1][1], UID: config.DeviceID});
+            const RefreshTokenJSON = await CustomRequest('refreshtoken', 'POST', true, undefined, {UserID, refreshToken: Response[1][1], UID: config.DeviceID});
             
             await AsyncStorage.multiSet([
                 ['access_token', RefreshTokenJSON.access_token],
@@ -48,70 +59,36 @@ export const AuthCheck = async (setAccess_token, setRefresh_token, setTimestamp,
                 ['timestamp', RefreshTokenJSON.timestamp]
             ])
             access_token = RefreshTokenJSON.access_token;
-            setAccess_token(RefreshTokenJSON.access_token);
-            setRefresh_token(RefreshTokenJSON.refresh_token);
-            setTimestamp(RefreshTokenJSON.timestamp);
+
+            setAuth({
+                access_token : RefreshTokenJSON.access_token,
+                refresh_token : RefreshTokenJSON.refresh_token,
+                timestamp : RefreshTokenJSON.timestamp
+            })
         }
 
-        /**
-         * Cases 
-         *  1 : Login Done but Profile Incomplete
-         *  2 : Profile Done but Documenets not submitted
-         *  3 : Documents uploaded but in pending state
-         *  4 : Verification already done
-         * 
-         */
-
-        switch(parseInt(ProfileStatus)) {
-            case 1 :
-                return 'EditProfileAuth';
-            case 2 :
-                return 'DocumentUpload';
-            case 3 :
-                const JSONResp3 = await CustomRequest('Profile/ProfileStatus', 'GET', true, access_token);
-                switch(JSONResp3.ProfileStatus) {
-                    case 1 :
-                        await AsyncStorage.setItem("ProfileStatus", "1");
-                        return 'EditProfileAuth';
-                    case 2 :
-                        await AsyncStorage.setItem("ProfileStatus", "2");
-                        return 'DocumentUpload';
-                    case 3 :
-                        return 'Pending'
-                    case 4 :
-                        await AsyncStorage.multiSet([
-                            ['Name', JSONResp3.Name],
-                            ['Email', JSONResp3.Email],
-                            ['ProfileImage', JSONResp3.ProfileImage],
-                            ['About', JSONResp3.About],
-                            ['Address', JSONResp3.Address + '\n' + JSONResp3.City + '-' + JSONResp3.PinCode],
-                            ['ProfileStatus', '4']
-                        ]);
-                        setName(JSONResp3.Name);
-                        setEmail(JSONResp3.Email);
-                        setProfileImage(JSONResp3.ProfileImage);
-                        setAbout(JSONResp3.About);
-                        setAddress(JSONResp3.Address + '\n' + JSONResp3.City + '-' + JSONResp3.PinCode);
-                        return 'AppTour';
-                }
-            case 4 :
-                const Response4 = await AsyncStorage.multiGet(['Name', 'Email', 'ProfileImage', "About", "Address", 'AppTour']); 
-                setName(Response4[0][1]);
-                setEmail(Response4[1][1]);
-                setProfileImage(Response4[2][1]);
-                setAbout(Response4[3][1]);
-                setAddress(Response4[4][1])
-                if(Response4[5][1]) {
-                    return 'MainHomeStack';
-                } else {
-                    return 'AppTour';
-                }
+        switch (ProfileStatus) {
+            case 2:
+                const ResponseCase2 = await AsyncStorage.multiGet([
+                    'Name',
+                    'Email',
+                    'ProfileImage',
+                    'Address'
+                ]);
+                setProfile({
+                    Name : ResponseCase2[0][1],
+                    Email : ResponseCase2[1][1],
+                    ProfileImage : ResponseCase2[2][1],
+                    Address : ResponseCase2[3][1],
+                })
+            case 1:
+            default:
+                return 'MainHomeStack'
         }
+
+        
     }
     catch(err) {
-        if(err.message != 'Async storage error') {
-            console.log(err);
-        }
         throw new Error('Login');
     }
 }
