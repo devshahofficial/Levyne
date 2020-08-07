@@ -1,13 +1,14 @@
 import React from 'react';
 import { StyleSheet, BackHandler} from 'react-native';
-import {Button, View, Text, Toast, Colors} from 'react-native-ui-lib';
+import {Button, View, Text, Toast, Colors, TouchableOpacity} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
-import {generateOTP} from '../API/Login';
+import generateOTP, {skipLogin} from '../API/Login';
 import CstmShadowView from "../components/CstmShadowView";
-import Constants from '../assets/constants'
+import Constants from '../assets/constants';
+import {connect} from 'react-redux';
 
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -79,7 +80,16 @@ export default class LoginScreen extends React.Component {
 			this.setState({showCustomToast: !this.state.showCustomToast});
 			this.setState({showContent:err});
 		});
-	};
+    };
+    
+    skipLogin = () => {
+        skipLogin().then(() => {
+            this.props.setSkipLogin(true);
+            this.props.navigation.navigate('MainHomeStack');
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
 
 	render() {
@@ -114,6 +124,9 @@ export default class LoginScreen extends React.Component {
 						/>
 					</CstmShadowView>
 				</View>
+                <TouchableOpacity flex bottom marginV-20 onPress={this.skipLogin}>
+                    <Text primary text70>{"Skip Login >>"}</Text>
+                </TouchableOpacity>
 			</View>
 		);
 	}
@@ -131,3 +144,11 @@ const styles = StyleSheet.create({
 		width:'85%',
 	},
 });
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setSkipLogin : (SkipLogin) => dispatch({type: 'setSkipLogin', value: SkipLogin}),
+	}
+}
+
+export default connect(null, mapDispatchToProps)(LoginScreen);
