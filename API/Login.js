@@ -1,5 +1,6 @@
 import CustomRequest from './CustomRequest';
-export const generateOTP = async (Mobile) => {
+import AsyncStorage from '@react-native-community/async-storage'
+export default generateOTP = async (Mobile) => {
     if(Mobile.length != 10)
     {
         throw new Error('Not a valid Mobile number');
@@ -8,4 +9,8 @@ export const generateOTP = async (Mobile) => {
     {
         return await CustomRequest('generateOTP', 'POST', true, undefined, {Mobile});
     }
+}
+
+export const skipLogin = async () => {
+    await AsyncStorage.setItem('SkipLogin', '1');
 }

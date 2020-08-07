@@ -9,19 +9,12 @@ import {connect} from 'react-redux';
 class IndexScreen extends React.Component {
 
 	componentDidMount() {
-		const setAccess_token = this.props.setAccess_token;
-		const setRefresh_token = this.props.setRefresh_token;
-		const setTimestamp = this.props.setTimestamp;
-        const setName = this.props.setName;
-        const setAbout = this.props.setAbout;
-        const setAddress = this.props.setAddress;
-		const setEmail = this.props.setEmail;
-		const setProfileImage = this.props.setProfileImage;
-		const setBrandID = this.props.setBrandID;
-		const setMobile = this.props.setMobile;
 
+		const setAuth = this.props.setAuth;
+		const setProfile = this.props.setProfile;
+        
 
-		AuthCheck(setAccess_token, setRefresh_token, setTimestamp, setName, setEmail, setAddress, setAbout, setProfileImage, setBrandID, setMobile).then( value => {
+		AuthCheck(setAuth, setProfile).then( value => {
 			if(value === 'Home')
 			{
 				this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
@@ -32,14 +25,14 @@ class IndexScreen extends React.Component {
 			}
 		}).catch(value => {
 			//this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
-			this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
+			this.props.navigation.navigate('Login');
         });
 	}
 	render() {
 		return (
 			<>
 				<View style={styles.container}>
-					<Logo width='60%'/>
+					<Logo width='90%'/>
 				</View>
 			</>
 		);
@@ -48,17 +41,10 @@ class IndexScreen extends React.Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setAccess_token : (access_token) => dispatch({type: 'setAccess_token', value: access_token}),
-		setRefresh_token : (refresh_token) => dispatch({type: 'setRefresh_token', value: refresh_token}),
-		setTimestamp : (timestamp) => dispatch({type: 'setTimestamp', value: timestamp}),
-        setName : (Name) => dispatch({type: 'setName', value: Name}),
-        setAbout : (About) => dispatch({type: 'setAbout', value: About}),
-        setAddress : (Address) => dispatch({type: 'setAddress', value: Address}),
-        setEmail : (Email) => dispatch({type: 'setEmail', value: Email}),
-		setProfileImage : (ProfileImage) => dispatch({type: 'setProfileImage', value: ProfileImage}),
-		setBrandID : (BrandID) => dispatch({type: 'setBrandID', value: BrandID}),
-		setMobile : (Mobile) => dispatch({type: 'setMobile', value: Mobile}),
+        setAuth : (AuthObject) => dispatch({type: 'setAuth', value: AuthObject}),
 
+		setProfile : (ProfileObject) => dispatch({type: 'setProfile', value: ProfileObject}),
+        
 	}
 }
 
