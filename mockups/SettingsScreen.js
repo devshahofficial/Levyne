@@ -75,7 +75,7 @@ class SettingsScreen extends React.Component {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Settings'}/>
-                <View paddingL-15 paddingR-15 flex>
+                <View paddingH-15 flex>
                     <Toast
                         visible={this.state.showCustomToast}
                         position={'bottom'}
