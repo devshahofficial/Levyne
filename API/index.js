@@ -5,7 +5,7 @@ import CustomRequest from './CustomRequest';
 export const AuthCheck = async (setAuth, setProfile) => {
     try {
         const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus']);
-        if(SkipLogin[0][1]) {
+        if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
             setAuth({SkipLogin: true});
             if(SkipLogin[1][1]) {
                 setProfile({ProfileStatus: parseInt(SkipLogin[1][1])});
@@ -49,7 +49,8 @@ export const AuthCheck = async (setAuth, setProfile) => {
             setAuth({
                 AccessToken : RefreshTokenJSON.AccessToken,
                 RefreshToken : RefreshTokenJSON.RefreshToken,
-                Timestamp : RefreshTokenJSON.Timestamp
+                Timestamp : RefreshTokenJSON.Timestamp,
+                SkipLogin: false
             })
         }
 
@@ -66,10 +67,15 @@ export const AuthCheck = async (setAuth, setProfile) => {
                     Email : ResponseCase2[1][1],
                     ProfileImage : ResponseCase2[2][1],
                     Address : ResponseCase2[3][1],
+                    ProfileStatus: 2
                 })
+                return 'MainHomeStack';
             case 1:
+                setProfile({
+                    ProfileStatus: 1
+                })
             default:
-                return 'MainHomeStack'
+                return 'MainHomeStack';
         }
 
         

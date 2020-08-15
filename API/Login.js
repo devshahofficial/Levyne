@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import CustomRequest from './CustomRequest';
 import { sha256 } from 'react-native-sha256';
 
-export const generateOTP = async (Mobile) => {
+export default generateOTP = async (Mobile) => {
     if(Mobile.length != 10)
     {
         throw new Error('Not a valid Mobile number');

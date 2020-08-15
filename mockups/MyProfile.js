@@ -10,13 +10,18 @@ class ProfileTopSection extends React.PureComponent {
 
     constructor(props){
         super(props);
-        this.state= {
+        this.state = {
             ProfileCompleted: this.props.Profile.ProfileStatus === 2
         }
     }
 
     NavigateEditProfile = () => {
+        console.log("hello");
         this.props.navigation.navigate("EditProfile");
+    }
+
+    NavigateEditProfileAuth = () => {
+        this.props.navigation.navigate("EditProfileAuth");
     }
 
     NavigateLogin = () => {
@@ -163,7 +168,7 @@ class ProfileTopSection extends React.PureComponent {
                             label="Log In"
                         /> :
                         <Button
-                            onPress={this.navigateEditProfile}
+                            onPress={this.NavigateEditProfileAuth}
                             hb1 flex
                             label="Complete Profile"
                         />

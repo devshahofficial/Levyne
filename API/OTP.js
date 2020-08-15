@@ -16,6 +16,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
     else
     {
         const json = await CustomRequest('verifyOTP', 'POST', true, undefined, {Mobile, OTP, OTPTokenHash, UID});
+        console.log(json);
         switch(json.ProfileStatus) {
             case 1 :
                 await AsyncStorage.multiSet([
@@ -24,7 +25,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     ['Timestamp', json.Timestamp],
                     ['Mobile', Mobile.toString()],
                     ['ProfileStatus', '1'],
-                    ['UserID', json.UserID.toString()],
+                    ['UserID', json.CustomerID.toString()],
                     ['SkipLogin', '0']
                 ]);
 
@@ -33,7 +34,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     RefreshToken : json.RefreshToken,
                     Timestamp : json.Timestamp,
                     Mobile : Mobile,
-                    UserID : json.UserID,
+                    UserID : json.CustomerID,
                     SkipLogin: false
                 })
                 return 'EditProfileAuth';
@@ -49,21 +50,31 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     ['About', json.About],
                     ['Address', json.Address + '\n' + json.City + '-' + json.PinCode],
                     ['ProfileStatus', json.ProfileStatus.toString()],
-                    ['UserID', json.UserID.toString()]
+                    ['UserID', json.CustomerID.toString()],
+                    ['SkipLogin', '0']
                 ]);
-                setAccessToken(json.AccessToken);
-                setRefreshToken(json.RefreshToken);
-                setTimestamp(json.Timestamp);
-                setMobile(Mobile);
-                setName(json.Name);
-                setEmail(json.Email);
-                setBrandID(json.BrandID);
-                setProfileImage(json.ProfileImage);
-                setAbout(json.About);
-                setAddress(json.Address + '\n' + json.City + '-' + json.PinCode);
-                //const Socket = await NewSocket(json.AccessToken);
-                //setSocket(Socket);
-                return returnValueArray[json.ProfileStatus - 1];
+
+                setAuth({
+                    AccessToken : json.AccessToken,
+                    RefreshToken : json.RefreshToken,
+                    Timestamp : json.Timestamp,
+                    Mobile : Mobile,
+                    UserID : json.CustomerID,
+                    SkipLogin: false
+                });
+
+                console.log(json);
+
+                setProfile({
+                    Name : json.Name,
+                    Email : json.Email,
+                    ProfileImage : json.ProfileImage,
+                    About : json.About,
+                });
+                return 'MainHomeStack';
+            default :
+                console.log(json);
+                return 'MainHomeStack';
         }
     }
 }

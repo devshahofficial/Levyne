@@ -77,8 +77,9 @@ class LoginScreen extends React.Component {
                 UUID : this.state.UUID
 			});
 		}).catch(err => {
+            console.log(err);
 			this.setState({showCustomToast: !this.state.showCustomToast});
-			this.setState({showContent:err});
+			this.setState({showContent:err.message});
 		});
     };
     
