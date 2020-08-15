@@ -250,9 +250,7 @@ const styles = StyleSheet.create({
 
 const mapsStateToProps = state => ({
     SkipLogin: state.Auth.SkipLogin,
-    UserID: state.Auth.SkipLogin,
     Profile: state.Profile,
-	access_token : state.Auth.access_token
 });
 
 export default connect(mapsStateToProps)(ProfileTopSection);
