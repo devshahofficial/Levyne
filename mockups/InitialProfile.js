@@ -38,11 +38,13 @@ class InitialProfile extends React.Component {
             Female: true
         }
     }
+
     setName = Name => {
         this.setState({
             Name: Name
         });
     }
+
     setEmail = Email => {
         this.setState({
             Email: Email
@@ -131,7 +133,6 @@ class InitialProfile extends React.Component {
         const Token = this.props.AccessToken;
 
 
-
         EditProfileAPI(Name, Email, About, this.state.ProfilePicChanged, ProfilePic, Address, City, PinCode, Token, this.setUploadedPercentage).then((resp) => {
             this.props.setName(Name);
             this.props.setEmail(Email);
@@ -162,7 +163,7 @@ class InitialProfile extends React.Component {
 
         return (
             <>
-                <NavBarBack Title={"Edit Profile"}/>
+                <NavBarBack Navigation={() => this.props.navigation.navigate('MainHomeStack')} Title={"Edit Profile"}/>
                 <Modal
                     animationType="slide"
                     transparent={true}
