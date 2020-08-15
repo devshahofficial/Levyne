@@ -60,14 +60,18 @@ export const AuthCheck = async (setAuth, setProfile) => {
                     'Name',
                     'Email',
                     'ProfileImage',
-                    'Address'
+                    'Address',
+                    'Gender',
+                    'PinCode'
                 ]);
                 setProfile({
                     Name : ResponseCase2[0][1],
                     Email : ResponseCase2[1][1],
                     ProfileImage : ResponseCase2[2][1],
                     Address : ResponseCase2[3][1],
-                    ProfileStatus: 2
+                    ProfileStatus: 2,
+                    Gender: parseInt(ResponseCase2[4][1]),
+                    PinCode: ResponseCase2[5][1]
                 })
                 return 'MainHomeStack';
             case 1:
@@ -77,8 +81,6 @@ export const AuthCheck = async (setAuth, setProfile) => {
             default:
                 return 'MainHomeStack';
         }
-
-        
     }
     catch(err) {
         throw new Error('Login');
