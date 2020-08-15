@@ -10,7 +10,7 @@ import ProductUpload from '../mockups/ProductUpload';
 import MyProfile from '../mockups/MyProfile';
 import BrandProfile from '../mockups/BrandProfile';
 import SearchScreen from '../mockups/SearchScreen';
-import EditProfile from '../mockups/EditProfile';
+import InitialProfile from '../mockups/InitialProfile';
 import ChatScreen from '../mockups/ChatScreen';
 import DocumentUpload from '../mockups/DocumentUpload';
 import Pending from '../mockups/Pending';
@@ -35,6 +35,7 @@ import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import Cart from "../mockups/Cart";
 import Notifications from "../mockups/Notifications";
 import Menu from "../mockups/Menu";
+import EditProfile from "../mockups/EditProfile";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -127,6 +128,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="ProductUpload" component={ProductUpload} />
 				<HomeStack.Screen name="Product" component={ProductScreen} />
 				<HomeStack.Screen name="MyProfile" component={MyProfile} />
+				<HomeStack.Screen name="InitialProfile" component={InitialProfile} />
 				<HomeStack.Screen name="BrandProfile" component={BrandProfile}/>
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="ToBeDesignedDetailed" component={ToBeDesignedDetailed} />
@@ -147,7 +149,7 @@ class MainHomeStack extends React.PureComponent {
                     name='Menu'
                     component={Menu}
                     options={{
-                        gestureDirection: 'horizontal-inverted'
+						gestureDirection: "horizontal-inverted"
                     }}
                 />
 			</HomeStack.Navigator>
@@ -165,7 +167,7 @@ class NavigationAuth extends React.PureComponent {
 				<AuthStack.Screen name="Index" component={IndexScreen} />
 				<AuthStack.Screen name="Login" component={LoginScreen} />
 				<AuthStack.Screen name="OTP" component={OTPScreen} />
-				<AuthStack.Screen name="EditProfileAuth" component={EditProfile} />
+				<AuthStack.Screen name="EditProfileAuth" component={InitialProfile} />
 				<AuthStack.Screen name="DocumentUpload" component={DocumentUpload} />
 				<AuthStack.Screen name="Pending" component={Pending} />
                 <AuthStack.Screen name="AppTour" component={AppTour} />
