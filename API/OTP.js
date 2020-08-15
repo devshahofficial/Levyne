@@ -47,8 +47,9 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     ['Name', json.Name],
                     ['Email', json.Email],
                     ['ProfileImage', json.ProfileImage],
-                    ['About', json.About],
-                    ['Address', json.Address + '\n' + json.City + '-' + json.PinCode],
+                    ['Address', json.Address],
+                    ['PinCode', json.PinCode],
+                    ['Gender', json.Gender],
                     ['ProfileStatus', json.ProfileStatus.toString()],
                     ['UserID', json.CustomerID.toString()],
                     ['SkipLogin', '0']
@@ -63,13 +64,13 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     SkipLogin: false
                 });
 
-                console.log(json);
-
                 setProfile({
                     Name : json.Name,
                     Email : json.Email,
                     ProfileImage : json.ProfileImage,
-                    About : json.About,
+                    Address : json.Address,
+                    PinCode : json.PinCode,
+                    Gender : json.Gender
                 });
                 return 'MainHomeStack';
             default :

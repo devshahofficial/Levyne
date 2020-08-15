@@ -37,8 +37,8 @@ const IntialProfileStates = {
     Name : '',
 	Email : '',
 	ProfileImage : '',
-    About : '',
     Address : '',
+    Gender: '',
     ProfileStatus: 0
 }
 
@@ -51,8 +51,6 @@ const ProfileReducer = (state = IntialProfileStates, action) => {
 			return {...state, Email : action.value}
 		case 'setProfileImage' :
 			return {...state, ProfileImage : action.value}
-		case 'setAbout' :
-			return {...state, About : action.value}
         case 'setAddress' :
             return {...state, Address : action.value}
         case 'setProfile' :
