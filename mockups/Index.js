@@ -24,7 +24,6 @@ class IndexScreen extends React.Component {
 				this.props.navigation.navigate(value);
 			}
 		}).catch(value => {
-			//this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
 			this.props.navigation.navigate('Login');
         });
 	}
@@ -42,9 +41,7 @@ class IndexScreen extends React.Component {
 const mapDispatchToProps = dispatch => {
 	return {
         setAuth : (AuthObject) => dispatch({type: 'setAuth', value: AuthObject}),
-
 		setProfile : (ProfileObject) => dispatch({type: 'setProfile', value: ProfileObject}),
-        
 	}
 }
 

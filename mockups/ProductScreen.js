@@ -1,4 +1,4 @@
-import {StyleSheet, SafeAreaView, ScrollView} from "react-native";
+import {SafeAreaView, ScrollView} from "react-native";
 import React from 'react';
 import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
@@ -100,11 +100,6 @@ class ProductScreen extends React.Component {
         );
     }
 };
-const styles = StyleSheet.create({
-    mainScreen: {
-        backgroundColor:Colors.white
-    }
-});
 
 const mapsStateToProps = state => ({
 	access_token : state.Auth.access_token

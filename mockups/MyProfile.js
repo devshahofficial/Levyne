@@ -1,21 +1,32 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Dimensions} from 'react-native';
-import {View, Text, Avatar, TouchableOpacity, Colors, Button, Image} from 'react-native-ui-lib';
+import {View, Text, TouchableOpacity, Colors, Button, Image} from 'react-native-ui-lib';
 import TextNavBar from "../components/TextNavBar";
+import Logout from '../API/Logout';
 import CstmShadowView from "../components/CstmShadowView";
+import {connect} from 'react-redux';
 
-export default class ProfileTopSection extends React.PureComponent {
+class ProfileTopSection extends React.PureComponent {
 
     constructor(props){
         super(props);
         this.state= {
-            LoggedIn: true
+            ProfileCompleted: this.props.Profile.ProfileStatus === 2
         }
     }
 
-
-    navigateEditProfile = () => {
+    NavigateEditProfile = () => {
         this.props.navigation.navigate("EditProfile");
+    }
+
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
+    LogoutOnPress = () => {
+        Logout(this.props.access_token).then(() => {
+            this.props.navigation.navigate('Login');
+        }).catch(() => {})  
     }
 
     LoggedInScreen = () => {
@@ -61,7 +72,7 @@ export default class ProfileTopSection extends React.PureComponent {
 
                 <View marginT-30 paddingH-15>
                     <TouchableOpacity
-                        onPress={this.navigateEditProfile}
+                        onPress={this.NavigateEditProfile}
                     >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
@@ -145,11 +156,18 @@ export default class ProfileTopSection extends React.PureComponent {
                 </View>
 
                 <CstmShadowView style={{marginTop:40, marginHorizontal:40}}>
-                    <Button
-                        onPress={this.LogoutOnPress}
-                        hb1 flex
-                        label="Log In"
-                    />
+                    {
+                        this.props.SkipLogin ? <Button
+                            onPress={this.NavigateLogin}
+                            hb1 flex
+                            label="Log In"
+                        /> :
+                        <Button
+                            onPress={this.navigateEditProfile}
+                            hb1 flex
+                            label="Complete Profile"
+                        />
+                    }
                 </CstmShadowView>
 
                 <View marginT-50 paddingH-15>
@@ -199,7 +217,7 @@ export default class ProfileTopSection extends React.PureComponent {
 
                     </View>
                     {
-                        this.state.LoggedIn === true ? this.LoggedInScreen() : this.UnloggedScreen()
+                        this.state.ProfileCompleted ? this.LoggedInScreen() : this.UnloggedScreen()
                     }
                 </ScrollView>
             </>
@@ -230,3 +248,11 @@ const styles = StyleSheet.create({
 
 })
 
+const mapsStateToProps = state => ({
+    SkipLogin: state.Auth.SkipLogin,
+    UserID: state.Auth.SkipLogin,
+    Profile: state.Profile,
+	access_token : state.Auth.access_token
+});
+
+export default connect(mapsStateToProps)(ProfileTopSection);
