@@ -3,7 +3,8 @@ import { StyleSheet, BackHandler} from 'react-native';
 import {Button, View, Text, Toast, Colors, TouchableOpacity} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
-import generateOTP, {skipLogin} from '../API/Login';
+import generateOTP from '../API/Login';
+import SkipLogin from '../API/SkipLogin';
 import CstmShadowView from "../components/CstmShadowView";
 import Constants from '../assets/constants';
 import {connect} from 'react-redux';
@@ -83,8 +84,7 @@ class LoginScreen extends React.Component {
     };
     
     skipLogin = () => {
-        skipLogin().then(() => {
-            this.props.setSkipLogin(true);
+        SkipLogin(this.props.setAuth, this.props.setProfile, 0).then(() => {
             this.props.navigation.navigate('MainHomeStack');
         }).catch(err => {
             console.log(err);
@@ -147,7 +147,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setSkipLogin : (SkipLogin) => dispatch({type: 'setSkipLogin', value: SkipLogin}),
+        setAuth : (Auth) => dispatch({type: 'setAuth', value: Auth}),
+        setProfile : (Profile) => dispatch({type: 'setProfile', value: Profile}),
 	}
 }
 

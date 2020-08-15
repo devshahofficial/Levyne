@@ -1,36 +1,22 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import config from '../assets/constants';
 import CustomRequest from './CustomRequest';
-//import NewSocket from '../API/NewSocket';
-//import GetChatList from '../API/GetChatlists';
-
-/*const SocketHandler = (Socket, Token, setChatList, setIsAnyMsg) => {
-    Socket.on("ChatMessage", (Message, CallBack) => {
-        GetChatList(Token, 1).then(resp => {
-            setChatList(resp);
-            setIsAnyMsg(true);
-        });
-        CallBack(true);
-    })
-}
-*/
 
 export const AuthCheck = async (setAuth, setProfile) => {
     try {
-
-        const SkipLogin = await AsyncStorage.getItem('SkipLogin');
-
-        if(SkipLogin) {
+        const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus']);
+        if(SkipLogin[0][1]) {
             setAuth({SkipLogin: true});
+            if(SkipLogin[1][1]) {
+                setProfile({ProfileStatus: parseInt(SkipLogin[1][1])});
+            }
             return 'MainHomeStack'
         }
 
-        const Response = await AsyncStorage.multiGet(['access_token', 'refresh_token', 'timestamp', 'UserID', 'Mobile', 'ProfileStatus']);
+        const Response = await AsyncStorage.multiGet(['access_token', 'refresh_token', 'timestamp', 'UserID', 'Mobile']);
         if(!(Response[0][1] && Response[1][1] && Response[2][1] && Response[3][1]))
             throw new Error('Tokens not found');
 
-        let access_token = Response[0][1];
-        
         setAuth({
             access_token : Response[0][1],
             refresh_token : Response[1][1],
@@ -41,7 +27,7 @@ export const AuthCheck = async (setAuth, setProfile) => {
 
         const UserID = Response[3][1];
 
-        const ProfileStatus = parseInt(Response[5][1]);
+        const ProfileStatus = parseInt(SkipLogin[1][1]);
 
         const today = new Date();
         const yesterday = new Date(today);

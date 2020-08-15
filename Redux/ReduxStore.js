@@ -24,6 +24,8 @@ const AuthReducer = (state = IntialAuthStates, action) => {
             return {...state, UserID : action.value}
         case 'setMobile' :
             return {...state, Mobile : action.value}
+        case 'setAuth' :
+            return {...state, ...action.value}
         case 'ResetAuth' :
             return {}
         default :
@@ -53,6 +55,8 @@ const ProfileReducer = (state = IntialProfileStates, action) => {
 			return {...state, About : action.value}
         case 'setAddress' :
             return {...state, Address : action.value}
+        case 'setProfile' :
+            return {...state, ...action.value}
         case 'ResetProfile' :
             return {}
         default :
