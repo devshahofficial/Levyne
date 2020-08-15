@@ -1,4 +1,3 @@
-import config from '../assets/constants';
 import AsyncStorage from '@react-native-community/async-storage';
 //import NewSocket from '../API/NewSocket';
 import CustomRequest from './CustomRequest';
