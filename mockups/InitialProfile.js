@@ -4,12 +4,12 @@ import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import EditProfileAPI from '../API/EditProfile';
 import CstmInput from "../components/input";
-import {Text, TouchableOpacity, Button, Image, Colors, View, Toast, Picker} from 'react-native-ui-lib';
+import {Text, TouchableOpacity, Button, Image, Colors, View, Toast} from 'react-native-ui-lib';
 import CstmShadowView from '../components/CstmShadowView';
 import {GalleryIcon} from "../Icons/GalleryIcon";
 import {CameraIcon} from "../Icons/CameraIcon";
-import Type from "../assets/Type";
 import Spinner from 'react-native-loading-spinner-overlay';
+import NavBarBack from "../components/NavBarBack";
 
 
 const windowHeight = Dimensions.get('window').height;
@@ -34,7 +34,8 @@ class InitialProfile extends React.Component {
             modalVisible: false,
             City : {},
             PinCode : '',
-            LoaderContent: ''
+            LoaderContent: '',
+            Female: true
         }
     }
     setName = Name => {
@@ -153,11 +154,15 @@ class InitialProfile extends React.Component {
         this.setState({ modalVisible: !this.state.modalVisible });
     }
 
+    setGender = () => {
+        this.setState({ Female: !this.state.Female });
+    }
     render() {
         const { modalVisible } = this.state;
 
         return (
             <>
+                <NavBarBack Title={"Edit Profile"}/>
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -189,82 +194,82 @@ class InitialProfile extends React.Component {
                     style={styles.container}
                     showsVerticalScrollIndicator={false}
                 >
-                    <TouchableOpacity style={styles.avatarView} onPress={() => this.setState({modalVisible : true})}>
-                        <Image
-                            style={styles.avatar}
-                            source={this.state.profilePic}
-                            fill={Colors.shadow}
+                    <View paddingH-15 marginB-20>
+                        <TouchableOpacity style={styles.avatarView} onPress={() => this.setState({modalVisible : true})}>
+                            <Image
+                                style={styles.avatar}
+                                source={this.state.profilePic}
+                                fill={Colors.shadow}
+                            />
+                        </TouchableOpacity>
+
+                        <Text h1 marginT-30>Name</Text>
+                        <CstmInput
+                            placeholder='Name'
+                            value={this.state.Name}
+                            onChangeText={this.setName}
                         />
-                    </TouchableOpacity>
-
-                    <Text h1 marginT-30>Name </Text>
-                    <CstmInput
-                        placeholder='Name'
-                        value={this.state.Name}
-                        onChangeText={this.setName}
-                    />
-                    <Spinner
-						visible={this.state.showLoading}
-						textContent={this.state.LoaderContent}
-						textStyle={styles.spinnerTextStyle}
-					/>
-                    <Text h1 marginT-30>Email </Text>
-                    <CstmInput
-                        placeholder='Email'
-                        value={this.state.Email}
-                        onChangeText={this.setEmail}
-                    />
-
-                    <Text h1 marginT-30>Office Address </Text>
-                    <CstmInput
-                        placeholder='Address'
-                        value={this.state.Address}
-                        onChangeText={this.setAddress}
-                    />
-
-                    <Text h1 marginT-30>Pin Code </Text>
-                    <CstmInput
-                        style={{marginBottom: 20}}
-                        placeholder='Pin Code'
-                        value={this.state.PinCode}
-                        keyboardType='number-pad'
-                        maxLength={6}
-                        onChangeText={this.setPinCode}
-                    />
-
-                    <Text h1 marginT-5 marginB-20>Enterprise Type </Text>
-                    <Picker
-                        placeholder="Enterprise Type"
-                        value={this.state.City}
-                        enableModalBlur={false}
-                        onChange={item => this.setState({City: item})}
-                        topBarProps={{title: 'Enterprise Type'}}
-                        searchPlaceholder={'Enterprise Type'}
-                        searchSClatyle={{placeholderTextColor: Colors.dark50}}
-                    >
-                        {Type[0].map((item, index) => (
-                            <Picker.Item key={index.toString()} value={{
-                                value: item.title,
-                                label: item.title
-                            }}/>
-                        ))}
-                    </Picker>
-
-                    <Text h1 marginT-10>About </Text>
-                    <CstmInput
-                        placeholder='About'
-                        value={this.state.About}
-                        onChangeText={this.setAbout}
-                    />
-
-                    <CstmShadowView style={styles.ShadowView}>
-                        <Button
-                            flex hb2
-                            label='Submit'
-                            onPress={this.EditProfileSubmit}
+                        <Spinner
+                            visible={this.state.showLoading}
+                            textContent={this.state.LoaderContent}
+                            textStyle={styles.spinnerTextStyle}
                         />
-                    </CstmShadowView>
-                    <View marginT-10></View>
+
+
+                        <Text h1 marginT-30>Email</Text>
+                        <CstmInput
+                            placeholder='Email'
+                            value={this.state.Email}
+                            onChangeText={this.setEmail}
+                        />
+
+
+                        <View row marginT-30>
+                            <TouchableOpacity
+                                center
+                                onPress={this.setGender}
+                                style={this.state.Female === true ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                            >
+                                <Text h1 secondary>Female</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                center
+                                onPress={this.setGender}
+                                style={this.state.Female === false ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                            >
+                                <Text h1 secondary>Male</Text>
+                            </TouchableOpacity>
+                        </View>
+
+
+
+
+                        <Text h1 marginT-30>Address</Text>
+                        <CstmInput
+                            style={{height:100,borderRadius:20}}
+                            placeholder='Address'
+                            value={this.state.Address}
+                            onChangeText={this.setAddress}
+                        />
+
+                        <Text h1 marginT-30>Pin Code</Text>
+                        <CstmInput
+                            style={{marginBottom: 20}}
+                            placeholder='Pin Code'
+                            value={this.state.PinCode}
+                            keyboardType='number-pad'
+                            maxLength={6}
+                            onChangeText={this.setPinCode}
+                        />
+
+                        <CstmShadowView style={styles.ShadowView}>
+                            <Button
+                                flex hb2
+                                label='Submit'
+                                onPress={this.EditProfileSubmit}
+                            />
+                        </CstmShadowView>
+                    </View>
                 </ScrollView>
                 <Toast
                     visible={this.state.ShowToast}
@@ -294,7 +299,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingHorizontal: 20,
         backgroundColor : Colors.white
     },
     Modal:{
@@ -306,7 +310,13 @@ const styles = StyleSheet.create({
     },
     spinnerTextStyle: {
         color: Colors.primary
-	},
+    },
+    Gender: {
+        flex:1,
+        borderWidth: 1,
+        borderColor: Colors.shadow,
+        height:50
+    }
 });
 
 const mapsStateToProps = state => ({
