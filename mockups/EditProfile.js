@@ -142,7 +142,7 @@ class EditProfile extends React.Component {
                 Address,
                 PinCode,
                 ProfileStatus: 2,
-                Gender: this.state.Female,
+                Gender: this.state.Female ? 0 : 1,
                 ... ProfileImageNotRequired ? {} : {ProfileImage: resp.ProfileImage}
             });
             this.setState({showLoading : false});
