@@ -168,8 +168,6 @@ class NavigationAuth extends React.PureComponent {
 				<AuthStack.Screen name="Login" component={LoginScreen} />
 				<AuthStack.Screen name="OTP" component={OTPScreen} />
 				<AuthStack.Screen name="EditProfileAuth" component={InitialProfile} />
-				<AuthStack.Screen name="DocumentUpload" component={DocumentUpload} />
-				<AuthStack.Screen name="Pending" component={Pending} />
                 <AuthStack.Screen name="AppTour" component={AppTour} />
 			</AuthStack.Navigator>
 		)
