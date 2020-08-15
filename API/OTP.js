@@ -47,7 +47,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     ['Email', json.Email],
                     ['ProfileImage', json.ProfileImage],
                     ['Address', json.Address],
-                    ['PinCode', json.PinCode],
+                    ['PinCode', json.PinCode.toString()],
                     ['Gender', json.Gender.toString()],
                     ['ProfileStatus', '2'],
                     ['UserID', json.CustomerID.toString()],
