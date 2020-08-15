@@ -21,21 +21,20 @@ class InitialProfile extends React.Component {
         super(props);
 
         this.state = {
-            Name : this.props.Name || '',
-            Email : this.props.Email || '',
-            About : this.props.About || '',
-            profilePic : require('../assets/images/icon.png'),
-            Address : this.props.About || '',
+            Name : '',
+            Email : '',
+            About : '',
+            ProfileImage : require('../assets/images/icon.png'),
+            Address : '',
+            PinCode : '',
+            Female: true,
             showLoading : false,
-            ProfilePicChanged : false,
+            ProfileImageChanged : false,
             ShowActionSheet : false,
             ShowToast : false,
             ToastContent : 'Oops! Something went wrong',
             modalVisible: false,
-            City : {},
-            PinCode : '',
-            LoaderContent: '',
-            Female: true
+            LoaderContent: ''
         }
     }
 
@@ -76,8 +75,8 @@ class InitialProfile extends React.Component {
             type: response.mime
         };
         this.setState({
-            profilePic: Image,
-            ProfilePicChanged: true,
+            ProfileImage: Image,
+            ProfileImageChanged: true,
             modalVisible : false
         })
     }
@@ -125,22 +124,23 @@ class InitialProfile extends React.Component {
 
         const Name = this.state.Name;
         const Email = this.state.Email;
-        const About = this.state.About;
+        const Gender = this.state.Female ? '0' : '1';
         const Address = this.state.Address;
-        const City = this.state.City;
         const PinCode = this.state.PinCode;
-        const ProfilePic = this.state.profilePic;
+        const ProfileImage = this.state.ProfileImage;
         const Token = this.props.AccessToken;
+        const ProfileImageChanged = this.state.ProfileImageChanged;
 
-
-        EditProfileAPI(Name, Email, About, this.state.ProfilePicChanged, ProfilePic, Address, City, PinCode, Token, this.setUploadedPercentage).then((resp) => {
-            this.props.setName(Name);
-            this.props.setEmail(Email);
-            this.props.setAbout(About);
-            if(resp) {
-                this.props.setProfileImage(resp.ProfileImage);
-            }
-            this.props.navigation.navigate('DocumentUpload');
+        EditProfileAPI(Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, this.setUploadedPercentage).then((resp) => {
+            this.props.setProfile({
+                Name,
+                Email,
+                ProfileImage,
+                Address,
+                PinCode,
+                Gender: this.state.Female,
+            });
+            this.props.navigation.navigate('MainHomeStack');
         }).catch(err => {
             this.setState({showLoading : false, ShowToast : true, ToastContent : err});
             setTimeout(() => {
@@ -199,7 +199,7 @@ class InitialProfile extends React.Component {
                         <TouchableOpacity style={styles.avatarView} onPress={() => this.setState({modalVisible : true})}>
                             <Image
                                 style={styles.avatar}
-                                source={this.state.profilePic}
+                                source={this.state.ProfileImage}
                                 fill={Colors.shadow}
                             />
                         </TouchableOpacity>
@@ -322,18 +322,11 @@ const styles = StyleSheet.create({
 
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken,
-    ProfileImage : state.Profile.ProfileImage,
-    Name : state.Profile.Name,
-    Email : state.Profile.Email,
-    About : state.Profile.About
 })
 
 const mapDispatchToProps = dispatch => {
     return {
-        setName : (Name) => dispatch({type: 'setName', value: Name}),
-        setEmail : (Email) => dispatch({type: 'setEmail', value: Email}),
-        setProfileImage : (ProfileImage) => dispatch({type: 'setProfileImage', value: ProfileImage}),
-        setAbout : (About) => dispatch({type: 'setAbout', value: About}),
+        setProfile : (Profile) => dispatch({type: 'setProfile', value: Profile}),
     }
 }
 

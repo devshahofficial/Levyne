@@ -5,21 +5,23 @@ const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 }
 
-const EditProfile = (Name, Email, About, ProfilePicChanged, profilePic, Address, City, PinCode, Token, setUploadedPercentage) => {
+const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, setUploadedPercentage) => {
     return new Promise(async (resolve, reject) => {
         if(Name.replace(/\s+/, "").length === 0)
             return reject('not a valid Name');
         if(!validateEmail(Email))
             return reject('not a valid Email');
-        if(!ProfilePicChanged)
+        if(!ProfileImageChanged)
             return reject('Profile Pic Required');
         
         var Content = 'multipart/form-data';
         var formData = new FormData();
         formData.append('Name', Name);
         formData.append('Email', Email);
-        formData.append('About', About);
-        formData.append('File', profilePic);
+        formData.append('Address', Address);
+        formData.append('Gender', Gender);
+        formData.append('PinCode', PinCode);
+        formData.append('File', ProfileImage);
         //var body = formData;
 
 
@@ -36,7 +38,9 @@ const EditProfile = (Name, Email, About, ProfilePicChanged, profilePic, Address,
                                 ['Name', Name],
                                 ['Email', Email],
                                 ['ProfileImage', JSON.parse(this.responseText).ProfileImage],
-                                ['About', About],
+                                ['Address', Address],
+                                ['Gender', Gender],
+                                ['PinCode', PinCode],
                                 ['ProfileStatus', '2']
                             ]).then(() => {
                                 resolve(JSON.parse(this.responseText));
