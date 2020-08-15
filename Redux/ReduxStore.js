@@ -1,11 +1,11 @@
 import {createStore, combineReducers } from 'redux';
 
 const IntialAuthStates = {
-	AccessToken : '',
-	RefreshToken : '',
-    Timestamp : '',
-    Mobile : '',
-    UserID : '',
+	AccessToken : undefined,
+	RefreshToken : undefined,
+    Timestamp : undefined,
+    Mobile : undefined,
+    UserID : undefined,
     SkipLogin: false
 }
 
@@ -34,11 +34,11 @@ const AuthReducer = (state = IntialAuthStates, action) => {
 }
 
 const IntialProfileStates = {
-    Name : '',
-	Email : '',
-	ProfileImage : '',
-    Address : '',
-    Gender: '',
+    Name : undefined,
+	Email : undefined,
+	ProfileImage : undefined,
+    Address : undefined,
+    Gender: undefined,
     ProfileStatus: 0
 }
 
