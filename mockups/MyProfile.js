@@ -24,7 +24,7 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     LogoutOnPress = () => {
-        Logout(this.props.access_token).then(() => {
+        Logout(this.props.AccessToken).then(() => {
             this.props.navigation.navigate('Login');
         }).catch(() => {})  
     }

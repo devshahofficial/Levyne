@@ -61,7 +61,7 @@ class SettingsScreen extends React.Component {
     };
 
     LogoutOnPress = () => {
-        Logout(this.props.access_token).then(() => {
+        Logout(this.props.AccessToken).then(() => {
             PushNotification.abandonPermissions()
             this.props.ResetAuth();
             this.props.ResetProfile();
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token
+    AccessToken : state.Auth.AccessToken
 });
 
 const mapDispatchToProps = dispatch => {

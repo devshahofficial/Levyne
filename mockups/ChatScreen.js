@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
 })
 
 const mapsStateToProps = state => ({
-	access_token : state.Auth.access_token,
+	AccessToken : state.Auth.AccessToken,
 	Socket : state.Socket.Socket,
     BrandID : state.Auth.BrandID
 });

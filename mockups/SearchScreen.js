@@ -54,7 +54,7 @@ class Search extends React.Component {
                 <FlatList
                     data={props.ProductsData}
                     numColumns={2}
-                    renderItem={({ item }) => <ProductItemContainer Token={this.props.access_token} item={item} navigateProduct={this.navigateProduct} height={screenHeight}/>}
+                    renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct} height={screenHeight}/>}
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
@@ -66,7 +66,7 @@ class Search extends React.Component {
                     onEndReached={() => {
                         if(loadNewPage && props.ProductsData.length !== this.TotalProducts) {
                             loadNewPage = false;
-                            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.access_token).then(resp => {
+                            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
                                 loadNewPage = true;
                                 if(this.state.SearchKey && this._isMounted) {
                                     this.setState({
@@ -90,7 +90,7 @@ class Search extends React.Component {
                 <FlatList
                     data={props.ProductsData}
                     numColumns={2}
-                    renderItem={({ item }) => <ProductItemContainer Token={this.props.access_token} item={item} navigateProduct={this.navigateFabric} height={screenWidth}/>}
+                    renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateFabric} height={screenWidth}/>}
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
@@ -102,7 +102,7 @@ class Search extends React.Component {
                     onEndReached={() => {
                         if(loadNewPage && props.FabricData.length !== this.TotalProducts) {
                             loadNewPage = false;
-                            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.access_token).then(resp => {
+                            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
                                 loadNewPage = true;
                                 if(this.state.SearchKey && this._isMounted) {
                                     this.setState({
@@ -137,7 +137,7 @@ class Search extends React.Component {
                     onEndReached={() => {
                         if(loadNewPage && props.BrandData.length !== this.TotalBrand) {
                             loadNewPage = false;
-                            BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.access_token).then(resp => {
+                            BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.AccessToken).then(resp => {
                                 loadNewPage = true;
                                 if(this.state.SearchKey && this._isMounted) {
                                     this.setState({
@@ -172,7 +172,7 @@ class Search extends React.Component {
         if(SearchKey != '')
         {
             this.ProductPage = 0;
-            ProductbySearch(SearchKey, ++this.ProductPage, null, this.props.access_token).then(resp => {
+            ProductbySearch(SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         ProductsData : resp.Products
@@ -181,7 +181,7 @@ class Search extends React.Component {
                 }
             }).catch(err => {});
             this.BrandPage = 0;
-            BrandBySearch(SearchKey, ++this.BrandPage, this.props.access_token).then(resp => {
+            BrandBySearch(SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         BrandData : resp.Brands
@@ -191,7 +191,7 @@ class Search extends React.Component {
             }).catch(err => {
                 console.log(err);
             });
-            /*BrokerBySearch(SearchKey, 1, null, this.props.access_token).then(resp => {
+            /*BrokerBySearch(SearchKey, 1, null, this.props.AccessToken).then(resp => {
                 this.setState({
                     BrokersData : resp.Brokers
                 })
@@ -292,7 +292,7 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token
+    AccessToken : state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(Search);
