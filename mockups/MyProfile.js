@@ -14,66 +14,72 @@ export default class ProfileTopSection extends React.PureComponent {
     }
 
 
+    navigateEditProfile = () => {
+        this.props.navigation.navigate("EditProfile");
+    }
+
     LoggedInScreen = () => {
         return (
             <View>
                 <View style={styles.ImageView}>
                     <Image source={{uri:'https://image.cnbcfm.com/api/v1/image/105189375-_Y2A2493c.jpg?v=1525701183'}} style={{width:120,height:120, borderRadius: 80}}/>
                 </View>
-
-                <View paddingH-15 marginT-20>
-                    <Text b1 secondary>Name</Text>
-                    <View row>
-                        <View>
-                            <Text h2 secondary>Contact:</Text>
-                            <Text h2 secondary>Email:</Text>
-                            <Text h2 secondary>Address:</Text>
-                        </View>
-                        <View marginL-20>
-                            <Text hb2 secondary>9819077182</Text>
-                            <Text hb2 secondary>devshahofficial001@gmail.com</Text>
-                            <Text hb2 secondary>Girgaon, Mumbai-04</Text>
-                        </View>
-                    </View>
-                </View>
+                <Text marginH-15 marginT-20 b1 black>Welcome, Name</Text>
 
                 <View marginT-30 paddingH-15>
                     <TouchableOpacity>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
+                            <Text secondary hb1>
                                 My fits and Sizes
                             </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
-                        <View centerV style={styles.Tab}>
-                            <Text h1>
-                                My Tailors and Fashion Designers
+                            <Text h2 grey40>
+                                Check and alter your sizes here.
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity marginT-5>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
+                            <Text secondary hb1>
+                                My fashion designers and tailors.
+                            </Text>
+                            <Text h2 grey40>
+                                Designers and tailors you follow.
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity marginT-5>
+                        <View centerV style={styles.Tab}>
+                            <Text secondary hb1>
                                 Orders
                             </Text>
+                            <Text h2 grey40>
+                                We keep a track of all your orders.
+                            </Text>
                         </View>
                     </TouchableOpacity>
                 </View>
 
                 <View marginT-30 paddingH-15>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={this.navigateEditProfile}
+                    >
                         <View centerV style={styles.Tab}>
-                            <Text h1>
-                                Edit Profile
+                            <Text secondary hb1>
+                                Edit profile
+                            </Text>
+                            <Text h2 grey40>
+                                Keep your profile updates.
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity marginT-5>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
+                            <Text secondary hb1>
                                 Visit partner store
                             </Text>
+                            <Text h2 grey40>
+                                Find our partners around you.
+                            </Text>
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -81,36 +87,48 @@ export default class ProfileTopSection extends React.PureComponent {
                 <View marginT-30 paddingH-15>
                     <TouchableOpacity>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
+                            <Text secondary hb1>
                                 Help Center
                             </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
-                        <View centerV style={styles.Tab}>
-                            <Text h1>
-                                FAQS
+                            <Text h2 grey40>
+                                We are always here to help you.
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity marginT-5>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
-                                Terms and Conditions
+                            <Text secondary hb1>
+                                FAQs
+                            </Text>
+                            <Text h2 grey40>
+                                Frequently asked questions.
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity marginT-5>
+                        <View centerV style={styles.Tab}>
+                            <Text secondary hb1>
+                                T & C
+                            </Text>
+                            <Text h2 grey40>
+                                Terms And Condition.
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
+                            <Text secondary hb1>
                                 About Us
+                            </Text>
+                            <Text h2 grey40>
+                                Know us better!
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <CstmShadowView style={{marginTop:40,marginBottom:20}}>
                         <Button
                             onPress={this.LogoutOnPress}
-                            h1
+                            hb1 flex
                             label="Log Out"
                         />
                     </CstmShadowView>
@@ -125,6 +143,14 @@ export default class ProfileTopSection extends React.PureComponent {
             <View>
                 <View style={styles.ImageView}>
                 </View>
+
+                <CstmShadowView style={{marginTop:40, marginHorizontal:40}}>
+                    <Button
+                        onPress={this.LogoutOnPress}
+                        hb1 flex
+                        label="Log In"
+                    />
+                </CstmShadowView>
 
                 <View marginT-50 paddingH-15>
                     <TouchableOpacity>
@@ -148,9 +174,6 @@ export default class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                </View>
-
-                <View marginT-30 paddingH-15>
                     <TouchableOpacity>
                         <View centerV style={styles.Tab}>
                             <Text h1>
@@ -158,15 +181,9 @@ export default class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <CstmShadowView style={{marginTop:40,marginBottom:20}}>
-                        <Button
-                            onPress={this.LogoutOnPress}
-                            h1
-                            label="Log In"
-                        />
-                    </CstmShadowView>
-                    <Text marginT-20 grey40 h3 center>APP VERSION 1.0.0</Text>
                 </View>
+
+                <Text marginT-30 marginH-15 grey40 h3 center>APP VERSION 1.0.0</Text>
             </View>
         )
     }
@@ -198,7 +215,7 @@ const styles = StyleSheet.create({
         height:120
     },
     ImageView: {
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.secondary,
         height: 120,
         width: 120,
         borderRadius: 80,
@@ -206,7 +223,7 @@ const styles = StyleSheet.create({
         marginTop:-60
     },
     Tab :{
-        height:50,
+        height:80,
         borderBottomWidth:0.5,
         borderBottomColor:Colors.grey50
     }
