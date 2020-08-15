@@ -19,7 +19,7 @@ class Menu extends React.Component {
 };
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token
+    AccessToken : state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(Menu);

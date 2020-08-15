@@ -31,7 +31,7 @@ class BrandProfile extends Component {
 
     componentDidMount() {
         this._isMounted = true;
-        ViewBrandProfile(this.props.route.params.BrandID,this.props.access_token).then(ProfileObject => {
+        ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken).then(ProfileObject => {
             if (this._isMounted) {
                 this.setState({
                     Name : ProfileObject.Name,
@@ -46,7 +46,7 @@ class BrandProfile extends Component {
         }).catch(() => {});
 
 
-        FetchBrandProducts(this.props.BrandID, this.Page, this.props.access_token).then(rows => {
+        FetchBrandProducts(this.props.BrandID, this.Page, this.props.AccessToken).then(rows => {
             if (this._isMounted) {
                 this.TotalProducts = rows.Total;
                 this.setState({
@@ -57,7 +57,7 @@ class BrandProfile extends Component {
         }).catch(err => {});
 
 
-        /*ArchiveProductAPI.ListArchiveProducts(this.ArchivePage++, this.props.access_token).then(rows => {
+        /*ArchiveProductAPI.ListArchiveProducts(this.ArchivePage++, this.props.AccessToken).then(rows => {
             if (this._isMounted) {
                 this.TotalArchiveProducts = rows.Total;
                 this.setState({
@@ -78,12 +78,12 @@ class BrandProfile extends Component {
 
     Follow = () => {
         if(this.state.DoIFollow) {
-            BrandFollowing.UnFollowTheBrand(this.props.route.params.BrandID, this.props.access_token).catch(() => {});
+            BrandFollowing.UnFollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch(() => {});
             this.setState({
                 DoIFollow : false
             })
         } else {
-            BrandFollowing.FollowTheBrand(this.props.route.params.BrandID, this.props.access_token).catch(() => {});
+            BrandFollowing.FollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch(() => {});
             this.setState({
                 DoIFollow : true
             })
@@ -92,7 +92,7 @@ class BrandProfile extends Component {
 
     Brokerage = () => {
         if(this.state.BrokerShipStatus === -1) {
-            ReqestBrokerage(this.props.route.params.BrandID, this.props.access_token).catch(() => {});
+            ReqestBrokerage(this.props.route.params.BrandID, this.props.AccessToken).catch(() => {});
             this.setState({
                 BrokerShipStatus : 0
             })
@@ -107,7 +107,7 @@ class BrandProfile extends Component {
                         style={styles.flatlist}
                         data={this.state.BrandProducts}
                         numColumns={2}
-                        renderItem={({ item }) => <ProductItemContainer Token={this.props.access_token} item={item} navigateProduct={this.navigateProduct} />}
+                        renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct} />}
                         keyExtractor={(item, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
                         ListHeaderComponent={
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
 })
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token,
+    AccessToken : state.Auth.AccessToken,
 });
 
 export default connect(mapsStateToProps)(BrandProfile)

@@ -48,7 +48,7 @@ class EditProfile extends React.Component {
         this.setState({
             Loading : true
         })
-        const Token = this.props.access_token;
+        const Token = this.props.AccessToken;
         const IDProof = this.state.IDProof;
         const AddressProof = this.state.AddressProof;
         const BrandProof = this.state.BrandProof;
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token,
+    AccessToken : state.Auth.AccessToken,
 })
 
 export default connect(mapsStateToProps)(EditProfile);

@@ -9,7 +9,7 @@ import CustomRequest from './CustomRequest';
  *  3) 2 -> SHA Library Error
  *  4) 3 -> AsyncStorage Error
  */
-const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccess_token, setRefresh_token, setTimestamp, setName, setEmail, setProfileImage, setMobile, setBrandID, setAbout, setAddress) => {
+const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccessToken, setRefreshToken, setTimestamp, setName, setEmail, setProfileImage, setMobile, setBrandID, setAbout, setAddress) => {
     if(OTP.length != 6)
     {
         throw new Error('Not a valid OTP');
@@ -23,24 +23,24 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccess_token, setRef
             case 2 :
             case 3 :
                 await AsyncStorage.multiSet([
-                    ['access_token', json.access_token],
-                    ['refresh_token', json.refresh_token],
-                    ['timestamp', json.timestamp],
+                    ['AccessToken', json.AccessToken],
+                    ['RefreshToken', json.RefreshToken],
+                    ['Timestamp', json.Timestamp],
                     ['Mobile', Mobile.toString()],
                     ['ProfileStatus', json.ProfileStatus.toString()],
                     ['BrandID', json.BrandID.toString()]
                 ]);
-                setAccess_token(json.access_token);
-                setRefresh_token(json.refresh_token);
-                setTimestamp(json.timestamp);
+                setAccessToken(json.AccessToken);
+                setRefreshToken(json.RefreshToken);
+                setTimestamp(json.Timestamp);
                 setBrandID(json.BrandID);
                 setMobile(Mobile);
                 return returnValueArray[json.ProfileStatus - 1];
             case 4 :
                 await AsyncStorage.multiSet([
-                    ['access_token', json.access_token],
-                    ['refresh_token', json.refresh_token],
-                    ['timestamp', json.timestamp],
+                    ['AccessToken', json.AccessToken],
+                    ['RefreshToken', json.RefreshToken],
+                    ['Timestamp', json.Timestamp],
                     ['Mobile', Mobile.toString()],
                     ['Name', json.Name],
                     ['Email', json.Email],
@@ -50,9 +50,9 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccess_token, setRef
                     ['ProfileStatus', json.ProfileStatus.toString()],
                     ['BrandID', json.BrandID.toString()]
                 ]);
-                setAccess_token(json.access_token);
-                setRefresh_token(json.refresh_token);
-                setTimestamp(json.timestamp);
+                setAccessToken(json.AccessToken);
+                setRefreshToken(json.RefreshToken);
+                setTimestamp(json.Timestamp);
                 setMobile(Mobile);
                 setName(json.Name);
                 setEmail(json.Email);
@@ -60,7 +60,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccess_token, setRef
                 setProfileImage(json.ProfileImage);
                 setAbout(json.About);
                 setAddress(json.Address + '\n' + json.City + '-' + json.PinCode);
-                //const Socket = await NewSocket(json.access_token);
+                //const Socket = await NewSocket(json.AccessToken);
                 //setSocket(Socket);
                 return returnValueArray[json.ProfileStatus - 1];
         }

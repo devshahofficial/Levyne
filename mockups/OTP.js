@@ -80,8 +80,8 @@ class OTPScreen extends React.Component {
             this.state.OTP,
             OTPTokenHash,
             UUID,
-            this.props.setAccess_token,
-            this.props.setRefresh_token,
+            this.props.setAccessToken,
+            this.props.setRefreshToken,
             this.props.setTimestamp,
             this.props.setName,
             this.props.setEmail,
@@ -205,9 +205,9 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setAccess_token : (access_token) => dispatch({type: 'setAccess_token', value: access_token}),
-		setRefresh_token : (refresh_token) => dispatch({type: 'setRefresh_token', value: refresh_token}),
-        setTimestamp : (timestamp) => dispatch({type: 'setTimestamp', value: timestamp}),
+		setAccessToken : (AccessToken) => dispatch({type: 'setAccessToken', value: AccessToken}),
+		setRefreshToken : (RefreshToken) => dispatch({type: 'setRefreshToken', value: RefreshToken}),
+        setTimestamp : (Timestamp) => dispatch({type: 'setTimestamp', value: Timestamp}),
         setName : (Name) => dispatch({type: 'setName', value: Name}),
         setEmail : (Email) => dispatch({type: 'setEmail', value: Email}),
         setProfileImage : (ProfileImage) => dispatch({type: 'setProfileImage', value: ProfileImage}),

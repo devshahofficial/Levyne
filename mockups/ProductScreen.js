@@ -27,7 +27,7 @@ class ProductScreen extends React.Component {
         if(!this.props.route.params.ProductID) {
             return this.props.navigation.goBack();
         }
-        ProductByID(this.props.route.params.ProductID, this.props.access_token).then(resp => {
+        ProductByID(this.props.route.params.ProductID, this.props.AccessToken).then(resp => {
             this.setState({
                 ProductObject : resp,
                 loading : false
@@ -88,7 +88,7 @@ class ProductScreen extends React.Component {
                             AddToWishlistFn={this.AddToWishlistFn}
                             RemoveFromWishlistFn={this.RemoveFromWishlistFn}
                             ProductID={this.props.route.params.ProductID}
-                            Token={this.props.access_token}
+                            Token={this.props.AccessToken}
                             RequestADealNavigation={this.RequestADealNavigation}
                             ProductImage={this.state.ProductObject.ProductImages}
                         />
@@ -102,7 +102,7 @@ class ProductScreen extends React.Component {
 };
 
 const mapsStateToProps = state => ({
-	access_token : state.Auth.access_token
+	AccessToken : state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(ProductScreen)

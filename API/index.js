@@ -13,14 +13,14 @@ export const AuthCheck = async (setAuth, setProfile) => {
             return 'MainHomeStack'
         }
 
-        const Response = await AsyncStorage.multiGet(['access_token', 'refresh_token', 'timestamp', 'UserID', 'Mobile']);
+        const Response = await AsyncStorage.multiGet(['AccessToken', 'RefreshToken', 'Timestamp', 'UserID', 'Mobile']);
         if(!(Response[0][1] && Response[1][1] && Response[2][1] && Response[3][1]))
             throw new Error('Tokens not found');
 
         setAuth({
-            access_token : Response[0][1],
-            refresh_token : Response[1][1],
-            timestamp : Response[2][1],
+            AccessToken : Response[0][1],
+            RefreshToken : Response[1][1],
+            Timestamp : Response[2][1],
             Mobile : Response[4][1],
             UserID : Response[3][1]
         });
@@ -40,16 +40,16 @@ export const AuthCheck = async (setAuth, setProfile) => {
             const RefreshTokenJSON = await CustomRequest('refreshtoken', 'POST', true, undefined, {UserID, refreshToken: Response[1][1], UID: config.DeviceID});
             
             await AsyncStorage.multiSet([
-                ['access_token', RefreshTokenJSON.access_token],
-                ['refresh_token', RefreshTokenJSON.refresh_token],
-                ['timestamp', RefreshTokenJSON.timestamp]
+                ['AccessToken', RefreshTokenJSON.AccessToken],
+                ['RefreshToken', RefreshTokenJSON.RefreshToken],
+                ['Timestamp', RefreshTokenJSON.Timestamp]
             ])
-            access_token = RefreshTokenJSON.access_token;
+            AccessToken = RefreshTokenJSON.AccessToken;
 
             setAuth({
-                access_token : RefreshTokenJSON.access_token,
-                refresh_token : RefreshTokenJSON.refresh_token,
-                timestamp : RefreshTokenJSON.timestamp
+                AccessToken : RefreshTokenJSON.AccessToken,
+                RefreshToken : RefreshTokenJSON.RefreshToken,
+                Timestamp : RefreshTokenJSON.Timestamp
             })
         }
 

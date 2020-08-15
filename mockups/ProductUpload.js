@@ -209,7 +209,7 @@ class ProductUpload extends React.Component {
 		this.setState({ LoaderContent: '0/100', showLoading: true });
 		UploadProduct(
 			this.state,
-			this.props.access_token,
+			this.props.AccessToken,
 			this.showLoadingWithPercentage
 		)
 			.then((ProductID) => {
@@ -558,7 +558,7 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = (state) => ({
-	access_token: state.Auth.access_token,
+	AccessToken: state.Auth.AccessToken,
 });
 
 export default connect(mapsStateToProps)(ProductUpload);

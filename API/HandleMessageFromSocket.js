@@ -17,7 +17,7 @@ export default (BrandID, Messages, resp) => {
                     image: null,
                     text: resp.Text,
                     ReferenceID : resp.ReferenceID,
-                    timeStamp:
+                    Timestamp:
                     {
                         timeHours: new Date().getHours(),
                         timeMinutes: new Date().getMinutes()
@@ -31,7 +31,7 @@ export default (BrandID, Messages, resp) => {
                     image: resp.ImageURL,
                     text: null,
                     ReferenceID : resp.ReferenceID,
-                    timeStamp:
+                    Timestamp:
                     {
                         timeHours: new Date().getHours(),
                         timeMinutes: new Date().getMinutes()
@@ -48,7 +48,7 @@ export default (BrandID, Messages, resp) => {
 					ProductPrice : resp.ProductPrice,
 					ProductID : resp.ProductID,
 					ReferenceID : resp.ReferenceID,
-					timeStamp:
+					Timestamp:
 					{
 						timeHours: new Date().getHours(),
 						timeMinutes: new Date().getMinutes()

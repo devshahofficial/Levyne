@@ -118,7 +118,7 @@ class Profile extends React.Component {
         const Email = this.state.Email;
         const About = this.state.About;
         const ProfilePic = this.state.ProfilePic;
-        const Token = this.props.access_token;
+        const Token = this.props.AccessToken;
         EditProfileAPI(Name, Email, About, this.state.ProfilePicChanged, ProfilePic, Token, this.showLoadingWithPercentage).then((resp) => {
             this.props.setName(Name);
             this.props.setEmail(Email);
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token,
+    AccessToken : state.Auth.AccessToken,
     ProfileImage : state.Profile.ProfileImage,
     Name : state.Profile.Name,
     Email : state.Profile.Email,

@@ -129,7 +129,7 @@ class EditProfile extends React.Component {
         const City = this.state.City;
         const PinCode = this.state.PinCode;
         const ProfilePic = this.state.profilePic;
-        const Token = this.props.access_token;
+        const Token = this.props.AccessToken;
 
 
 
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token,
+    AccessToken : state.Auth.AccessToken,
     ProfileImage : state.Profile.ProfileImage,
     Name : state.Profile.Name,
     Email : state.Profile.Email,

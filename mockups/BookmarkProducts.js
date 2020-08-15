@@ -24,7 +24,7 @@ class BookmarkProducts extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-        ListBookmarkProducts(++this.Page, this.props.access_token).then(resp => {
+        ListBookmarkProducts(++this.Page, this.props.AccessToken).then(resp => {
             if(this._isMounted) {
                 this.setState({
                     Products : resp.Products
@@ -44,7 +44,7 @@ class BookmarkProducts extends React.Component {
                     <FlatList
                         data={this.state.Products}
                         numColumns={2}
-                        renderItem={({ item }) => <ProductItemContainer Token={this.props.access_token} item={item} navigateProduct={this.navigateProduct} />}
+                        renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct} />}
                         keyExtractor={(item, index) => index.toString()}
                         showsVerticalScrollIndicator={false}
                         ListEmptyComponent={
@@ -55,7 +55,7 @@ class BookmarkProducts extends React.Component {
                         onEndReached={() => {
                             if(loadNewPage && this.state.Products.length !== this.TotalProducts) {
                                 loadNewPage = false;
-                                ListBookmarkProducts(++this.Page, this.props.access_token).then(resp => {
+                                ListBookmarkProducts(++this.Page, this.props.AccessToken).then(resp => {
                                     loadNewPage = true;
                                     if(this._isMounted) {
                                         this.setState({
@@ -77,7 +77,7 @@ class BookmarkProducts extends React.Component {
 
 
 const mapsStateToProps = state => ({
-    access_token : state.Auth.access_token
+    AccessToken : state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(BookmarkProducts)
