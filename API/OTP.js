@@ -8,7 +8,7 @@ import CustomRequest from './CustomRequest';
  *  3) 2 -> SHA Library Error
  *  4) 3 -> AsyncStorage Error
  */
-const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccessToken, setRefreshToken, setTimestamp, setName, setEmail, setProfileImage, setMobile, setBrandID, setAbout, setAddress) => {
+const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) => {
     if(OTP.length != 6)
     {
         throw new Error('Not a valid OTP');
@@ -16,26 +16,28 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccessToken, setRefr
     else
     {
         const json = await CustomRequest('verifyOTP', 'POST', true, undefined, {Mobile, OTP, OTPTokenHash, UID});
-        const returnValueArray = ['EditProfileAuth', 'DocumentUpload', 'Pending', 'AppTour'];
         switch(json.ProfileStatus) {
             case 1 :
-            case 2 :
-            case 3 :
                 await AsyncStorage.multiSet([
                     ['AccessToken', json.AccessToken],
                     ['RefreshToken', json.RefreshToken],
                     ['Timestamp', json.Timestamp],
                     ['Mobile', Mobile.toString()],
-                    ['ProfileStatus', json.ProfileStatus.toString()],
-                    ['BrandID', json.BrandID.toString()]
+                    ['ProfileStatus', '1'],
+                    ['UserID', json.UserID.toString()],
+                    ['SkipLogin', '0']
                 ]);
-                setAccessToken(json.AccessToken);
-                setRefreshToken(json.RefreshToken);
-                setTimestamp(json.Timestamp);
-                setBrandID(json.BrandID);
-                setMobile(Mobile);
-                return returnValueArray[json.ProfileStatus - 1];
-            case 4 :
+
+                setAuth({
+                    AccessToken : json.AccessToken,
+                    RefreshToken : json.RefreshToken,
+                    Timestamp : json.Timestamp,
+                    Mobile : Mobile,
+                    UserID : json.UserID,
+                    SkipLogin: false
+                })
+                return 'EditProfileAuth';
+            case 2 :
                 await AsyncStorage.multiSet([
                     ['AccessToken', json.AccessToken],
                     ['RefreshToken', json.RefreshToken],
@@ -47,7 +49,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAccessToken, setRefr
                     ['About', json.About],
                     ['Address', json.Address + '\n' + json.City + '-' + json.PinCode],
                     ['ProfileStatus', json.ProfileStatus.toString()],
-                    ['BrandID', json.BrandID.toString()]
+                    ['UserID', json.UserID.toString()]
                 ]);
                 setAccessToken(json.AccessToken);
                 setRefreshToken(json.RefreshToken);

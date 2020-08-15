@@ -80,16 +80,8 @@ class OTPScreen extends React.Component {
             this.state.OTP,
             OTPTokenHash,
             UUID,
-            this.props.setAccessToken,
-            this.props.setRefreshToken,
-            this.props.setTimestamp,
-            this.props.setName,
-            this.props.setEmail,
-            this.props.setProfileImage,
-            this.props.setMobile,
-            this.props.setBrandID,
-            this.props.setAbout,
-            this.props.setAddress
+            this.props.setAuth,
+            this.props.setProfile,
         ).then(NavigateTo => {
             clearInterval(this.state.intervalId);
             this.props.navigation.navigate(NavigateTo);
@@ -205,17 +197,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setAccessToken : (AccessToken) => dispatch({type: 'setAccessToken', value: AccessToken}),
-		setRefreshToken : (RefreshToken) => dispatch({type: 'setRefreshToken', value: RefreshToken}),
-        setTimestamp : (Timestamp) => dispatch({type: 'setTimestamp', value: Timestamp}),
-        setName : (Name) => dispatch({type: 'setName', value: Name}),
-        setEmail : (Email) => dispatch({type: 'setEmail', value: Email}),
-        setProfileImage : (ProfileImage) => dispatch({type: 'setProfileImage', value: ProfileImage}),
-        setMobile : (Mobile) => dispatch({type: 'setMobile', value: Mobile}),
-        setBrandID : (BrandID) => dispatch({type: 'setBrandID', value: BrandID}),
-        setAbout : (About) => dispatch({type: 'setAbout', value: About}),
-        setAddress : (Address) => dispatch({type: 'setAddress', value: Address}),
-        setSocket : (Socket) => dispatch({type : 'setSocket', value: Socket})
+		setAuth : (Auth) => dispatch({type: 'setAuth', value: Auth}),
+        setProfile : (Profile) => dispatch({type: 'setProfile', value: Profile}),
 	}
 }
 
