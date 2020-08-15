@@ -268,7 +268,7 @@ class EditProfile extends React.Component {
                         <CstmInput
                             style={{marginBottom: 20}}
                             placeholder='Pin Code'
-                            value={this.state.PinCode}
+                            value={this.state.PinCode.toString()}
                             keyboardType='number-pad'
                             maxLength={6}
                             onChangeText={this.setPinCode}
