@@ -69,7 +69,8 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     ProfileImage : json.ProfileImage,
                     Address : json.Address,
                     PinCode : json.PinCode,
-                    Gender : parseInt(json.Gender)
+                    Gender : parseInt(json.Gender),
+                    ProfileStatus: 2
                 });
                 return 'MainHomeStack';
             default :
