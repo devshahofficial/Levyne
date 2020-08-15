@@ -11,12 +11,11 @@ class ProfileTopSection extends React.PureComponent {
     constructor(props){
         super(props);
         this.state = {
-            ProfileCompleted: this.props.Profile.ProfileStatus === 2
+            ProfileCompleted: this.props.ProfileStatus === 2
         }
     }
 
     NavigateEditProfile = () => {
-        console.log("hello");
         this.props.navigation.navigate("EditProfile");
     }
 
@@ -38,9 +37,9 @@ class ProfileTopSection extends React.PureComponent {
         return (
             <View>
                 <View style={styles.ImageView}>
-                    <Image source={{uri:'https://image.cnbcfm.com/api/v1/image/105189375-_Y2A2493c.jpg?v=1525701183'}} style={{width:120,height:120, borderRadius: 80}}/>
+                    <Image source={{uri:this.props.ProfileImage}} style={{width:120,height:120, borderRadius: 80}}/>
                 </View>
-                <Text marginH-15 marginT-20 b1 black>Welcome, Name</Text>
+                <Text marginH-15 marginT-20 b1 black>Welcome, {this.props.Name}</Text>
 
                 <View marginT-30 paddingH-15>
                     <TouchableOpacity>
@@ -255,7 +254,9 @@ const styles = StyleSheet.create({
 
 const mapsStateToProps = state => ({
     SkipLogin: state.Auth.SkipLogin,
-    Profile: state.Profile,
+    ProfileStatus: state.Profile.ProfileStatus,
+    Name: state.Profile.Name,
+    ProfileImage: state.Profile.ProfileImage
 });
 
 export default connect(mapsStateToProps)(ProfileTopSection);

@@ -8,7 +8,6 @@ import {Text, TouchableOpacity, Button, Image, Colors, View, Toast} from 'react-
 import CstmShadowView from '../components/CstmShadowView';
 import {GalleryIcon} from "../Icons/GalleryIcon";
 import {CameraIcon} from "../Icons/CameraIcon";
-import Type from "../assets/Type";
 import Spinner from 'react-native-loading-spinner-overlay';
 import NavBarBack from "../components/NavBarBack";
 
@@ -20,23 +19,25 @@ class EditProfile extends React.Component {
     constructor(props)
     {
         super(props);
-
         this.state = {
-            Name : this.props.Name || '',
-            Email : this.props.Email || '',
-            About : this.props.About || '',
-            profilePic : require('../assets/images/icon.png'),
-            Address : this.props.About || '',
+            Name : this.props.Profile.Name || '',
+            Email : this.props.Profile.Email || '',
+            ProfileImage : {
+                uri: this.props.Profile.ProfileImage,
+                name: 'ProfileImage.webp',
+                type: 'image/webp'
+            },
+            Address : this.props.Profile.Address || '',
+            PinCode : this.props.Profile.PinCode || '',
+            Female: !this.props.Profile.Gender,
             showLoading : false,
-            ProfilePicChanged : false,
+            ProfileImageChanged : true,
             ShowActionSheet : false,
             ShowToast : false,
             ToastContent : 'Oops! Something went wrong',
             modalVisible: false,
-            City : {},
-            PinCode : '',
             LoaderContent: '',
-            Female: true
+            ProfileImageNotRequired: true
         }
     }
     setName = Name => {
@@ -44,6 +45,7 @@ class EditProfile extends React.Component {
             Name: Name
         });
     }
+
     setEmail = Email => {
         this.setState({
             Email: Email
@@ -70,14 +72,15 @@ class EditProfile extends React.Component {
 
     handleImagePicker = (response) => {
         var Image = {
-            uri: response.path,
-            name: response.path.split("/").pop(),
+            uri: Platform.OS === 'ios' ? 'file:///' + response.path : response.path,
+			name: response.path.split('/').pop(),
             type: response.mime
         };
         this.setState({
-            profilePic: Image,
-            ProfilePicChanged: true,
-            modalVisible : false
+            ProfileImage: Image,
+            ProfileImageChanged: true,
+            modalVisible : false,
+            ProfileImageNotRequired: false
         })
     }
 
@@ -124,23 +127,26 @@ class EditProfile extends React.Component {
 
         const Name = this.state.Name;
         const Email = this.state.Email;
-        const About = this.state.About;
+        const Gender = this.state.Female ? '0' : '1';
         const Address = this.state.Address;
-        const City = this.state.City;
         const PinCode = this.state.PinCode;
-        const ProfilePic = this.state.profilePic;
+        const ProfileImage = this.state.ProfileImage;
         const Token = this.props.AccessToken;
+        const ProfileImageChanged = this.state.ProfileImageChanged;
+        const ProfileImageNotRequired = this.state.ProfileImageNotRequired;
 
-
-
-        EditProfileAPI(Name, Email, About, this.state.ProfilePicChanged, ProfilePic, Address, City, PinCode, Token, this.setUploadedPercentage).then((resp) => {
-            this.props.setName(Name);
-            this.props.setEmail(Email);
-            this.props.setAbout(About);
-            if(resp) {
-                this.props.setProfileImage(resp.ProfileImage);
-            }
-            this.props.navigation.navigate('DocumentUpload');
+        EditProfileAPI(Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, this.setUploadedPercentage, ProfileImageNotRequired).then((resp) => {
+            this.props.setProfile({
+                Name,
+                Email,
+                Address,
+                PinCode,
+                ProfileStatus: 2,
+                Gender: this.state.Female,
+                ... ProfileImageNotRequired ? {} : {ProfileImage: resp.ProfileImage}
+            });
+            this.setState({showLoading : false});
+            this.props.navigation.goBack();
         }).catch(err => {
             this.setState({showLoading : false, ShowToast : true, ToastContent : err});
             setTimeout(() => {
@@ -158,12 +164,17 @@ class EditProfile extends React.Component {
     setGender = () => {
         this.setState({ Female: !this.state.Female });
     }
+
+    navigateHome = () => {
+        this.props.navigation.goBack();
+    }
+
     render() {
         const { modalVisible } = this.state;
 
         return (
             <>
-                <NavBarBack Title={"Edit Profile"}/>
+                <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"}/>
                 <Modal
                     animationType="slide"
                     transparent={true}
@@ -199,7 +210,7 @@ class EditProfile extends React.Component {
                         <TouchableOpacity style={styles.avatarView} onPress={() => this.setState({modalVisible : true})}>
                             <Image
                                 style={styles.avatar}
-                                source={this.state.profilePic}
+                                source={this.state.ProfileImage}
                                 fill={Colors.shadow}
                             />
                         </TouchableOpacity>
@@ -229,14 +240,14 @@ class EditProfile extends React.Component {
                             <TouchableOpacity
                                 center
                                 onPress={this.setGender}
-                                style={this.state.Female === true ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                                style={this.state.Female ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
                             >
                                 <Text h1 secondary>Female</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
                                 center
                                 onPress={this.setGender}
-                                style={this.state.Female === false ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                                style={!this.state.Female ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
                             >
                                 <Text h1 secondary>Male</Text>
                             </TouchableOpacity>
@@ -322,18 +333,12 @@ const styles = StyleSheet.create({
 
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken,
-    ProfileImage : state.Profile.ProfileImage,
-    Name : state.Profile.Name,
-    Email : state.Profile.Email,
-    About : state.Profile.About
+    Profile : state.Profile
 })
 
 const mapDispatchToProps = dispatch => {
     return {
-        setName : (Name) => dispatch({type: 'setName', value: Name}),
-        setEmail : (Email) => dispatch({type: 'setEmail', value: Email}),
-        setProfileImage : (ProfileImage) => dispatch({type: 'setProfileImage', value: ProfileImage}),
-        setAbout : (About) => dispatch({type: 'setAbout', value: About}),
+        setProfile : (Profile) => dispatch({type: 'setProfile', value: Profile}),
     }
 }
 

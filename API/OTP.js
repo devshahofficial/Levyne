@@ -16,7 +16,6 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
     else
     {
         const json = await CustomRequest('verifyOTP', 'POST', true, undefined, {Mobile, OTP, OTPTokenHash, UID});
-        console.log(json);
         switch(json.ProfileStatus) {
             case 1 :
                 await AsyncStorage.multiSet([

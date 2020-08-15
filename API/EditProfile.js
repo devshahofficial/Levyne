@@ -5,7 +5,7 @@ const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 }
 
-const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, setUploadedPercentage) => {
+const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, setUploadedPercentage, ProfileImageNotRequired) => {
     return new Promise(async (resolve, reject) => {
         if(Name.replace(/\s+/, "").length === 0)
             return reject('not a valid Name');
@@ -13,6 +13,10 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
             return reject('not a valid Email');
         if(!ProfileImageChanged)
             return reject('Profile Pic Required');
+        if(!Address)
+            return reject('Address Required');
+        if(!PinCode)
+            return reject('PinCode Required');
         
         var Content = 'multipart/form-data';
         var formData = new FormData();
@@ -21,9 +25,11 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
         formData.append('Address', Address);
         formData.append('Gender', Gender);
         formData.append('PinCode', PinCode);
-        formData.append('File', ProfileImage);
+        if(!ProfileImageNotRequired) {
+            formData.append('ProfileImage', ProfileImage);
+        }
         //var body = formData;
-
+        console.log(formData);
 
         try {
             var xhr = new XMLHttpRequest();
@@ -34,15 +40,20 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
                 switch(this.status) {
                     case 200 :
                         if(this.readyState === 4) {
-                            AsyncStorage.multiSet([
+
+                            const AsyncData = [
                                 ['Name', Name],
                                 ['Email', Email],
-                                ['ProfileImage', JSON.parse(this.responseText).ProfileImage],
                                 ['Address', Address],
                                 ['Gender', Gender],
                                 ['PinCode', PinCode],
                                 ['ProfileStatus', '2']
-                            ]).then(() => {
+                            ]
+                            if(!ProfileImageNotRequired) {
+                                AsyncData.push(['ProfileImage', JSON.parse(this.responseText).ProfileImage])
+                            }
+
+                            AsyncStorage.multiSet(AsyncData).then(() => {
                                 resolve(JSON.parse(this.responseText));
                             }).catch(err => {
                                 console.log(err);
@@ -75,7 +86,7 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
             xhr.send(formData);
         }
         catch (err) {
-            reject(err);
+            reject(err.message);
         }
 
     });

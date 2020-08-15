@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView,Modal, Dimensions} from 'react-native';
+import {StyleSheet, ScrollView,Modal, Dimensions, Platform} from 'react-native';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import EditProfileAPI from '../API/EditProfile';
@@ -70,8 +70,8 @@ class InitialProfile extends React.Component {
 
     handleImagePicker = (response) => {
         var Image = {
-            uri: response.path,
-            name: response.path.split("/").pop(),
+            uri: Platform.OS === 'ios' ? 'file:///' + response.path : response.path,
+			name: response.path.split('/').pop(),
             type: response.mime
         };
         this.setState({
@@ -138,8 +138,10 @@ class InitialProfile extends React.Component {
                 ProfileImage,
                 Address,
                 PinCode,
+                ProfileStatus: 2,
                 Gender: this.state.Female,
             });
+            this.setState({showLoading : false});
             this.props.navigation.navigate('MainHomeStack');
         }).catch(err => {
             this.setState({showLoading : false, ShowToast : true, ToastContent : err});
@@ -158,12 +160,17 @@ class InitialProfile extends React.Component {
     setGender = () => {
         this.setState({ Female: !this.state.Female });
     }
+
+    navigateHome = () => {
+        this.props.navigation.navigate('MainHomeStack');
+    }
+
     render() {
         const { modalVisible } = this.state;
 
         return (
             <>
-                <NavBarBack Navigation={() => this.props.navigation.navigate('MainHomeStack')} Title={"Edit Profile"}/>
+                <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"}/>
                 <Modal
                     animationType="slide"
                     transparent={true}
