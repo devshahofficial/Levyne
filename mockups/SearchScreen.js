@@ -98,7 +98,7 @@ class Search extends React.Component {
     }
 
     SortBrandModal = () => {
-        this.setState({Sort: !this.state.Sort});
+        this.setState({SortCompany: !this.state.SortCompany});
     }
 
     ProductSearchScreen = (props) => {
