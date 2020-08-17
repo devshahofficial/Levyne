@@ -12,7 +12,7 @@ class IndexScreen extends React.Component {
 
 		const setAuth = this.props.setAuth;
 		const setProfile = this.props.setProfile;
-        
+
 
 		AuthCheck(setAuth, setProfile).then( value => {
 			if(value === 'Home')
@@ -31,7 +31,7 @@ class IndexScreen extends React.Component {
 		return (
 			<>
 				<View style={styles.container}>
-					<Logo width='90%'/>
+					<Logo width='60%'/>
 				</View>
 			</>
 		);

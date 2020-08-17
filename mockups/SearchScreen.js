@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet,FlatList, Dimensions} from 'react-native';
+import {StyleSheet,FlatList, Dimensions, Animated} from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import colors from "../assets/colors";
 import ProductItemContainer from "../components/ProductItemContainer";
@@ -13,9 +13,52 @@ import { TabView, TabBar } from 'react-native-tab-view';
 
 import {BackArrowIcon} from '../Icons/BackArrowIcon';
 import BrandItemContainer from '../components/BrandItemContainer';
+import PickerModal from "../components/PickerModal";
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height * 0.75;
+
+const actionItems = [
+    {
+        id: 1,
+        label: 'Latest Arrival',
+    },
+    {
+        id: 2,
+        label: 'Popularity',
+    },
+    {
+        id: 3,
+        label: 'Price high to low',
+    },
+    {
+        id: 4,
+        label: 'Discount',
+    },
+    {
+        id: 5,
+        label: 'Customer Rating',
+    },
+    {
+        id: 6,
+        label: 'Price low to high',
+    },
+];
+
+const actionCompanyItems = [
+    {
+        id: 1,
+        label: 'Popularity',
+    },
+    {
+        id: 5,
+        label: 'Customer Rating',
+    },
+    {
+        id: 6,
+        label: 'Located near me',
+    },
+];
 
 
 class Search extends React.Component {
@@ -35,7 +78,9 @@ class Search extends React.Component {
             BrandData : [],
             ProductsData : [],
             FabricData : [],
-            Loading: false
+            Loading: false,
+            Sort: false,
+            SortCompany: false,
         }
         this.TotalProducts = 0;
         this.TotalBrand = 0;
@@ -47,18 +92,65 @@ class Search extends React.Component {
         this._isMounted = true;
     }
 
+
+    SortModal = () => {
+        this.setState({Sort: !this.state.Sort});
+    }
+
+    SortBrandModal = () => {
+        this.setState({Sort: !this.state.Sort});
+    }
+
     ProductSearchScreen = (props) => {
         let loadNewPage = true;
+
+        const scrollY = new Animated.Value(0);
+        const diffClampScrollY = Animated.diffClamp(scrollY, 0, 90);
+        const headerY = diffClampScrollY.interpolate({
+            inputRange: [29, 125],
+            outputRange: [-20, -85],
+        });
+
+
         return (
             <View flex>
-                <FlatList
+                <PickerModal
+                    ActionItems={actionItems}
+                    modalVisible={this.state.Sort}
+                    setModalVisible={this.SortModal}
+                />
+                <Animated.View
+                    style={{
+                        transform: [{translateY: headerY}],
+                        position: 'absolute',
+                        zIndex: 1, flexDirection: 'row'
+                    }}
+                >
+                    <TouchableOpacity
+                        flex style={styles.Filter} center
+                        onPress={this.SortModal}
+                    >
+                        <Text hb1 secondary>Sort</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity flex
+                        style={styles.Filter} center
+                    >
+                        <Text hb1 secondary>Filter</Text>
+                    </TouchableOpacity>
+                </Animated.View>
+                <Animated.FlatList
                     data={props.ProductsData}
                     numColumns={2}
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                        {useNativeDriver: true},
+                    )}
+                    ListHeaderComponent={<View marginV-25></View>}
                     renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct} height={screenHeight}/>}
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
-                        <View flex centerV centerH style={{height:655}} paddingH-40>
+                        <View flex centerV centerH paddingH-40 style={{height:605}}>
                             <Text center b1 grey50>Learning from mistakes and constantly improving products is a key in all successful companies. </Text>
                             <Text center h3 grey50 marginT-10>- Bill Gates, Founder & Former CEO of Microsoft </Text>
                         </View>
@@ -85,16 +177,48 @@ class Search extends React.Component {
 
     FabricSearchScreen = (props) => {
         let loadNewPage = true;
+        const scrollY = new Animated.Value(0);
+        const diffClampScrollY = Animated.diffClamp(scrollY, 0, 90);
+        const headerY = diffClampScrollY.interpolate({
+            inputRange: [30, 125],
+            outputRange: [-20, -85],
+        });
+
         return (
             <View flex>
-                <FlatList
+                <Animated.View
+                    style={{
+                        transform: [{translateY: headerY}],
+                        position: 'absolute',
+                        zIndex: 1, flexDirection: 'row'
+                    }}
+                >
+                    <TouchableOpacity
+                        flex style={styles.Filter} center
+                        onPress={this.SortModal}
+                    >
+                        <Text hb1 secondary>Sort</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        flex
+                        style={styles.Filter} center
+                    >
+                        <Text hb1 secondary>Filter</Text>
+                    </TouchableOpacity>
+                </Animated.View>
+                <Animated.FlatList
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                        {useNativeDriver: true},
+                    )}
                     data={props.ProductsData}
                     numColumns={2}
+                    ListHeaderComponent={<View marginV-25></View>}
                     renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateFabric} height={screenWidth}/>}
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
-                        <View flex centerV centerH style={{height:655}} paddingH-40>
+                        <View flex centerV centerH style={{height:605}} paddingH-40>
                             <Text center b1 grey50>Meeting deadlines is not good enough, beating the deadline is my expectation. </Text>
                             <Text center h3 grey50 marginT-10>- DhiruBhai Ambani, Founder of Reliance </Text>
                         </View>
@@ -121,15 +245,46 @@ class Search extends React.Component {
 
     BrandSearchScreen = (props) => {
         let loadNewPage = true;
+        const scrollY = new Animated.Value(0);
+        const diffClampScrollY = Animated.diffClamp(scrollY, 0, 90);
+        const headerY = diffClampScrollY.interpolate({
+            inputRange: [30, 125],
+            outputRange: [-20, -85],
+        });
+
         return (
             <View flex>
-                <FlatList
+                <PickerModal
+                    ActionItems={actionCompanyItems}
+                    modalVisible={this.state.SortCompany}
+                    setModalVisible={this.SortBrandModal}
+                />
+                <Animated.View
+                    style={{
+                        transform: [{translateY: headerY}],
+                        position: 'absolute',
+                        zIndex: 1, flexDirection: 'row'
+                    }}
+                >
+                    <TouchableOpacity
+                        flex style={styles.Filter} center
+                        onPress={this.SortBrandModal}
+                    >
+                        <Text hb1 secondary>Sort</Text>
+                    </TouchableOpacity>
+                </Animated.View>
+                <Animated.FlatList
                     data={props.BrandData}
+                    onScroll={Animated.event(
+                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
+                        {useNativeDriver: true},
+                    )}
+                    ListHeaderComponent={<View marginV-25></View>}
                     renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.navigateBrand}/>}
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     ListEmptyComponent={
-                        <View flex centerV centerH style={{height:655}} paddingH-40>
+                        <View flex centerV centerH style={{height:605}} paddingH-40>
                             <Text center b1 grey50>Your brand is what other people say about you when you are not in the room.  </Text>
                             <Text center h3 grey50 marginT-10>- Jeff Bezoz, Founder & CEO of Amazon  </Text>
                         </View>
@@ -288,6 +443,12 @@ const styles = StyleSheet.create({
     flatlist: {
         marginTop: 6,
         marginLeft: 2,
+    },
+    Filter: {
+        height: 60,
+        backgroundColor: Colors.shadow,
+        borderColor: Colors.white,
+        borderWidth: 5
     }
 });
 
