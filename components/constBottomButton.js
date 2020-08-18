@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import colors from "../assets/colors";
-import {Button} from "@ui-kitten/components";
+import {Button, Colors} from "react-native-ui-lib";
 import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
 
 export default class ConstBottomButton extends React.PureComponent {
@@ -14,10 +13,18 @@ export default class ConstBottomButton extends React.PureComponent {
         return (
             <View style={styles.Main}>
                 <ShadowView style={styles.ShadowView}>
-                    <Button onPress={this.props.ButtonActionA} style={[styles.Button,{borderColor: colors.trivisionWhite}]} textStyle={styles.Text}>{this.props.ButtonA}</Button>
+                    <Button
+                        onPress={() => this.props.ButtonActionA(this.props.BrandID)}
+                        style={[styles.Button,{borderColor: Colors.white}]}
+                        h1 label={this.props.ButtonA}
+                    />
                 </ShadowView>
                 <ShadowView style={styles.ShadowView}>
-                    <Button onPress={this.props.ButtonActionB} style={[styles.Button,{backgroundColor: colors.trivisionPink}]} textStyle={{color:colors.trivisionWhite}}>{this.props.ButtonB}</Button>
+                    <Button
+                        onPress={this.props.ButtonActionB}
+                        style={[styles.Button,{backgroundColor: Colors.primary}]}
+                        h1 label={this.props.ButtonB} color={Colors.white}
+                    />
                 </ShadowView>
             </View>
         );
@@ -27,23 +34,20 @@ export default class ConstBottomButton extends React.PureComponent {
 const styles = StyleSheet.create({
     Main: {
         flexDirection:'row',
-        backgroundColor:colors.trivisionWhite
+        backgroundColor:Colors.white
     },
     ShadowView: {
         flex:1,
-        shadowColor: colors.trivisionGrey,
+        shadowColor: Colors.grey50,
         shadowOpacity: 1,
         shadowRadius: 2,
-        shadowOffset: {width: 0,height: -1},
-        backgroundColor:colors.trivisionWhite,
+        shadowOffset: {width: 0,height: -0.5},
+        backgroundColor:Colors.white,
     },
     Button: {
         height:50,
         borderRadius:0,
-        backgroundColor:colors.trivisionWhite,
-        borderColor: colors.trivisionPink
-    },
-    Text: {
-        color: colors.trivisionPink
+        backgroundColor:Colors.white,
+        borderColor: Colors.white
     }
 });

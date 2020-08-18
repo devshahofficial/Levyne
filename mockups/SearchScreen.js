@@ -34,6 +34,9 @@ class Search extends React.Component {
             ProductsData : [],
             FabricData : [],
             Loading: false,
+            ProductSort: 0,
+            FabricSort: 0,
+            BrandSort: 0
         }
         this.TotalProducts = 0;
         this.TotalFabrics = 0;
@@ -104,6 +107,60 @@ class Search extends React.Component {
         this.props.navigation.push('BrandProfile', {BrandID : BrandID})
     }
 
+    setProductSort = (ProductSort) => {
+        this.setState({
+            ProductSort,
+            ProductsData: []
+        });
+        this.ProductPage = 0;
+        ProductbySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken).then(resp => {
+            if(this._isMounted && this.state.SearchKey) {
+                this.setState({
+                    ProductsData : resp.Products
+                })
+                this.TotalProducts = resp.Total
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    setFabricSort = (FabricSort) => {
+        this.setState({
+            FabricSort,
+            FabricData: []
+        });
+        this.FabricPage = 0;
+        FabricBySearch(this.state.SearchKey, ++this.FabricPage, FabricSort, this.props.AccessToken).then(resp => {
+            if(this._isMounted && this.state.SearchKey) {
+                this.setState({
+                    FabricData : resp.Fabrics
+                })
+                this.TotalFabrics = resp.Total
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    setBrandSort = (BrandSort) => {
+
+        /**
+         * @todo Implement this later
+         * 
+        this.setState({BrandSort});
+        this.BrandPage = 0;
+        ProductbySearch(this.state.SearchKey, ++this.BrandPage, BrandSort, this.props.AccessToken).then(resp => {
+            if(this._isMounted && this.state.SearchKey) {
+                this.setState({
+                    ProductsData : resp.Products
+                })
+                this.TotalProducts = resp.Total
+            }
+        }).catch(() => {});
+        */
+    }
+
     setSearchKey = (SearchKey) => {
         this.setState({
             SearchKey: SearchKey
@@ -113,7 +170,7 @@ class Search extends React.Component {
 
             //Searching Products
             this.ProductPage = 0;
-            ProductbySearch(SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
+            ProductbySearch(SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         ProductsData : resp.Products
@@ -124,7 +181,7 @@ class Search extends React.Component {
 
             //Searching Fabrics
             this.FabricPage = 0;
-            FabricBySearch(SearchKey, ++this.FabricPage, null, this.props.AccessToken).then(resp => {
+            FabricBySearch(SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         FabricData : resp.Fabrics
@@ -200,6 +257,7 @@ class Search extends React.Component {
                                     return <ProductSearch
                                         ProductsData={this.state.ProductsData}
                                         AccessToken={this.props.AccessToken}
+                                        setProductSort={this.setProductSort}
                                         navigateProduct={this.navigateProduct}
                                         onProductEndReached={this.onProductEndReached}
                                     />
@@ -207,6 +265,7 @@ class Search extends React.Component {
                                     return <FabricSearch
                                         FabricsData={this.state.FabricData}
                                         AccessToken={this.props.AccessToken}
+                                        setFabricSort={this.setFabricSort}
                                         navigateFabric={this.navigateFabric}
                                         onFabricEndReached={this.onFabricEndReached}
                                     />
@@ -214,6 +273,7 @@ class Search extends React.Component {
                                     return <BrandSearch 
                                         BrandData={this.state.BrandData}
                                         AccessToken={this.props.AccessToken}
+                                        setBrandSort={this.setBrandSort}
                                         navigateBrand={this.navigateBrand}
                                         onBrandEndReached={this.onBrandEndReached}
                                     />

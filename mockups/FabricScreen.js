@@ -26,7 +26,7 @@ class FabricScreen extends React.Component {
         if(!this.props.route.params.FabricID) {
             return this.props.navigation.goBack();
         }
-        FabricByID(this.props.route.params.FabricID, this.props.access_token).then(resp => {
+        FabricByID(this.props.route.params.FabricID, this.props.AccessToken).then(resp => {
             this.setState({
                 FabricObject : resp,
                 loading : false
@@ -74,7 +74,7 @@ class FabricScreen extends React.Component {
                                 ShortDescription={this.state.FabricObject.ShortDescription}
                                 AddToWishlistFn={this.AddToWishlistFn}
                                 RemoveFromWishlistFn={this.RemoveFromWishlistFn}
-                                Token={this.props.access_token}
+                                Token={this.props.AccessToken}
                                 FabricImages={this.state.FabricObject.FabricImages}
                                 Dyeable={this.state.FabricObject.Dyeable}
                             />
@@ -102,7 +102,7 @@ class FabricScreen extends React.Component {
 };
 
 const mapsStateToProps = state => ({
-	access_token : state.Auth.access_token
+	AccessToken : state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(FabricScreen)
