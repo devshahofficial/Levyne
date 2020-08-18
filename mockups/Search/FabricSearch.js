@@ -8,33 +8,6 @@ import PickerModal from "../../components/PickerModal";
 
 const screenHeight = Dimensions.get('window').height * 0.75;
 
-const actionItems = [
-    {
-        id: 1,
-        label: 'Latest Arrival',
-    },
-    {
-        id: 2,
-        label: 'Popularity',
-    },
-    {
-        id: 3,
-        label: 'Price high to low',
-    },
-    {
-        id: 4,
-        label: 'Discount',
-    },
-    {
-        id: 5,
-        label: 'Customer Rating',
-    },
-    {
-        id: 6,
-        label: 'Price low to high',
-    },
-];
-
 export default class FabricSearchScreen extends React.Component {
     
     constructor(props) {
@@ -43,6 +16,40 @@ export default class FabricSearchScreen extends React.Component {
             sortModel: false,
             scrollY: new Animated.Value(0)
         }
+        this.actionItems = [
+            {
+                id: 1,
+                label: 'Latest Arrival',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setFabricSort(1);
+                }
+            },
+            {
+                id: 2,
+                label: 'Price high to low',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setFabricSort(2);
+                }
+            },
+            {
+                id: 3,
+                label: 'Discount',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setFabricSort(3);
+                }
+            },
+            {
+                id: 4,
+                label: 'Price low to high',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setFabricSort(4);
+                }
+            },
+        ];
     }
 
     setSortModel = () => {
@@ -55,7 +62,7 @@ export default class FabricSearchScreen extends React.Component {
         return (
             <View flex>
                 <PickerModal
-                    ActionItems={actionItems}
+                    ActionItems={this.actionItems}
                     modalVisible={this.state.sortModel}
                     setModalVisible={this.setSortModel}
                 />

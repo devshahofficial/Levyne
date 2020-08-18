@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, ImageBackground, Dimensions} from 'react-native';
+import {StyleSheet, ImageBackground} from 'react-native';
 import { Carousel, Text, View, TouchableOpacity } from 'react-native-ui-lib';
 import colors from "../assets/colors";
 
@@ -33,7 +33,7 @@ export default class ImageCarousel extends Component {
                         return (
                             <View key={index.toString()} style={{...styles.addImageButtonView, width: this.props.width, height: this.props.height}}>
                                 <TouchableOpacity style={[styles.iconCircle, {width : 80, height: 80}]} onPress={() => {this.props.addImage()}}>
-                                    <Text b1 primary>+</Text>
+                                    <Text f1 primary>+</Text>
                                 </TouchableOpacity>
                             </View>
                         )

@@ -4,7 +4,7 @@ import {Carousel, AnimatedImage, Colors} from 'react-native-ui-lib';
 
 const screenWidth = Dimensions.get('window').width;
 
-export default class ImageCarouselProduct extends Component{
+export default class ImageCarouselFabric extends Component{
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +17,7 @@ export default class ImageCarouselProduct extends Component{
     render() {
         return (
             <Carousel
-                containerStyle={{height:screenWidth * 1.5}}
+                containerStyle={{height:screenWidth}}
                 ref={ref => this.carousel = ref}
                 onChangePage={(activeSlide) => this.setState({activeSlide})}
                 key={'Carousel'}
@@ -27,13 +27,13 @@ export default class ImageCarouselProduct extends Component{
                     size : 7
                 }}
             >
-                {this.props.ProductImages.map((item, index) => (
+                {this.props.FabricImages.map((item, index) => (
                     <AnimatedImage
                         key={index.toString()}
                         containerStyle={{backgroundColor: Colors.blue60}}
                         source={{uri: item}}
                         loader={<ActivityIndicator />}
-                        style={{width:screenWidth,height:screenWidth * 1.5}}
+                        style={{width:Dimensions.get('window').width,height:screenWidth}}
                         animationDuration={index === 0 ? 300 : 800}
                     />
                 ))}

@@ -19,6 +19,7 @@ import ChatIcon from '../Icons/ChatIcon';
 import SettingsScreen from '../mockups/SettingsScreen';
 import BookmarkProducts from '../mockups/BookmarkProducts';
 import Help from '../mockups/Help';
+import FabricScreen from '../mockups/FabricScreen';
 import TermsConditionsScreen from '../mockups/TermsConditionsScreen';
 import Advertise from '../mockups/Advertise';
 import {OrdersIcon} from '../Icons/OrdersIcon';
@@ -124,6 +125,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="Home" component={BottomTabNavigation}/>
 				<HomeStack.Screen name="Customize" component={Customize} />
 				<HomeStack.Screen name="Product" component={ProductScreen} />
+                <HomeStack.Screen name="Fabric" component={FabricScreen} />
 				<HomeStack.Screen name="MyProfile" component={MyProfile} />
 				<HomeStack.Screen name="InitialProfile" component={InitialProfile} />
 				<HomeStack.Screen name="BrandProfile" component={BrandProfile}/>

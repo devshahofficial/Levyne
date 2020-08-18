@@ -1,28 +1,104 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-
-import colors from "../assets/colors";
+import {StyleSheet, Dimensions, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {DescriptionCard} from "./ReadMore";
+import Category from "./Category";
+import Colors from "../Style/Colors";
+import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
+import {HandWashIcon} from "../Icons/Secondary/HandWashIcon";
+import {TimerIcon} from "../Icons/Secondary/TimerIcon";
+
+
 
 export default class ProductScreenPartTwo extends React.PureComponent {
 
     constructor(props){
         super(props);
         this.state = {
-            pressCounter: 0
+            pressCounter: 0,
+            Wash: 2,
+            Days: 10
+        }
+    }
+
+    DryCleanWash = () => {
+        return(
+            <>
+                <MachineWashIcon size={30} Color={Colors.black}/>
+                <Text marginL-10 h2>Dry cleaning is recommended!</Text>
+            </>
+        )
+    }
+
+    MachineWash = () => {
+        return(
+            <>
+                <MachineWashIcon size={30} Color={Colors.black}/>
+                <Text marginL-10 h2>Machine wash is recommended!</Text>
+            </>
+        )
+    }
+
+    HandWash = () => {
+        return(
+            <>
+                <HandWashIcon size={30} Color={Colors.black}/>
+                <Text marginL-10 h2>Hand wash is recommended!</Text>
+            </>
+        )
+    }
+
+    checkSwitch = (Wash) => {
+
+        switch (Wash) {
+
+            case 1:
+                return this.MachineWash();
+            case 2:
+                return this.HandWash();
+            default:
+                return this.DryCleanWash();
+
         }
     }
 
     render() {
         return (
-            <View style={styles.partSecond}>
-                <View style={{margin:10}}>
-                    <View>
-                        <Text style={{color:colors.trivisionBlue, fontWeight:'bold'}}>Product Description</Text>
+            <View marginT-30 marginB-20 marginH-15>
+                <Text hb1>Product Description</Text>
+                <DescriptionCard CompleteDescription = {this.props.LongDescription} />
+
+                <View marginT-20 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
+                    <TimerIcon size={30} Color={Colors.black}/>
+                    <Text marginL-10 h2>Approximate Delivery within {this.props.ApprxDaysForProduction} days.</Text>
+                </View>
+
+                <Text hb1 marginT-20>Fabric</Text>
+                <DescriptionCard CompleteDescription = {this.props.FabricDescription} />
+                <TouchableOpacity>
+                    <View style={{marginHorizontal: -15}}>
+                        <FlatList
+                            data={this.props.Materials}
+                            showsHorizontalScrollIndicator={false}
+                            horizontal={true}
+                            extraData={this.props.navigation}
+                            keyExtractor={(item, index) => index.toString()}
+						    renderItem={({item}) => (
+                                <Category
+                                    navigation={this.props.navigation}
+                                    FilterObjectvalue={item}
+                                    title={item}
+                                    Image={'https://i.pinimg.com/originals/15/a7/a1/15a7a14803756574226fa4812f4755c3.jpg'}
+                                    ImageStyle={styles.Image}
+                                />
+                            )}
+                        />
                     </View>
-                    <View>
-                        <DescriptionCard CompleteDescription = {this.props.LongDescription} />
-                    </View>
+                </TouchableOpacity>
+                <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
+                    {
+                        this.checkSwitch(this.props.FabricWashType)
+                    }
                 </View>
             </View>
 
@@ -31,63 +107,20 @@ export default class ProductScreenPartTwo extends React.PureComponent {
 
 };
 
+
 const styles = StyleSheet.create({
-    partSecond:{
-        marginTop: 30,
-    },
-    partSecondButton: {
-        marginTop:10,
-        flexDirection:'row',
-        alignSelf:'center',
-    },
-    buttonPartSecond:{
-        height:60,
-        width:60,
-        borderRadius:40,
-        backgroundColor:colors.trivisionWhite,
-        borderColor:colors.trivisionWhite,
-        color:colors.trivisionBlue,
-    },
-    buttonGPartSecond:{
-        backgroundColor:colors.trivisionWhite,
-        borderColor:colors.trivisionWhite,
-        borderRadius:30,
-    },
-    buttonG:{
-        flex:1,
-        marginLeft:10,
-        marginRight:10,
-        borderRadius:20,
-        shadowColor: colors.trivisionShadow,
-        shadowOpacity: 1,
-        shadowRadius: 2,
-        shadowOffset: {width: 0,height: 3},
-        backgroundColor: colors.trivisionWhite,
-    },
-    buttonQuantity:{
-        backgroundColor:colors.trivisionWhite,
-        height:50,
-        width:50,
+    Tags: {
+        height: 40,
         borderRadius:50,
-        borderColor:colors.trivisionWhite
+        paddingVertical: 20
     },
-    ShadowView: {
-        borderRadius: 40,
-        height:60,
-        width:60,
-        margin:10,
-        shadowColor: colors.trivisionShadow,
-        shadowOpacity: 1,
-        shadowRadius: 3,
-        shadowOffset: {width: 0,height: 3},
-        backgroundColor: colors.trivisionWhite,
+    Image: {
+        height: 60,
+        width:200,
+        borderRadius: 5,
+        alignSelf: 'center',
+        paddingTop: Platform.OS === 'ios' ? 5 : 0,
+        justifyContent: 'center',
+        margin: 15,
     },
-    QuantityShadow:{
-        borderRadius:50,
-        shadowColor: colors.trivisionShadow,
-        shadowOpacity: 1,
-        shadowRadius: 2,
-        shadowOffset: {width: 0,height: 3},
-        backgroundColor: colors.trivisionWhite,
-    }
-});
+})

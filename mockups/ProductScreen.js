@@ -1,16 +1,16 @@
-import {SafeAreaView, ScrollView} from "react-native";
+import {SafeAreaView, ScrollView, ActivityIndicator} from "react-native";
 import React from 'react';
 import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
+import ProductScreenPartThree from '../components/ProductScreenPartThree';
 import ImageCarouselProduct from "./ImageCarouselProduct";
 import ProductByID from '../API/ProductbyID';
 import AddWishlistProductbyid from '../API/AddWishlistProductbyid';
 import RemoveWishlistProductbyid from '../API/RemoveWishlistProductbyid';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors } from "react-native-ui-lib";
-
-
+import { Colors, View } from "react-native-ui-lib";
+import ConstBottomButton from "../components/constBottomButton";
 
 class ProductScreen extends React.Component {
 
@@ -33,31 +33,15 @@ class ProductScreen extends React.Component {
                 loading : false
             })
         }).catch(err => {
-            console.log(err);
             this.setState({
                 loading : false,
-                success : false
+                success : true
             })
         })
     }
 
-
-    RequestADealNavigation = (OtherBrandID, OtherBrandName, ProductID, ProductName, ProductImage, ProductShortDescription, ProductPrice, BrandImage) => {
-        this.props.navigation.navigate('Chat', {
-            NewChat : true,
-            BrandID : OtherBrandID,
-            ProductID : ProductID,
-            ProductName : ProductName,
-            ProductImage : ProductImage,
-            ProductShortDescription : ProductShortDescription,
-            ProductPrice : ProductPrice,
-            BrandName : OtherBrandName,
-            BrandImage : BrandImage
-        });
-    }
-
     BrandNavigation = (OtherBrandID) => {
-        this.props.navigation.navigate('BrandProfile', {
+        this.props.navigation.push('BrandProfile', {
             BrandID : OtherBrandID,
         });
     }
@@ -73,28 +57,53 @@ class ProductScreen extends React.Component {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Product' : this.state.ProductObject.Name}/>
-                {!this.state.loading && this.state.success &&
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <ImageCarouselProduct ProductImages={this.state.ProductObject.ProductImages} height={this.props.route.params.height}/>
-                        <ProductScreenPartOne
-                            Title={this.state.ProductObject.Name}
-                            DiscountPrice={this.state.ProductObject.DiscountPrice}
-                            ActualPrice={this.state.ProductObject.ActualPrice}
+                {!this.state.loading && this.state.success ?
+                    <>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <ImageCarouselProduct ProductImages={this.state.ProductObject.ProductImages}/>
+                            <ProductScreenPartOne
+                                Title={this.state.ProductObject.Name}
+                                DiscountPrice={this.state.ProductObject.DiscountPrice}
+                                ActualPrice={this.state.ProductObject.ActualPrice}
+                                BrandID={this.state.ProductObject.BrandID}
+                                ProductRating={4.1}
+                                Materials={this.state.ProductObject.Materials}
+                                MaterialCost={this.state.ProductObject.MaterialCost}
+                                ProductionCost={this.state.ProductObject.ProductionCost}
+                                Category={this.state.ProductObject.Category}
+                                CategoryID={this.state.ProductObject.CategoryID}
+                                Styles={this.state.ProductObject.Styles}
+                                ProductWishlist={this.state.ProductObject.IsWishlist}
+                                BrandNavigation={this.BrandNavigation}
+                                ShortDescription={this.state.ProductObject.ShortDescription}
+                                AddToWishlistFn={this.AddToWishlistFn}
+                                RemoveFromWishlistFn={this.RemoveFromWishlistFn}
+                                ProductID={this.props.route.params.ProductID}
+                                Token={this.props.AccessToken}
+                                ProductImage={this.state.ProductObject.ProductImages}
+                            />
+                            <ProductScreenPartTwo
+                                LongDescription = {this.state.ProductObject.LongDescription}
+                                FabricDescription = {this.state.ProductObject.FabricDescription}
+                                ApprxDaysForProduction = {this.state.ProductObject.ApprxDaysForProduction}
+                                Materials={this.state.ProductObject.Materials}
+                                FabricWashType={this.state.ProductObject.FabricWashType}
+                                navigation={this.props.navigation}
+                            />
+                            <ProductScreenPartThree
+                                EmbroideryImage = {this.state.ProductObject.EmbroideryImage}
+                            />
+                        </ScrollView>
+                        <ConstBottomButton
+                            ButtonA={"Visit Brand"}
+                            ButtonB={"Add to Cart"}
+                            ButtonActionA={this.BrandNavigation}
                             BrandID={this.state.ProductObject.BrandID}
-                            ProductRating={4.1}
-                            ProductWishlist={this.state.ProductObject.ProductWishlist}
-                            BrandNavigation={this.BrandNavigation}
-                            ShortDescription={this.state.ProductObject.ShortDescription}
-                            AddToWishlistFn={this.AddToWishlistFn}
-                            RemoveFromWishlistFn={this.RemoveFromWishlistFn}
-                            ProductID={this.props.route.params.ProductID}
-                            Token={this.props.AccessToken}
-                            RequestADealNavigation={this.RequestADealNavigation}
-                            ProductImage={this.state.ProductObject.ProductImages}
                         />
-                        <ProductScreenPartTwo LongDescription = {this.state.ProductObject.LongDescription}/>
-
-                    </ScrollView>
+                    </> :
+                    <View flex center>
+                        <ActivityIndicator />
+                    </View>
                 }
             </SafeAreaView>
         );
