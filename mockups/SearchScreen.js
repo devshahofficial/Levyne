@@ -145,20 +145,16 @@ class Search extends React.Component {
 
     setBrandSort = (BrandSort) => {
 
-        /**
-         * @todo Implement this later
-         * 
         this.setState({BrandSort});
         this.BrandPage = 0;
-        ProductbySearch(this.state.SearchKey, ++this.BrandPage, BrandSort, this.props.AccessToken).then(resp => {
+        BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
-                    ProductsData : resp.Products
+                    BrandData : resp.Brands
                 })
-                this.TotalProducts = resp.Total
+                this.TotalBrand = resp.Total
             }
         }).catch(() => {});
-        */
     }
 
     setSearchKey = (SearchKey) => {
@@ -192,22 +188,17 @@ class Search extends React.Component {
 
             //Searching Brands
 
-            /**
-             *  @todo Implement BrandBySearch
-             * 
-             *  this.BrandPage = 0;
-                BrandBySearch(SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
-                    if(this._isMounted && SearchKey) {
-                        this.setState({
-                            BrandData : resp.Brands
-                        })
-                        this.TotalBrand = resp.Total
-                    }
-                }).catch(err => {
-                    console.log(err);
-                });
-             * 
-             */
+            this.BrandPage = 0;
+            BrandBySearch(SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
+                if(this._isMounted && SearchKey) {
+                    this.setState({
+                        BrandData : resp.Brands
+                    })
+                    this.TotalBrand = resp.Total
+                }
+            }).catch(err => {
+                console.log(err);
+            });
         } else {
             this.setState({
                 BrandData: [],
