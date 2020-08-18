@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet,FlatList, Dimensions, Animated} from 'react-native';
-import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
+import {StyleSheet} from 'react-native';
+import {View,TouchableOpacity} from 'react-native-ui-lib';
 import colors from "../assets/colors";
-import ProductItemContainer from "../components/ProductItemContainer";
+import FabricBySearch from '../API/FabricsBySearch';
 import CstmInput from "../components/input";
 import ProductbySearch from '../API/Productsbysearch';
 import BrandBySearch from '../API/BrandBySearch';
@@ -10,56 +10,16 @@ import {connect} from 'react-redux';
 import {SearchIcon} from '../Icons/SearchIcon';
 import Colors from '../Style/Colors';
 import { TabView, TabBar } from 'react-native-tab-view';
-
+import ProductSearch from '../mockups/Search/ProductSearch';
+import FabricSearch from '../mockups/Search/FabricSearch';
+import BrandSearch from '../mockups/Search/BrandSearch';
 import {BackArrowIcon} from '../Icons/BackArrowIcon';
-import BrandItemContainer from '../components/BrandItemContainer';
-import PickerModal from "../components/PickerModal";
 
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height * 0.75;
-
-const actionItems = [
-    {
-        id: 1,
-        label: 'Latest Arrival',
-    },
-    {
-        id: 2,
-        label: 'Popularity',
-    },
-    {
-        id: 3,
-        label: 'Price high to low',
-    },
-    {
-        id: 4,
-        label: 'Discount',
-    },
-    {
-        id: 5,
-        label: 'Customer Rating',
-    },
-    {
-        id: 6,
-        label: 'Price low to high',
-    },
-];
-
-const actionCompanyItems = [
-    {
-        id: 1,
-        label: 'Popularity',
-    },
-    {
-        id: 5,
-        label: 'Customer Rating',
-    },
-    {
-        id: 6,
-        label: 'Located near me',
-    },
-];
-
+const TabViewRoutes = [
+    { key: 'Products', title: 'Products' },
+    { key: 'Fabrics', title: 'Fabrics'},
+    { key: 'Brands', title: 'Brands'}
+]
 
 class Search extends React.Component {
     constructor(props){
@@ -70,251 +30,75 @@ class Search extends React.Component {
             ProductPage: 1,
             BrokerPage: 1,
             index : 0,
-            routes : [
-                { key: 'Products', title: 'Products' },
-                { key: 'Fabrics', title: 'Fabrics'},
-                { key: 'Brands', title: 'Brands'}
-            ],
             BrandData : [],
             ProductsData : [],
             FabricData : [],
             Loading: false,
-            Sort: false,
-            SortCompany: false,
         }
         this.TotalProducts = 0;
+        this.TotalFabrics = 0;
         this.TotalBrand = 0;
         this.BrandPage = 0;
         this.ProductPage = 0;
+        this.FabricPage = 0;
+        this.ProductloadNewPage = true;
+        this.FabricloadNewPage = true;
+        this.BrandloadNewPage = true;
     }
 
     componentDidMount() {
         this._isMounted = true;
     }
 
-
-    SortModal = () => {
-        this.setState({Sort: !this.state.Sort});
+    onProductEndReached = () => {
+        if(this.ProductloadNewPage && this.state.ProductsData.length !== this.TotalProducts) {
+            this.ProductloadNewPage = false;
+            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
+                this.ProductloadNewPage = true;
+                if(this.state.SearchKey && this._isMounted) {
+                    this.setState({ProductsData: [...this.state.ProductsData, ...resp.Products]})
+                }
+            }).catch(() => {
+                this.ProductloadNewPage = true;
+            });
+        }
     }
 
-    SortBrandModal = () => {
-        this.setState({SortCompany: !this.state.SortCompany});
+    onFabricEndReached = () => {
+        if(this.FabricloadNewPage && this.state.FabricData.length !== this.TotalFabrics) {
+            this.FabricloadNewPage = false;
+            ProductbySearch(this.state.SearchKey, ++this.FabricPage, null, this.props.AccessToken).then(resp => {
+                this.FabricloadNewPage = true;
+                if(this.state.SearchKey && this._isMounted) {
+                    this.setState({FabricData: [...this.state.FabricData, ...resp.Fabrics]})
+                }
+            }).catch(() => {
+                this.FabricloadNewPage = true;
+            });
+        }
     }
 
-    ProductSearchScreen = (props) => {
-        let loadNewPage = true;
-
-        const scrollY = new Animated.Value(0);
-        const diffClampScrollY = Animated.diffClamp(scrollY, 0, 90);
-        const headerY = diffClampScrollY.interpolate({
-            inputRange: [29, 125],
-            outputRange: [-20, -85],
-        });
-
-
-        return (
-            <View flex>
-                <PickerModal
-                    ActionItems={actionItems}
-                    modalVisible={this.state.Sort}
-                    setModalVisible={this.SortModal}
-                />
-                <Animated.View
-                    style={{
-                        transform: [{translateY: headerY}],
-                        position: 'absolute',
-                        zIndex: 1, flexDirection: 'row'
-                    }}
-                >
-                    <TouchableOpacity
-                        flex style={styles.Filter} center
-                        onPress={this.SortModal}
-                    >
-                        <Text hb1 secondary>Sort</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity flex
-                        style={styles.Filter} center
-                    >
-                        <Text hb1 secondary>Filter</Text>
-                    </TouchableOpacity>
-                </Animated.View>
-                <Animated.FlatList
-                    data={props.ProductsData}
-                    numColumns={2}
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                        {useNativeDriver: true},
-                    )}
-                    ListHeaderComponent={<View marginV-25></View>}
-                    renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct} height={screenHeight}/>}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={
-                        <View flex centerV centerH paddingH-40 style={{height:605}}>
-                            <Text center b1 grey50>Learning from mistakes and constantly improving products is a key in all successful companies. </Text>
-                            <Text center h3 grey50 marginT-10>- Bill Gates, Founder & Former CEO of Microsoft </Text>
-                        </View>
-                    }
-                    onEndReached={() => {
-                        if(loadNewPage && props.ProductsData.length !== this.TotalProducts) {
-                            loadNewPage = false;
-                            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
-                                loadNewPage = true;
-                                if(this.state.SearchKey && this._isMounted) {
-                                    this.setState({
-                                        ProductsData : [...props.ProductsData, ...resp.Products]
-                                    })
-                                }
-                            }).catch(err => {
-                            });
-                        }
-                    }}
-                    onEndReachedThreshold={0.75}
-                />
-            </View>
-        );
+    onBrandEndReached = () => {
+        if(this.BrandloadNewPage && this.state.BrandData.length !== this.TotalBrand) {
+            this.BrandloadNewPage = false;
+            BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.AccessToken).then(resp => {
+                this.BrandloadNewPage = true;
+                if(this.state.SearchKey && this._isMounted) {
+                    this.setState({
+                        BrandData : [...this.state.BrandData,...resp.Brands]
+                    });
+                }
+            }).catch(() => {
+                this.BrandloadNewPage = true;
+            });
+        }
     }
-
-    FabricSearchScreen = (props) => {
-        let loadNewPage = true;
-        const scrollY = new Animated.Value(0);
-        const diffClampScrollY = Animated.diffClamp(scrollY, 0, 90);
-        const headerY = diffClampScrollY.interpolate({
-            inputRange: [30, 125],
-            outputRange: [-20, -85],
-        });
-
-        return (
-            <View flex>
-                <Animated.View
-                    style={{
-                        transform: [{translateY: headerY}],
-                        position: 'absolute',
-                        zIndex: 1, flexDirection: 'row'
-                    }}
-                >
-                    <TouchableOpacity
-                        flex style={styles.Filter} center
-                        onPress={this.SortModal}
-                    >
-                        <Text hb1 secondary>Sort</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        flex
-                        style={styles.Filter} center
-                    >
-                        <Text hb1 secondary>Filter</Text>
-                    </TouchableOpacity>
-                </Animated.View>
-                <Animated.FlatList
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                        {useNativeDriver: true},
-                    )}
-                    data={props.ProductsData}
-                    numColumns={2}
-                    ListHeaderComponent={<View marginV-25></View>}
-                    renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateFabric} height={screenWidth}/>}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={
-                        <View flex centerV centerH style={{height:605}} paddingH-40>
-                            <Text center b1 grey50>Meeting deadlines is not good enough, beating the deadline is my expectation. </Text>
-                            <Text center h3 grey50 marginT-10>- DhiruBhai Ambani, Founder of Reliance </Text>
-                        </View>
-                    }
-                    onEndReached={() => {
-                        if(loadNewPage && props.FabricData.length !== this.TotalProducts) {
-                            loadNewPage = false;
-                            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
-                                loadNewPage = true;
-                                if(this.state.SearchKey && this._isMounted) {
-                                    this.setState({
-                                        FabricData : [...props.FabricData, ...resp.Products]
-                                    })
-                                }
-                            }).catch(err => {
-                            });
-                        }
-                    }}
-                    onEndReachedThreshold={0.75}
-                />
-            </View>
-        );
-    }
-
-    BrandSearchScreen = (props) => {
-        let loadNewPage = true;
-        const scrollY = new Animated.Value(0);
-        const diffClampScrollY = Animated.diffClamp(scrollY, 0, 90);
-        const headerY = diffClampScrollY.interpolate({
-            inputRange: [30, 125],
-            outputRange: [-20, -85],
-        });
-
-        return (
-            <View flex>
-                <PickerModal
-                    ActionItems={actionCompanyItems}
-                    modalVisible={this.state.SortCompany}
-                    setModalVisible={this.SortBrandModal}
-                />
-                <Animated.View
-                    style={{
-                        transform: [{translateY: headerY}],
-                        position: 'absolute',
-                        zIndex: 1, flexDirection: 'row'
-                    }}
-                >
-                    <TouchableOpacity
-                        flex style={styles.Filter} center
-                        onPress={this.SortBrandModal}
-                    >
-                        <Text hb1 secondary>Sort</Text>
-                    </TouchableOpacity>
-                </Animated.View>
-                <Animated.FlatList
-                    data={props.BrandData}
-                    onScroll={Animated.event(
-                        [{nativeEvent: {contentOffset: {y: scrollY}}}],
-                        {useNativeDriver: true},
-                    )}
-                    ListHeaderComponent={<View marginV-25></View>}
-                    renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.navigateBrand}/>}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={
-                        <View flex centerV centerH style={{height:605}} paddingH-40>
-                            <Text center b1 grey50>Your brand is what other people say about you when you are not in the room.  </Text>
-                            <Text center h3 grey50 marginT-10>- Jeff Bezoz, Founder & CEO of Amazon  </Text>
-                        </View>
-                    }
-                    onEndReached={() => {
-                        if(loadNewPage && props.BrandData.length !== this.TotalBrand) {
-                            loadNewPage = false;
-                            BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.AccessToken).then(resp => {
-                                loadNewPage = true;
-                                if(this.state.SearchKey && this._isMounted) {
-                                    this.setState({
-                                        BrandData : [...props.BrandData,...resp.Brands]
-                                    });
-                                }
-                            }).catch(err => {
-                            });
-                        }
-                    }}
-                    onEndReachedThreshold={0.75}
-                />
-            </View>
-        );
-    }
-
 
     navigateProduct = (ProductID) => {
-        this.props.navigation.push('Product', {ProductID : ProductID,height:screenHeight})
+        this.props.navigation.push('Product', {ProductID : ProductID})
     }
     navigateFabric = (FabricID) => {
-        this.props.navigation.push('Fabric', {FabricID : FabricID,height:screenWidth})
+        this.props.navigation.push('Fabric', {FabricID : FabricID})
     }
     navigateBrand = (BrandID) => {
         this.props.navigation.push('BrandProfile', {BrandID : BrandID})
@@ -326,6 +110,8 @@ class Search extends React.Component {
         });
         if(SearchKey != '')
         {
+
+            //Searching Products
             this.ProductPage = 0;
             ProductbySearch(SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
                 if(this._isMounted && SearchKey) {
@@ -334,31 +120,42 @@ class Search extends React.Component {
                     })
                     this.TotalProducts = resp.Total
                 }
-            }).catch(err => {});
-            this.BrandPage = 0;
-            BrandBySearch(SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
+            }).catch(() => {});
+
+            //Searching Fabrics
+            this.FabricPage = 0;
+            FabricBySearch(SearchKey, ++this.FabricPage, null, this.props.AccessToken).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
-                        BrandData : resp.Brands
+                        FabricData : resp.Fabrics
                     })
-                    this.TotalBrand = resp.Total
+                    this.TotalFabrics = resp.Total
                 }
-            }).catch(err => {
-                console.log(err);
-            });
-            /*BrokerBySearch(SearchKey, 1, null, this.props.AccessToken).then(resp => {
-                this.setState({
-                    BrokersData : resp.Brokers
-                })
-                this.TotalBroker = resp.Total
-            }).catch(err => {
-                console.log(err);
-            });
-            */
+            }).catch(() => {});
+
+            //Searching Brands
+
+            /**
+             *  @todo Implement BrandBySearch
+             * 
+             *  this.BrandPage = 0;
+                BrandBySearch(SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
+                    if(this._isMounted && SearchKey) {
+                        this.setState({
+                            BrandData : resp.Brands
+                        })
+                        this.TotalBrand = resp.Total
+                    }
+                }).catch(err => {
+                    console.log(err);
+                });
+             * 
+             */
         } else {
             this.setState({
-                BrandData : [],
-                ProductsData : []
+                BrandData: [],
+                ProductsData: [],
+                FabricData: []
             })
         }
     }
@@ -388,7 +185,7 @@ class Search extends React.Component {
                 </View>
                 <View style={styles.searchRow}>
                     <TabView
-                        navigationState={{index : this.state.index, routes : this.state.routes}}
+                        navigationState={{index : this.state.index, routes : TabViewRoutes}}
                         onIndexChange={(index) => this.setState({index})}
                         renderTabBar={(props) => <TabBar
                             {...props}
@@ -400,11 +197,26 @@ class Search extends React.Component {
                         renderScene={({ route }) => {
                             switch (route.key) {
                                 case 'Products':
-                                    return <this.ProductSearchScreen ProductsData={this.state.ProductsData}/>
+                                    return <ProductSearch
+                                        ProductsData={this.state.ProductsData}
+                                        AccessToken={this.props.AccessToken}
+                                        navigateProduct={this.navigateProduct}
+                                        onProductEndReached={this.onProductEndReached}
+                                    />
                                 case 'Fabrics':
-                                    return <this.FabricSearchScreen FabricData={this.state.FabricData}/>
+                                    return <FabricSearch
+                                        FabricsData={this.state.FabricData}
+                                        AccessToken={this.props.AccessToken}
+                                        navigateFabric={this.navigateFabric}
+                                        onFabricEndReached={this.onFabricEndReached}
+                                    />
                                 case 'Brands':
-                                    return <this.BrandSearchScreen BrandData={this.state.BrandData}/>
+                                    return <BrandSearch 
+                                        BrandData={this.state.BrandData}
+                                        AccessToken={this.props.AccessToken}
+                                        navigateBrand={this.navigateBrand}
+                                        onBrandEndReached={this.onBrandEndReached}
+                                    />
                             }
                         }}
                     />
