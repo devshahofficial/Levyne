@@ -1,4 +1,4 @@
-import React from 'react';
+                                                                               import React from 'react';
 import { ImageBackground, StyleSheet,TouchableWithoutFeedback } from 'react-native';
 import {View,Text} from 'react-native-ui-lib';
 
