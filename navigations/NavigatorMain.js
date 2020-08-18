@@ -6,16 +6,13 @@ import IndexScreen from '../mockups/Index';
 import LoginScreen from '../mockups/Login';
 import OTPScreen from '../mockups/OTP';
 import HomeScreen from '../mockups/Home';
-import ProductUpload from '../mockups/ProductUpload';
 import MyProfile from '../mockups/MyProfile';
 import BrandProfile from '../mockups/BrandProfile';
 import SearchScreen from '../mockups/SearchScreen';
 import InitialProfile from '../mockups/InitialProfile';
 import ChatScreen from '../mockups/ChatScreen';
-import DocumentUpload from '../mockups/DocumentUpload';
-import Pending from '../mockups/Pending';
 import ProductScreen from '../mockups/ProductScreen';
-import Colors from '../Style/Colors';
+import {Colors} from "react-native-ui-lib";
 import {HomeIcon} from '../Icons/HomeIcon';
 import {ProfileIcon} from '../Icons/ProfileIcon';
 import ChatIcon from '../Icons/ChatIcon';
@@ -28,7 +25,6 @@ import {OrdersIcon} from '../Icons/OrdersIcon';
 import ToBeDesignedDetailed from '../mockups/ToBeDesignedDetailed';
 import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
-import Upload from "../mockups/Upload";
 import FabricUpload from "../mockups/FabricUpload";
 import {CategoriesIcon} from "../Icons/CategoriesIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
@@ -36,6 +32,7 @@ import Cart from "../mockups/Cart";
 import Notifications from "../mockups/Notifications";
 import Menu from "../mockups/Menu";
 import EditProfile from "../mockups/EditProfile";
+import Customize from "../mockups/Customize";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -86,7 +83,7 @@ class BottomTabNavigation extends React.PureComponent {
 				/>
 				<Tab.Screen
 					name="Customize"
-					component={Upload}
+					component={Customize}
 					options={{
 						tabBarIcon: ({ color}) => (
 							<CustomizeIcon Color={color}/>
@@ -125,7 +122,7 @@ class MainHomeStack extends React.PureComponent {
 				hideStatusBar={true}
 			>
 				<HomeStack.Screen name="Home" component={BottomTabNavigation}/>
-				<HomeStack.Screen name="ProductUpload" component={ProductUpload} />
+				<HomeStack.Screen name="Customize" component={Customize} />
 				<HomeStack.Screen name="Product" component={ProductScreen} />
 				<HomeStack.Screen name="MyProfile" component={MyProfile} />
 				<HomeStack.Screen name="InitialProfile" component={InitialProfile} />
@@ -137,7 +134,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
 				<HomeStack.Screen name="Search" component={SearchScreen} />
 				<HomeStack.Screen name="Settings" component={SettingsScreen} />
-				<HomeStack.Screen name="Upload" component={ProductUpload} />
 				<HomeStack.Screen name='Help' component={EditProfile}/>
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
 				<HomeStack.Screen name='Advertise' component={Advertise}/>

@@ -133,7 +133,7 @@ class FabricUpload extends React.Component {
 				showCustomToast: false,
 			});
         }, 3000);
-        
+
 		if (this.state.SelectedImages.length < 2) {
 			return this.setState({
 				showCustomToast: true,
@@ -220,7 +220,7 @@ class FabricUpload extends React.Component {
 				this.setState({
 					showCustomToast: true,
 					showLoading: false,
-					ToastText: 'Product Upload Failed',
+					ToastText: 'Product Customize Failed',
 				});
 				this.showToastTimeOut3 = setTimeout(() => {
 					this.setState({
@@ -251,7 +251,7 @@ class FabricUpload extends React.Component {
 			<>
 				<NavBarBack
 					Navigation={this.props.navigation.goBack}
-					Title={'Upload a new fabric'}
+					Title={'Customize a new fabric'}
 				/>
 				<Toast
 					visible={this.state.showCustomToast}
@@ -510,7 +510,7 @@ class FabricUpload extends React.Component {
 								hb2
 								flex
 								onPress={this.onUploadPress}
-								label='Upload'
+								label='Customize'
 							/>
 						</CstmShadowView>
 					</View>
