@@ -1,13 +1,33 @@
 import React from 'react';
-import {
-  ImageBackground,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
-import {Dimensions} from 'react-native';
-import {View, Text, Image, TouchableOpacity, Button} from 'react-native-ui-lib';
-import {FlatList} from 'react-native';
+import {ImageBackground, StyleSheet, TouchableWithoutFeedback, Dimensions, Platform,} from 'react-native';
+import {View, Text, Image, TouchableOpacity, Button, Avatar,Colors} from 'react-native-ui-lib';
 import {StarIcon} from '../Icons/StarIcon';
+import CstmShadowView from "./CstmShadowView";
+import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
+
+const screenWidth = Dimensions.get('window').width;
+
+const Stars = (props) => {
+    let i;
+    const stars = [];
+    for (i = 0; i < props.BrandRating; i++) {
+        stars.push(true);
+    }
+    for (i = props.BrandRating; i < 5; i++) {
+        stars.push(false);
+    }
+    return stars.map((name, i) => {
+        return (
+            <StarIcon
+                key={i.toString()}
+                Fill={name}
+                height={15}
+                width={15}
+                Color={Colors.primary}
+            />
+        );
+    });
+};
 
 export default class BucketComponent extends React.Component {
   constructor(props) {
@@ -16,57 +36,91 @@ export default class BucketComponent extends React.Component {
 
   render() {
     return (
-      <View
-        width={Dimensions.get('window').width}
-        style={{flexDirection: 'column'}}>
-        <TouchableOpacity>
-          <View style={{flexDirection: 'column'}}>
-            <View style={{flexDirection: 'row', padding: 10}}>
-              <Image
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderRadius: 70 / 2,
-                }}
-                blurRadius={3}
-                source={{
-                  uri:
-                    'https://bamfstyle.files.wordpress.com/2017/11/scarf32fancy-main.jpg',
-                }}></Image>
-              <View style={{flexDirection: 'row', padding: 10}}>
-                <Text>Name</Text>
-              </View>
-              <View style={{flexDirection: 'row', padding: 25}}>
-                <Text>Stars</Text>
-              </View>
+        <TouchableOpacity
+            style={styles.Container}
+            paddingH-20
+            activeOpacity={0.8} marginT-10
+        >
+            <View row>
+                <Avatar
+                    size={50}
+                    source={{uri : "https://hivelife.com/wp-content/uploads/2019/12/Empire-International-Tailors-5-tips-suits-Hive-Life-banner.jpg"}}
+                />
+                <View marginL-25 centerV>
+                    <Text hb2>
+                        Levyne
+                    </Text>
+                    <View row>
+                        <Stars BrandRating="4" />
+                    </View>
+                </View>
             </View>
-          </View>
-          <View style={{flexDirection: 'row', padding: 15}}>
-            <Image
-              style={{
-                width: 140,
-                height: 140,
-              }}
-              blurRadius={2}
-              source={{
-                uri:
-                  'https://bamfstyle.files.wordpress.com/2017/11/scarf32fancy-main.jpg',
-              }}></Image>
-            <View style={{padding: 10}}>
-              <Text> Total</Text>
-              <Text> Discount</Text>
-              <View style={{padding: 10}}></View>
-              <View style={{padding: 10}}></View>
-              <Button label="Checkout" enableShadow={true}></Button>
+            <View row marginV-10 centerV>
+                <ImageBackground
+                    blurRadius={1}
+                    imageStyle={{ borderRadius: 10}}
+                    source={{ uri: "https://sc02.alicdn.com/kf/HTB1nlCBKVXXXXXMXVXXq6xXFXXXO.jpg_350x350.jpg" }}
+                    style={styles.image}
+                >
+                    <Text f1 style={{lineHeight:30}} white center>
+                        +{2}
+                    </Text>
+                </ImageBackground>
+                <View spread marginL-30>
+                    <View row>
+                        <View>
+                            <Text h2>Total</Text>
+                            <Text h2>Discount</Text>
+                        </View>
+                        <View marginL-10>
+                            <Text hb1>10000</Text>
+                            <Text h1 primary>10% off</Text>
+                        </View>
+                    </View>
+                    <CstmShadowView>
+                        <Button flex label="Checkout"/>
+                    </CstmShadowView>
+                </View>
             </View>
-          </View>
+            <View center row style={styles.View}>
+                <DeliveryIcon size={30} Color={Colors.black} />
+                {1 === 1 ? (
+                    <>
+                        <Text marginL-10 h2>
+                            Free Delivery!
+                        </Text>
+                    </>
+                ) : (
+                    <>
+                        <Text marginL-10 h2>
+                            Free Delivery on buckets over ₹1000{'/-'}
+                        </Text>
+                    </>
+                )}
+            </View>
         </TouchableOpacity>
-        <View backgroundColor="grey" style={{padding: 10}}></View>
-        <View backgroundColor="grey">
-          <Text center>Free Delivery</Text>
-        </View>
-        <View backgroundColor="grey" style={{padding: 10}}></View>
-      </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+    image: {
+        paddingTop: Platform.OS === 'ios' ? 5 : 0,
+        height: 150,
+        width: 150,
+        justifyContent: 'center',
+        alignSelf: 'center'
+    },
+    View: {
+        height: 50,
+        margin: -20,
+        marginTop:10,
+        backgroundColor: Colors.shadow,
+    },
+    Container: {
+        width: screenWidth*0.9,
+        borderWidth: 1,
+        padding: 10,
+        borderColor: Colors.shadow
+    }
+});
