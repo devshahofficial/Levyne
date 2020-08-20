@@ -22,7 +22,6 @@ import Help from '../mockups/Help';
 import FabricScreen from '../mockups/FabricScreen';
 import TermsConditionsScreen from '../mockups/TermsConditionsScreen';
 import Advertise from '../mockups/Advertise';
-import {OrdersIcon} from '../Icons/OrdersIcon';
 import ToBeDesignedDetailed from '../mockups/ToBeDesignedDetailed';
 import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
@@ -34,6 +33,7 @@ import Notifications from "../mockups/Notifications";
 import Menu from "../mockups/Menu";
 import EditProfile from "../mockups/EditProfile";
 import Customize from "../mockups/Customize";
+import Bucket from "../mockups/Bucket";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -136,7 +136,8 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
 				<HomeStack.Screen name="Search" component={SearchScreen} />
 				<HomeStack.Screen name="Settings" component={SettingsScreen} />
-				<HomeStack.Screen name='Help' component={EditProfile}/>
+				<HomeStack.Screen name='Help' component={Help}/>
+				<HomeStack.Screen name='Bucket' component={Bucket}/>
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
 				<HomeStack.Screen name='Advertise' component={Advertise}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>
