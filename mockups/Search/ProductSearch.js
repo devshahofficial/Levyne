@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, Animated, StyleSheet} from 'react-native';
+import {Dimensions, Animated, StyleSheet, ActivityIndicator} from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import ProductItemContainer from "../../components/ProductItemContainer";
 import colors from "../../assets/colors";
@@ -85,33 +85,40 @@ export default class ProductSearchScreen extends React.Component {
                         <Text hb1 secondary>Filter</Text>
                     </TouchableOpacity>
                 </Animated.View>
-                <Animated.FlatList
-                    data={this.props.ProductsData}
-                    numColumns={2}
-                    ListHeaderComponent={<View marginV-25></View>}
-                    renderItem={({ item }) =>
-                        <ProductItemContainer
-                            Token={this.props.AccessToken}
-                            item={item}
-                            navigateProduct={this.props.navigateProduct}
-                            height={screenHeight}
-                        />
-                    }
-                    keyExtractor={(item, index) => index.toString()}
-                    extraData={{
-                        navigateProduct: this.props.navigateProduct,
-                        Token: this.props.AccessToken
-                    }}
-                    showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={
-                        <View flex centerV centerH paddingH-40 style={{height:605}}>
-                            <Text center b1 grey50>Learning from mistakes and constantly improving products is a key in all successful companies. </Text>
-                            <Text center h3 grey50 marginT-10>- Bill Gates, Founder & Former CEO of Microsoft </Text>
-                        </View>
-                    }
-                    onEndReached={this.props.onProductEndReached}
-                    onEndReachedThreshold={0.75}
-                />
+                {
+                    this.props.LoadingProduct ? 
+                    <View flex center>
+                        <ActivityIndicator />
+                    </View>
+                    :
+                    <Animated.FlatList
+                        data={this.props.ProductsData}
+                        numColumns={2}
+                        ListHeaderComponent={<View marginV-25></View>}
+                        renderItem={({ item }) =>
+                            <ProductItemContainer
+                                Token={this.props.AccessToken}
+                                item={item}
+                                navigateProduct={this.props.navigateProduct}
+                                height={screenHeight}
+                            />
+                        }
+                        keyExtractor={(item, index) => index.toString()}
+                        extraData={{
+                            navigateProduct: this.props.navigateProduct,
+                            Token: this.props.AccessToken
+                        }}
+                        showsVerticalScrollIndicator={false}
+                        ListEmptyComponent={
+                            <View flex centerV centerH paddingH-40 style={{height:605}}>
+                                <Text center b1 grey50>Learning from mistakes and constantly improving products is a key in all successful companies. </Text>
+                                <Text center h3 grey50 marginT-10>- Bill Gates, Founder & Former CEO of Microsoft </Text>
+                            </View>
+                        }
+                        onEndReached={this.props.onProductEndReached}
+                        onEndReachedThreshold={0.75}
+                    />
+                }
             </View>
         );
     }
