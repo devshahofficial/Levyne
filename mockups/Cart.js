@@ -6,12 +6,16 @@ import BucketComponent from "../components/BucketComponent";
 
 class Cart extends React.Component {
 
+    onBucketPress = () => {
+        this.props.navigation.navigate("Bucket");
+    }
+
     render() {
         return (
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={'Your Wardrobes'}/>
+                <NavBarBack Navigation={this.props.navigation.goBack} Title={'Your Wardrobe'}/>
                 <View paddingH-15 flex centerH>
-                    <BucketComponent/>
+                    <BucketComponent Navigation={this.onBucketPress}/>
                 </View>
             </>
         );
