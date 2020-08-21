@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Animated} from 'react-native';
+import {StyleSheet, Animated, ActivityIndicator} from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import colors from "../../assets/colors";
 import BrandBySearch from '../../API/BrandBySearch';
@@ -60,34 +60,41 @@ export default class ProductSearchScreen extends React.Component {
                         <Text hb1 secondary>Sort</Text>
                     </TouchableOpacity>
                 </Animated.View>
-                <Animated.FlatList
-                    data={this.props.BrandData}
-                    ListHeaderComponent={<View marginV-25></View>}
-                    renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.props.navigateBrand}/>}
-                    keyExtractor={(item, index) => index.toString()}
-                    showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={
-                        <View flex centerV centerH style={{height:605}} paddingH-40>
-                            <Text center b1 grey50>Your brand is what other people say about you when you are not in the room.  </Text>
-                            <Text center h3 grey50 marginT-10>- Jeff Bezoz, Founder & CEO of Amazon  </Text>
-                        </View>
-                    }
-                    onEndReached={() => {
-                        if(loadNewPage && props.BrandData.length !== this.TotalBrand) {
-                            loadNewPage = false;
-                            BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.AccessToken).then(resp => {
-                                loadNewPage = true;
-                                if(this.state.SearchKey && this._isMounted) {
-                                    this.setState({
-                                        BrandData : [...props.BrandData,...resp.Brands]
-                                    });
-                                }
-                            }).catch(() => {
-                            });
+                {
+                    this.props.LoadingBrands ? 
+                    <View flex center>
+                        <ActivityIndicator />
+                    </View>
+                    :
+                    <Animated.FlatList
+                        data={this.props.BrandData}
+                        ListHeaderComponent={<View marginV-25></View>}
+                        renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.props.navigateBrand}/>}
+                        keyExtractor={(item, index) => index.toString()}
+                        showsVerticalScrollIndicator={false}
+                        ListEmptyComponent={
+                            <View flex centerV centerH style={{height:605}} paddingH-40>
+                                <Text center b1 grey50>Your brand is what other people say about you when you are not in the room.  </Text>
+                                <Text center h3 grey50 marginT-10>- Jeff Bezoz, Founder & CEO of Amazon  </Text>
+                            </View>
                         }
-                    }}
-                    onEndReachedThreshold={0.75}
-                />
+                        onEndReached={() => {
+                            if(loadNewPage && props.BrandData.length !== this.TotalBrand) {
+                                loadNewPage = false;
+                                BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.AccessToken).then(resp => {
+                                    loadNewPage = true;
+                                    if(this.state.SearchKey && this._isMounted) {
+                                        this.setState({
+                                            BrandData : [...props.BrandData,...resp.Brands]
+                                        });
+                                    }
+                                }).catch(() => {
+                                });
+                            }
+                        }}
+                        onEndReachedThreshold={0.75}
+                    />
+                }
             </View>
         );
     }

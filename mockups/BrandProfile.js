@@ -40,6 +40,7 @@ class BrandProfile extends Component {
                     BrandRating : ProfileObject.BrandRating,
                     ProfileImage : ProfileObject.ProfileImage,
                     About : ProfileObject.About,
+                    loading: false,
                     Address : ProfileObject.Address + '\n' + ProfileObject.City + '-' + ProfileObject.PinCode
                 });
             }
