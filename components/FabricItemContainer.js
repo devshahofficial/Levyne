@@ -53,7 +53,7 @@ export default class FabricItemContainer extends React.Component {
                     <AnimatedImage
                         source={{uri:this.props.item.FabricImages[0]}}
                         style={styles.drawerCover}
-                        loader={<ActivityIndicator />}
+                        loader={<ActivityIndicator/>}
                         containerStyle={{backgroundColor: Colors.blue60}}
                     />
 
