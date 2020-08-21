@@ -1,5 +1,6 @@
-import {SafeAreaView, ScrollView, ActivityIndicator} from "react-native";
 import React from 'react';
+import {SafeAreaView, ScrollView, ActivityIndicator, Modal,Text} from "react-native";
+import {Button} from 'react-native-ui-lib';
 import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../components/ProductScreenPartThree';
@@ -11,6 +12,8 @@ import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import { Colors, View } from "react-native-ui-lib";
 import ConstBottomButton from "../components/constBottomButton";
+import AddToCartModal from "../components/AddToCartModal";
+import CstmShadowView from "../components/CstmShadowView";
 
 class ProductScreen extends React.Component {
 
@@ -19,7 +22,8 @@ class ProductScreen extends React.Component {
         this.state = {
             loading : true,
             ProductObject : {},
-            success : true
+            success : true,
+            AddtoCartModal: false,
         }
     }
 
@@ -53,12 +57,23 @@ class ProductScreen extends React.Component {
         RemoveWishlistProductbyid(ProductID, Token).catch(err => {console.log(err)});
     }
 
+    OpenModal = () => {
+        this.setState({AddtoCartModal: !this.state.AddtoCartModal})
+    }
+
     render() {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Product' : this.state.ProductObject.Name}/>
                 {!this.state.loading && this.state.success ?
                     <>
+                        <Modal
+                            animationType="slide"
+                            transparent={true}
+                            visible={this.state.AddtoCartModal}
+                        >
+                            <AddToCartModal Modal={this.OpenModal}/>
+                        </Modal>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <ImageCarouselProduct ProductImages={this.state.ProductObject.ProductImages}/>
                             <ProductScreenPartOne
@@ -97,6 +112,7 @@ class ProductScreen extends React.Component {
                         <ConstBottomButton
                             ButtonA={"Visit Brand"}
                             ButtonB={"Add to Cart"}
+                            ButtonActionB={this.OpenModal}
                             ButtonActionA={this.BrandNavigation}
                             BrandID={this.state.ProductObject.BrandID}
                         />
