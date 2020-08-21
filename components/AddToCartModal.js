@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyleSheet,Dimensions, FlatList} from 'react-native';
+import { StyleSheet, FlatList} from 'react-native';
 import CstmShadowView from "./CstmShadowView";
 import {Text, View, TouchableOpacity, Colors, Button,Checkbox} from "react-native-ui-lib";
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
-
-
-const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
+import FabricItemContainer from "./FabricItemContainer";
 
 const upperList = [
     {
@@ -41,6 +38,50 @@ const upperList = [
     },
 ];
 
+
+const demoData = [
+    {
+        id: "ygdg",
+        FabricImages: ["https://d23gkft280ngn0.cloudfront.net/large/2019/11/7/Sherri-Hill-Sherri-Hill-53448-pink-45390.jpg"],
+        Name: "Levyne",
+        ShortDescription: "Short1",
+        DiscountPrice: 1000,
+        ActualPrice: 1200
+    },
+    {
+        id: "yg19y2bdg",
+        FabricImages: ["https://d23gkft280ngn0.cloudfront.net/large/2019/11/8/Sherri-Hill-Sherri-Hill-53893-lilac-47316.jpg"],
+        Name: "Levyne",
+        ShortDescription: "Short2",
+        DiscountPrice: 1500,
+        ActualPrice: 1700
+    },
+    {
+        id: "yqwbkgdg",
+        FabricImages: ["https://www.sherrihill.com/dw/image/v2/BDBR_PRD/on/demandware.static/-/Sites-master-catalog-sherrihill/default/dwd9897a94/images/Sherri-Hill-11335-ivory-nude-40505.jpg?sw=1332&sh=2000"],
+        Name: "Levyne",
+        ShortDescription: "Short13",
+        DiscountPrice: 800,
+        ActualPrice: 1200
+    },
+    {
+        id: "yqweqgdg",
+        FabricImages: ["https://d23gkft280ngn0.cloudfront.net/large/2019/11/7/Sherri-Hill-Sherri-Hill-53448-pink-45390.jpg"],
+        Name: "Levyne",
+        ShortDescription: "Short4",
+        DiscountPrice: 900,
+        ActualPrice: 1500
+    },
+    {
+        id: "ygkqbkdg",
+        FabricImages: ["https://d23gkft280ngn0.cloudfront.net/large/2019/11/8/Sherri-Hill-Sherri-Hill-53893-lilac-47316.jpg"],
+        Name: "Levyne",
+        ShortDescription: "Short5",
+        DiscountPrice: 600,
+        ActualPrice: 800
+    }
+]
+
 export default class AddToCartModal extends React.PureComponent {
 
     constructor(props){
@@ -60,7 +101,7 @@ export default class AddToCartModal extends React.PureComponent {
 
     headerFlatlist = () => {
         return(
-            <View>
+            <View marginH-10>
                 <Text hb1 secondary>Choose size:</Text>
 
                 <FlatList
@@ -126,24 +167,18 @@ export default class AddToCartModal extends React.PureComponent {
                     <TouchableOpacity onPress={this.props.Modal}><BackArrowIcon/></TouchableOpacity>
                     <Text h1 marginL-20>Back to the product</Text>
                 </View>
-                <View paddingT-10 paddingH-15 flex>
+                <View paddingT-10 paddingH-5 flex>
                     <FlatList
                         ListHeaderComponent={this.headerFlatlist}
-                        data={upperList}
+                        data={demoData}
+                        numColumns={2}
                         showsVerticalScrollIndicator={false}
                         renderItem={({item}) =>
                             this.state.CustomFabric === true ?
                                 <></> :
-                                <TouchableOpacity
-                                    activeOpacity={0.8}
-                                    onPress={() => (this.onUpperPressed(item.number))}
-                                >
-                                    <CstmShadowView style={styles.shadow}>
-                                        <View style={item.number === this.state.SizeSelected ? styles.boxSelected : styles.box}>
-                                            <Text secondary h2>{item.title}</Text>
-                                        </View>
-                                    </CstmShadowView>
-                                </TouchableOpacity>
+                                <FabricItemContainer
+                                    item={item}
+                                />
                         }
                         keyExtractor={item => item.id}
                     />
