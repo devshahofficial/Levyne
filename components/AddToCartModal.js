@@ -57,6 +57,68 @@ export default class AddToCartModal extends React.PureComponent {
         // console.warn('upper pressed', selectedOne)
     }
 
+
+    headerFlatlist = () => {
+        return(
+            <View>
+                <Text hb1 secondary>Choose size:</Text>
+
+                <FlatList
+                    showsHorizontalScrollIndicator={false}
+                    data={upperList}
+                    horizontal={true}
+                    renderItem={({ item }) =>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() => (this.onUpperPressed(item.number))}
+                        >
+                            <CstmShadowView style={styles.shadow}>
+                                <View style={item.number === this.state.SizeSelected ? styles.boxSelected : styles.box}>
+                                    <Text secondary h2>{item.title}</Text>
+                                </View>
+                            </CstmShadowView>
+                        </TouchableOpacity>
+                    }
+                    keyExtractor={item => item.id}
+                />
+
+                <View row marginT-10 marginB-20>
+                    <CstmShadowView style={styles.Group}>
+                        <Button h2 label={"Size Guide"}/>
+                    </CstmShadowView>
+                    <CstmShadowView style={styles.Group}>
+                        <Button h2 label={"My Sizes"}/>
+                    </CstmShadowView>
+                </View>
+
+                <View marginT-20>
+                    {
+                        this.state.CustomerFabric === true ?
+                            <View>
+                                <View row spread>
+                                    <Text hb1 secondary>Provide my own fabric</Text>
+                                    <Checkbox
+                                        value={this.state.CustomFabric}
+                                        onValueChange={CustomFabric => this.setState({CustomFabric})}
+                                        borderRadius={10}
+                                        size={25}
+                                        color={Colors.primary}
+                                    />
+                                </View>
+                                {
+                                    this.state.CustomFabric === false ?
+                                        <Text hb1 marginT-20 secondary>Choose the fabric</Text>:<></>
+                                }
+                            </View>:
+                            <View>
+                                <Text hb1 secondary>Choose the fabric</Text>
+                            </View>
+                    }
+                </View>
+            </View>
+        )
+    }
+
     render() {
         return (
             <>
@@ -66,78 +128,24 @@ export default class AddToCartModal extends React.PureComponent {
                 </View>
                 <View paddingT-10 paddingH-15 flex>
                     <FlatList
-                        ListHeaderComponent={
-                            <View>
-                                <Text hb1 secondary>Choose size:</Text>
-
-                                <FlatList
-                                    showsHorizontalScrollIndicator={false}
-                                    style={styles.flatlist}
-                                    data={upperList}
-                                    horizontal={true}
-                                    renderItem={({ item }) =>
-                                        <TouchableOpacity
-                                            activeOpacity={0.8}
-                                            onPress={() => (this.onUpperPressed(item.number))}
-                                        >
-                                            <CstmShadowView style={styles.shadow}>
-                                                <View style={item.number === this.state.SizeSelected ? styles.boxSelected : styles.box}>
-                                                    <Text secondary h2>{item.title}</Text>
-                                                </View>
-                                            </CstmShadowView>
-                                        </TouchableOpacity>
-                                    }
-                                    keyExtractor={item => item.id}
-                                />
-
-                                <View row marginT-10 marginB-20>
-                                    <CstmShadowView style={styles.Group}>
-                                        <Button h2 label={"Size Guide"}/>
+                        ListHeaderComponent={this.headerFlatlist}
+                        data={upperList}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={({item}) =>
+                            this.state.CustomFabric === true ?
+                                <></> :
+                                <TouchableOpacity
+                                    activeOpacity={0.8}
+                                    onPress={() => (this.onUpperPressed(item.number))}
+                                >
+                                    <CstmShadowView style={styles.shadow}>
+                                        <View style={item.number === this.state.SizeSelected ? styles.boxSelected : styles.box}>
+                                            <Text secondary h2>{item.title}</Text>
+                                        </View>
                                     </CstmShadowView>
-                                    <CstmShadowView style={styles.Group}>
-                                        <Button h2 label={"My Sizes"}/>
-                                    </CstmShadowView>
-                                </View>
-
-                                <View marginT-20>
-                                    {
-                                        this.state.CustomerFabric === true ?
-                                            <View row spread>
-                                                <Text h1>Provide my own fabric</Text>
-                                                <Checkbox
-                                                    value={this.state.CustomFabric}
-                                                    onValueChange={CustomFabric => this.setState({CustomFabric})}
-                                                    borderRadius={10}
-                                                    size={25}
-                                                    color={Colors.primary}
-                                                />
-                                            </View> : <></>
-                                    }
-                                    {
-                                        this.state.CustomerFabric === true ?
-                                            <View marginT-10>
-                                                <View row spread>
-                                                    <Text h1>Choose Designer's Fabric</Text>
-                                                    <Checkbox
-                                                        value={!this.state.CustomFabric}
-                                                        onValueChange={CustomFabric => this.setState({CustomFabric})}
-                                                        borderRadius={10}
-                                                        size={25}
-                                                        color={Colors.primary}
-                                                    />
-                                                </View>
-                                                <FlatList/>
-                                                {/*Flatlist will show fabrics from the fashion designer*/}
-                                            </View> :
-                                            <View>
-                                                <Text hb1 secondary marginB-10>Choose the fabric</Text>
-                                                <FlatList/>
-                                                {/*Flatlist will show fabrics from the fashion designer*/}
-                                            </View>
-                                    }
-                                </View>
-                            </View>
+                                </TouchableOpacity>
                         }
+                        keyExtractor={item => item.id}
                     />
                 </View>
                 <View>
