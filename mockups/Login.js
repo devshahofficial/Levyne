@@ -8,6 +8,7 @@ import SkipLogin from '../API/SkipLogin';
 import CstmShadowView from "../components/CstmShadowView";
 import Constants from '../assets/constants';
 import {connect} from 'react-redux';
+import KeyboardAwareView from '../components/KeyBoardAwareView';
 
 class LoginScreen extends React.Component {
 
@@ -94,40 +95,42 @@ class LoginScreen extends React.Component {
 
 	render() {
 		return (
-			<View centerH paddingT-100 flex>
-				<Toast
-					visible={this.state.showCustomToast}
-					position={'bottom'}
-					backgroundColor={Colors.primary}
-				>
-					{this.renderCustomContent()}
-				</Toast>
-				<View centerV centerH style={styles.container}>
-					<Logo width='60%' />
-				</View>
-				<View marginT-50>
-					<Text h1 center marginL-60 marginR-60>Welcome to Levyne. {"\n"} We thank you for your service.</Text>
-				</View>
-				<View style={styles.inputLayout} marginT-50>
-					<CstmInput
-						placeholder='Mobile No.'
-						value={this.state.Mobile}
-						onChangeText={this.setMobileIntOnly}
-						keyboardType='number-pad'
-                        maxLength={10}
-					/>
-					<CstmShadowView style={{marginTop:30}}>
-						<Button
-							hb2 flex
-							onPress={this.sendOTP}
-							label="Send OTP"
-						/>
-					</CstmShadowView>
-				</View>
-                <TouchableOpacity flex bottom marginV-20 onPress={this.skipLogin}>
-                    <Text primary text70>{"Skip Login >>"}</Text>
-                </TouchableOpacity>
-			</View>
+            <KeyboardAwareView>
+                <View centerH paddingT-100 flex>
+                    <Toast
+                        visible={this.state.showCustomToast}
+                        position={'bottom'}
+                        backgroundColor={Colors.primary}
+                    >
+                        {this.renderCustomContent()}
+                    </Toast>
+                    <View centerV centerH style={styles.container}>
+                        <Logo width='60%' />
+                    </View>
+                    <View marginT-50>
+                        <Text h1 center marginL-60 marginR-60>Welcome to Levyne. {"\n"} We thank you for your service.</Text>
+                    </View>
+                    <View style={styles.inputLayout} marginT-50>
+                        <CstmInput
+                            placeholder='Mobile No.'
+                            value={this.state.Mobile}
+                            onChangeText={this.setMobileIntOnly}
+                            keyboardType='number-pad'
+                            maxLength={10}
+                        />
+                        <CstmShadowView style={{marginTop:30}}>
+                            <Button
+                                hb2 flex
+                                onPress={this.sendOTP}
+                                label="Send OTP"
+                            />
+                        </CstmShadowView>
+                    </View>
+                    <TouchableOpacity flex bottom marginV-20 onPress={this.skipLogin}>
+                        <Text primary text70>{"Skip Login >>"}</Text>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAwareView>
 		);
 	}
 }
