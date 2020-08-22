@@ -1,5 +1,5 @@
 import CustomRequest from './CustomRequest';
-const AddWishlistFabricbyid = async (FabricID, Token) => {
+const AddWishlistFabricByID = async (FabricID, Token) => {
     try {
         await CustomRequest(`Fabrics/AddToWishList`, 'POST', false, Token, {FabricID});
     } catch(err) {
@@ -7,4 +7,4 @@ const AddWishlistFabricbyid = async (FabricID, Token) => {
     }
     return;
 }
-export default AddWishlistFabricbyid;
+export default AddWishlistFabricByID;

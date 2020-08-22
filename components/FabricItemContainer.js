@@ -3,8 +3,8 @@ import { StyleSheet, Dimensions,ActivityIndicator } from 'react-native';
 import {View,Text, AnimatedImage,TouchableOpacity,Colors} from 'react-native-ui-lib';
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
-import AddWishlistFabricbyid from '../API/AddWishlistFabricbyid';
-import RemoveWishlistFabricbyid from '../API/RemoveWishlistFabricbyid';
+import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
+import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
 import CstmShadowView from "./CstmShadowView";
 import {BookMarkIcon} from '../Icons/BookMarkIcon';
 
@@ -23,7 +23,7 @@ export default class FabricItemContainer extends React.Component {
         if(!this.state.addToWishlist)
         {
             try {
-                AddWishlistFabricbyid(this.props.item.FabricID,this.props.Token)
+                AddWishlistFabricByID(this.props.item.FabricID,this.props.Token)
             }
             catch(err) {
                 console.log(err);
@@ -34,7 +34,7 @@ export default class FabricItemContainer extends React.Component {
         else
         {
             try {
-                RemoveWishlistFabricbyid(this.props.item.FabricID,this.props.Token)
+                RemoveWishlistFabricByID(this.props.item.FabricID,this.props.Token)
             }
             catch(err) {
                 this.setState({addToWishlist: !this.state.addToWishlist});

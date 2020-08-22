@@ -1,19 +1,17 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, ActivityIndicator, Modal,Text} from "react-native";
-import {Button} from 'react-native-ui-lib';
+import {SafeAreaView, ScrollView, ActivityIndicator, Modal} from "react-native";
 import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../components/ProductScreenPartThree';
 import ImageCarouselProduct from "./ImageCarouselProduct";
 import ProductByID from '../API/ProductbyID';
-import AddWishlistProductbyid from '../API/AddWishlistProductbyid';
-import RemoveWishlistProductbyid from '../API/RemoveWishlistProductbyid';
+import AddWishlistProductByID from '../API/AddWishlistProductByID';
+import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import { Colors, View } from "react-native-ui-lib";
 import ConstBottomButton from "../components/constBottomButton";
 import AddToCartModal from "../components/AddToCartModal";
-import CstmShadowView from "../components/CstmShadowView";
 
 class ProductScreen extends React.Component {
 
@@ -36,7 +34,7 @@ class ProductScreen extends React.Component {
                 ProductObject : resp,
                 loading : false
             })
-        }).catch(err => {
+        }).catch(() => {
             this.setState({
                 loading : false,
                 success : true
@@ -51,10 +49,10 @@ class ProductScreen extends React.Component {
     }
 
     AddToWishlistFn(ProductID, Token) {
-        AddWishlistProductbyid(ProductID, Token).catch(err => {console.log(err)});
+        AddWishlistProductByID(ProductID, Token).catch(err => {console.log(err)});
     }
     RemoveFromWishlistFn(ProductID, Token) {
-        RemoveWishlistProductbyid(ProductID, Token).catch(err => {console.log(err)});
+        RemoveWishlistProductByID(ProductID, Token).catch(err => {console.log(err)});
     }
 
     OpenModal = () => {
