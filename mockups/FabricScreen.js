@@ -3,9 +3,9 @@ import React from 'react';
 import FabricScreenPartOne from '../components/FabricScreenPartOne';
 import FabricScreenPartTwo from '../components/FabricScreenPartTwo';
 import ImageCarouselFabric from "./ImageCarouselFabric";
-import FabricByID from '../API/FabricbyID';
-import AddWishlistFabricbyid from '../API/AddWishlistFabricbyid';
-import RemoveWishlistFabricbyid from '../API/RemoveWishlistFabricbyid';
+import FabricByID from '../API/FabricByID';
+import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
+import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import { Colors, View } from "react-native-ui-lib";
@@ -22,7 +22,7 @@ class FabricScreen extends React.Component {
         }
     }
 
-    componentDidMount() {
+    componentDIDMount() {
         if(!this.props.route.params.FabricID) {
             return this.props.navigation.goBack();
         }
@@ -47,10 +47,10 @@ class FabricScreen extends React.Component {
     }
 
     AddToWishlistFn(FabricID, Token) {
-        AddWishlistFabricbyid(FabricID, Token).catch(err => {console.log(err)});
+        AddWishlistFabricByID(FabricID, Token).catch(err => {console.log(err)});
     }
     RemoveFromWishlistFn(FabricID, Token) {
-        RemoveWishlistFabricbyid(FabricID, Token).catch(err => {console.log(err)});
+        RemoveWishlistFabricByID(FabricID, Token).catch(err => {console.log(err)});
     }
 
     render() {
