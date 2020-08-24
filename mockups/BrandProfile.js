@@ -32,6 +32,7 @@ class BrandProfile extends Component {
     componentDidMount() {
         this._isMounted = true;
         ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken).then(ProfileObject => {
+            console.log(ProfileObject);
             if (this._isMounted) {
                 this.setState({
                     Name : ProfileObject.Name,
@@ -44,7 +45,7 @@ class BrandProfile extends Component {
                     Address : ProfileObject.Address + '\n' + ProfileObject.City + '-' + ProfileObject.PinCode
                 });
             }
-        }).catch(() => {});
+        }).catch(console.log);
 
 
         FetchBrandProducts(this.props.BrandID, this.Page, this.props.AccessToken).then(rows => {
