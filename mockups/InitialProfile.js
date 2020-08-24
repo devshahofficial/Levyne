@@ -135,7 +135,7 @@ class InitialProfile extends React.Component {
             this.props.setProfile({
                 Name,
                 Email,
-                ProfileImage,
+                ProfileImage : resp.ProfileImage,
                 Address,
                 PinCode,
                 ProfileStatus: 2,
