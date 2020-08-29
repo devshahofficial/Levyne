@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, FlatList} from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView} from 'react-native';
 import CstmShadowView from "./CstmShadowView";
 import {Text, View, TouchableOpacity, Colors, Button,Checkbox} from "react-native-ui-lib";
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
@@ -162,7 +162,7 @@ export default class AddToCartModal extends React.PureComponent {
 
     render() {
         return (
-            <>
+            <SafeAreaView style={{flex:1}}>
                 <View row centerV left paddingL-10 style={{height:50}}>
                     <TouchableOpacity onPress={this.props.Modal}><BackArrowIcon/></TouchableOpacity>
                     <Text h1 marginL-20>Back to the product</Text>
@@ -188,7 +188,7 @@ export default class AddToCartModal extends React.PureComponent {
                         <Button label={"Add to Cart"}/>
                     </CstmShadowView>
                 </View>
-            </>
+            </SafeAreaView>
         )
     }
 }

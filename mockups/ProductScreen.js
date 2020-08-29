@@ -21,7 +21,7 @@ class ProductScreen extends React.Component {
             loading : true,
             ProductObject : {},
             success : true,
-            AddtoCartModal: false,
+            AddToCartModal: false,
         }
     }
 
@@ -56,7 +56,7 @@ class ProductScreen extends React.Component {
     }
 
     OpenModal = () => {
-        this.setState({AddtoCartModal: !this.state.AddtoCartModal})
+        this.setState({AddToCartModal: !this.state.AddToCartModal})
     }
 
     render() {
@@ -68,7 +68,8 @@ class ProductScreen extends React.Component {
                         <Modal
                             animationType="slide"
                             transparent={true}
-                            visible={this.state.AddtoCartModal}
+                            presentationStyle={'overFullScreen'}
+                            visible={this.state.AddToCartModal}
                         >
                             <AddToCartModal Modal={this.OpenModal}/>
                         </Modal>
