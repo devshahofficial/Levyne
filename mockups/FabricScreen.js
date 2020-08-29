@@ -22,7 +22,7 @@ class FabricScreen extends React.Component {
         }
     }
 
-    componentDIDMount() {
+    componentDidMount() {
         if(!this.props.route.params.FabricID) {
             return this.props.navigation.goBack();
         }
@@ -69,7 +69,7 @@ class FabricScreen extends React.Component {
                                 FabricRating={4.1}
                                 Styles={this.state.FabricObject.Styles || []}
                                 FabricID={this.state.FabricObject.FabricID}
-                                FabricWishlist={this.state.FabricObject.FabricWishlist}
+                                FabricWishlist={this.state.FabricObject.IsWishlist}
                                 BrandNavigation={this.BrandNavigation}
                                 ShortDescription={this.state.FabricObject.ShortDescription}
                                 AddToWishlistFn={this.AddToWishlistFn}

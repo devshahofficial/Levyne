@@ -1,12 +1,11 @@
 import React from 'react';
-import {Dimensions, Animated, StyleSheet, ActivityIndicator} from 'react-native';
+import {Animated, StyleSheet, ActivityIndicator} from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import ProductItemContainer from "../../components/ProductItemContainer";
 import colors from "../../assets/colors";
 import Colors from '../../Style/Colors';
 import PickerModal from "../../components/PickerModal";
 
-const screenHeight = Dimensions.get('window').height * 0.75;
 
 export default class ProductSearchScreen extends React.Component {
     
@@ -100,10 +99,9 @@ export default class ProductSearchScreen extends React.Component {
                                 Token={this.props.AccessToken}
                                 item={item}
                                 navigateProduct={this.props.navigateProduct}
-                                height={screenHeight}
                             />
                         }
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item) => 'Product' + item.ProductID}
                         extraData={{
                             navigateProduct: this.props.navigateProduct,
                             Token: this.props.AccessToken

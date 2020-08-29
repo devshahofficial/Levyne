@@ -103,7 +103,7 @@ export default class FabricSearchScreen extends React.Component {
                                 height={screenHeight}
                             />
                         }
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item) => 'Fabric' + item.FabricID}
                         extraData={{
                             navigateFabric: this.props.navigateFabric,
                             Token: this.props.AccessToken

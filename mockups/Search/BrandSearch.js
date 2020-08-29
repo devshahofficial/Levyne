@@ -70,7 +70,7 @@ export default class ProductSearchScreen extends React.Component {
                         data={this.props.BrandData}
                         ListHeaderComponent={<View marginV-25></View>}
                         renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.props.navigateBrand}/>}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item) => 'Brand' + item.BrandID}
                         showsVerticalScrollIndicator={false}
                         ListEmptyComponent={
                             <View flex centerV centerH style={{height:605}} paddingH-40>
@@ -78,20 +78,7 @@ export default class ProductSearchScreen extends React.Component {
                                 <Text center h3 grey50 marginT-10>- Jeff Bezoz, Founder & CEO of Amazon  </Text>
                             </View>
                         }
-                        onEndReached={() => {
-                            if(loadNewPage && props.BrandData.length !== this.TotalBrand) {
-                                loadNewPage = false;
-                                BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.AccessToken).then(resp => {
-                                    loadNewPage = true;
-                                    if(this.state.SearchKey && this._isMounted) {
-                                        this.setState({
-                                            BrandData : [...props.BrandData,...resp.Brands]
-                                        });
-                                    }
-                                }).catch(() => {
-                                });
-                            }
-                        }}
+                        onEndReached={this.props.onBrandEndReached}
                         onEndReachedThreshold={0.75}
                     />
                 }

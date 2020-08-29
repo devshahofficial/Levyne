@@ -56,7 +56,7 @@ export default class FabricScreenPartOne extends React.Component {
 
     };
     onShare = async () => {
-        try {
+        /*try {
             const result = await Share.share({
                 message:
                     'React Native | A framework for building native apps using React',
@@ -73,7 +73,7 @@ export default class FabricScreenPartOne extends React.Component {
             }
         } catch (error) {
             //console.log(error.message);
-        }
+        }*/
     }
 
     render() {
@@ -108,7 +108,7 @@ export default class FabricScreenPartOne extends React.Component {
 
                     <View flex-end>
                         <TouchableOpacity marginV-10 onPress={this.onBookmarkPress}>
-                            <BookMarkIcon Fill={this.state.ProductWishlist} size={28} Color={Colors.primary}/>
+                            <BookMarkIcon Fill={this.state.FabricWishlist} size={28} Color={Colors.primary}/>
                         </TouchableOpacity>
                         <TouchableOpacity marginV-10 onPress={this.onShare}>
                             <ShareIcon size={24} Color={Colors.primary}/>
