@@ -4,7 +4,7 @@ import {View,TouchableOpacity} from 'react-native-ui-lib';
 import colors from "../assets/colors";
 import FabricBySearch from '../API/FabricsBySearch';
 import CstmInput from "../components/input";
-import ProductbySearch from '../API/Productsbysearch';
+import ProductBySearch from '../API/ProductsBySearch';
 import BrandBySearch from '../API/BrandBySearch';
 import {connect} from 'react-redux';
 import {SearchIcon} from '../Icons/SearchIcon';
@@ -34,9 +34,9 @@ class Search extends React.Component {
             ProductsData : [],
             FabricData : [],
             Loading: false,
-            ProductSort: 0,
-            FabricSort: 0,
-            BrandSort: 0,
+            ProductSort: undefined,
+            FabricSort: undefined,
+            BrandSort: undefined,
             LoadingProduct: false,
             LoadingFabrics: false,
             LoadingBrands: false
@@ -59,7 +59,7 @@ class Search extends React.Component {
     onProductEndReached = () => {
         if(this.ProductLoadNewPage && this.state.ProductsData.length !== this.TotalProducts) {
             this.ProductLoadNewPage = false;
-            ProductbySearch(this.state.SearchKey, ++this.ProductPage, null, this.props.AccessToken).then(resp => {
+            ProductBySearch(this.state.SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken).then(resp => {
                 this.ProductLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({ProductsData: [...this.state.ProductsData, ...resp.Products]})
@@ -73,7 +73,7 @@ class Search extends React.Component {
     onFabricEndReached = () => {
         if(this.FabricLoadNewPage && this.state.FabricData.length !== this.TotalFabrics) {
             this.FabricLoadNewPage = false;
-            ProductbySearch(this.state.SearchKey, ++this.FabricPage, null, this.props.AccessToken).then(resp => {
+            FabricBySearch(this.state.SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken).then(resp => {
                 this.FabricLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({FabricData: [...this.state.FabricData, ...resp.Fabrics]})
@@ -87,7 +87,7 @@ class Search extends React.Component {
     onBrandEndReached = () => {
         if(this.BrandLoadNewPage && this.state.BrandData.length !== this.TotalBrand) {
             this.BrandLoadNewPage = false;
-            BrandBySearch(this.state.SearchKey, ++this.BrandPage, null, this.props.AccessToken).then(resp => {
+            BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.state.BrandSort, this.props.AccessToken).then(resp => {
                 this.BrandLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({
@@ -116,7 +116,7 @@ class Search extends React.Component {
             ProductsData: []
         });
         this.ProductPage = 0;
-        ProductbySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken).then(resp => {
+        ProductBySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken).then(resp => {
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
                     ProductsData : resp.Products
@@ -147,8 +147,10 @@ class Search extends React.Component {
     }
 
     setBrandSort = (BrandSort) => {
-
-        this.setState({BrandSort});
+        this.setState({
+            BrandSort,
+            BrandData: []
+        });
         this.BrandPage = 0;
         BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
             if(this._isMounted && this.state.SearchKey) {
@@ -175,7 +177,7 @@ class Search extends React.Component {
 
             //Searching Products
             this.ProductPage = 0;
-            ProductbySearch(SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken).then(resp => {
+            ProductBySearch(SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         ProductsData: resp.Products,

@@ -5,6 +5,7 @@ import NavBarBack from '../components/NavBarBack';
 import ListBookmarkProducts from '../API/ListBookmarkProducts';
 import {View,Text} from 'react-native-ui-lib';
 import ProductItemContainer from '../components/ProductItemContainer';
+import FabricItemContainer from "../components/FabricItemContainer";
 
 
 class BookmarkProducts extends React.Component {
@@ -16,11 +17,15 @@ class BookmarkProducts extends React.Component {
         }
         this.TotalProducts = 0;
         this.Page = 0;
+        loadNewPage = false;
     }
+    
     navigateProduct = (ProductID) => {
-        this.props.navigation.navigate('Product', {
-            ProductID : ProductID
-        });
+        this.props.navigation.navigate('Product', {ProductID});
+    }
+
+    navigateFabric = (FabricID) => {
+        this.props.navigation.navigate('Fabric', {FabricID});
     }
 
     componentDidMount() {
@@ -32,14 +37,36 @@ class BookmarkProducts extends React.Component {
                     Loading: false
                 });
                 this.TotalProducts = resp.Total;
-                loadNewPage = true;
+                this.loadNewPage = true;
             }
             
-        }).catch(() => {
+        }).catch((err) => {
+            console.log(err);
             this.setState({
                 Loading: false
             });
         })
+    }
+
+    FlatListRenderItem = ({ item }) => (
+        item.ProductID ?
+            <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct} /> :
+            <FabricItemContainer Token={this.props.AccessToken} item={item} navigateFabric={this.navigateFabric}/>
+    )
+
+    FlatListOnEndReached = () => {
+        if(this.loadNewPage && this.state.Products.length !== this.TotalProducts) {
+            this.loadNewPage = false;
+            ListBookmarkProducts(++this.Page, this.props.AccessToken).then(resp => {
+                this.loadNewPage = true;
+                if(this._isMounted) {
+                    this.setState({
+                        Products : [...this.state.Products, ...resp.Products]
+                    })
+                }
+            }).catch(err => {
+            });
+        }
     }
 
     render() {
@@ -55,28 +82,15 @@ class BookmarkProducts extends React.Component {
                         <FlatList
                             data={this.state.Products}
                             numColumns={2}
-                            renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct} />}
-                            keyExtractor={(item, index) => index.toString()}
+                            renderItem={this.FlatListRenderItem}
+                            keyExtractor={(item) => item.ProductID || '0' + item.FabricID || '0'}
                             showsVerticalScrollIndicator={false}
                             ListEmptyComponent={
                                 <View flex centerV centerH style={{height:655}} paddingH-40>
                                     <Text center b1 grey40>Make a wish and we'll make sure that it comes true.</Text>
                                 </View>
                             }
-                            onEndReached={() => {
-                                if(loadNewPage && this.state.Products.length !== this.TotalProducts) {
-                                    loadNewPage = false;
-                                    ListBookmarkProducts(++this.Page, this.props.AccessToken).then(resp => {
-                                        loadNewPage = true;
-                                        if(this._isMounted) {
-                                            this.setState({
-                                                Products : [...this.state.Products, ...resp.Products]
-                                            })
-                                        }
-                                    }).catch(err => {
-                                    });
-                                }
-                            }}
+                            onEndReached={this.FlatListOnEndReached}
                             onEndReachedThreshold={0.75}
                         />
                     }
