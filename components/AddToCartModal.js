@@ -3,7 +3,7 @@ import { StyleSheet, FlatList, SafeAreaView} from 'react-native';
 import CstmShadowView from "./CstmShadowView";
 import {Text, View, TouchableOpacity, Colors, Button,Checkbox} from "react-native-ui-lib";
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
-import FabricItemContainer from "./FabricItemContainer";
+import FabricOrderContainer from "./FabricOrderContainer";
 
 const upperList = [
     {
@@ -176,7 +176,7 @@ export default class AddToCartModal extends React.PureComponent {
                         renderItem={({item}) =>
                             this.state.CustomFabric === true ?
                                 <></> :
-                                <FabricItemContainer
+                                <FabricOrderContainer
                                     item={item}
                                 />
                         }
@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: BOX_HEIGHT,
         padding:25,
-        borderColor:Colors.primary,
+        borderColor: Colors.primary,
         borderWidth:2,
         borderStyle:'solid',
     },
