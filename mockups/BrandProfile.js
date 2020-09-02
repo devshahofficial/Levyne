@@ -32,7 +32,6 @@ class BrandProfile extends Component {
     componentDidMount() {
         this._isMounted = true;
         ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken).then(ProfileObject => {
-            console.log(ProfileObject);
             if (this._isMounted) {
                 this.setState({
                     Name : ProfileObject.Name,
