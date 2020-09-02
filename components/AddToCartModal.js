@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator} from 'react-native';
 import CstmShadowView from "./CstmShadowView";
-import {Text, View, TouchableOpacity, Colors, Button,Checkbox, Toast} from "react-native-ui-lib";
+import {Text, View, TouchableOpacity, Colors, Button,Checkbox, Toast, Stepper} from "react-native-ui-lib";
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
 import FabricOrderContainer from "./FabricOrderContainer";
 
@@ -53,8 +53,23 @@ export default class AddToCartModal extends React.PureComponent {
                             />
                         </View>
                     </View>
-                    {!this.props.CustomerFabric && <View marginT-20>
-                        <Text hb1 secondary>Choose the fabric</Text>
+                    {!this.props.CustomerFabric &&
+                    <View marginT-20>
+
+                        <View>
+                            <Text h1 secondary>Choose fabric quantity in meters</Text>
+                            <View center>
+                                <Stepper
+                                    label={"meters"}
+                                    min={1}
+                                    max={5}
+                                    onValueChange={count => this.setState({itemsCount: count})}
+                                    initialValue={1}
+                                />
+                            </View>
+                        </View>
+
+                        <Text h1 secondary>Choose the fabric</Text>
                     </View>}
                 </View>
             </View>
@@ -67,18 +82,18 @@ export default class AddToCartModal extends React.PureComponent {
             navigateFabric={this.props.navigateFabric}
             SelectFabric={this.props.SelectFabric}
             SelectedFabric={this.props.SelectedFabric}
-        /> 
+        />
 
     renderCustomContent = () => {
         return (
-            <View flex padding-10 paddingB-30 style={{backgroundColor : Colors.primary}}>
-                <Text white h1>Choose the fabric first</Text>
+            <View flex padding-10 style={{backgroundColor : Colors.primary}}>
+                <Text white h1>We choose a fabric!</Text>
             </View>
         );
     };
 
     FlatListLoader = () => (
-        this.props.CustomerFabric ? 
+        this.props.CustomerFabric ?
             <View></View> :
             <View flex center>
                 <ActivityIndicator />
@@ -161,7 +176,10 @@ const styles = StyleSheet.create({
     Group: {
         flex: 1,
         marginHorizontal: 15
+    },
+    Stepper: {
+        borderRadius: 30,
+        backgroundColor: Colors.shadow
     }
-
 })
 
