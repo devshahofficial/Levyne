@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator} from 'react-native';
 import CstmShadowView from "./CstmShadowView";
-import {Text, View, TouchableOpacity, Colors, Button,Checkbox} from "react-native-ui-lib";
+import {Text, View, TouchableOpacity, Colors, Button,Checkbox, Toast} from "react-native-ui-lib";
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
 import FabricOrderContainer from "./FabricOrderContainer";
 
@@ -65,7 +65,17 @@ export default class AddToCartModal extends React.PureComponent {
         <FabricOrderContainer
             item={item}
             navigateFabric={this.props.navigateFabric}
+            SelectFabric={this.props.SelectFabric}
+            SelectedFabric={this.props.SelectedFabric}
         /> 
+
+    renderCustomContent = () => {
+        return (
+            <View flex padding-10 paddingB-30 style={{backgroundColor : Colors.primary}}>
+                <Text white h1>Choose the fabric first</Text>
+            </View>
+        );
+    };
 
     FlatListLoader = () => (
         this.props.CustomerFabric ? 
@@ -98,9 +108,16 @@ export default class AddToCartModal extends React.PureComponent {
                 </View>
                 <View>
                     <CstmShadowView style={{margin:15}}>
-                        <Button label={"Add to Cart"}/>
+                        <Button onPress={this.props.AddProductToCart} label={"Add to Cart"}/>
                     </CstmShadowView>
                 </View>
+                <Toast
+                    visible={this.props.showCustomToast}
+                    position={'bottom'}
+                    backgroundColor={Colors.primary}
+                >
+                    {this.renderCustomContent()}
+                </Toast>
             </SafeAreaView>
         )
     }
