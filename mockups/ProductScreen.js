@@ -12,6 +12,7 @@ import NavBarBack from '../components/NavBarBack';
 import { Colors, View } from "react-native-ui-lib";
 import ConstBottomButton from "../components/constBottomButton";
 import AddToCartModal from "../components/AddToCartModal";
+import FetchFabricByBrandID from '../API/FetchFabricByBrandID';
 
 class ProductScreen extends React.Component {
 
@@ -22,7 +23,26 @@ class ProductScreen extends React.Component {
             ProductObject : {},
             success : true,
             AddToCartModal: false,
+            SelectedSize: 0,
+            CustomerFabric: false,
+            Fabrics: [],
+            FabricLoading: true,
+            FirstTimeModel: true,
+            FabricPage: 1,
         }
+        this.FabricPage = 0;
+        this.FabricTotal = 0;
+        this._isMounted = true;
+    }
+
+    setSelectedSize = (SelectedSize) => {
+        this.setState({SelectedSize})
+    }
+
+    setCustomerFabric = () => {
+        this.setState({
+            CustomerFabric: !this.state.CustomerFabric
+        });
     }
 
     componentDidMount() {
@@ -30,15 +50,21 @@ class ProductScreen extends React.Component {
             return this.props.navigation.goBack();
         }
         ProductByID(this.props.route.params.ProductID, this.props.AccessToken).then(resp => {
-            this.setState({
-                ProductObject : resp,
-                loading : false
-            })
+            if(this._isMounted) {
+                this.setState({
+                    ProductObject : resp,
+                    loading : false
+                })
+            }
+            
         }).catch(() => {
-            this.setState({
-                loading : false,
-                success : true
-            })
+            if(this._isMounted) {
+                this.setState({
+                    loading : false,
+                    success : false
+                })
+            }
+            
         })
     }
 
@@ -56,7 +82,37 @@ class ProductScreen extends React.Component {
     }
 
     OpenModal = () => {
-        this.setState({AddToCartModal: !this.state.AddToCartModal})
+        this.setState({AddToCartModal: !this.state.AddToCartModal});
+        if(this.state.FirstTimeModel) {
+            FetchFabricByBrandID(this.state.ProductObject.BrandID, ++this.FabricPage, this.props.AccessToken).then(resp => {
+                this._isMounted && this.setState({
+                    Fabrics: resp.Fabrics,
+                    FirstTimeModel: false
+                });
+                this.FabricTotal = resp.Total;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+    }
+
+    LoadMoreFabrics = () => {
+        if(this.FabricTotal > this.state.Fabrics.length) {
+            FetchFabricByBrandID(this.state.ProductObject.BrandID, ++this.FabricPage, this.props.AccessToken).then(resp => {
+                this._isMounted && this.setState({
+                    Fabrics: [...this.state.Fabrics, ...resp.Fabrics]
+                });
+            }).catch(err => {
+                console.log(err);
+            })
+        }
+    }
+
+    navigateFabric = (FabricID) => {
+        this.setState({
+            AddToCartModal: !this.state.AddToCartModal
+        })
+        this.props.navigation.push('Fabric', {FabricID : FabricID})
     }
 
     render() {
@@ -71,7 +127,19 @@ class ProductScreen extends React.Component {
                             presentationStyle={'overFullScreen'}
                             visible={this.state.AddToCartModal}
                         >
-                            <AddToCartModal Modal={this.OpenModal}/>
+                            <AddToCartModal
+                                Modal={this.OpenModal}
+                                ProductID={this.props.route.params.ProductID}
+                                AvailableSizes={this.state.ProductObject.AvailableSizes}
+                                BrandID={this.state.ProductObject.BrandID}
+                                setSelectedSize={this.setSelectedSize}
+                                SelectedSize={this.state.SelectedSize}
+                                CustomerFabric={this.state.CustomerFabric}
+                                setCustomerFabric={this.setCustomerFabric}
+                                LoadMoreFabrics={this.LoadMoreFabrics}
+                                Fabrics={this.state.Fabrics}
+                                navigateFabric={this.navigateFabric}
+                            />
                         </Modal>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <ImageCarouselProduct ProductImages={this.state.ProductObject.ProductImages}/>
