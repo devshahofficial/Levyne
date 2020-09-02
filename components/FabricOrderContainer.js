@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Dimensions,ActivityIndicator } from 'react-native';
-import {View,Text, AnimatedImage,TouchableOpacity,Colors, Button} from 'react-native-ui-lib';
+import {View,Text, AnimatedImage, TouchableOpacity, Colors, Button} from 'react-native-ui-lib';
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
 import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
