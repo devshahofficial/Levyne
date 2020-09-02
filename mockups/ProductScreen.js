@@ -4,7 +4,7 @@ import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../components/ProductScreenPartThree';
 import ImageCarouselProduct from "./ImageCarouselProduct";
-import ProductByID from '../API/ProductbyID';
+import ProductByID from '../API/ProductByID';
 import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
