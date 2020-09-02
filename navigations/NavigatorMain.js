@@ -34,6 +34,7 @@ import Menu from "../mockups/Menu";
 import EditProfile from "../mockups/EditProfile";
 import Customize from "../mockups/Customize";
 import Bucket from "../mockups/Bucket";
+import ProductAddToCart from '../mockups/ProductAddToCart';
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -138,6 +139,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="Settings" component={SettingsScreen} />
 				<HomeStack.Screen name='Help' component={Help}/>
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
+                <HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
 				<HomeStack.Screen name='Advertise' component={Advertise}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>

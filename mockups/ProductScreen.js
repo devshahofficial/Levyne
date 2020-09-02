@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, ActivityIndicator, Modal} from "react-native";
+import {SafeAreaView, ScrollView, ActivityIndicator} from "react-native";
 import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../components/ProductScreenPartThree';
@@ -9,11 +9,8 @@ import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, View, Toast, Text } from "react-native-ui-lib";
+import { Colors, View } from "react-native-ui-lib";
 import ConstBottomButton from "../components/constBottomButton";
-import AddToCartModal from "../components/AddToCartModal";
-import FetchFabricByBrandID from '../API/FetchFabricByBrandID';
-import AddProductToCartAPI from '../API/AddProductToCart';
 
 class ProductScreen extends React.Component {
 
@@ -23,33 +20,8 @@ class ProductScreen extends React.Component {
             loading : true,
             ProductObject : {},
             success : true,
-            AddToCartModal: false,
-            SelectedSize: 0,
-            CustomerFabric: false,
-            Fabrics: [],
-            FabricLoading: true,
-            FirstTimeModel: true,
-            FabricPage: 1,
-            SelectedFabric: undefined,
-            showCustomToast: false,
         }
-        this.FabricPage = 0;
-        this.FabricTotal = 0;
         this._isMounted = true;
-    }
-
-    setSelectedSize = (SelectedSize) => {
-        this.setState({SelectedSize})
-    }
-
-    SelectFabric = (SelectedFabric) => {
-        this.setState({SelectedFabric})
-    }
-
-    setCustomerFabric = () => {
-        this.setState({
-            CustomerFabric: !this.state.CustomerFabric
-        });
     }
 
     componentDidMount() {
@@ -71,7 +43,6 @@ class ProductScreen extends React.Component {
                     success : false
                 })
             }
-            
         })
     }
 
@@ -88,67 +59,12 @@ class ProductScreen extends React.Component {
         RemoveWishlistProductByID(ProductID, Token).catch(err => {console.log(err)});
     }
 
-    OpenModal = () => {
-        this.setState({AddToCartModal: !this.state.AddToCartModal});
-        if(this.state.FirstTimeModel) {
-            FetchFabricByBrandID(this.state.ProductObject.BrandID, ++this.FabricPage, this.props.AccessToken).then(resp => {
-                this._isMounted && this.setState({
-                    Fabrics: resp.Fabrics,
-                    FirstTimeModel: false
-                });
-                this.FabricTotal = resp.Total;
-            }).catch(err => {
-                console.log(err);
-            })
-        }
-    }
-
-    LoadMoreFabrics = () => {
-        if(this.FabricTotal > this.state.Fabrics.length) {
-            FetchFabricByBrandID(this.state.ProductObject.BrandID, ++this.FabricPage, this.props.AccessToken).then(resp => {
-                this._isMounted && this.setState({
-                    Fabrics: [...this.state.Fabrics, ...resp.Fabrics]
-                });
-            }).catch(err => {
-                console.log(err);
-            })
-        }
-    }
-
-    navigateFabric = (FabricID) => {
-        this.setState({
-            AddToCartModal: !this.state.AddToCartModal
+    ButtonActionB = () => {
+        this.props.navigation.push('ProductAddToCart', {
+            BrandID: this.state.ProductObject.BrandID,
+            AvailableSizes: this.state.ProductObject.AvailableSizes,
+            ProductID: this.props.route.params.ProductID
         })
-        this.props.navigation.push('Fabric', {FabricID : FabricID})
-    }
-
-    AddProductToCart = () => {
-        if(!this.state.CustomerFabric && !this.state.SelectedFabric) {
-            this._isMounted && this.setState({
-                showCustomToast: true
-            });
-            setTimeout(() => {
-                this._isMounted && this.setState({
-                    showCustomToast: false
-                });
-            }, 3000)
-            return;
-        }
-        AddProductToCartAPI(
-            this.props.route.params.ProductID,
-            1,
-            this.state.SelectedSize,
-            this.state.SelectedFabric,
-            1,
-            this.props.AccessToken
-        ).then(() => {
-            this.setState({
-                SelectedSize: 0,
-                SelectedFabric: undefined,
-                AddToCartModal: false
-            });
-            this.props.navigation.push('Cart');
-        }).catch(console.log)
     }
 
     render() {
@@ -157,30 +73,6 @@ class ProductScreen extends React.Component {
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Product' : this.state.ProductObject.Name}/>
                 {!this.state.loading && this.state.success ?
                     <>
-                        <Modal
-                            animationType="slide"
-                            transparent={true}
-                            presentationStyle={'overFullScreen'}
-                            visible={this.state.AddToCartModal}
-                        >
-                            <AddToCartModal
-                                Modal={this.OpenModal}
-                                ProductID={this.props.route.params.ProductID}
-                                AvailableSizes={this.state.ProductObject.AvailableSizes}
-                                BrandID={this.state.ProductObject.BrandID}
-                                setSelectedSize={this.setSelectedSize}
-                                SelectedSize={this.state.SelectedSize}
-                                CustomerFabric={this.state.CustomerFabric}
-                                setCustomerFabric={this.setCustomerFabric}
-                                LoadMoreFabrics={this.LoadMoreFabrics}
-                                Fabrics={this.state.Fabrics}
-                                SelectedFabric={this.state.SelectedFabric}
-                                SelectFabric={this.SelectFabric}
-                                navigateFabric={this.navigateFabric}
-                                AddProductToCart={this.AddProductToCart}
-                                showCustomToast={this.state.showCustomToast}
-                            />
-                        </Modal>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <ImageCarouselProduct ProductImages={this.state.ProductObject.ProductImages}/>
                             <ProductScreenPartOne
@@ -219,7 +111,7 @@ class ProductScreen extends React.Component {
                         <ConstBottomButton
                             ButtonA={"Visit Brand"}
                             ButtonB={"Add to Cart"}
-                            ButtonActionB={this.OpenModal}
+                            ButtonActionB={this.ButtonActionB}
                             ButtonActionA={this.BrandNavigation}
                             BrandID={this.state.ProductObject.BrandID}
                         />
