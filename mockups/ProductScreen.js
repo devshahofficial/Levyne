@@ -9,10 +9,11 @@ import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, View } from "react-native-ui-lib";
+import { Colors, View, Toast, Text } from "react-native-ui-lib";
 import ConstBottomButton from "../components/constBottomButton";
 import AddToCartModal from "../components/AddToCartModal";
 import FetchFabricByBrandID from '../API/FetchFabricByBrandID';
+import AddProductToCartAPI from '../API/AddProductToCart';
 
 class ProductScreen extends React.Component {
 
@@ -29,6 +30,8 @@ class ProductScreen extends React.Component {
             FabricLoading: true,
             FirstTimeModel: true,
             FabricPage: 1,
+            SelectedFabric: undefined,
+            showCustomToast: false,
         }
         this.FabricPage = 0;
         this.FabricTotal = 0;
@@ -37,6 +40,10 @@ class ProductScreen extends React.Component {
 
     setSelectedSize = (SelectedSize) => {
         this.setState({SelectedSize})
+    }
+
+    SelectFabric = (SelectedFabric) => {
+        this.setState({SelectedFabric})
     }
 
     setCustomerFabric = () => {
@@ -115,6 +122,35 @@ class ProductScreen extends React.Component {
         this.props.navigation.push('Fabric', {FabricID : FabricID})
     }
 
+    AddProductToCart = () => {
+        if(!this.state.CustomerFabric && !this.state.SelectedFabric) {
+            this._isMounted && this.setState({
+                showCustomToast: true
+            });
+            setTimeout(() => {
+                this._isMounted && this.setState({
+                    showCustomToast: false
+                });
+            }, 3000)
+            return;
+        }
+        AddProductToCartAPI(
+            this.props.route.params.ProductID,
+            1,
+            this.state.SelectedSize,
+            this.state.SelectedFabric,
+            1,
+            this.props.AccessToken
+        ).then(() => {
+            this.setState({
+                SelectedSize: 0,
+                SelectedFabric: undefined,
+                AddToCartModal: false
+            });
+            this.props.navigation.push('Cart');
+        }).catch(console.log)
+    }
+
     render() {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
@@ -138,7 +174,11 @@ class ProductScreen extends React.Component {
                                 setCustomerFabric={this.setCustomerFabric}
                                 LoadMoreFabrics={this.LoadMoreFabrics}
                                 Fabrics={this.state.Fabrics}
+                                SelectedFabric={this.state.SelectedFabric}
+                                SelectFabric={this.SelectFabric}
                                 navigateFabric={this.navigateFabric}
+                                AddProductToCart={this.AddProductToCart}
+                                showCustomToast={this.state.showCustomToast}
                             />
                         </Modal>
                         <ScrollView showsVerticalScrollIndicator={false}>

@@ -25,7 +25,6 @@ class EditProfile extends React.Component {
             CurrentActionSheetProp : '',
             Loading : false,
             LoaderContent : '1/100',
-            ToastContent : 'Oops! Something went wrong',
             modalVisible: false,
             Doc1: false,
             Doc2: false,
@@ -99,14 +98,6 @@ class EditProfile extends React.Component {
         //this.setState({ modalVisible: !this.state.modalVisible });
 
     }
-
-    renderCustomContent = () => {
-		return (
-			<View flex padding-10 paddingB-30 style={{backgroundColor : Colors.primary}}>
-				<Text white h1>{this.state.ToastContent}</Text>
-			</View>
-		);
-	};
 
     UploadIDProof = () => {
         this.setState({

@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import { Colors, View } from "react-native-ui-lib";
 import ConstBottomButton from "../components/constBottomButton";
+import AddFabricToCart from '../API/AddFabricToCart';
 
 class FabricScreen extends React.Component {
 
@@ -44,6 +45,12 @@ class FabricScreen extends React.Component {
         this.props.navigation.push('BrandProfile', {
             BrandID : OtherBrandID,
         });
+    }
+
+    AddToCart = () => {
+        AddFabricToCart(this.props.route.params.FabricID, 1, this.props.AccessToken).then(() => {
+            this.props.navigation.push('Cart');
+        }).catch(console.log);
     }
 
     AddToWishlistFn(FabricID, Token) {
@@ -88,6 +95,7 @@ class FabricScreen extends React.Component {
                             ButtonA={"Visit Brand"}
                             ButtonB={"Add to Cart"}
                             ButtonActionA={this.BrandNavigation}
+                            ButtonActionB={this.AddToCart}
                             BrandID={this.state.FabricObject.BrandID}
                         />
                     </>

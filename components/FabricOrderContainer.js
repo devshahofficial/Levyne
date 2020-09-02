@@ -75,8 +75,11 @@ export default class FabricOrderContainer extends React.Component {
                 </TouchableOpacity>
 
                 <Button
-                    label="Choose"
+                    label={this.props.SelectedFabric === this.props.item.FabricID ? "Your Choice" : "Choose"}
                     h2
+                    onPress={() => {
+                        this.props.SelectFabric(this.props.item.FabricID)
+                    }}
                     labelStyle={{color: Colors.white}}
                     style={styles.Choose}
                 />
