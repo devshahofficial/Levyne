@@ -53,14 +53,14 @@ export default class ProductItemContainer extends React.Component {
                     <AnimatedImage
                         source={{uri:this.props.item.ProductImages[0]}}
                         style={styles.drawerCover}
-                        loader={<ActivityIndicator />}
-                        containerStyle={{backgroundColor: Colors.blue60}}
+                        loader={<ActivityIndicator/>}
+                        containerStyle={{backgroundColor: Colors.shadow}}
                     />
 
                     <View row marginL-6 marginT-15>
                         <View style={{flex: 0.8}}>
-                            <Text hb1>{this.props.item.Name}</Text>
-                            <Text h3>{this.props.item.ShortDescription} </Text>
+                            <Text hb2 numberOfLines={1} ellipsizeMode='tail'>{this.props.item.Name}</Text>
+                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription}</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
@@ -81,7 +81,7 @@ export default class ProductItemContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.37,
+        height: deviceHeight * 0.40,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,
