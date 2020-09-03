@@ -82,7 +82,7 @@ export default class FabricOrderContainer extends React.Component {
                         this.props.SelectFabric(this.props.item.FabricID)
                     }}
                     labelStyle={this.props.SelectedFabric === this.props.item.FabricID ? {color: Colors.white} : {color: Colors.primary}}
-                    style={this.props.SelectedFabric === this.props.item.FabricID ? styles.Choose : styles.Choosen}
+                    style={this.props.SelectedFabric === this.props.item.FabricID ? styles.Choose : styles.Chosen}
                 />
             </CstmShadowView>
 
@@ -111,18 +111,20 @@ const styles = StyleSheet.create({
     Choose: {
         backgroundColor: Colors.primary,
         height: 30,
+        paddingTop: 2, 
         marginHorizontal: 20,
         marginVertical: 10,
         color: Colors.white
     },
-    Choosen: {
-            backgroundColor: Colors.white,
-            height: 30,
-            borderColor: Colors.primary,
-            borderWidth: 1,
-            marginHorizontal: 20,
-            marginVertical: 10,
-            color: Colors.white
+    Chosen: {
+        backgroundColor: Colors.white,
+        height: 30,
+        paddingTop: 2, 
+        borderColor: Colors.primary,
+        borderWidth: 1,
+        marginHorizontal: 20,
+        marginVertical: 10,
+        color: Colors.white
     }
 })
 
