@@ -48,6 +48,7 @@ export default class FabricOrderContainer extends React.Component {
             <CstmShadowView style={styles.shadow}>
                 <TouchableOpacity
                     activeOpacity={0.7}
+                    style={{borderColor: Colors.primary}}
                     onPress={() => {this.props.navigateFabric(this.props.item.FabricID)}}
                 >
                     <AnimatedImage
@@ -59,8 +60,8 @@ export default class FabricOrderContainer extends React.Component {
 
                     <View row marginL-6 marginT-15>
                         <View style={{flex: 0.8}}>
-                            <Text hb1>{this.props.item.Name}</Text>
-                            <Text h3>{this.props.item.ShortDescription} </Text>
+                            <Text hb2 numberOfLines={1} ellipsizeMode='tail'>{this.props.item.Name}</Text>
+                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
@@ -81,7 +82,7 @@ export default class FabricOrderContainer extends React.Component {
                         this.props.SelectFabric(this.props.item.FabricID)
                     }}
                     labelStyle={{color: Colors.white}}
-                    style={styles.Choose}
+                    style={this.props.SelectedFabric === this.props.item.FabricID ? styles.Choose : styles.Choosen}
                 />
             </CstmShadowView>
 
@@ -90,7 +91,7 @@ export default class FabricOrderContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.43,
+        height: deviceHeight * 0.45,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,
@@ -110,10 +111,17 @@ const styles = StyleSheet.create({
     Choose: {
         backgroundColor: Colors.primary,
         height: 30,
-        paddingTop: 3, 
         marginHorizontal: 20,
         marginVertical: 10,
         color: Colors.white
+    },
+    Choosen: {
+            backgroundColor: Colors.shadow,
+            height: 30,
+            borderColor: Colors.primary,
+            marginHorizontal: 20,
+            marginVertical: 10,
+            color: Colors.white
     }
 })
 
