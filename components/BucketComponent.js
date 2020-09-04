@@ -40,19 +40,20 @@ export default class BucketComponent extends React.Component {
             onPress={this.props.Navigation}
             style={styles.Container}
             paddingH-20
+            marginB-20
             activeOpacity={0.8} marginT-10
         >
             <View row>
                 <Avatar
                     size={50}
-                    source={{uri : "https://hivelife.com/wp-content/uploads/2019/12/Empire-International-Tailors-5-tips-suits-Hive-Life-banner.jpg"}}
+                    source={{uri : this.props.item.ProfileImage}}
                 />
                 <View marginL-25 centerV>
                     <Text hb2>
-                        Levyne
+                        {this.props.item.Name}
                     </Text>
                     <View row>
-                        <Stars BrandRating="4" />
+                        <Stars BrandRating="0" />
                     </View>
                 </View>
             </View>
@@ -60,11 +61,11 @@ export default class BucketComponent extends React.Component {
                 <ImageBackground
                     blurRadius={1}
                     imageStyle={{ borderRadius: 10}}
-                    source={{ uri: "https://sc02.alicdn.com/kf/HTB1nlCBKVXXXXXMXVXXq6xXFXXXO.jpg_350x350.jpg" }}
+                    source={{ uri: this.props.item.ProductImage }}
                     style={styles.image}
                 >
-                    <Text f1 style={{lineHeight:30}} white center>
-                        +{2}
+                    <Text f1 style={{lineHeight:30}} primary center>
+                        +{this.props.item.TotalProducts}
                     </Text>
                 </ImageBackground>
                 <View spread marginL-30>
@@ -74,8 +75,8 @@ export default class BucketComponent extends React.Component {
                             <Text h2>Discount</Text>
                         </View>
                         <View marginL-10>
-                            <Text hb1>10000</Text>
-                            <Text h1 primary>10% off</Text>
+                            <Text hb1>{this.props.item.TotalDiscountPrice}</Text>
+                            <Text h1 primary>{this.props.item.TotalDiscount}% off</Text>
                         </View>
                     </View>
                     <CstmShadowView>
@@ -85,7 +86,7 @@ export default class BucketComponent extends React.Component {
             </View>
             <View center row style={styles.View}>
                 <DeliveryIcon size={30} Color={Colors.black} />
-                {1 === 1 ? (
+                {this.props.item.TotalDiscountPrice >= 1000 ? (
                     <>
                         <Text marginL-10 h2>
                             Free Delivery!
