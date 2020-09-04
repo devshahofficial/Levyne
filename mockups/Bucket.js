@@ -9,6 +9,8 @@ import Colors from "../Style/Colors";
 import {TailorIcon} from "../Icons/Secondary/TailorIcon";
 import {FashionDesignerIcon} from "../Icons/Secondary/FashionDesignerIcon";
 import {FabricIcon} from "../Icons/Secondary/FabricIcon";
+import BucketProduct from "../components/BucketProduct";
+import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 
 const data = [
     {
@@ -58,87 +60,42 @@ class Bucket extends React.Component {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Tailor name'}/>
-                <ScrollView
-                    style={{backgroundColor: Colors.white}}
-                >
-                    {
-                        this.state.CustomProducts === true ?
-                            <View>
-                                <View marginT-20 paddingH-15 center row style={styles.View}>
-                                    <TailorIcon size={30} Color={Colors.black} />
-                                    <Text marginL-10 h2>
-                                        Custom-Tailored Products
-                                    </Text>
-                                </View>
-                                <FlatList
-                                    showsHorizontalScrollIndicator={false}
-                                    horizontal={true}
-                                    data={data}
-                                    renderItem={({ item }) =>
-                                        <View margin-20>
-                                            <Text>{item.name}</Text>
-                                            <Image style={{height:150,width:150}} source={{uri: item.image}}/>
-                                        </View>
-                                    }
-                                    // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
-                                    showsVerticalScrollIndicator={false}
-                                />
-                            </View>:
-                            <></>
-                    }
-                    {
-                        this.state.Products === true ?
-                            <View>
-                                <View marginT-20 paddingH-15 center row style={styles.View}>
-                                    <FashionDesignerIcon size={30} Color={Colors.black} />
-                                    <Text marginL-10 h2>
-                                        Fashion Designed Products
-                                    </Text>
-                                </View>
-                                <FlatList
-                                    showsHorizontalScrollIndicator={false}
-                                    horizontal={true}
-                                    data={data}
-                                    renderItem={({ item }) =>
-                                        <View margin-20>
-                                            <Text>{item.name}</Text>
-                                            <Image style={{height:150,width:150}} source={{uri: item.image}}/>
-                                        </View>
-                                    }
-                                    // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
-                                    showsVerticalScrollIndicator={false}
-                                />
-                            </View>:
-                            <></>
-                    }
-                    <View>
-                        {
-                            this.state.Fabrics === true ?
-                                <View>
-                                    <View marginT-20 paddingH-15 center row style={styles.View}>
-                                        <FabricIcon size={30} Color={Colors.black} />
+                <View paddingB-50>
+                    <FlatList
+                        ListFooterComponent={
+                            <View marginV-20 paddingH-15 center row style={styles.View}>
+                                <DeliveryIcon size={30} Color={Colors.black} />
+                                {this.props.Delivery === 1 ? (
+                                    <>
                                         <Text marginL-10 h2>
-                                            Premium Fabrics
+                                            Free Delivery!
                                         </Text>
-                                    </View>
-                                    <FlatList
-                                        showsHorizontalScrollIndicator={false}
-                                        horizontal={true}
-                                        data={data}
-                                        renderItem={({ item }) =>
-                                            <View margin-20>
-                                                <Text>{item.name}</Text>
-                                                <Image style={{height:150,width:150}} source={{uri: item.image}}/>
-                                            </View>
-                                        }
-                                        // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
-                                        showsVerticalScrollIndicator={false}
-                                    />
-                                </View>:
-                                <></>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Text marginL-10 h2>
+                                            Free Delivery on buckets over ₹1000{'/-'}
+                                        </Text>
+                                    </>
+                                )}
+                            </View>
                         }
-                    </View>
-                </ScrollView>
+                        ListHeaderComponent={
+                            <View marginT-20 paddingH-15 center row style={styles.View}>
+                                <TimerIcon size={30} Color={Colors.black} />
+                                <Text marginL-10 h2>
+                                    Delivery within 15 days!
+                                </Text>
+                            </View>
+                        }
+                        showsVerticalScrollIndicator={false}
+                        data={data}
+                        renderItem={({ item }) =>
+                            <BucketProduct/>
+                        }
+                        // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
+                    />
+                </View>
             </>
         );
     }
@@ -149,7 +106,6 @@ const styles = StyleSheet.create({
     View: {
         height: 50,
         width: Dimensions.get('window').width,
-        marginLeft: -15,
         backgroundColor: Colors.shadow,
     },
     Product: {
