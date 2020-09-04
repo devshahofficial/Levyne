@@ -37,7 +37,7 @@ export default class BucketComponent extends React.Component {
   render() {
     return (
         <TouchableOpacity
-            onPress={this.props.Navigation}
+            onPress={() => this.props.Navigation(this.props.item.BrandID)}
             style={styles.Container}
             paddingH-20
             marginB-20
