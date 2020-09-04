@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, Animated, ActivityIndicator} from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import colors from "../../assets/colors";
-import BrandBySearch from '../../API/BrandBySearch';
 import Colors from '../../Style/Colors';
 import BrandItemContainer from '../../components/BrandItemContainer';
 import PickerModal from "../../components/PickerModal";
