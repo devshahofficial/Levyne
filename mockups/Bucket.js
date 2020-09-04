@@ -11,6 +11,7 @@ import {FashionDesignerIcon} from "../Icons/Secondary/FashionDesignerIcon";
 import {FabricIcon} from "../Icons/Secondary/FabricIcon";
 import BucketProduct from "../components/BucketProduct";
 import {TimerIcon} from "../Icons/Secondary/TimerIcon";
+import FetchCart from '../API/FetchCart';
 
 const data = [
     {
@@ -51,6 +52,11 @@ class Bucket extends React.Component {
         }
     }
 
+    componentDidMount() {
+        FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then(resp => {
+            console.log(resp)
+        }).catch(err => {console.log(err)});
+    }
 
     navigateProduct = (ProductID) => {
         this.props.navigation.push('Product', {ProductID : ProductID})

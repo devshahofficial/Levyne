@@ -28,8 +28,8 @@ class Cart extends React.Component {
         })
     }
 
-    onBucketPress = () => {
-        this.props.navigation.navigate("Bucket");
+    onBucketPress = (BrandID) => {
+        this.props.navigation.navigate("Bucket", {BrandID});
     }
 
     FlatListRenderItem = ({item}) => (
