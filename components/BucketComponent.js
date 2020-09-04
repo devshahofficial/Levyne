@@ -1,6 +1,6 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, TouchableWithoutFeedback, Dimensions, Platform,} from 'react-native';
-import {View, Text, Image, TouchableOpacity, Button, Avatar,Colors} from 'react-native-ui-lib';
+import {ImageBackground, StyleSheet, Dimensions, Platform,} from 'react-native';
+import {View, Text, TouchableOpacity, Button, Avatar,Colors} from 'react-native-ui-lib';
 import {StarIcon} from '../Icons/StarIcon';
 import CstmShadowView from "./CstmShadowView";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
@@ -75,7 +75,7 @@ export default class BucketComponent extends React.Component {
                             <Text h2>Discount</Text>
                         </View>
                         <View marginL-10>
-                            <Text hb1>{this.props.item.TotalDiscountPrice}</Text>
+                            <Text hb1>₹{this.props.item.TotalDiscountPrice}</Text>
                             <Text h1 primary>{this.props.item.TotalDiscount}% off</Text>
                         </View>
                     </View>
