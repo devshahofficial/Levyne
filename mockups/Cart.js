@@ -21,11 +21,10 @@ class Cart extends React.Component {
             Buckets = Buckets.map(item => {
                 item.BrandID = item.BrandID.toString();
                 return item;
-            })
-            console.log(Buckets);
+            });
             this.setState({Buckets, Loading: false});
         }).catch(err => {
-            console.log(err);
+            //console.log(err);
         })
     }
 
