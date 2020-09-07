@@ -81,19 +81,17 @@ class Bucket extends React.Component {
     }
 
     RemoveProductFromCart = (CartID, ProductType) => {
-        RemoveProductFromCart(CartID, ProductType, this.props.AccessToken).then(() => {
-            this.setState({
-                Buckets : this.state.Buckets.filter(item => !(item.CartID === CartID && item.ProductType === ProductType))
-            })
-        }).catch(console.log);
+        this.setState({
+            Buckets : this.state.Buckets.filter(item => !(item.CartID === CartID && item.ProductType === ProductType))
+        })
+        RemoveProductFromCart(CartID, ProductType, this.props.AccessToken).catch(console.log);
     }
 
     RemoveFabricFromCart = async (FabricID) => {
-        return await RemoveFabricFromCart(FabricID, this.props.AccessToken).then(() => {
-            this.setState({
-                Buckets : this.state.Buckets.filter(item => !(item.FabricID === FabricID && item.ProductType === 2))
-            })
-        }).catch(console.log);
+        this.setState({
+            Buckets : this.state.Buckets.filter(item => !(item.FabricID === FabricID && item.ProductType === 2))
+        })
+        RemoveFabricFromCart(FabricID, this.props.AccessToken).catch(console.log);
     }
 
     render() {

@@ -105,7 +105,7 @@ export default class BucketProduct extends React.PureComponent {
                             <Text h2 secondary flex-15>Visit the Fabric</Text>
                             <Text h2 secondary flex>{">"}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity flex marginH-5 activeOpacity={0.8} center style={{width:40, height:40, backgroundColor:"#FF0000", borderRadius:5}}>
+                        <TouchableOpacity onPress={() => this.props.RemoveFabricFromCart(this.props.item.FabricID)} flex marginH-5 activeOpacity={0.8} center style={{width:40, height:40, backgroundColor:"#FF0000", borderRadius:5}}>
                             <ArchiveIcon Size={20} Color={Colors.white}/>
                         </TouchableOpacity>
                     </View>
