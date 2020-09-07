@@ -1,45 +1,73 @@
 import React from 'react';
-import {Dimensions, FlatList, Image, ScrollView, StyleSheet} from 'react-native';
+import {Dimensions, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
 import {View,Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import ProductItemContainer from "../components/ProductItemContainer";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import Colors from "../Style/Colors";
-import {TailorIcon} from "../Icons/Secondary/TailorIcon";
-import {FashionDesignerIcon} from "../Icons/Secondary/FashionDesignerIcon";
-import {FabricIcon} from "../Icons/Secondary/FabricIcon";
 import BucketProduct from "../components/BucketProduct";
 import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 import FetchCart from '../API/FetchCart';
 
-const data = [
-    {
-        id: "bkjbw",
-        name: "Hello",
-        image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1209112782.jpg?crop=0.669xw:1.00xh;0.183xw,0&resize=640:*"
-    },
-    {
-        id: "bkjdwbw",
-        name: "Hello",
-        image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1209112782.jpg?crop=0.669xw:1.00xh;0.183xw,0&resize=640:*"
-    },
-    {
-        id: "bkjwbw",
-        name: "Hello",
-        image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1209112782.jpg?crop=0.669xw:1.00xh;0.183xw,0&resize=640:*"
-    },
-    {
-        id: "bkj12bw",
-        name: "Hello",
-        image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1209112782.jpg?crop=0.669xw:1.00xh;0.183xw,0&resize=640:*"
-    },
-    {
-        id: "bkdde2jbw",
-        name: "Hello",
-        image: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/gettyimages-1209112782.jpg?crop=0.669xw:1.00xh;0.183xw,0&resize=640:*"
+
+/**
+ * 
+ * Product Types
+ *  1) Product
+ *  2) Fabric
+ *  3) Customize (3D)
+ *  4) Product + Fabric
+ *  5) Customize + Fabric
+ * 
+ */
+
+
+const groupBy = (arr, property) => {
+    return arr.reduce((acc, cur) => {
+      acc[cur[property]] = [...acc[cur[property]] || [], cur];
+      return acc;
+    }, {});
+}
+
+const ArrangeBuckets = async (Buckets) => {
+
+    Buckets = groupBy(Buckets, 'ProductType');
+
+    for(let i = 0;i<Buckets['1'].length;i++) {
+        if(Buckets['1'][i].ProductFabricCartID) {
+            Buckets['1'][i].DiscountPrice += Buckets['2'][i].DiscountPrice;
+            Buckets['1'][i].ActualPrice += Buckets['2'][i].ActualPrice;
+            Buckets['1'][i].FabricQuantity = Buckets['2'][i].Quantity;
+            Buckets['1'][i].FabricID = Buckets['2'][i].ProductID;
+            Buckets['1'][i].ProductType = 4;
+            Buckets['2'][i] = null;
+        } else {
+            break;
+        }
     }
-]
+    if(Buckets['2']) {
+        Buckets['2'] = Buckets['2'].filter(item => item !== null);
+        return Buckets['1'].concat(Buckets['2']);
+    } else {
+        return Buckets['1'];
+    }
+}
+
+const DeliveryChargeComponent = (props) => {
+    if(props.TotalPrice >= 1000) {
+        return <>
+            <Text marginL-10 h2>
+                Free Delivery!
+            </Text>
+        </>
+    } else {
+        return <>
+            <Text marginL-10 h2>
+                Free Delivery on buckets over ₹1000{'/-'}
+            </Text>
+        </>
+    }
+}
 
 class Bucket extends React.Component {
 
@@ -48,60 +76,70 @@ class Bucket extends React.Component {
         this.state= {
             CustomProducts: true,
             Products: true,
-            Fabrics: true
+            Fabrics: true,
+            Buckets: [],
+            Loading: true
         }
     }
 
     componentDidMount() {
-        FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then(resp => {
-            console.log(resp)
+        FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
+            Buckets = Buckets[0].concat(Buckets[1],Buckets[2]).sort(function(a,b){return (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp)})
+            console.log(Buckets);
+            this.setState({
+                Buckets,
+                Loading: false
+            })
         }).catch(err => {console.log(err)});
     }
 
+    FatListRenderItem = ({item}) => (
+        <BucketProduct
+            item={item}
+            navigateProduct={this.navigateProduct}
+            navigateFabric={this.navigateFabric}
+        />
+    )
+
     navigateProduct = (ProductID) => {
-        this.props.navigation.push('Product', {ProductID : ProductID})
+        this.props.navigation.navigate('Product', {ProductID});
+    }
+
+    navigateFabric = (FabricID) => {
+        this.props.navigation.navigate('Fabric', {FabricID});
     }
 
     render() {
         return (
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={'Tailor name'}/>
-                <View paddingB-50>
-                    <FlatList
-                        ListFooterComponent={
-                            <View marginV-20 paddingH-15 center row style={styles.View}>
-                                <DeliveryIcon size={30} Color={Colors.black} />
-                                {this.props.Delivery === 1 ? (
-                                    <>
-                                        <Text marginL-10 h2>
-                                            Free Delivery!
-                                        </Text>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Text marginL-10 h2>
-                                            Free Delivery on buckets over ₹1000{'/-'}
-                                        </Text>
-                                    </>
-                                )}
-                            </View>
-                        }
-                        ListHeaderComponent={
-                            <View marginT-20 paddingH-15 center row style={styles.View}>
-                                <TimerIcon size={30} Color={Colors.black} />
-                                <Text marginL-10 h2>
-                                    Delivery within 15 days!
-                                </Text>
-                            </View>
-                        }
-                        showsVerticalScrollIndicator={false}
-                        data={data}
-                        renderItem={({ item }) =>
-                            <BucketProduct/>
-                        }
-                        // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
-                    />
-                </View>
+                <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
+                {this.state.Loading ?
+                    <View flex center>
+                        <ActivityIndicator />
+                    </View> :
+                    <View paddingB-50>
+                        <FlatList
+                            ListFooterComponent={
+                                <View marginV-20 paddingH-15 center row style={styles.View}>
+                                    <DeliveryIcon size={30} Color={Colors.black} />
+                                    <DeliveryChargeComponent TotalPrice = {this.props.route.params.TotalPrice} />
+                                </View>
+                            }
+                            ListHeaderComponent={
+                                <View marginT-20 paddingH-15 center row style={styles.View}>
+                                    <TimerIcon size={30} Color={Colors.black} />
+                                    <Text marginL-10 h2>
+                                        Delivery within 15 days!
+                                    </Text>
+                                </View>
+                            }
+                            showsVerticalScrollIndicator={false}
+                            data={this.state.Buckets}
+                            keyExtractor={(item) => `T${item.ProductType}C${item.CartID}`}
+                            renderItem={this.FatListRenderItem}
+                        />
+                    </View>
+                }
             </>
         );
     }

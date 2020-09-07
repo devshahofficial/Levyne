@@ -12,15 +12,15 @@ export default class BucketProduct extends React.PureComponent {
                     <View flex paddingH-10>
                         <Image
                             style={{flex:1}}
-                            source={{uri:"https://images.pexels.com/photos/5292101/pexels-photo-5292101.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}}
+                            source={{uri: this.props.item.ProductImage}}
                         />
                     </View>
                     <View flex paddingH-10>
                         <View>
                             <Text hb1 secondary>Total Cost</Text>
                             <View row>
-                                <Text hb1 primary>₹200</Text>
-                                <Text marginL-10 h2 secondary style={{textDecorationLine: "line-through"}}>₹200</Text>
+                                <Text hb1 primary>₹{this.props.item.DiscountPrice}</Text>
+                                <Text marginL-10 h2 secondary style={{textDecorationLine: "line-through"}}>₹{this.props.item.ActualPrice}</Text>
                             </View>
                         </View>
                         <View marginT-10>
