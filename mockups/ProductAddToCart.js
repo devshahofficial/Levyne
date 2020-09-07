@@ -106,21 +106,21 @@ class AddToCartScreen extends React.PureComponent {
 
                 <FlatList
                     showsHorizontalScrollIndicator={false}
-                    data={this.props.route.params.AvailableSizes}
+                    data={Object.keys(this.props.route.params.AvailableSizes)}
                     horizontal={true}
                     renderItem={({ item }) =>
                         <TouchableOpacity
                             activeOpacity={0.8}
-                            onPress={() => (this.setSelectedSize(item[0]))}
+                            onPress={() => (this.setSelectedSize(item))}
                         >
                             <CstmShadowView style={styles.shadow}>
                                 <View style={item[0] === this.state.SelectedSize ? styles.boxSelected : styles.box}>
-                                    <Text secondary h2>{item[1]}</Text>
+                                    <Text secondary h2>{this.props.route.params.AvailableSizes[item]}</Text>
                                 </View>
                             </CstmShadowView>
                         </TouchableOpacity>
                     }
-                    keyExtractor={item => item[1]}
+                    keyExtractor={item => this.props.route.params.AvailableSizes[item]}
                 />
 
                 <View row marginT-10 marginB-20>

@@ -1,14 +1,17 @@
 import React from 'react';
-import {Dimensions, FlatList,StyleSheet} from 'react-native';
-import {View,Text,Button, TouchableOpacity} from 'react-native-ui-lib';
+import {Dimensions, FlatList, Image, ScrollView, StyleSheet} from 'react-native';
+import {View,Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
+import ProductItemContainer from "../components/ProductItemContainer";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import Colors from "../Style/Colors";
+import {TailorIcon} from "../Icons/Secondary/TailorIcon";
+import {FashionDesignerIcon} from "../Icons/Secondary/FashionDesignerIcon";
+import {FabricIcon} from "../Icons/Secondary/FabricIcon";
 import BucketProduct from "../components/BucketProduct";
 import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 import FetchCart from '../API/FetchCart';
-import {CheckoutIcon} from "../Icons/CheckoutIcon";
 
 const data = [
     {
@@ -55,19 +58,18 @@ class Bucket extends React.Component {
         }).catch(err => {console.log(err)});
     }
 
-
-    navigateCheckout = () => {
-        this.props.navigation.navigate("CheckOut");
+    navigateProduct = (ProductID) => {
+        this.props.navigation.push('Product', {ProductID : ProductID})
     }
 
     render() {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Tailor name'}/>
-                <FlatList
-                    ListFooterComponent={
-                        <View paddingV-20>
-                            <View paddingH-15 center row style={styles.View}>
+                <View paddingB-50>
+                    <FlatList
+                        ListFooterComponent={
+                            <View marginV-20 paddingH-15 center row style={styles.View}>
                                 <DeliveryIcon size={30} Color={Colors.black} />
                                 {this.props.Delivery === 1 ? (
                                     <>
@@ -83,33 +85,23 @@ class Bucket extends React.Component {
                                     </>
                                 )}
                             </View>
-                        </View>
-                    }
-                    ListHeaderComponent={
-                        <View paddingH-15 center row style={styles.View}>
-                            <TimerIcon size={30} Color={Colors.black} />
-                            <Text marginL-10 h2>
-                                Delivery within 15 days!
-                            </Text>
-                        </View>
-                    }
-                    showsVerticalScrollIndicator={false}
-                    data={data}
-                    renderItem={({ item }) =>
-                        <BucketProduct/>
-                    }
-                    // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
-                />
-                <TouchableOpacity
-                    center row style={styles.Button}
-                    activeOpacity={0.8}
-                    onPress={this.navigateCheckout}
-                >
-                    <CheckoutIcon size={30} Color={Colors.white} />
-                    <Text marginL-20 hb1 white>
-                        Check Out
-                    </Text>
-                </TouchableOpacity>
+                        }
+                        ListHeaderComponent={
+                            <View marginT-20 paddingH-15 center row style={styles.View}>
+                                <TimerIcon size={30} Color={Colors.black} />
+                                <Text marginL-10 h2>
+                                    Delivery within 15 days!
+                                </Text>
+                            </View>
+                        }
+                        showsVerticalScrollIndicator={false}
+                        data={data}
+                        renderItem={({ item }) =>
+                            <BucketProduct/>
+                        }
+                        // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
+                    />
+                </View>
             </>
         );
     }
@@ -125,11 +117,6 @@ const styles = StyleSheet.create({
     Product: {
         backgroundColor: Colors.shadow,
         flex: 1
-    },
-    Button: {
-        height: 50,
-        width: Dimensions.get('window').width,
-        backgroundColor: Colors.primary,
     }
 });
 
