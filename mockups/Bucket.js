@@ -8,7 +8,8 @@ import Colors from "../Style/Colors";
 import BucketProduct from "../components/BucketProduct";
 import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 import FetchCart from '../API/FetchCart';
-
+import RemoveFabricFromCart from '../API/RemoveFabricFromCart';
+import RemoveProductFromCart from '../API/RemoveProductFromCart';
 
 /**
  * 
@@ -66,6 +67,8 @@ class Bucket extends React.Component {
             item={item}
             navigateProduct={this.navigateProduct}
             navigateFabric={this.navigateFabric}
+            RemoveProductFromCart={this.RemoveProductFromCart}
+            RemoveFabricFromCart={this.RemoveFabricFromCart}
         />
     )
 
@@ -75,6 +78,22 @@ class Bucket extends React.Component {
 
     navigateFabric = (FabricID) => {
         this.props.navigation.navigate('Fabric', {FabricID});
+    }
+
+    RemoveProductFromCart = (CartID, ProductType) => {
+        RemoveProductFromCart(CartID, ProductType, this.props.AccessToken).then(() => {
+            this.setState({
+                Buckets : this.state.Buckets.filter(item => !(item.CartID === CartID && item.ProductType === ProductType))
+            })
+        }).catch(console.log);
+    }
+
+    RemoveFabricFromCart = async (FabricID) => {
+        return await RemoveFabricFromCart(FabricID, this.props.AccessToken).then(() => {
+            this.setState({
+                Buckets : this.state.Buckets.filter(item => !(item.FabricID === FabricID && item.ProductType === 2))
+            })
+        }).catch(console.log);
     }
 
     render() {
