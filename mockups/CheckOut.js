@@ -38,7 +38,7 @@ const data = [
     }
 ]
 
-class Bucket extends React.Component {
+class CheckOut extends React.Component {
 
     constructor(props) {
         super(props);
@@ -49,65 +49,22 @@ class Bucket extends React.Component {
         }
     }
 
-    componentDidMount() {
-        FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then(resp => {
-            console.log(resp)
-        }).catch(err => {console.log(err)});
-    }
-
-
-    navigateCheckout = () => {
-        this.props.navigation.navigate("CheckOut");
-    }
 
     render() {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Tailor name'}/>
-                <FlatList
-                    ListFooterComponent={
-                        <View paddingV-20>
-                            <View paddingH-15 center row style={styles.View}>
-                                <DeliveryIcon size={30} Color={Colors.black} />
-                                {this.props.Delivery === 1 ? (
-                                    <>
-                                        <Text marginL-10 h2>
-                                            Free Delivery!
-                                        </Text>
-                                    </>
-                                ) : (
-                                    <>
-                                        <Text marginL-10 h2>
-                                            Free Delivery on buckets over ₹1000{'/-'}
-                                        </Text>
-                                    </>
-                                )}
-                            </View>
-                        </View>
-                    }
-                    ListHeaderComponent={
-                        <View paddingH-15 center row style={styles.View}>
-                            <TimerIcon size={30} Color={Colors.black} />
-                            <Text marginL-10 h2>
-                                Delivery within 15 days!
-                            </Text>
-                        </View>
-                    }
-                    showsVerticalScrollIndicator={false}
-                    data={data}
-                    renderItem={({ item }) =>
-                        <BucketProduct/>
-                    }
-                    // renderItem={({ item }) => <ProductItemContainer Token={this.props.AccessToken} item={item} navigateProduct={this.navigateProduct}/>}
-                />
-                <TouchableOpacity
-                    center row style={styles.Button}
-                    activeOpacity={0.8}
-                    onPress={this.navigateCheckout}
-                >
+
+                <View flex>
+                    <View style={{borderWidth: 1, flex:1}}>
+
+                    </View>
+                </View>
+
+                <TouchableOpacity center row style={styles.Button} activeOpacity={0.8}>
                     <CheckoutIcon size={30} Color={Colors.white} />
                     <Text marginL-20 hb1 white>
-                        Check Out
+                        Place an Order
                     </Text>
                 </TouchableOpacity>
             </>
@@ -138,4 +95,4 @@ const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken
 });
 
-export default connect(mapsStateToProps)(Bucket);
+export default connect(mapsStateToProps)(CheckOut);
