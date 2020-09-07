@@ -22,10 +22,8 @@ import Help from '../mockups/Help';
 import FabricScreen from '../mockups/FabricScreen';
 import TermsConditionsScreen from '../mockups/TermsConditionsScreen';
 import Advertise from '../mockups/Advertise';
-import ToBeDesignedDetailed from '../mockups/ToBeDesignedDetailed';
 import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
-import FabricUpload from "../mockups/FabricUpload";
 import {CategoriesIcon} from "../Icons/CategoriesIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import Cart from "../mockups/Cart";
@@ -43,17 +41,6 @@ const HomeStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const config = {
-    animation: 'spring',
-    config: {
-      stiffness: 1000,
-      damping: 500,
-      mass: 3,
-      overshootClamping: true,
-      restDisplacementThreshold: 0.01,
-      restSpeedThreshold: 0.01,
-    },
-  };
 
 class BottomTabNavigation extends React.PureComponent {
 
@@ -134,7 +121,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="InitialProfile" component={InitialProfile} />
 				<HomeStack.Screen name="BrandProfile" component={BrandProfile}/>
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
-				<HomeStack.Screen name="ToBeDesignedDetailed" component={ToBeDesignedDetailed} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
 				<HomeStack.Screen name="ChatList" component={ChatListScreen} />
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
@@ -146,7 +132,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
 				<HomeStack.Screen name='Advertise' component={Advertise}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>
-				<HomeStack.Screen name='FabricUpload' component={FabricUpload}/>
 				<HomeStack.Screen name='Cart' component={Cart}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
 				<HomeStack.Screen name='CheckOut' component={CheckOut}/>
