@@ -148,10 +148,13 @@ class MainHomeStack extends React.PureComponent {
 class NavigationAuth extends React.PureComponent {
 	render() {
 		return (
-			<AuthStack.Navigator headerMode='none' hideStatusBar={true}
-								 screenOptions={{
-									 gestureEnabled : false
-								 }}>
+            <AuthStack.Navigator
+                headerMode='none'
+                hideStatusBar={true}
+                screenOptions={{
+                    gestureEnabled : false
+                }
+            }>
 				<AuthStack.Screen name="Index" component={IndexScreen} />
 				<AuthStack.Screen name="Login" component={LoginScreen} />
 				<AuthStack.Screen name="OTP" component={OTPScreen} />
