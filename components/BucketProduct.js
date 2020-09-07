@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image, Dimensions, Platform} from 'react-native';
+import {StyleSheet, Image, Dimensions} from 'react-native';
 import { View,TouchableOpacity, Text, Colors} from 'react-native-ui-lib';
 import {ArchiveIcon} from "../Icons/ArchiveIcon";
 import ShadowView from "react-native-simple-shadow-view";
