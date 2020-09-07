@@ -84,13 +84,12 @@ class Bucket extends React.Component {
 
     componentDidMount() {
         FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
-            Buckets = Buckets[0].concat(Buckets[1],Buckets[2]).sort(function(a,b){return (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp)})
-            console.log(Buckets);
+            Buckets = Buckets[2].concat(Buckets[0],Buckets[1]).sort()
             this.setState({
                 Buckets,
                 Loading: false
             })
-        }).catch(err => {console.log(err)});
+        }).catch(console.log);
     }
 
     FatListRenderItem = ({item}) => (
