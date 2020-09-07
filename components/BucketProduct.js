@@ -40,8 +40,14 @@ export default class BucketProduct extends React.PureComponent {
                 </View>
 
                 <View flex marginV-20>
-                    <Text h1>Quantity 1</Text>
-                    <Text h1>Fabric used {"2"} meters</Text>
+                    <View row>
+                        <Text flex hb2 secondary>Quantity</Text>
+                        <Text flex-2 h1>1</Text>
+                    </View>
+                    <View row>
+                        <Text flex hb2 secondary>Fabric used</Text>
+                        <Text flex-2 h1>2 meters</Text>
+                    </View>
                 </View>
 
                 <TouchableOpacity center marginB-5 style={styles.TouchableOpacity}>
