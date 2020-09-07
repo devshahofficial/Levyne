@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ChatListScreen from '../mockups/ChatListScreen';
 import IndexScreen from '../mockups/Index';
 import LoginScreen from '../mockups/Login';
 import OTPScreen from '../mockups/OTP';
@@ -65,7 +64,7 @@ class BottomTabNavigation extends React.PureComponent {
 				/>
 				<Tab.Screen
 					name="Categories"
-					component={ChatListScreen}
+					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
 							<CategoriesIcon Color={color}/>
@@ -83,7 +82,7 @@ class BottomTabNavigation extends React.PureComponent {
 				/>
 				<Tab.Screen
 					name="Messages"
-					component={ChatListScreen}
+					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
 							<ChatIcon Color={color} IsAnyChatMessage={false}/>
@@ -122,7 +121,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="BrandProfile" component={BrandProfile}/>
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
-				<HomeStack.Screen name="ChatList" component={ChatListScreen} />
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
 				<HomeStack.Screen name="Search" component={SearchScreen} />
 				<HomeStack.Screen name="Settings" component={SettingsScreen} />
