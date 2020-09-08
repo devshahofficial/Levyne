@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
-import {View,Text} from 'react-native-ui-lib';
+import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
@@ -10,16 +10,17 @@ import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 import FetchCart from '../API/FetchCart';
 import RemoveFabricFromCart from '../API/RemoveFabricFromCart';
 import RemoveProductFromCart from '../API/RemoveProductFromCart';
+import {CheckoutIcon} from "../Icons/CheckoutIcon";
 
 /**
- * 
+ *
  * Product Types
  *  1) Product
  *  2) Fabric
  *  3) Customize (3D)
  *  4) Product + Fabric
  *  5) Customize + Fabric
- * 
+ *
  */
 
 
@@ -80,6 +81,10 @@ class Bucket extends React.Component {
         this.props.navigation.navigate('Fabric', {FabricID});
     }
 
+    navigateCheckout = () => {
+        this.props.navigation.navigate('CheckOut');
+    }
+
     RemoveProductFromCart = (CartID, ProductType) => {
         this.setState({
             Buckets : this.state.Buckets.filter(item => !(item.CartID === CartID && item.ProductType === ProductType))
@@ -102,10 +107,10 @@ class Bucket extends React.Component {
                     <View flex center>
                         <ActivityIndicator />
                     </View> :
-                    <View paddingB-50>
+                    <View flex>
                         <FlatList
                             ListFooterComponent={
-                                <View marginV-20 paddingH-15 center row style={styles.View}>
+                                <View margin-20 paddingH-15 center row style={styles.View}>
                                     <DeliveryIcon size={30} Color={Colors.black} />
                                     <DeliveryChargeComponent TotalPrice = {this.props.route.params.TotalPrice} />
                                 </View>
@@ -125,6 +130,15 @@ class Bucket extends React.Component {
                         />
                     </View>
                 }
+                <TouchableOpacity
+                    center row style={styles.Button} activeOpacity={0.8}
+                    onPress={this.navigateCheckout}
+                >
+                    <CheckoutIcon size={30} Color={Colors.white} />
+                    <Text marginL-20 hb1 white>
+                        Check out
+                    </Text>
+                </TouchableOpacity>
             </>
         );
     }
@@ -135,11 +149,17 @@ const styles = StyleSheet.create({
     View: {
         height: 50,
         width: Dimensions.get('window').width,
+        marginLeft: -15,
         backgroundColor: Colors.shadow,
     },
     Product: {
         backgroundColor: Colors.shadow,
         flex: 1
+    },
+    Button: {
+        height: 50,
+        width: Dimensions.get('window').width,
+        backgroundColor: Colors.primary,
     }
 });
 
