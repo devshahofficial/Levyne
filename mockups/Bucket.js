@@ -11,6 +11,7 @@ import FetchCart from '../API/FetchCart';
 import RemoveFabricFromCart from '../API/RemoveFabricFromCart';
 import RemoveProductFromCart from '../API/RemoveProductFromCart';
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
+import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 
 /**
  *
@@ -24,30 +25,11 @@ import {CheckoutIcon} from "../Icons/CheckoutIcon";
  */
 
 
-const DeliveryChargeComponent = (props) => {
-    if(props.TotalPrice >= 1000) {
-        return <>
-            <Text marginL-10 h2>
-                Free Delivery!
-            </Text>
-        </>
-    } else {
-        return <>
-            <Text marginL-10 h2>
-                Free Delivery on buckets over ₹1000{'/-'}
-            </Text>
-        </>
-    }
-}
-
 class Bucket extends React.Component {
 
     constructor(props) {
         super(props);
         this.state= {
-            CustomProducts: true,
-            Products: true,
-            Fabrics: true,
             Buckets: [],
             Loading: true
         }
@@ -82,7 +64,13 @@ class Bucket extends React.Component {
     }
 
     navigateCheckout = () => {
-        this.props.navigation.navigate('CheckOut');
+        this.props.navigation.navigate('CheckOut', {
+            TotalActualPrice: this.props.route.params.TotalActualPrice,
+            TotalDiscount: this.props.route.params.TotalDiscount,
+            TotalDiscountPrice: this.props.route.params.TotalDiscountPrice,
+            TotalProducts: this.props.route.params.TotalProducts,
+            BrandName: this.props.route.params.BrandName
+        });
     }
 
     RemoveProductFromCart = (CartID, ProductType) => {

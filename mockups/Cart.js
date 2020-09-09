@@ -28,14 +28,19 @@ class Cart extends React.Component {
         })
     }
 
-    onBucketPress = (BrandID, BrandName, TotalPrice) => {
-        this.props.navigation.navigate("Bucket", {BrandID, BrandName, TotalPrice});
+    onBucketPress = (BrandID, BrandName, TotalActualPrice, TotalDiscountPrice, TotalDiscount, TotalProducts) => {
+        this.props.navigation.navigate("Bucket", {BrandID, BrandName, TotalDiscountPrice, TotalDiscount, TotalActualPrice, TotalProducts});
+    }
+
+    navigateCheckout = (BrandID, BrandName, TotalActualPrice, TotalDiscountPrice, TotalDiscount, TotalProducts) => {
+        this.props.navigation.navigate("CheckOut", {BrandID, BrandName, TotalDiscountPrice, TotalDiscount, TotalActualPrice, TotalProducts});
     }
 
     FlatListRenderItem = ({item}) => (
         <BucketComponent
             item={item}
             Navigation={this.onBucketPress}
+            navigateCheckout={this.navigateCheckout}
         />
     )
 
