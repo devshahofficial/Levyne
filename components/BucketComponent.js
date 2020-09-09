@@ -48,6 +48,7 @@ export default class BucketComponent extends React.Component {
                 <Avatar
                     size={50}
                     source={{uri : this.props.item.ProfileImage}}
+                    onPress={() => this.props.navigateBrand(this.props.item.BrandID)}
                 />
                 <View marginL-25 centerV>
                     <Text hb2>
