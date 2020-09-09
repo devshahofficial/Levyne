@@ -6,9 +6,11 @@ import NavBarBack from '../components/NavBarBack';
 import Colors from "../Style/Colors";
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
+import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 
 
-class CheckOut extends React.Component {
+
+class CheckOut extends React.PureComponent {
 
     constructor(props) {
         super(props);
@@ -23,7 +25,7 @@ class CheckOut extends React.Component {
     render() {
         return (
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={'Tailor name'}/>
+                <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
 
                 <ScrollView
                     style={{flex:1}}
@@ -33,33 +35,21 @@ class CheckOut extends React.Component {
                         <View row>
                             <Text flex hb1 secondary>Total</Text>
                             <View centerV row>
-                                <Text hb1 primary>₹{100}</Text>
-                                <Text marginT-5 marginL-10 h2 secondary style={{textDecorationLine: "line-through"}}>₹{150}</Text>
-                                <Text marginL-10 hb2 primary>15% off</Text>
+                                <Text hb1 primary>₹{this.props.route.params.TotalDiscountPrice}</Text>
+                                <Text marginT-5 marginL-10 h2 secondary style={{textDecorationLine: "line-through"}}>₹{this.props.route.params.TotalActualPrice}</Text>
+                                <Text marginL-10 hb2 primary>{this.props.route.params.TotalDiscount}% off</Text>
                             </View>
                         </View>
 
                         <View marginT-20 row>
-                            <Text hb1 flex secondary>Quantity</Text>
-                            <Text hb1 primary>1</Text>
+                            <Text hb1 flex secondary>Number of Products</Text>
+                            <Text hb1 primary>{this.props.route.params.TotalProducts}</Text>
                         </View>
                     </View>
 
                     <View marginT-20 paddingH-15 center row style={styles.view}>
                         <DeliveryIcon size={30} Color={Colors.black} />
-                        {this.props.Delivery === 1 ? (
-                            <>
-                                <Text marginL-10 h2>
-                                    Free Delivery!
-                                </Text>
-                            </>
-                        ) : (
-                            <>
-                                <Text marginL-10 h2>
-                                    Free Delivery on buckets over ₹1000{'/-'}
-                                </Text>
-                            </>
-                        )}
+                        <DeliveryChargeComponent TotalPrice={this.props.route.params.TotalDiscountPrice} />
                     </View>
 
                     <View style={styles.View} marginT-20>
@@ -68,7 +58,7 @@ class CheckOut extends React.Component {
                             <RadioButton
                                 selected={true}
                                 color={Colors.shadow}
-                                label={"Address goes here"}
+                                label={this.props.Address + "-" + this.props.PinCode}
                                 labelStyle={{fontSize:16, color:Colors.secondary}}
                             />
                         </View>
@@ -128,7 +118,9 @@ const styles = StyleSheet.create({
 
 
 const mapsStateToProps = state => ({
-    AccessToken : state.Auth.AccessToken
+    AccessToken: state.Auth.AccessToken,
+    Address: state.Profile.Address,
+    PinCode: state.Profile.PinCode,
 });
 
 export default connect(mapsStateToProps)(CheckOut);
