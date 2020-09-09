@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import Colors from "../Style/Colors";
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
-import ShadowView from "react-native-simple-shadow-view";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 
 
