@@ -4,6 +4,7 @@ import {View, Text, TouchableOpacity, Button, Avatar,Colors} from 'react-native-
 import {StarIcon} from '../Icons/StarIcon';
 import CstmShadowView from "./CstmShadowView";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
+import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -37,7 +38,7 @@ export default class BucketComponent extends React.Component {
   render() {
     return (
         <TouchableOpacity
-            onPress={() => this.props.Navigation(this.props.item.BrandID, this.props.item.Name, this.props.item.TotalDiscountPrice)}
+            onPress={() => this.props.Navigation(this.props.item.BrandID, this.props.item.Name, this.props.item.TotalActualPrice, this.props.item.TotalDiscountPrice, this.props.item.TotalDiscount, this.props.item.TotalProducts)}
             style={styles.Container}
             paddingH-20
             marginB-20
@@ -80,25 +81,17 @@ export default class BucketComponent extends React.Component {
                         </View>
                     </View>
                     <CstmShadowView>
-                        <Button flex label="Checkout"/>
+                        <Button
+                            onPress={() => this.props.navigateCheckout(this.props.item.BrandID, this.props.item.Name, this.props.item.TotalActualPrice, this.props.item.TotalDiscountPrice, this.props.item.TotalDiscount, this.props.item.TotalProducts)}
+                            flex
+                            label="Checkout"
+                        />
                     </CstmShadowView>
                 </View>
             </View>
             <View center row style={styles.View}>
                 <DeliveryIcon size={30} Color={Colors.black} />
-                {this.props.item.TotalDiscountPrice >= 1000 ? (
-                    <>
-                        <Text marginL-10 h2>
-                            Free Delivery!
-                        </Text>
-                    </>
-                ) : (
-                    <>
-                        <Text marginL-10 h2>
-                            Free Delivery on buckets over ₹1000{'/-'}
-                        </Text>
-                    </>
-                )}
+                <DeliveryChargeComponent TotalPrice={this.props.item.TotalDiscountPrice} />
             </View>
         </TouchableOpacity>
     );
