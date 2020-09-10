@@ -11,7 +11,7 @@ import NavBarBack from '../components/NavBarBack';
 import {TabBar, TabView} from "react-native-tab-view";
 import Loader from "../components/Loader";
 import FabricItemContainer from "../components/FabricItemContainer";
-import FetchBrandFabrics from "../API/FetchFabricByBrandId";
+import FetchBrandFabrics from "../API/FetchFabricByBrandID";
 import ProfileBottomSection from "../components/MyProfileBottomSection";
 
 
@@ -63,7 +63,7 @@ class BrandProfile extends Component {
         this.ProductPage = 1;
         this.FabricPage = 1;
         ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken).then(ProfileObject => {
-            if (this._isMounted) {
+            /*if (this._isMounted) {
                 this.setState({
                     Name : ProfileObject.Name,
                     Brokers : ProfileObject.Brokers,
@@ -90,9 +90,10 @@ class BrandProfile extends Component {
                     TrialRoom: ProfileObject.TrialRoom,
                     Type: ProfileObject.Type
                 });
-            }
+            }*/
+            console.log(ProfileObject);
         }).catch((err) => {
-            //console.log(err);
+            console.log(err);
         });
 
         FetchBrandProducts(this.props.route.params.BrandID, this.ProductPage, this.props.AccessToken).then(rows => {
