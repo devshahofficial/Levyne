@@ -5,7 +5,7 @@ import IndexScreen from '../mockups/Index';
 import LoginScreen from '../mockups/Login';
 import OTPScreen from '../mockups/OTP';
 import HomeScreen from '../mockups/Home';
-import MyProfile from '../mockups/MyProfile';
+import MyProfile from '../mockups/Profile/MyProfile';
 import BrandProfile from '../mockups/BrandProfile';
 import SearchScreen from '../mockups/SearchScreen';
 import InitialProfile from '../mockups/InitialProfile';
@@ -17,9 +17,9 @@ import {ProfileIcon} from '../Icons/ProfileIcon';
 import ChatIcon from '../Icons/ChatIcon';
 import SettingsScreen from '../mockups/SettingsScreen';
 import BookmarkProducts from '../mockups/BookmarkProducts';
-import Help from '../mockups/Help';
+import Help from '../mockups/Profile/Help';
 import FabricScreen from '../mockups/FabricScreen';
-import TermsConditionsScreen from '../mockups/TermsConditionsScreen';
+import TermsConditionsScreen from '../mockups/Profile/TermsConditionsScreen';
 import Advertise from '../mockups/Advertise';
 import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
@@ -28,12 +28,13 @@ import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import Cart from "../mockups/Cart";
 import Notifications from "../mockups/Notifications";
 import Menu from "../mockups/Menu";
-import EditProfile from "../mockups/EditProfile";
+import EditProfile from "../mockups/Profile/EditProfile";
 import Customize from "../mockups/Customize";
 import Bucket from "../mockups/Bucket";
 import ProductAddToCart from '../mockups/ProductAddToCart';
 import FabricAddToCart from "../mockups/FabricAddToCart";
 import CheckOut from "../mockups/CheckOut";
+import MyFashionDesigners from "../mockups/Profile/MyFashionDesigners";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -126,7 +127,8 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="Settings" component={SettingsScreen} />
 				<HomeStack.Screen name='Help' component={Help}/>
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
-                <HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
+				<HomeStack.Screen name='MyFashionDesigners' component={MyFashionDesigners}/>
+				<HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
 				<HomeStack.Screen name='Advertise' component={Advertise}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>

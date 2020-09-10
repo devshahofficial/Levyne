@@ -11,7 +11,7 @@ import NavBarBack from '../components/NavBarBack';
 import {TabBar, TabView} from "react-native-tab-view";
 import Loader from "../components/Loader";
 import FabricItemContainer from "../components/FabricItemContainer";
-import FetchBrandFabrics from "../API/FetchFabricByBrandId";
+import FetchBrandFabrics from "../API/FetchFabricByBrandID";
 import ProfileBottomSection from "../components/MyProfileBottomSection";
 
 

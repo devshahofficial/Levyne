@@ -2,14 +2,14 @@ import React from 'react';
 import {StyleSheet, ScrollView,Modal, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
-import EditProfileAPI from '../API/EditProfile';
-import CstmInput from "../components/input";
+import EditProfileAPI from '../../API/EditProfile';
+import CstmInput from "../../components/input";
 import {Text, TouchableOpacity, Button, Image, Colors, View, Toast} from 'react-native-ui-lib';
-import CstmShadowView from '../components/CstmShadowView';
-import {GalleryIcon} from "../Icons/GalleryIcon";
-import {CameraIcon} from "../Icons/CameraIcon";
+import CstmShadowView from '../../components/CstmShadowView';
+import {GalleryIcon} from "../../Icons/GalleryIcon";
+import {CameraIcon} from "../../Icons/CameraIcon";
 import Spinner from 'react-native-loading-spinner-overlay';
-import NavBarBack from "../components/NavBarBack";
+import NavBarBack from "../../components/NavBarBack";
 
 
 const windowHeight = Dimensions.get('window').height;
