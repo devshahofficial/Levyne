@@ -100,7 +100,7 @@ class Bucket extends React.Component {
                             ListFooterComponent={
                                 <View margin-20 paddingH-15 center row style={styles.View}>
                                     <DeliveryIcon size={30} Color={Colors.black} />
-                                    <DeliveryChargeComponent TotalPrice = {this.props.route.params.TotalPrice} />
+                                    <DeliveryChargeComponent TotalPrice = {this.props.route.params.TotalDiscountPrice} />
                                 </View>
                             }
                             ListHeaderComponent={
