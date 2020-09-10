@@ -45,9 +45,8 @@ class ProfileBottomSection extends React.PureComponent {
             await Linking.openURL(url);
         }
     }
-
 	render() {
-        const Genre = this.props.BrandGenre.map((item) => Type[0][parseInt(item)].title).join(', ');
+        const Genre = this.props.BrandGenre.map((item) => Type[0][parseInt(item)].title).join(', '); 
 		return (
 			<View paddingT-20>
 				<View paddingT-20>
