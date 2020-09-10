@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, ScrollView, Dimensions} from 'react-native';
 import {View, Text, TouchableOpacity, Colors, Button, Image} from 'react-native-ui-lib';
-import TextNavBar from "../components/TextNavBar";
-import Logout from '../API/Logout';
-import CstmShadowView from "../components/CstmShadowView";
+import TextNavBar from "../../components/TextNavBar";
+import Logout from '../../API/Logout';
+import CstmShadowView from "../../components/CstmShadowView";
 import {connect} from 'react-redux';
 
 class ProfileTopSection extends React.PureComponent {
@@ -19,6 +19,10 @@ class ProfileTopSection extends React.PureComponent {
         this.props.navigation.navigate("EditProfile");
     }
 
+    NavigateFashionDesigners = () => {
+        this.props.navigation.navigate("My  FashionDesigners");
+    }
+
     NavigateEditProfileAuth = () => {
         this.props.navigation.navigate("EditProfileAuth");
     }
@@ -30,7 +34,7 @@ class ProfileTopSection extends React.PureComponent {
     LogoutOnPress = () => {
         Logout(this.props.AccessToken).then(() => {
             this.props.navigation.navigate('Login');
-        }).catch(() => {})  
+        }).catch(() => {})
     }
 
     LoggedInScreen = () => {
@@ -52,7 +56,10 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
+                    <TouchableOpacity
+                        marginT-5
+                        onPress={this.NavigateFashionDesigners}
+                    >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 My fashion designers and tailors.
@@ -127,16 +134,6 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                             <Text h2 grey40>
                                 Terms And Condition.
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <View centerV style={styles.Tab}>
-                            <Text secondary hb1>
-                                About Us
-                            </Text>
-                            <Text h2 grey40>
-                                Know us better!
                             </Text>
                         </View>
                     </TouchableOpacity>
