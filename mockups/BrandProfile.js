@@ -104,7 +104,7 @@ class BrandProfile extends Component {
                 })
             }
         }).catch((err) => {
-            console.log(err);
+            console.log(107, err);
         });
 
         FetchBrandFabrics(this.props.route.params.BrandID, this.FabricPage, this.props.AccessToken).then(rows => {
@@ -116,7 +116,7 @@ class BrandProfile extends Component {
                 })
             }
         }).catch((err) => {
-            console.log(err);
+            console.log(119, err);
         });
 
 
