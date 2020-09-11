@@ -1,6 +1,35 @@
 export default [
     [
-        {"title": "Fashion Designer/Tailor"},
-        {"title": "Fabric Merchant"}
-    ]
-]
+        {title: 'Ethnic'},
+        {title: 'Formal Wear'},
+        {title: 'Business Casual'},
+        {title: 'Everyday Casual'},
+        {title: 'Festive'},
+        {title: 'Social'},
+        {title: 'Holiday Wear'},
+        {title: 'Bridal Collection'},
+        {title: 'Trousseau Collection'},
+        {title: 'Cocktail Wear'},
+        {title: 'Bespoke'},
+        {title: 'Couture Wear'},
+        {title: 'Sustainable Wear'},
+        {title: 'Contemporary Wear'},
+        {title: 'Fusion Wear'},
+        {title: 'Pret Wear'},
+        {title: 'Summer Collection'},
+        {title: 'Winter Collection'},
+        {title: 'Resort And Beach Wear'},
+        {title: 'Celebrity Collection'},
+        {title: 'Evening Black Tie'},
+        {title: 'Kawaii'},
+        {title: 'Gothic'},
+        {title: 'Maternity'},
+        {title: 'Preppy'},
+        {title: 'Lagen look'},
+        {title: 'Casual Chic'},
+        {title: 'Retro'},
+        {title: 'Flapper'},
+        {title: 'Garconne'},
+        {title: 'Elegant'}
+    ],
+];
