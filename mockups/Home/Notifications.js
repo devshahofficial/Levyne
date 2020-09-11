@@ -1,7 +1,7 @@
 import React from 'react';
 import {View,Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
-import NavBarBack from '../components/NavBarBack';
+import NavBarBack from '../../components/NavBarBack';
 
 class Notifications extends React.Component {
 
