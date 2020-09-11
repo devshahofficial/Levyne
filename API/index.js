@@ -37,7 +37,7 @@ export const AuthCheck = async (setAuth, setProfile) => {
 
         if(Timestamp < yesterday)
         {
-            const RefreshTokenJSON = await CustomRequest('refreshtoken', 'POST', true, undefined, {UserID, refreshToken: Response[1][1], UID: config.DeviceID});
+            const RefreshTokenJSON = await CustomRequest('RefreshToken', 'POST', true, undefined, {UserID, RefreshToken: Response[1][1], UID: config.DeviceID});
             
             await AsyncStorage.multiSet([
                 ['AccessToken', RefreshTokenJSON.AccessToken],
