@@ -20,7 +20,7 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     NavigateFashionDesigners = () => {
-        this.props.navigation.navigate("My  FashionDesigners");
+        this.props.navigation.navigate("MyFashionDesigners");
     }
 
     NavigateEditProfileAuth = () => {

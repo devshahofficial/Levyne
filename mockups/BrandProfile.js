@@ -119,18 +119,6 @@ class BrandProfile extends Component {
             console.log(119, err);
         });
 
-
-        /*ArchiveProductAPI.ListArchiveProducts(this.ArchivePage++, this.props.AccessToken).then(rows => {
-            if (this._isMounted) {
-                this.TotalArchiveProducts = rows.Total;
-                this.setState({
-                    ArchivedProducts : rows.Products,
-                    ArchiveProductsLoading : false
-                });
-            }
-        }).catch(err => {});
-        */
-
     }
 
     navigateFollowers = () => {}
@@ -305,14 +293,14 @@ class BrandProfile extends Component {
     Follow = () => {
         if(this.state.DoIFollow) {
             BrandFollowing.UnFollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
-                //console.log(err);
+                console.log(err);
             })
             this.setState({
                 DoIFollow : false
             })
         } else {
             BrandFollowing.FollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
-                //console.log(err);
+                console.log(err);
             })
             this.setState({
                 DoIFollow : true
