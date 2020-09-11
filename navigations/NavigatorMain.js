@@ -4,30 +4,29 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IndexScreen from '../mockups/Index';
 import LoginScreen from '../mockups/Login';
 import OTPScreen from '../mockups/OTP';
-import HomeScreen from '../mockups/Home';
+import HomeScreen from '../mockups/Home/Home';
 import MyProfile from '../mockups/Profile/MyProfile';
 import BrandProfile from '../mockups/BrandProfile';
 import SearchScreen from '../mockups/SearchScreen';
 import InitialProfile from '../mockups/InitialProfile';
-import ChatScreen from '../mockups/ChatScreen';
+import ChatScreen from '../mockups/ChatSystem/ChatScreen';
 import ProductScreen from '../mockups/ProductScreen';
 import {Colors} from "react-native-ui-lib";
 import {HomeIcon} from '../Icons/HomeIcon';
 import {ProfileIcon} from '../Icons/ProfileIcon';
 import ChatIcon from '../Icons/ChatIcon';
 import SettingsScreen from '../mockups/SettingsScreen';
-import BookmarkProducts from '../mockups/BookmarkProducts';
+import BookmarkProducts from '../mockups/Home/BookmarkProducts';
 import Help from '../mockups/Profile/Help';
 import FabricScreen from '../mockups/FabricScreen';
 import TermsConditionsScreen from '../mockups/Profile/TermsConditionsScreen';
-import Advertise from '../mockups/Advertise';
 import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
 import {CategoriesIcon} from "../Icons/CategoriesIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import Cart from "../mockups/Cart";
-import Notifications from "../mockups/Notifications";
-import Menu from "../mockups/Menu";
+import Notifications from "../mockups/Home/Notifications";
+import Menu from "../mockups/Home/Menu";
 import EditProfile from "../mockups/Profile/EditProfile";
 import Customize from "../mockups/Customize";
 import Bucket from "../mockups/Bucket";
@@ -130,7 +129,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='MyFashionDesigners' component={MyFashionDesigners}/>
 				<HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
-				<HomeStack.Screen name='Advertise' component={Advertise}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>
 				<HomeStack.Screen name='Cart' component={Cart}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
