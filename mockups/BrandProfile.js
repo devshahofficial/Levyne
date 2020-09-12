@@ -104,7 +104,7 @@ class BrandProfile extends Component {
                 })
             }
         }).catch((err) => {
-            console.log(err);
+            console.log(107, err);
         });
 
         FetchBrandFabrics(this.props.route.params.BrandID, this.FabricPage, this.props.AccessToken).then(rows => {
@@ -116,20 +116,8 @@ class BrandProfile extends Component {
                 })
             }
         }).catch((err) => {
-            console.log(err);
+            console.log(119, err);
         });
-
-
-        /*ArchiveProductAPI.ListArchiveProducts(this.ArchivePage++, this.props.AccessToken).then(rows => {
-            if (this._isMounted) {
-                this.TotalArchiveProducts = rows.Total;
-                this.setState({
-                    ArchivedProducts : rows.Products,
-                    ArchiveProductsLoading : false
-                });
-            }
-        }).catch(err => {});
-        */
 
     }
 
@@ -168,21 +156,23 @@ class BrandProfile extends Component {
     ProductScreenOnEndReached = () => {
         if(!this.ProductsLoading && this.state.BrandProducts.length < this.TotalProducts) {
             this.ProductsLoading = true;
-            FetchBrandProducts(this.props.BrandID, ++this.ProductPage, this.props.AccessToken).then(rows => {
+            FetchBrandProducts(this.props.route.params.BrandID, ++this.ProductPage, this.props.AccessToken).then(rows => {
                 if(this._isMounted) {
                     this.setState({
                         BrandProducts : [...this.state.BrandProducts, ...rows.Products]
                     })
                     this.ProductsLoading = false;
                 }
-            }).catch(() => {});
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }
 
     FabricScreenOnEndReached = () => {
         if(!this.FabricsLoading && this.state.BrandFabrics.length < this.TotalFabrics) {
             this.FabricsLoading = true;
-            FetchBrandFabrics(this.props.BrandID, ++this.FabricPage, this.props.AccessToken).then(rows => {
+            FetchBrandFabrics(this.props.route.params.BrandID, ++this.FabricPage, this.props.AccessToken).then(rows => {
                 if(this._isMounted) {
                     this.setState({
                         BrandFabrics : [...this.state.BrandFabrics, ...rows.Fabrics]
@@ -305,14 +295,14 @@ class BrandProfile extends Component {
     Follow = () => {
         if(this.state.DoIFollow) {
             BrandFollowing.UnFollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
-                //console.log(err);
+                console.log(err);
             })
             this.setState({
                 DoIFollow : false
             })
         } else {
             BrandFollowing.FollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
-                //console.log(err);
+                console.log(err);
             })
             this.setState({
                 DoIFollow : true
