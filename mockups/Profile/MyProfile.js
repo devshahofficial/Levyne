@@ -20,7 +20,23 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     NavigateFashionDesigners = () => {
-        this.props.navigation.navigate("My  FashionDesigners");
+        this.props.navigation.navigate("MyFashionDesigners");
+    }
+
+    NavigateFits = () => {
+        this.props.navigation.navigate("MyFits");
+    }
+
+    NavigateHelp = () => {
+        this.props.navigation.navigate("Help");
+    }
+
+    NavigateTandC = () => {
+        this.props.navigation.navigate("TermsAndCondition");
+    }
+
+    NavigateFAQs = () => {
+        this.props.navigation.navigate("FAQs");
     }
 
     NavigateEditProfileAuth = () => {
@@ -46,7 +62,9 @@ class ProfileTopSection extends React.PureComponent {
                 <Text marginH-15 marginT-20 b1 black>Welcome, {this.props.Name}</Text>
 
                 <View marginT-30 paddingH-15>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={this.NavigateFits}
+                    >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 My fits and Sizes
@@ -107,7 +125,9 @@ class ProfileTopSection extends React.PureComponent {
                 </View>
 
                 <View marginT-30 paddingH-15>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={this.NavigateHelp}
+                    >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 Help Center
@@ -117,7 +137,10 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
+                    <TouchableOpacity
+                        marginT-5
+                        onPress={this.NavigateFAQs}
+                    >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 FAQs
@@ -127,7 +150,10 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
+                    <TouchableOpacity
+                        marginT-5
+                        onPress={this.NavigateTandC}
+                    >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 T & C
@@ -174,35 +200,37 @@ class ProfileTopSection extends React.PureComponent {
                 <View marginT-50 paddingH-15>
                     <TouchableOpacity>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
+                            <Text secondary hb1>
                                 Help Center
                             </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
-                        <View centerV style={styles.Tab}>
-                            <Text h1>
-                                FAQS
+                            <Text h2 grey40>
+                                We are always here to help you.
                             </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity marginT-5>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
-                                Terms and Conditions
+                            <Text secondary hb1>
+                                FAQs
+                            </Text>
+                            <Text h2 grey40>
+                                Frequently asked questions.
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity marginT-5>
                         <View centerV style={styles.Tab}>
-                            <Text h1>
-                                About Us
+                            <Text secondary hb1>
+                                T & C
+                            </Text>
+                            <Text h2 grey40>
+                                Terms And Condition.
                             </Text>
                         </View>
                     </TouchableOpacity>
                 </View>
 
-                <Text marginT-30 marginH-15 grey40 h3 center>APP VERSION 1.0.0</Text>
+                <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION 1.0.0</Text>
             </View>
         )
     }

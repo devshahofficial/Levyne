@@ -156,7 +156,7 @@ class OTPScreen extends React.Component {
                             </CstmShadowView>
                             <View style={styles.container} marginT-30>
                                 <Text style={styles.Text} marginB-20>Didn't receive it ?</Text>
-                                <Text onPress={this.ResendOTP} h1 style={[styles.Text, {fontSize:this.state.Size, color:this.state.Color}]}>{this.state.Time}</Text>
+                                <Text onPress={this.ResendOTP} h1 style={[styles.Text, {fontSize:this.state.Size, color:this.state.Color, lineHeight:60}]}>{this.state.Time}</Text>
                             </View>
                         </View>
                     </View>
