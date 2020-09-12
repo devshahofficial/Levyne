@@ -156,21 +156,23 @@ class BrandProfile extends Component {
     ProductScreenOnEndReached = () => {
         if(!this.ProductsLoading && this.state.BrandProducts.length < this.TotalProducts) {
             this.ProductsLoading = true;
-            FetchBrandProducts(this.props.BrandID, ++this.ProductPage, this.props.AccessToken).then(rows => {
+            FetchBrandProducts(this.props.route.params.BrandID, ++this.ProductPage, this.props.AccessToken).then(rows => {
                 if(this._isMounted) {
                     this.setState({
                         BrandProducts : [...this.state.BrandProducts, ...rows.Products]
                     })
                     this.ProductsLoading = false;
                 }
-            }).catch(() => {});
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     }
 
     FabricScreenOnEndReached = () => {
         if(!this.FabricsLoading && this.state.BrandFabrics.length < this.TotalFabrics) {
             this.FabricsLoading = true;
-            FetchBrandFabrics(this.props.BrandID, ++this.FabricPage, this.props.AccessToken).then(rows => {
+            FetchBrandFabrics(this.props.route.params.BrandID, ++this.FabricPage, this.props.AccessToken).then(rows => {
                 if(this._isMounted) {
                     this.setState({
                         BrandFabrics : [...this.state.BrandFabrics, ...rows.Fabrics]
