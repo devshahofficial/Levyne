@@ -3,13 +3,42 @@ import {Animated, ActivityIndicator} from 'react-native';
 import {View, Text} from 'react-native-ui-lib';
 import BrandItemContainer from '../../components/BrandItemContainer';
 import NavBarBack from "../../components/NavBarBack";
+import BrandFollowings from '../../API/BrandFollowing';
+import {connect} from 'react-redux';
 
-export default class MyFashionDesigners extends React.Component {
+class MyFashionDesigners extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
+            BrandData: [],
             sortModel: false,
+            LoadingBrands: true
+        }
+        this.Page = 0;
+        this.Total = 0;
+    }
+
+    componentDidMount() {
+        BrandFollowings.FetchFollowedBrands(++this.Page, this.props.AccessToken).then(resp => {
+            this.setState({BrandData: resp.Brands, LoadingBrands: false});
+            this.Total = resp.Total;
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    navigateBrand = (BrandID) => {
+        this.props.navigation.navigate("BrandProfile", {BrandID});
+    }
+
+    onBrandEndReached = () => {
+        if(this.state.BrandData.length < this.Total) {
+            BrandFollowings.FetchFollowedBrands(++this.Page, this.props.AccessToken).then(resp => {
+                this.setState({BrandData: [...this.state.BrandData, ...resp.Brands]});
+            }).catch(err => {
+                console.log(err);
+            })
         }
     }
 
@@ -19,15 +48,15 @@ export default class MyFashionDesigners extends React.Component {
                 <NavBarBack Title={'My Fashion Designers'} Navigation={this.props.navigation.goBack}/>
                 <View flex>
                     {
-                        this.props.LoadingBrands ?
+                        this.state.LoadingBrands ?
                             <View flex center>
                                 <ActivityIndicator />
                             </View>
                             :
                             <Animated.FlatList
-                                data={this.props.BrandData}
+                                data={this.state.BrandData}
                                 ListHeaderComponent={<View marginV-25></View>}
-                                renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.props.navigateBrand}/>}
+                                renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.navigateBrand}/>}
                                 keyExtractor={(item) => 'Brand' + item.BrandID}
                                 showsVerticalScrollIndicator={false}
                                 ListEmptyComponent={
@@ -35,7 +64,7 @@ export default class MyFashionDesigners extends React.Component {
                                         <Text center b1 grey50>You aren't following any fashion designer or a tailor.</Text>
                                     </View>
                                 }
-                                onEndReached={this.props.onBrandEndReached}
+                                onEndReached={this.onBrandEndReached}
                                 onEndReachedThreshold={0.75}
                             />
                     }
@@ -45,3 +74,9 @@ export default class MyFashionDesigners extends React.Component {
     }
 
 }
+
+const mapsStateToProps = state => ({
+    AccessToken: state.Auth.AccessToken
+});
+
+export default connect(mapsStateToProps)(MyFashionDesigners);
