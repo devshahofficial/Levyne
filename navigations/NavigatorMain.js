@@ -36,6 +36,7 @@ import CheckOut from "../mockups/CheckOut";
 import MyFashionDesigners from "../mockups/Profile/MyFashionDesigners";
 import MyFits from "../mockups/Profile/MyFits";
 import FAQscreen from "../mockups/Profile/FAQscreen";
+import MyOrders from "../mockups/Profile/MyOrders";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -136,6 +137,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='Cart' component={Cart}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
 				<HomeStack.Screen name='MyFits' component={MyFits}/>
+				<HomeStack.Screen name='MyOrders' component={MyOrders}/>
 				<HomeStack.Screen name='CheckOut' component={CheckOut}/>
 				<HomeStack.Screen
                     name='Menu'
