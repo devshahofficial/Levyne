@@ -27,6 +27,10 @@ class ProfileTopSection extends React.PureComponent {
         this.props.navigation.navigate("MyFits");
     }
 
+    NavigateOrders = () => {
+        this.props.navigation.navigate("MyOrders");
+    }
+
     NavigateHelp = () => {
         this.props.navigation.navigate("Help");
     }
@@ -87,7 +91,10 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
+                    <TouchableOpacity
+                        marginT-5
+                        onPress={this.NavigateOrders}
+                    >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 Orders

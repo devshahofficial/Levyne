@@ -2,7 +2,6 @@ import React from 'react';
 import {ImageBackground, StyleSheet, Dimensions, Platform,} from 'react-native';
 import {View, Text, TouchableOpacity, Button, Avatar,Colors} from 'react-native-ui-lib';
 import {StarIcon} from '../Icons/StarIcon';
-import CstmShadowView from "./CstmShadowView";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 
@@ -71,7 +70,7 @@ export default class BucketComponent extends React.Component {
                     </Text>
                 </ImageBackground>
                 <View spread marginL-30>
-                    <View row>
+                    <View row flex-15>
                         <View>
                             <Text h2>Total</Text>
                             <Text h2>Discount</Text>
@@ -81,13 +80,13 @@ export default class BucketComponent extends React.Component {
                             <Text h1 primary>{this.props.item.TotalDiscount}% off</Text>
                         </View>
                     </View>
-                    <CstmShadowView>
+                    <View flex>
                         <Button
                             onPress={() => this.props.navigateCheckout(this.props.item.BrandID, this.props.item.Name, this.props.item.TotalActualPrice, this.props.item.TotalDiscountPrice, this.props.item.TotalDiscount, this.props.item.TotalProducts)}
-                            flex
+                            flex style={styles.Checkout}
                             label="Checkout"
                         />
-                    </CstmShadowView>
+                    </View>
                 </View>
             </View>
             <View center row style={styles.View}>
@@ -118,5 +117,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         borderColor: Colors.shadow
+    },
+    Checkout: {
+        width: 150,
+        borderWidth: 1,
+        borderColor: Colors.primary,
+        borderRadius: 10,
+        height: 30
     }
 });
