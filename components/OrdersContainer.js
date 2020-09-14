@@ -1,8 +1,6 @@
 import {Dimensions, ImageBackground, Platform, StyleSheet} from "react-native";
 import React from 'react';
 import {View, Text, Colors, TouchableOpacity, Avatar, Button} from 'react-native-ui-lib';
-import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
-import DeliveryChargeComponent from "./DeliveryChargeComponent";
 import {StarIcon} from "../Icons/StarIcon";
 
 const screenWidth = Dimensions.get('window').width;
