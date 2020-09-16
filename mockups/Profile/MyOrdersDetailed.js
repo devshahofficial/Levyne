@@ -2,16 +2,15 @@ import React from 'react';
 import {Dimensions, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
-import NavBarBack from '../components/NavBarBack';
-import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
-import Colors from "../Style/Colors";
-import BucketProduct from "../components/BucketProduct";
-import {TimerIcon} from "../Icons/Secondary/TimerIcon";
-import FetchCart from '../API/FetchCart';
-import RemoveFabricFromCart from '../API/RemoveFabricFromCart';
-import RemoveProductFromCart from '../API/RemoveProductFromCart';
-import {CheckoutIcon} from "../Icons/CheckoutIcon";
-import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
+import NavBarBack from '../../components/NavBarBack';
+import {DeliveryIcon} from "../../Icons/Secondary/DeliveryIcon";
+import Colors from "../../Style/Colors";
+import BucketProduct from "../../components/BucketProduct";
+import {TimerIcon} from "../../Icons/Secondary/TimerIcon";
+import FetchCart from '../../API/FetchCart';
+import RemoveFabricFromCart from '../../API/RemoveFabricFromCart';
+import RemoveProductFromCart from '../../API/RemoveProductFromCart';
+import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 
 /**
  *
@@ -25,7 +24,7 @@ import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
  */
 
 
-class Bucket extends React.Component {
+class MyOrdersDetailed extends React.Component {
 
     constructor(props) {
         super(props);
@@ -45,7 +44,7 @@ class Bucket extends React.Component {
         }).catch(err => {console.log(err)});
     }
 
-    FatListRenderItem = ({item}) => (
+    FlatListRenderItem = ({item}) => (
         <BucketProduct
             item={item}
             navigateProduct={this.navigateProduct}
@@ -61,16 +60,6 @@ class Bucket extends React.Component {
 
     navigateFabric = (FabricID) => {
         this.props.navigation.navigate('Fabric', {FabricID});
-    }
-
-    navigateCheckout = () => {
-        this.props.navigation.navigate('CheckOut', {
-            TotalActualPrice: this.props.route.params.TotalActualPrice,
-            TotalDiscount: this.props.route.params.TotalDiscount,
-            TotalDiscountPrice: this.props.route.params.TotalDiscountPrice,
-            TotalProducts: this.props.route.params.TotalProducts,
-            BrandName: this.props.route.params.BrandName
-        });
     }
 
     RemoveProductFromCart = (CartID, ProductType) => {
@@ -93,7 +82,7 @@ class Bucket extends React.Component {
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
                 {this.state.Loading ?
                     <View flex center>
-                        <ActivityIndicator />
+                        <ActivityIndicator/>
                     </View> :
                     <View flex>
                         <FlatList
@@ -114,19 +103,10 @@ class Bucket extends React.Component {
                             showsVerticalScrollIndicator={false}
                             data={this.state.Buckets}
                             keyExtractor={(item) => `T${item.ProductType}C${item.CartID}`}
-                            renderItem={this.FatListRenderItem}
+                            renderItem={this.FlatListRenderItem}
                         />
                     </View>
                 }
-                <TouchableOpacity
-                    center row style={styles.Button} activeOpacity={0.8}
-                    onPress={this.navigateCheckout}
-                >
-                    <CheckoutIcon size={30} Color={Colors.white} />
-                    <Text marginL-20 hb1 white>
-                        Check out
-                    </Text>
-                </TouchableOpacity>
             </>
         );
     }
@@ -156,4 +136,4 @@ const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken
 });
 
-export default connect(mapsStateToProps)(Bucket);
+export default connect(mapsStateToProps)(MyOrdersDetailed);
