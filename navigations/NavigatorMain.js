@@ -75,7 +75,7 @@ class BottomTabNavigation extends React.PureComponent {
 						),
 					}}
 				/>
-				<Tab.Screen
+				{/*<Tab.Screen
 					name="Customize"
 					component={Customize}
 					options={{
@@ -83,7 +83,7 @@ class BottomTabNavigation extends React.PureComponent {
 							<CustomizeIcon Color={color}/>
 						),
 					}}
-				/>
+				/>*/}
 				<Tab.Screen
 					name="Messages"
 					component={MyProfile}

@@ -14,15 +14,15 @@ export default class HomeNavBar extends React.PureComponent {
     render() {
         return (
             <View row centerV style={styles.NavBar}>
-                <TouchableOpacity
+                {/*<TouchableOpacity
                     marginH-20 br100
                     onPress={() => {
                         this.props.navigateMenu();
                     }}
                 >
                     <MenuIcon size={28} Color={Colors.black}/>
-                </TouchableOpacity>
-                <View flex-1 row>
+                </TouchableOpacity>*/}
+                <View marginH-20 flex-1 row>
                     <Logo width='60%'/>
                 </View>
                 <View flex row centerV right>
@@ -34,14 +34,14 @@ export default class HomeNavBar extends React.PureComponent {
                     >
                         <SearchIcon size={28} Color={Colors.black}/>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/*<TouchableOpacity
                         marginH-8 br100
                         onPress={() => {
                             this.props.navigateNotifications();
                         }}
                     >
                         <BellIcon size={22} Color={Colors.black}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                     <TouchableOpacity
                         marginH-8 br100
                         onPress={() => {
