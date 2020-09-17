@@ -29,7 +29,6 @@ class ProductScreen extends React.Component {
             return this.props.navigation.goBack();
         }
         ProductByID(this.props.route.params.ProductID, this.props.AccessToken).then(resp => {
-            console.log(resp);
             if(this._isMounted) {
                 this.setState({
                     ProductObject : resp,
