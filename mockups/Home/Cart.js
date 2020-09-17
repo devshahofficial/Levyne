@@ -1,9 +1,9 @@
 import React from 'react';
 import {View, Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
-import NavBarBack from '../components/NavBarBack';
-import BucketComponent from "../components/BucketComponent";
-import FetchBuckets from '../API/FetchBuckets';
+import NavBarBack from '../../components/NavBarBack';
+import BucketComponent from "../../components/BucketComponent";
+import FetchBuckets from '../../API/FetchBuckets';
 import {ActivityIndicator, FlatList} from 'react-native';
 
 class Cart extends React.Component {
