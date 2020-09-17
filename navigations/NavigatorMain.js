@@ -24,12 +24,12 @@ import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
 import {CategoriesIcon} from "../Icons/CategoriesIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
-import Cart from "../mockups/Cart";
+import Cart from "../mockups/Home/Cart";
 import Notifications from "../mockups/Home/Notifications";
 import Menu from "../mockups/Home/Menu";
 import EditProfile from "../mockups/Profile/EditProfile";
 import Customize from "../mockups/Customize";
-import Bucket from "../mockups/Bucket";
+import Bucket from "../mockups/Home/Bucket";
 import ProductAddToCart from '../mockups/ProductAddToCart';
 import FabricAddToCart from "../mockups/FabricAddToCart";
 import CheckOut from "../mockups/CheckOut";
@@ -37,6 +37,7 @@ import MyFashionDesigners from "../mockups/Profile/MyFashionDesigners";
 import MyFits from "../mockups/Profile/MyFits";
 import FAQscreen from "../mockups/Profile/FAQscreen";
 import MyOrders from "../mockups/Profile/MyOrders";
+import MyOrdersDetailed from "../mockups/Profile/MyOrdersDetailed";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -74,7 +75,7 @@ class BottomTabNavigation extends React.PureComponent {
 						),
 					}}
 				/>
-				<Tab.Screen
+				{/*<Tab.Screen
 					name="Customize"
 					component={Customize}
 					options={{
@@ -82,7 +83,7 @@ class BottomTabNavigation extends React.PureComponent {
 							<CustomizeIcon Color={color}/>
 						),
 					}}
-				/>
+				/>*/}
 				<Tab.Screen
 					name="Messages"
 					component={MyProfile}
@@ -139,6 +140,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='MyFits' component={MyFits}/>
 				<HomeStack.Screen name='MyOrders' component={MyOrders}/>
 				<HomeStack.Screen name='CheckOut' component={CheckOut}/>
+				<HomeStack.Screen name='MyOrdersDetailed' component={MyOrdersDetailed}/>
 				<HomeStack.Screen
                     name='Menu'
                     component={Menu}
