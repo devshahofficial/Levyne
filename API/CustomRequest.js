@@ -10,9 +10,10 @@ import config from '../assets/constants';
  */
 
 
-const CustomRequest = async (URL, Method, ReturnResponse, Token, Body) => {
+const CustomRequest = async (URL, Method, ReturnResponse, Token, Body, abortControllerSignal) => {
     const resp = await fetch(config.BaseURL + URL, {
         method: Method,
+        signal: abortControllerSignal,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',

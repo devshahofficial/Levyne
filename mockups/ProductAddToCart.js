@@ -4,7 +4,7 @@ import CstmShadowView from "../components/CstmShadowView";
 import {Text, View, TouchableOpacity, Colors, Button, Checkbox, Toast, Stepper} from "react-native-ui-lib";
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
 import FabricOrderContainer from "../components/FabricOrderContainer";
-import FetchFabricByBrandID from '../API/FetchFabricByBrandID';
+import FetchFabricByBrandIDAndMaterials from '../API/FetchFabricByBrandIDAndMaterials';
 import AddProductToCartAPI from '../API/AddProductToCart';
 import {connect} from 'react-redux';
 
@@ -24,6 +24,7 @@ class AddToCartScreen extends React.PureComponent {
         this.FabricPage = 0;
         this.FabricTotal = 0;
         this._isMounted = true;
+        this.abortController = new AbortController();
     }
 
     setSelectedSize = (SelectedSize) => {
@@ -31,7 +32,7 @@ class AddToCartScreen extends React.PureComponent {
     }
 
     componentDidMount() {
-        FetchFabricByBrandID(this.props.route.params.BrandID, ++this.FabricPage, this.props.AccessToken).then(resp => {
+        FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
             this._isMounted && this.setState({
                 Fabrics: resp.Fabrics,
             });
@@ -39,6 +40,10 @@ class AddToCartScreen extends React.PureComponent {
         }).catch(err => {
             console.log(err);
         })
+    }
+
+    componentWillUnmount() {
+        this.abortController.abort();
     }
 
     SelectFabric = (SelectedFabric) => {
@@ -77,7 +82,8 @@ class AddToCartScreen extends React.PureComponent {
             this.state.SelectedSize,
             this.state.SelectedFabric,
             this.state.FabricQuantity,
-            this.props.AccessToken
+            this.props.AccessToken,
+            this.abortController.signal
         ).then(() => {
             this.setState({
                 SelectedSize: 0,
@@ -89,7 +95,7 @@ class AddToCartScreen extends React.PureComponent {
 
     LoadMoreFabrics = () => {
         if(this.FabricTotal > this.state.Fabrics.length) {
-            FetchFabricByBrandID(this.state.ProductObject.BrandID, ++this.FabricPage, this.props.AccessToken).then(resp => {
+            FetchFabricByBrandID(this.state.ProductObject.BrandID, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this._isMounted && this.setState({
                     Fabrics: [...this.state.Fabrics, ...resp.Fabrics]
                 });

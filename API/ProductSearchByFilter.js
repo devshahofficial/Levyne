@@ -1,6 +1,6 @@
 import config from '../assets/constants';
 
-const ProductSearchByFilter = (FilterObject, Page, OrderBy, Token) => {
+const ProductSearchByFilter = (FilterObject, Page, OrderBy, Token, abortControllerSignal) => {
     return new Promise(async (resolve, reject) => {
         var FetchUrl = config.BaseURL + `Products/FetchByFilter/?`;
         FilterObject.forEach(function(item) {
@@ -21,7 +21,8 @@ const ProductSearchByFilter = (FilterObject, Page, OrderBy, Token) => {
                     Accept: 'application/json',
                     'Content-Type': 'application/json',
                     'Authorization': Token
-                }
+                },
+                signal: abortControllerSignal
             });
             if (resp.status != 200) {
                 throw new Error('ProductFilter : Response status not 200');

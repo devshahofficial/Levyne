@@ -50,16 +50,21 @@ class Search extends React.Component {
         this.ProductLoadNewPage = true;
         this.FabricLoadNewPage = true;
         this.BrandLoadNewPage = true;
+        this.abortController = new AbortController();
     }
 
     componentDidMount() {
         this._isMounted = true;
     }
 
+    componentWillUnmount() {
+        this.abortController.abort();
+    }
+
     onProductEndReached = () => {
         if(this.ProductLoadNewPage && this.state.ProductsData.length !== this.TotalProducts) {
             this.ProductLoadNewPage = false;
-            ProductBySearch(this.state.SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken).then(resp => {
+            ProductBySearch(this.state.SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this.ProductLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({ProductsData: [...this.state.ProductsData, ...resp.Products]})
@@ -73,7 +78,7 @@ class Search extends React.Component {
     onFabricEndReached = () => {
         if(this.FabricLoadNewPage && this.state.FabricData.length !== this.TotalFabrics) {
             this.FabricLoadNewPage = false;
-            FabricBySearch(this.state.SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken).then(resp => {
+            FabricBySearch(this.state.SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this.FabricLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({FabricData: [...this.state.FabricData, ...resp.Fabrics]})
@@ -87,7 +92,7 @@ class Search extends React.Component {
     onBrandEndReached = () => {
         if(this.BrandLoadNewPage && this.state.BrandData.length !== this.TotalBrand) {
             this.BrandLoadNewPage = false;
-            BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.state.BrandSort, this.props.AccessToken).then(resp => {
+            BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.state.BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this.BrandLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({
@@ -116,7 +121,7 @@ class Search extends React.Component {
             ProductsData: []
         });
         this.ProductPage = 0;
-        ProductBySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken).then(resp => {
+        ProductBySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
                     ProductsData : resp.Products
@@ -134,7 +139,7 @@ class Search extends React.Component {
             FabricData: []
         });
         this.FabricPage = 0;
-        FabricBySearch(this.state.SearchKey, ++this.FabricPage, FabricSort, this.props.AccessToken).then(resp => {
+        FabricBySearch(this.state.SearchKey, ++this.FabricPage, FabricSort, this.props.AccessToken, this.abortController.signal).then(resp => {
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
                     FabricData : resp.Fabrics
@@ -152,7 +157,7 @@ class Search extends React.Component {
             BrandData: []
         });
         this.BrandPage = 0;
-        BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
+        BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken, this.abortController.signal).then(resp => {
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
                     BrandData : resp.Brands
@@ -177,7 +182,7 @@ class Search extends React.Component {
 
             //Searching Products
             this.ProductPage = 0;
-            ProductBySearch(SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken).then(resp => {
+            ProductBySearch(SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         ProductsData: resp.Products,
@@ -189,7 +194,7 @@ class Search extends React.Component {
 
             //Searching Fabrics
             this.FabricPage = 0;
-            FabricBySearch(SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken).then(resp => {
+            FabricBySearch(SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken, this.abortController.signal ).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         FabricData : resp.Fabrics,
@@ -202,7 +207,7 @@ class Search extends React.Component {
             //Searching Brands
 
             this.BrandPage = 0;
-            BrandBySearch(SearchKey, ++this.BrandPage, this.props.AccessToken).then(resp => {
+            BrandBySearch(SearchKey, ++this.BrandPage, this.props.AccessToken, this.abortController.signal).then(resp => {
                 if(this._isMounted && SearchKey) {
                     this.setState({
                         BrandData : resp.Brands,

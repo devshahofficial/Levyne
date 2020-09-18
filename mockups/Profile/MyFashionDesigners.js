@@ -17,15 +17,20 @@ class MyFashionDesigners extends React.Component {
         }
         this.Page = 0;
         this.Total = 0;
+        this.abortController = new AbortController();
     }
 
     componentDidMount() {
-        BrandFollowings.FetchFollowedBrands(++this.Page, this.props.AccessToken).then(resp => {
+        BrandFollowings.FetchFollowedBrands(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
             this.setState({BrandData: resp.Brands, LoadingBrands: false});
             this.Total = resp.Total;
         }).catch(err => {
             console.log(err);
         })
+    }
+
+    componentWillUnmount() {
+        this.abortController.abort();
     }
 
     navigateBrand = (BrandID) => {
@@ -34,7 +39,7 @@ class MyFashionDesigners extends React.Component {
 
     onBrandEndReached = () => {
         if(this.state.BrandData.length < this.Total) {
-            BrandFollowings.FetchFollowedBrands(++this.Page, this.props.AccessToken).then(resp => {
+            BrandFollowings.FetchFollowedBrands(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this.setState({BrandData: [...this.state.BrandData, ...resp.Brands]});
             }).catch(err => {
                 console.log(err);
