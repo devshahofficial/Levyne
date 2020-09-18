@@ -82,13 +82,10 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                             showsHorizontalScrollIndicator={false}
                             horizontal={true}
                             extraData={this.props.navigation}
-                            keyExtractor={(item, index) => index.toString()}
+                            keyExtractor={(item) => item}
 						    renderItem={({item}) => (
                                 <Category
-                                    navigation={this.props.navigation}
-                                    FilterObjectvalue={item}
                                     title={item}
-                                    Image={'https://i.pinimg.com/originals/15/a7/a1/15a7a14803756574226fa4812f4755c3.jpg'}
                                     ImageStyle={styles.Image}
                                 />
                             )}

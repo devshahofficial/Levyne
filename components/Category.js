@@ -5,16 +5,10 @@ import { TouchableOpacity, Text} from 'react-native-ui-lib';
 export default class Category extends React.PureComponent {
     render() {
         return (
-            <TouchableOpacity
-                /*onPress={() => this.props.navigation.navigate('FilterSearchResult', {
-                FilterObject : [{
-                    key: 'Type',
-                    value: this.props.FilterObjectvalue
-                }]
-            })}*/>
+            <TouchableOpacity>
                 <ImageBackground
                     imageStyle={{ borderRadius: 10 }}
-                    source={{ uri: this.props.Image }}
+                    source={require('../assets/images/Categories.webp')}
                     style={[styles.image,this.props.ImageStyle]}
                 >
                     <Text b1 white center>

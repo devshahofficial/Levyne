@@ -20,13 +20,14 @@ class FabricAddToCart extends React.Component {
             FabricObject : {},
             success : true
         }
+        this.abortController = new AbortController();
     }
 
     componentDidMount() {
         if(!this.props.route.params.FabricID) {
             return this.props.navigation.goBack();
         }
-        FabricByID(this.props.route.params.FabricID, this.props.AccessToken).then(resp => {
+        FabricByID(this.props.route.params.FabricID, this.props.AccessToken, this.abortController.signal).then(resp => {
             this.setState({
                 FabricObject : resp,
                 loading : false
@@ -40,6 +41,10 @@ class FabricAddToCart extends React.Component {
         })
     }
 
+    componentWillUnmount() {
+        this.abortController.abort();
+    }
+
     BrandNavigation = (OtherBrandID) => {
         this.props.navigation.push('BrandProfile', {
             BrandID : OtherBrandID,
@@ -47,7 +52,7 @@ class FabricAddToCart extends React.Component {
     }
 
     AddToCart = () => {
-        AddFabricToCart(this.props.route.params.FabricID, 1, this.props.AccessToken).then(() => {
+        AddFabricToCart(this.props.route.params.FabricID, 1, this.props.AccessToken, this.abortController.signal).then(() => {
             this.props.navigation.push('Cart');
         }).catch(console.log);
     }

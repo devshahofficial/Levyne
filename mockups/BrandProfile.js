@@ -54,6 +54,7 @@ class BrandProfile extends Component {
                 { key: 'Fabrics', title: 'Fabrics' },
             ]
         }
+        this.abortController = new AbortController();
         this.BrandID = parseInt(this.props.route.params.BrandID);
         this.MyBrandID = parseInt(this.props.BrandID);
     }
@@ -62,63 +63,61 @@ class BrandProfile extends Component {
         this._isMounted = true;
         this.ProductPage = 1;
         this.FabricPage = 1;
-        ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken).then(ProfileObject => {
-            if (this._isMounted) {
-                this.setState({
-                    Name : ProfileObject.Name,
-                    Brokers : ProfileObject.Brokers,
-                    Followings : ProfileObject.Followings,
-                    Followers: ProfileObject.Followers,
-                    DoIFollow: ProfileObject.DoIFollow ? true : false,
-                    BrandRating : ProfileObject.BrandRating,
-                    ProfileImage : ProfileObject.ProfileImage,
-                    About : ProfileObject.About,
-                    Latitude: ProfileObject.Latitude,
-                    Longitude: ProfileObject.Longitude,
-                    TotalProducts: ProfileObject.TotalProducts,
-                    ProfileLoading: false,
-                    StudioDaysOpen: ProfileObject.StudioDaysOpen,
-                    StudioStartTiming: ProfileObject.StartTiming,
-                    StudioCloseTiming: ProfileObject.CloseTiming,
-                    Address : ProfileObject.Address + "\nPinCode : " + ProfileObject.PinCode,
-                    BrandGenre: ProfileObject.BrandGenre || [],
-                    BrandProductOffering: ProfileObject.BrandProductOffering || [],
-                    Delivery: ProfileObject.Delivery,
-                    MeasurementService: ProfileObject.MeasurementService,
-                    Parking: ProfileObject.Parking,
-                    Tailoring: ProfileObject.Tailoring,
-                    TrialRoom: ProfileObject.TrialRoom,
-                    Type: ProfileObject.Type
-                });
-            }
+        ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken, this.abortController.signal).then(ProfileObject => {
+            this.setState({
+                Name : ProfileObject.Name,
+                Brokers : ProfileObject.Brokers,
+                Followings : ProfileObject.Followings,
+                Followers: ProfileObject.Followers,
+                DoIFollow: ProfileObject.DoIFollow ? true : false,
+                BrandRating : ProfileObject.BrandRating,
+                ProfileImage : ProfileObject.ProfileImage,
+                About : ProfileObject.About,
+                Latitude: ProfileObject.Latitude,
+                Longitude: ProfileObject.Longitude,
+                TotalProducts: ProfileObject.TotalProducts,
+                ProfileLoading: false,
+                StudioDaysOpen: ProfileObject.StudioDaysOpen,
+                StudioStartTiming: ProfileObject.StartTiming,
+                StudioCloseTiming: ProfileObject.CloseTiming,
+                Address : ProfileObject.Address + "\nPinCode : " + ProfileObject.PinCode,
+                BrandGenre: ProfileObject.BrandGenre || [],
+                BrandProductOffering: ProfileObject.BrandProductOffering || [],
+                Delivery: ProfileObject.Delivery,
+                MeasurementService: ProfileObject.MeasurementService,
+                Parking: ProfileObject.Parking,
+                Tailoring: ProfileObject.Tailoring,
+                TrialRoom: ProfileObject.TrialRoom,
+                Type: ProfileObject.Type
+            });
         }).catch((err) => {
             console.log(err);
         });
 
-        FetchBrandProducts(this.props.route.params.BrandID, this.ProductPage, this.props.AccessToken).then(rows => {
-            if (this._isMounted) {
-                this.TotalProducts = rows.Total;
-                this.setState({
-                    BrandProducts : rows.Products,
-                    ProductsLoading : false
-                })
-            }
+        FetchBrandProducts(this.props.route.params.BrandID, this.ProductPage, this.props.AccessToken, this.abortController.signal).then(rows => {
+            this.TotalProducts = rows.Total;
+            this.setState({
+                BrandProducts : rows.Products,
+                ProductsLoading : false
+            })
         }).catch((err) => {
             console.log(107, err);
         });
 
-        FetchBrandFabrics(this.props.route.params.BrandID, this.FabricPage, this.props.AccessToken).then(rows => {
-            if (this._isMounted) {
-                this.TotalFabrics = rows.Total;
-                this.setState({
-                    BrandFabrics : rows.Fabrics,
-                    FabricsLoading : false
-                })
-            }
+        FetchBrandFabrics(this.props.route.params.BrandID, this.FabricPage, this.props.AccessToken, this.abortController.signal).then(rows => {
+            this.TotalFabrics = rows.Total;
+            this.setState({
+                BrandFabrics : rows.Fabrics,
+                FabricsLoading : false
+            })
         }).catch((err) => {
             console.log(119, err);
         });
 
+    }
+
+    componentWillUnmount() {
+        this.abortController.abort();
     }
 
     navigateFollowers = () => {}
@@ -156,13 +155,11 @@ class BrandProfile extends Component {
     ProductScreenOnEndReached = () => {
         if(!this.ProductsLoading && this.state.BrandProducts.length < this.TotalProducts) {
             this.ProductsLoading = true;
-            FetchBrandProducts(this.props.route.params.BrandID, ++this.ProductPage, this.props.AccessToken).then(rows => {
-                if(this._isMounted) {
-                    this.setState({
-                        BrandProducts : [...this.state.BrandProducts, ...rows.Products]
-                    })
-                    this.ProductsLoading = false;
-                }
+            FetchBrandProducts(this.props.route.params.BrandID, ++this.ProductPage, this.props.AccessToken, this.abortController.signal).then(rows => {
+                this.setState({
+                    BrandProducts : [...this.state.BrandProducts, ...rows.Products]
+                })
+                this.ProductsLoading = false;
             }).catch((err) => {
                 console.log(err);
             });
@@ -172,13 +169,11 @@ class BrandProfile extends Component {
     FabricScreenOnEndReached = () => {
         if(!this.FabricsLoading && this.state.BrandFabrics.length < this.TotalFabrics) {
             this.FabricsLoading = true;
-            FetchBrandFabrics(this.props.route.params.BrandID, ++this.FabricPage, this.props.AccessToken).then(rows => {
-                if(this._isMounted) {
-                    this.setState({
-                        BrandFabrics : [...this.state.BrandFabrics, ...rows.Fabrics]
-                    })
-                    this.FabricsLoading = false;
-                }
+            FetchBrandFabrics(this.props.route.params.BrandID, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(rows => {
+                this.setState({
+                    BrandFabrics : [...this.state.BrandFabrics, ...rows.Fabrics]
+                })
+                this.FabricsLoading = false;
             }).catch(err => {
                 //console.log(err);
             })

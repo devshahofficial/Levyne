@@ -22,13 +22,14 @@ class ProductScreen extends React.Component {
             success : true,
         }
         this._isMounted = true;
+        this.abortController = new AbortController();
     }
 
     componentDidMount() {
         if(!this.props.route.params.ProductID) {
             return this.props.navigation.goBack();
         }
-        ProductByID(this.props.route.params.ProductID, this.props.AccessToken).then(resp => {
+        ProductByID(this.props.route.params.ProductID, this.props.AccessToken, this.abortController.signal).then(resp => {
             if(this._isMounted) {
                 this.setState({
                     ProductObject : resp,
@@ -46,6 +47,10 @@ class ProductScreen extends React.Component {
         })
     }
 
+    componentWillUnmount() {
+        this.abortController.abort();
+    }
+
     BrandNavigation = (OtherBrandID) => {
         this.props.navigation.push('BrandProfile', {
             BrandID : OtherBrandID,
@@ -59,10 +64,11 @@ class ProductScreen extends React.Component {
         RemoveWishlistProductByID(ProductID, Token).catch(err => {console.log(err)});
     }
 
-    ButtonActionB = () => {
+    AddToCart = () => {
         this.props.navigation.push('ProductAddToCart', {
             BrandID: this.state.ProductObject.BrandID,
             AvailableSizes: this.state.ProductObject.AvailableSizes,
+            MaterialIDs: this.state.ProductObject.MaterialIDs,
             ProductID: this.props.route.params.ProductID
         })
     }
@@ -111,7 +117,7 @@ class ProductScreen extends React.Component {
                         <ConstBottomButton
                             ButtonA={"Visit Brand"}
                             ButtonB={"Add to Cart"}
-                            ButtonActionB={this.ButtonActionB}
+                            ButtonActionB={this.AddToCart}
                             ButtonActionA={this.BrandNavigation}
                             BrandID={this.state.ProductObject.BrandID}
                         />
