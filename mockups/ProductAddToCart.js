@@ -19,9 +19,11 @@ class AddToCartScreen extends React.PureComponent {
             LoadMoreFabrics: false,
             SelectedFabric: '',
             showCustomToast: false,
-            FabricQuantity: 1
+            FabricQuantity: 1,
+            CustomFabric: false,
         }
         this.FabricPage = 0;
+        this.FabricLoaded = false;
         this.FabricTotal = 0;
         this._isMounted = true;
         this.abortController = new AbortController();
@@ -31,15 +33,21 @@ class AddToCartScreen extends React.PureComponent {
         this.setState({SelectedSize});
     }
 
-    componentDidMount() {
-        FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
-            this._isMounted && this.setState({
-                Fabrics: resp.Fabrics,
-            });
-            this.FabricTotal = resp.Total;
-        }).catch(err => {
-            console.log(err);
-        })
+    LoadFabric = () => {
+        this.setState({
+            CustomFabric: !this.state.CustomFabric
+        });
+        if(!this.FabricLoaded) {
+            FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
+                this._isMounted && this.setState({
+                    Fabrics: resp.Fabrics,
+                });
+                this.FabricLoaded = true;
+                this.FabricTotal = resp.Total;
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     }
 
     componentWillUnmount() {
@@ -65,7 +73,7 @@ class AddToCartScreen extends React.PureComponent {
     }
 
     AddProductToCart = () => {
-        if(!this.state.CustomerFabric && !this.state.SelectedFabric) {
+        if(this.state.CustomFabric && !this.state.CustomerFabric && !this.state.SelectedFabric) {
             this._isMounted && this.setState({
                 showCustomToast: true
             });
@@ -80,6 +88,7 @@ class AddToCartScreen extends React.PureComponent {
             this.props.route.params.ProductID,
             1,
             this.state.SelectedSize,
+            this.state.CustomerFabric && this.state.CustomFabric,
             this.state.SelectedFabric,
             this.state.FabricQuantity,
             this.props.AccessToken,
@@ -139,19 +148,33 @@ class AddToCartScreen extends React.PureComponent {
                 </View>
 
                 <View marginT-20>
-                    <View>
+                    <View marginB-20>
                         <View row spread>
-                            <Text hb1 secondary>Provide my own fabric</Text>
+                            <Text hb1 secondary>Choose Custom Fabric</Text>
                             <Checkbox
-                                value={this.state.CustomerFabric}
-                                onValueChange={this.setCustomerFabric}
+                                value={this.state.CustomFabric}
+                                onValueChange={this.LoadFabric}
                                 borderRadius={10}
                                 size={25}
                                 color={Colors.primary}
                             />
                         </View>
                     </View>
-                    {!this.state.CustomerFabric &&
+                    {this.state.CustomFabric &&
+                        <View>
+                            <View row spread>
+                                <Text hb1 secondary>Provide my own fabric</Text>
+                                <Checkbox
+                                    value={this.state.CustomerFabric}
+                                    onValueChange={this.setCustomerFabric}
+                                    borderRadius={10}
+                                    size={25}
+                                    color={Colors.primary}
+                                />
+                            </View>
+                        </View>
+                    }
+                    {this.state.CustomFabric && !this.state.CustomerFabric &&
                         <View marginT-20>
 
                             <View>
@@ -192,11 +215,12 @@ class AddToCartScreen extends React.PureComponent {
     };
 
     FlatListLoader = () => (
-        this.state.CustomerFabric ?
-            <View></View> :
+        !this.state.CustomerFabric && this.state.CustomFabric ?
             <View flex center>
                 <ActivityIndicator />
             </View>
+            :
+            <View></View>
     );
 
     render() {
@@ -209,7 +233,7 @@ class AddToCartScreen extends React.PureComponent {
                 <View paddingT-10 paddingH-5 flex>
                     <FlatList
                         ListHeaderComponent={this.headerFlatList}
-                        data={this.state.CustomerFabric ? [] : this.state.Fabrics}
+                        data={!this.state.CustomerFabric && this.state.CustomFabric ? this.state.Fabrics : []}
                         numColumns={2}
                         ListEmptyComponent={this.FlatListLoader}
                         showsVerticalScrollIndicator={false}
