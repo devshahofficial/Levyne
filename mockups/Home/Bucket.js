@@ -18,7 +18,7 @@ import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
  * Product Types
  *  1) Product
  *  2) Fabric
- *  3) Customize (3D)
+ *  3) Product With Customer Fabric
  *  4) Product + Fabric
  *  5) Customize + Fabric
  *
@@ -37,6 +37,7 @@ class Bucket extends React.Component {
 
     componentDidMount() {
         FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
+            console.log(Buckets);
             Buckets = Buckets[0].concat(Buckets[1],Buckets[2]).sort(function(a,b){return (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp)})
             this.setState({
                 Buckets,

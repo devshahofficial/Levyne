@@ -24,7 +24,7 @@ class Cart extends React.Component {
             });
             this.setState({Buckets, Loading: false});
         }).catch(err => {
-            //console.log(err);
+            console.log(err);
         })
     }
 
