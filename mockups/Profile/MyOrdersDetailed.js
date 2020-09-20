@@ -1,13 +1,13 @@
 import React from 'react';
 import {Dimensions, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
-import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
+import {View, Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import {DeliveryIcon} from "../../Icons/Secondary/DeliveryIcon";
 import Colors from "../../Style/Colors";
 import BucketProduct from "../../components/BucketProduct";
 import {TimerIcon} from "../../Icons/Secondary/TimerIcon";
-import FetchCart from '../../API/FetchCart';
+import FetchOrderDetails from '../../API/FetchOrderDetails';
 import RemoveFabricFromCart from '../../API/RemoveFabricFromCart';
 import RemoveProductFromCart from '../../API/RemoveProductFromCart';
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
@@ -35,8 +35,8 @@ class MyOrdersDetailed extends React.Component {
     }
 
     componentDidMount() {
-        FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
-            Buckets = Buckets[0].concat(Buckets[1],Buckets[2]).sort(function(a,b){return (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp)})
+        FetchOrderDetails(this.props.route.params.OrderID, this.props.AccessToken).then((Buckets) => {
+            Buckets = Buckets[0].concat(Buckets[1],Buckets[2], Buckets[3]).sort(function(a,b){return (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp)})
             this.setState({
                 Buckets,
                 Loading: false
