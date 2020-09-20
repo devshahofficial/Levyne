@@ -96,12 +96,14 @@ class Bucket extends React.Component {
     }
 
     navigateCheckout = () => {
-        this.props.navigation.navigate('CheckOut', {
-            TotalActualPrice: this.TotalActualPrice,
-            TotalDiscountPrice: this.TotalDiscountPrice,
-            TotalProducts: this.TotalProducts,
-            BrandName: this.props.route.params.BrandName
-        });
+        if(this.TotalDiscountPrice > 0) {
+            this.props.navigation.navigate('CheckOut', {
+                TotalActualPrice: this.TotalActualPrice,
+                TotalDiscountPrice: this.TotalDiscountPrice,
+                TotalProducts: this.TotalProducts,
+                BrandName: this.props.route.params.BrandName
+            });
+        }
     }
 
     RemoveProductFromCart = (CartID, ProductType) => {
