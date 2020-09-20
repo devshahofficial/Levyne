@@ -90,7 +90,7 @@ class AddToCartScreen extends React.PureComponent {
             this.state.SelectedSize,
             this.state.CustomerFabric && this.state.CustomFabric,
             this.state.SelectedFabric,
-            this.state.FabricQuantity,
+            1,
             this.props.AccessToken,
             this.abortController.signal
         ).then(() => {
@@ -176,19 +176,6 @@ class AddToCartScreen extends React.PureComponent {
                     }
                     {this.state.CustomFabric && !this.state.CustomerFabric &&
                         <View marginT-20>
-
-                            <View>
-                                <Text h1 secondary>Choose fabric quantity in meters</Text>
-                                <View center>
-                                    <Stepper
-                                        label={"meters"}
-                                        min={1}
-                                        max={5}
-                                        onValueChange={this.StepperValueChange}
-                                        initialValue={this.state.FabricQuantity}
-                                    />
-                                </View>
-                            </View>
 
                             <Text h1 secondary>Choose the fabric</Text>
                         </View>
