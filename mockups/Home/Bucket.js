@@ -37,8 +37,7 @@ class Bucket extends React.Component {
 
     componentDidMount() {
         FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
-            console.log(Buckets);
-            Buckets = Buckets[0].concat(Buckets[1], Buckets[2], Buckets[3]).sort((a,b) => (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp))
+            Buckets = Buckets[0].concat(Buckets[1], Buckets[2], Buckets[3]).sort((a,b) => (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp));
             this.setState({
                 Buckets,
                 Loading: false

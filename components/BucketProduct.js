@@ -163,12 +163,66 @@ export default class BucketProduct extends React.PureComponent {
         )
     }
 
+    ProductWithCustomerFabric = () => {
+        return(
+            <View padding-15>
+                <ShadowView style={styles.View}>
+                    <View flex row centerH style={{height:150}}>
+                        <View flex paddingH-10>
+                            <Image
+                                style={{flex:1}}
+                                source={{uri:this.props.item.ProductImage}}
+                            />
+                        </View>
+                        <View flex paddingH-10>
+                            <View>
+                                <Text hb1 secondary>Production Cost</Text>
+                                <View row>
+                                    <Text hb1 primary>₹{this.props.item.ProductionCost}</Text>
+                                </View>
+                            </View>
+                            <View marginT-10>
+                                <Text hb1 secondary>Material Cost</Text>
+                                <View row>
+                                    <Text hb1 primary>₹{this.props.item.MaterialCost}</Text>
+                                </View>
+                            </View>
+                            <View marginT-10>
+                                <Text hb1 secondary>Size</Text>
+                                <View marginT-5 center style={{borderRadius:5,height:40,borderColor:Colors.shadow, borderWidth:1}}>
+                                    <Text hb1 primary>{this.props.item.ProductSize}</Text>
+                                </View>
+                            </View>
+                        </View>
+                    </View>
+
+                    <View row marginV-20>
+                        <Text flex hb2 secondary>Quantity</Text>
+                        <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                    </View>
+
+                    <View row center>
+                        <TouchableOpacity onPress={() => this.props.navigateProduct(this.props.item.ProductID)} flex-8 center marginH-5 style={styles.TouchableOpacity}>
+                            <Text h2 secondary flex-15>Visit the Product</Text>
+                            <Text h2 secondary flex>{">"}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID, this.props.item.ProductType)} flex marginH-5 activeOpacity={0.8} center style={{width:40, height:40, backgroundColor:"#FF0000", borderRadius:5}}>
+                            <ArchiveIcon Size={20} Color={Colors.white}/>
+                        </TouchableOpacity>
+                    </View>
+                </ShadowView>
+            </View>
+        )
+    }
+
     render() {
         switch (this.props.item.ProductType) {
             case 1 :
                 return <this.OnlyProduct {...this.props} />
             case 2 :
                 return <this.OnlyFabric {...this.props} />
+            case 3 :
+                return <this.ProductWithCustomerFabric {...this.props} />
             case 4 :
                 return <this.ProductWithFabric {...this.props} />
             default:
