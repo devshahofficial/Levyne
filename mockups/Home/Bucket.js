@@ -36,10 +36,11 @@ class Bucket extends React.Component {
         this.TotalActualPrice = 0;
         this.TotalDiscountPrice = 0;
         this.TotalProducts = 0;
+        this.abortController = new AbortController();
     }
 
     componentDidMount() {
-        FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
+        FetchCart(this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
             Buckets = Buckets[0].concat(Buckets[1], Buckets[2], Buckets[3]).sort((a,b) => (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp));
             this.setState({
                 Buckets,
@@ -60,7 +61,7 @@ class Bucket extends React.Component {
         this.willFocusSubscription = this.props.navigation.addListener(
             'focus', () => {
                 this.setState({Loading: true});
-                FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
+                FetchCart(this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
                     Buckets = Buckets[0].concat(Buckets[1], Buckets[2], Buckets[3]).sort((a,b) => (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp));
                     this.setState({
                         Buckets,
@@ -75,6 +76,7 @@ class Bucket extends React.Component {
         if(this.willFocusSubscription) {
             this.willFocusSubscription();
         }
+        this.abortController.abort();
     }
 
     FatListRenderItem = ({item}) => (
@@ -101,7 +103,8 @@ class Bucket extends React.Component {
                 TotalActualPrice: this.TotalActualPrice,
                 TotalDiscountPrice: this.TotalDiscountPrice,
                 TotalProducts: this.TotalProducts,
-                BrandName: this.props.route.params.BrandName
+                BrandName: this.props.route.params.BrandName,
+                BrandID: this.props.route.params.BrandID
             });
         }
     }
