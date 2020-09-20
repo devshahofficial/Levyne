@@ -132,7 +132,7 @@ export default class BucketProduct extends React.PureComponent {
                                 <View row>
                                     <Text hb1 primary>₹{this.props.item.DiscountPrice}</Text>
                                     <Text marginL-10 h2 secondary style={{textDecorationLine: "line-through"}}>₹{this.props.item.ActualPrice}</Text>
-                                    <Text marginL-10 hb2 primary>{(this.props.item.ActualPrice - this.props.item.DiscountPrice)*100/this.props.item.ActualPrice}% off</Text>
+                                    <Text marginL-10 hb2 primary>{parseInt((this.props.item.ActualPrice - this.props.item.DiscountPrice)*100/this.props.item.ActualPrice)}% off</Text>
                                 </View>
                             </View>
                             <View marginT-10>

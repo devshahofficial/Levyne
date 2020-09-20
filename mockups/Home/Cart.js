@@ -14,6 +14,8 @@ class Cart extends React.Component {
             Buckets: [],
             Loading: true
         }
+
+        this.willFocusSubscription = null;
     }
 
     componentDidMount() {
@@ -25,7 +27,28 @@ class Cart extends React.Component {
             this.setState({Buckets, Loading: false});
         }).catch(err => {
             console.log(err);
-        })
+        });
+
+        this.willFocusSubscription = this.props.navigation.addListener(
+            'focus', () => {
+                this.setState({Loading: true});
+                FetchBuckets(this.props.AccessToken).then(Buckets => {
+                    Buckets = Buckets.map(item => {
+                        item.BrandID = item.BrandID.toString();
+                        return item;
+                    });
+                    this.setState({Buckets, Loading: false});
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
+        );
+    }
+
+    componentWillUnmount() {
+        if(this.willFocusSubscription) {
+            this.willFocusSubscription();
+        }
     }
 
     onBucketPress = (BrandID, BrandName, TotalActualPrice, TotalDiscountPrice, TotalDiscount, TotalProducts) => {
