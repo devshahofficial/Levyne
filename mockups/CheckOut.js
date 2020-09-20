@@ -37,7 +37,7 @@ class CheckOut extends React.PureComponent {
                             <View centerV row>
                                 <Text hb1 primary>₹{this.props.route.params.TotalDiscountPrice}</Text>
                                 <Text marginT-5 marginL-10 h2 secondary style={{textDecorationLine: "line-through"}}>₹{this.props.route.params.TotalActualPrice}</Text>
-                                <Text marginL-10 hb2 primary>{this.props.route.params.TotalDiscount}% off</Text>
+                                <Text marginL-10 hb2 primary>{parseInt((this.props.route.params.TotalActualPrice - this.props.route.params.TotalDiscountPrice)*100/this.props.route.params.TotalActualPrice)}% off</Text>
                             </View>
                         </View>
 

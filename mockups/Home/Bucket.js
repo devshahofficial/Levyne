@@ -33,6 +33,9 @@ class Bucket extends React.Component {
             Buckets: [],
             Loading: true
         }
+        this.TotalActualPrice = 0;
+        this.TotalDiscountPrice = 0;
+        this.TotalProducts = 0;
     }
 
     componentDidMount() {
@@ -41,8 +44,37 @@ class Bucket extends React.Component {
             this.setState({
                 Buckets,
                 Loading: false
-            })
+            });
+            Buckets.forEach(item => {
+                this.TotalProducts++;
+                if(item.ProductType === 3) {
+                    this.TotalActualPrice += (item.ProductionCost + item.MaterialCost);
+                    this.TotalDiscountPrice += (item.ProductionCost + item.MaterialCost);
+                } else {
+                    this.TotalActualPrice += item.ActualPrice;
+                    this.TotalDiscountPrice += item.DiscountPrice;
+                }
+            });
         }).catch(err => {console.log(err)});
+
+        this.willFocusSubscription = this.props.navigation.addListener(
+            'focus', () => {
+                this.setState({Loading: true});
+                FetchCart(this.props.route.params.BrandID, this.props.AccessToken).then((Buckets) => {
+                    Buckets = Buckets[0].concat(Buckets[1], Buckets[2], Buckets[3]).sort((a,b) => (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp));
+                    this.setState({
+                        Buckets,
+                        Loading: false
+                    });
+                }).catch(err => {console.log(err)});
+            }
+        );
+    }
+
+    componentWillUnmount() {
+        if(this.willFocusSubscription) {
+            this.willFocusSubscription();
+        }
     }
 
     FatListRenderItem = ({item}) => (
@@ -65,10 +97,9 @@ class Bucket extends React.Component {
 
     navigateCheckout = () => {
         this.props.navigation.navigate('CheckOut', {
-            TotalActualPrice: this.props.route.params.TotalActualPrice,
-            TotalDiscount: this.props.route.params.TotalDiscount,
-            TotalDiscountPrice: this.props.route.params.TotalDiscountPrice,
-            TotalProducts: this.props.route.params.TotalProducts,
+            TotalActualPrice: this.TotalActualPrice,
+            TotalDiscountPrice: this.TotalDiscountPrice,
+            TotalProducts: this.TotalProducts,
             BrandName: this.props.route.params.BrandName
         });
     }
