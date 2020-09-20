@@ -102,7 +102,7 @@ class MyOrdersDetailed extends React.Component {
                             }
                             showsVerticalScrollIndicator={false}
                             data={this.state.Buckets}
-                            keyExtractor={(item) => `T${item.ProductType}C${item.CartID}`}
+                            keyExtractor={(item) => `T${item.ProductType}O${item.SubOrderID}`}
                             renderItem={this.FlatListRenderItem}
                         />
                     </View>
