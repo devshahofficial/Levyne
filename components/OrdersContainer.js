@@ -35,16 +35,17 @@ export default class OrdersContainer extends React.Component {
                 style={styles.Container}
                 paddingH-20
                 marginB-20
+                onPress={() => this.props.NavigateMyOrdersDetailed(this.props.OrderID)}
                 activeOpacity={0.8} marginT-10
             >
                 <View row>
                     <Avatar
                         size={50}
-                        source={{uri : "https://www.sherrihill.com/dw/image/v2/BDBR_PRD/on/demandware.static/-/Sites-master-catalog-sherrihill/default/dw36182b79/images/Sherri-Hill-52368-nude-silver-41043.jpg?sw=1332&sh=2000"}}
+                        source={{uri : this.props.ProfileImage}}
                     />
                     <View marginL-25 centerV>
                         <Text hb2>
-                            {"Couture"}
+                            {this.props.Name}
                         </Text>
                         <View row>
                             <Stars BrandRating="0" />
@@ -59,7 +60,7 @@ export default class OrdersContainer extends React.Component {
                         style={styles.image}
                     >
                         <Text f1 style={{lineHeight:30}} white center>
-                            +{3}
+                            +{this.props.TotalProducts}
                         </Text>
                     </ImageBackground>
                     <View row marginL-30>
@@ -68,8 +69,8 @@ export default class OrdersContainer extends React.Component {
                             <Text h2>Discount</Text>
                         </View>
                         <View marginL-10>
-                            <Text hb1>₹{10000}</Text>
-                            <Text h1 primary>{10}% off</Text>
+                            <Text hb1>₹{this.props.TotalDiscountAmount}</Text>
+                            <Text h1 primary>{parseInt(((this.props.TotalAmount - this.props.TotalDiscountAmount)/this.props.TotalAmount)*100)}% off</Text>
                         </View>
                     </View>
                 </View>
