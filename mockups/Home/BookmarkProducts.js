@@ -17,7 +17,8 @@ class BookmarkProducts extends React.Component {
         }
         this.TotalProducts = 0;
         this.Page = 0;
-        loadNewPage = false;
+        this.loadNewPage = false;
+        this.abortController = new AbortController();
     }
 
     navigateProduct = (ProductID) => {
@@ -28,9 +29,13 @@ class BookmarkProducts extends React.Component {
         this.props.navigation.navigate('Fabric', {FabricID});
     }
 
+    componentWillUnmount() {
+        this.abortController.abort();
+    }
+
     componentDidMount() {
         this._isMounted = true;
-        ListBookmarkProducts(++this.Page, this.props.AccessToken).then(resp => {
+        ListBookmarkProducts(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
             if(this._isMounted) {
                 this.setState({
                     Products : resp.Products,
@@ -42,9 +47,11 @@ class BookmarkProducts extends React.Component {
 
         }).catch((err) => {
             console.log(err);
-            this.setState({
-                Loading: false
-            });
+            if(this._isMounted) {
+                this.setState({
+                    Loading: false
+                });
+            }
         })
     }
 
@@ -57,7 +64,7 @@ class BookmarkProducts extends React.Component {
     FlatListOnEndReached = () => {
         if(this.loadNewPage && this.state.Products.length !== this.TotalProducts) {
             this.loadNewPage = false;
-            ListBookmarkProducts(++this.Page, this.props.AccessToken).then(resp => {
+            ListBookmarkProducts(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this.loadNewPage = true;
                 if(this._isMounted) {
                     this.setState({

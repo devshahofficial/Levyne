@@ -14,12 +14,12 @@ class Cart extends React.Component {
             Buckets: [],
             Loading: true
         }
-
+        this.abortController = new AbortController();
         this.willFocusSubscription = null;
     }
 
     componentDidMount() {
-        FetchBuckets(this.props.AccessToken).then(Buckets => {
+        FetchBuckets(this.props.AccessToken, this.abortController.signal).then(Buckets => {
             Buckets = Buckets.map(item => {
                 item.BrandID = item.BrandID.toString();
                 return item;
@@ -49,6 +49,7 @@ class Cart extends React.Component {
         if(this.willFocusSubscription) {
             this.willFocusSubscription();
         }
+        this.abortController.abort();
     }
 
     onBucketPress = (BrandID, BrandName, TotalActualPrice, TotalDiscountPrice, TotalDiscount, TotalProducts) => {

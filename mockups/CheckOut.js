@@ -4,9 +4,12 @@ import {View, Text, RadioButton, TouchableOpacity} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import Colors from "../Style/Colors";
+import CstmInput from "../components/input";
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
+import CheckoutAPI from '../API/Checkout';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 
@@ -17,9 +20,39 @@ class CheckOut extends React.PureComponent {
         this.state= {
             CustomProducts: true,
             Products: true,
-            Fabrics: true
+            Fabrics: true,
+            Loading: false,
+            Comment: ""
         }
+        this.abortController = new AbortController();
     }
+
+    CheckoutOnPress = () => {
+        this.setState({
+            Loading: true
+        });
+        CheckoutAPI(
+            this.props.Address,
+            this.props.PinCode,
+            this.state.Comment,
+            this.props.route.params.BrandID,
+            this.props.AccessToken,
+            this.abortController.signal
+        ).then(OrderID => {
+            console.log(OrderID);
+        }).catch(err => {
+            this.setState({
+                Loading: false
+            });
+            console.log(err);
+        })
+    }
+
+    componentWillUnmount() {
+        this.abortController.abort();
+    }
+
+    setComment = (Comment) => this.setState({Comment});
 
 
     render() {
@@ -51,7 +84,9 @@ class CheckOut extends React.PureComponent {
                         <DeliveryIcon size={30} Color={Colors.black} />
                         <DeliveryChargeComponent TotalPrice={this.props.route.params.TotalDiscountPrice} />
                     </View>
-
+                    <Spinner
+                        visible={this.state.Loading}
+                    />
                     <View style={styles.View} marginT-20>
                         <Text hb1 secondary>Address</Text>
                         <View marginT-20>
@@ -60,6 +95,17 @@ class CheckOut extends React.PureComponent {
                                 color={Colors.shadow}
                                 label={this.props.Address + "-" + this.props.PinCode}
                                 labelStyle={{fontSize:16, color:Colors.secondary}}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={styles.View} marginT-20>
+                        <Text hb1 secondary>Comment (Optional)</Text>
+                        <View marginT-20>
+                            <CstmInput
+                                placeholder='Comment'
+                                value={this.state.Comment}
+                                onChangeText={this.setComment}
                             />
                         </View>
                     </View>
@@ -80,7 +126,7 @@ class CheckOut extends React.PureComponent {
 
                 </ScrollView>
 
-                <TouchableOpacity center row style={styles.Button} activeOpacity={0.8}>
+                <TouchableOpacity onPress={this.CheckoutOnPress} center row style={styles.Button} activeOpacity={0.8}>
                     <CheckoutIcon size={30} Color={Colors.white} />
                     <Text marginL-20 hb1 white>
                         Place an Order
