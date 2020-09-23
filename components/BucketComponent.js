@@ -60,20 +60,20 @@ export default class BucketComponent extends React.Component {
             </View>
             <View row marginV-10 centerV>
                 <ImageBackground
-                    blurRadius={1}
+                    blurRadius={2}
                     imageStyle={{ borderRadius: 10}}
                     source={{ uri: this.props.item.ProductImage }}
                     style={styles.image}
                 >
-                    <Text f1 style={{lineHeight:30}} primary center>
+                    <Text f1 style={{lineHeight:30}} white center>
                         +{this.props.item.TotalProducts}
                     </Text>
                 </ImageBackground>
                 <View spread marginL-30>
                     <View row flex-15>
                         <View>
-                            <Text h2>Total</Text>
-                            <Text h2>Discount</Text>
+                            <Text secondary h2>Total</Text>
+                            <Text secondary h2>Discount</Text>
                         </View>
                         <View marginL-10>
                             <Text hb1>₹{this.props.item.TotalDiscountPrice}</Text>

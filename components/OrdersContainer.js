@@ -1,6 +1,6 @@
 import {Dimensions, ImageBackground, Platform, StyleSheet} from "react-native";
 import React from 'react';
-import {View, Text, Colors, TouchableOpacity, Avatar, Button} from 'react-native-ui-lib';
+import {View, Text, Colors, TouchableOpacity, Avatar} from 'react-native-ui-lib';
 import {StarIcon} from "../Icons/StarIcon";
 
 const screenWidth = Dimensions.get('window').width;
@@ -29,6 +29,19 @@ const Stars = (props) => {
 
 export default class OrdersContainer extends React.Component {
 
+    Process(param) {
+        switch(param) {
+            case 0:
+                return <><Text hb3>Order Accepted</Text></>;
+            case 1:
+                return <><Text hb3>Under production</Text></>;
+            case 2:
+                return <><Text hb3>Out for delivery</Text></>;
+            case 3:
+                return <><Text hb3>Delivered</Text></>;
+        }
+    }
+
     render() {
         return (
             <TouchableOpacity
@@ -38,6 +51,10 @@ export default class OrdersContainer extends React.Component {
                 onPress={() => this.props.NavigateMyOrdersDetailed(this.props.OrderID)}
                 activeOpacity={0.8} marginT-10
             >
+                <View style={styles.OrderID} spread>
+                    <Text h2 secondary>Order ID</Text>
+                    <Text hb1>128876</Text>
+                </View>
                 <View row>
                     <Avatar
                         size={50}
@@ -52,40 +69,23 @@ export default class OrdersContainer extends React.Component {
                         </View>
                     </View>
                 </View>
-                <View row marginV-10 centerV>
-                    <ImageBackground
-                        blurRadius={1}
-                        imageStyle={{ borderRadius: 10}}
-                        source={{ uri: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80" }}
-                        style={styles.image}
-                    >
-                        <Text f1 style={{lineHeight:30}} white center>
-                            +{this.props.TotalProducts}
-                        </Text>
-                    </ImageBackground>
-                    <View row marginL-30>
-                        <View>
-                            <Text h2>Total</Text>
-                            <Text h2>Discount</Text>
-                        </View>
-                        <View marginL-10>
-                            <Text hb1>₹{this.props.TotalDiscountAmount}</Text>
-                            <Text h1 primary>{parseInt(((this.props.TotalAmount - this.props.TotalDiscountAmount)/this.props.TotalAmount)*100)}% off</Text>
-                        </View>
+                <View row marginV-15>
+                    <View>
+                        <Text h2 secondary>Total</Text>
+                        <Text h2 secondary>Discount</Text>
+                    </View>
+                    <View marginL-10>
+                        <Text hb1>₹{this.props.TotalDiscountAmount}</Text>
+                        <Text h1 primary>{parseInt(((this.props.TotalAmount - this.props.TotalDiscountAmount)/this.props.TotalAmount)*100)}% off</Text>
                     </View>
                 </View>
                 <Text h3 center secondary>Delivers for free within 15 days!</Text>
                 <View marginT-5 style={styles.COD} center>
                     <Text hb1 secondary>Cash On Delivery</Text>
                 </View>
-                <Text marginT-20 h3 secondary>Note: Once the order gets accepted from our side, you won't be able to cancel the order.</Text>
 
-                <View marginT-5>
-                    <Button
-                        label={"Cancel"}
-                        style={styles.Cancel}
-                        labelStyle={{fontSize: 12}}
-                    />
+                <View style={styles.Process} center>
+                    <Text hb3 white>{this.Process(2)}</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -94,6 +94,11 @@ export default class OrdersContainer extends React.Component {
 
 
 const styles = StyleSheet.create({
+    OrderID:{
+        flexDirection: 'row',
+        marginBottom: 15,
+        marginTop: 5
+    },
     image: {
         paddingTop: Platform.OS === 'ios' ? 5 : 0,
         height: 150,
@@ -122,6 +127,12 @@ const styles = StyleSheet.create({
         borderColor: Colors.shadow,
         width: 70,
         borderRadius: 5,
+        height: 30
+    },
+    Process: {
+        backgroundColor: Colors.primary,
+        borderRadius: 5,
+        marginVertical: 10,
         height: 30
     }
 });

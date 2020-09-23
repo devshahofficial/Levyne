@@ -119,7 +119,7 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
+                    {/*<TouchableOpacity marginT-5>
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 Visit partner store
@@ -128,7 +128,7 @@ class ProfileTopSection extends React.PureComponent {
                                 Find our partners around you.
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                 </View>
 
                 <View marginT-30 paddingH-15>
@@ -144,7 +144,7 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/*<TouchableOpacity
                         marginT-5
                         onPress={this.NavigateFAQs}
                     >
@@ -156,7 +156,7 @@ class ProfileTopSection extends React.PureComponent {
                                 Frequently asked questions.
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                     <TouchableOpacity
                         marginT-5
                         onPress={this.NavigateTandC}
@@ -247,6 +247,7 @@ class ProfileTopSection extends React.PureComponent {
             <>
                 <TextNavBar Title={"My Profile"}/>
                 <ScrollView
+                    showsVerticalScrollIndicator={false}
                     style={{flex:1, backgroundColor: Colors.white}}
                 >
                     <View style={styles.View}>
