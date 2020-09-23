@@ -117,28 +117,7 @@ class AddToCartScreen extends React.PureComponent {
     headerFlatList = () => {
         return(
             <View marginH-10>
-                <Text hb1 secondary>Choose size:</Text>
-
-                <FlatList
-                    showsHorizontalScrollIndicator={false}
-                    data={Object.keys(this.props.route.params.AvailableSizes)}
-                    horizontal={true}
-                    renderItem={({ item }) =>
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            onPress={() => (this.setSelectedSize(item))}
-                        >
-                            <CstmShadowView style={styles.shadow}>
-                                <View style={item[0] === this.state.SelectedSize ? styles.boxSelected : styles.box}>
-                                    <Text secondary h2>{this.props.route.params.AvailableSizes[item]}</Text>
-                                </View>
-                            </CstmShadowView>
-                        </TouchableOpacity>
-                    }
-                    keyExtractor={item => this.props.route.params.AvailableSizes[item]}
-                />
-
-                <View row marginT-10 marginB-20>
+                <View row marginB-20>
                     <CstmShadowView style={styles.Group}>
                         <Button h2 label={"Size Guide"}/>
                     </CstmShadowView>
@@ -176,7 +155,6 @@ class AddToCartScreen extends React.PureComponent {
                     }
                     {this.state.CustomFabric && !this.state.CustomerFabric &&
                         <View marginT-20>
-
                             <Text h1 secondary>Choose the fabric</Text>
                         </View>
                     }
@@ -231,7 +209,7 @@ class AddToCartScreen extends React.PureComponent {
                     />
                 </View>
                 <View>
-                    <CstmShadowView style={{margin:15}}>
+                    <CstmShadowView style={{margin:15, marginBottom: 25}}>
                         <Button onPress={this.AddProductToCart} label={"Add to Cart"}/>
                     </CstmShadowView>
                 </View>

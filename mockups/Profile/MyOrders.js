@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import {View} from 'react-native-ui-lib';
+import {Text, View, Colors} from 'react-native-ui-lib';
 import NavBarBack from '../../components/NavBarBack';
 import OrdersContainer from "../../components/OrdersContainer";
 import {connect} from 'react-redux';
 import FetchOrders from '../../API/FetchOrders';
-import {ActivityIndicator, FlatList} from 'react-native';
+import {ActivityIndicator, StyleSheet, FlatList} from 'react-native';
 
 class MyOrders extends Component {
 
@@ -38,7 +38,16 @@ class MyOrders extends Component {
     NavigateMyOrdersDetailed = (OrderID) => {
         this.props.navigation.navigate('MyOrdersDetailed', {OrderID});
     }
- 
+
+    Header = () => {
+        return(
+            <View style={styles.Header} marginB-10>
+                <Text center hb2>Note:</Text>
+                <Text h2 secondary>Once the order gets accepted from our side, you won't be able to cancel the order.</Text>
+                <Text marginT-5 h2 secondary>For order cancellation call us on +91-9819077182.</Text>
+            </View>
+        )
+    }
     render() {
         return(
             <>
@@ -49,6 +58,7 @@ class MyOrders extends Component {
                     </View> :
                     <View paddingH-15 flex centerH>
                         <FlatList
+                            ListHeaderComponent={this.Header}
                             showsVerticalScrollIndicator={false}
                             data={this.state.Orders}
                             keyExtractor={(item) => `${item.OrderID}`}
@@ -60,6 +70,16 @@ class MyOrders extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    Header: {
+        borderWidth:1,
+        borderColor: Colors.shadow,
+        borderRadius: 5,
+        padding: 10
+
+    }
+})
 
 const mapsStateToProps = state => ({
     AccessToken: state.Auth.AccessToken,
