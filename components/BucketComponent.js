@@ -1,33 +1,10 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, Dimensions, Platform,} from 'react-native';
 import {View, Text, TouchableOpacity, Button, Avatar,Colors} from 'react-native-ui-lib';
-import {StarIcon} from '../Icons/StarIcon';
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
-
+import StarIconsComponent from "./StarIconsComponent";
 const screenWidth = Dimensions.get('window').width;
-
-const Stars = (props) => {
-    let i;
-    const stars = [];
-    for (i = 0; i < props.BrandRating; i++) {
-        stars.push(true);
-    }
-    for (i = props.BrandRating; i < 5; i++) {
-        stars.push(false);
-    }
-    return stars.map((name, i) => {
-        return (
-            <StarIcon
-                key={i.toString()}
-                Fill={name}
-                height={15}
-                width={15}
-                Color={Colors.primary}
-            />
-        );
-    });
-};
 
 export default class BucketComponent extends React.Component {
   constructor(props) {
@@ -54,7 +31,7 @@ export default class BucketComponent extends React.Component {
                         {this.props.item.Name}
                     </Text>
                     <View row>
-                        <Stars BrandRating="0" />
+                        <StarIconsComponent BrandRating="0" />
                     </View>
                 </View>
             </View>

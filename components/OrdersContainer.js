@@ -1,31 +1,9 @@
 import {Dimensions, ImageBackground, Platform, StyleSheet} from "react-native";
 import React from 'react';
 import {View, Text, Colors, TouchableOpacity, Avatar} from 'react-native-ui-lib';
-import {StarIcon} from "../Icons/StarIcon";
+import StarIconsComponent from "./StarIconsComponent";
 
 const screenWidth = Dimensions.get('window').width;
-
-const Stars = (props) => {
-    let i;
-    const stars = [];
-    for (i = 0; i < props.BrandRating; i++) {
-        stars.push(true);
-    }
-    for (i = props.BrandRating; i < 5; i++) {
-        stars.push(false);
-    }
-    return stars.map((name, i) => {
-        return (
-            <StarIcon
-                key={i.toString()}
-                Fill={name}
-                height={15}
-                width={15}
-                Color={Colors.primary}
-            />
-        );
-    });
-};
 
 export default class OrdersContainer extends React.Component {
 
@@ -53,7 +31,7 @@ export default class OrdersContainer extends React.Component {
             >
                 <View style={styles.OrderID} spread>
                     <Text h2 secondary>Order ID</Text>
-                    <Text hb1>128876</Text>
+                    <Text hb1>{this.props.OrderID}</Text>
                 </View>
                 <View row>
                     <Avatar
@@ -65,7 +43,7 @@ export default class OrdersContainer extends React.Component {
                             {this.props.Name}
                         </Text>
                         <View row>
-                            <Stars BrandRating="0" />
+                            <StarIconsComponent BrandRating="0" />
                         </View>
                     </View>
                 </View>

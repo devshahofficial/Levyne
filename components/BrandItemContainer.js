@@ -1,26 +1,9 @@
 import React from 'react';
 import {StyleSheet, ActivityIndicator} from 'react-native';
 import {View,Text, TouchableOpacity,Colors, AnimatedImage} from 'react-native-ui-lib';
-import {StarIcon} from '../Icons/StarIcon';
+import StarIconsComponent from "./StarIconsComponent";
 
 
-const Stars = (props) => {
-    let i;
-    const stars = [];
-    for(i = 0; i<props.BrandRating; i++)
-    {
-        stars.push(true);
-    }
-    for(i = props.BrandRating; i<5; i++)
-    {
-        stars.push(false);
-    }
-    return (
-        stars.map((name) => {
-            return (<StarIcon Fill={name} height={15} width={15} Color={Colors.primary}/>);
-        })
-    );
-}
 export default class BrandItemContainer extends React.Component {
     render() {
         return (
@@ -44,7 +27,7 @@ export default class BrandItemContainer extends React.Component {
                     </Text>
                     <Text h2 grey40 marginL-10 marginR-200 left>{this.props.item.About.replace(/(\r\n|\r|\n){2,}/g, '\n')}</Text>
                     <View row flex marginT-10 paddingL-10>
-                        <Stars BrandRating={Math.round(this.props.item.ratings)} />
+                        <StarIconsComponent BrandRating={Math.round(this.props.item.ratings)} />
                     </View>
                 </View>
             </TouchableOpacity>
