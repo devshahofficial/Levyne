@@ -1,18 +1,19 @@
 # Levyne
 
+### Steps to follow :
 
-npx react-native init Levyne
+    $ npx react-native init Levyne
 
-cd Levyne
+    $ cd Levyne
 
-git init
+    $ git init
 
-git remote add origin https://github.com/devshahofficial/Levyne.git
+    $ git remote add origin https://github.com/vikasg603/Levyne.git
 
-git pull origin master
+    $ git pull origin master
 
-git fetch --all
+    $ git fetch --all
 
-git reset --hard origin/master
+    $ git reset --hard origin/master
 
-npm install
+    $ npm install
