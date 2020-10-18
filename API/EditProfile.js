@@ -5,7 +5,7 @@ const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 }
 
-const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, setUploadedPercentage, ProfileImageNotRequired) => {
+const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Landmark, Gender, PinCode, Token, setUploadedPercentage, ProfileImageNotRequired) => {
     return new Promise(async (resolve, reject) => {
         if(Name.replace(/\s+/, "").length === 0)
             return reject('not a valid Name');
@@ -15,6 +15,8 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
             return reject('Profile Pic Required');
         if(!Address)
             return reject('Address Required');
+        if(!Landmark)
+            return reject('Landmark Required');
         if(!PinCode)
             return reject('PinCode Required');
         
@@ -24,6 +26,7 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
         formData.append('Email', Email);
         formData.append('Address', Address);
         formData.append('Gender', Gender);
+        formData.append('Landmark', Landmark);
         formData.append('PinCode', PinCode);
         if(!ProfileImageNotRequired) {
             formData.append('ProfileImage', ProfileImage);
@@ -46,6 +49,7 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
                                 ['Email', Email],
                                 ['Address', Address],
                                 ['Gender', Gender],
+                                ['Landmark', Landmark],
                                 ['PinCode', PinCode],
                                 ['ProfileStatus', '2']
                             ]

@@ -34,11 +34,6 @@ const AuthReducer = (state = IntialAuthStates, action) => {
 }
 
 const IntialProfileStates = {
-    Name : undefined,
-	Email : undefined,
-	ProfileImage : undefined,
-    Address : undefined,
-    Gender: undefined,
     ProfileStatus: 0
 }
 

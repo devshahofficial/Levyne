@@ -28,6 +28,7 @@ class EditProfile extends React.Component {
                 type: 'image/webp'
             },
             Address : this.props.Profile.Address || '',
+            Landmark: this.props.Profile.Landmark || '',
             PinCode : this.props.Profile.PinCode || '',
             Female: !this.props.Profile.Gender,
             showLoading : false,
@@ -64,6 +65,10 @@ class EditProfile extends React.Component {
 
     setAddress = (Address) => {
         this.setState({Address});
+    }
+
+    setLandmark = (Landmark) => {
+        this.setState({Landmark});
     }
 
     componentDidMount() {
@@ -132,15 +137,17 @@ class EditProfile extends React.Component {
         const PinCode = this.state.PinCode;
         const ProfileImage = this.state.ProfileImage;
         const Token = this.props.AccessToken;
+        const Landmark = this.props.Landmark;
         const ProfileImageChanged = this.state.ProfileImageChanged;
         const ProfileImageNotRequired = this.state.ProfileImageNotRequired;
 
-        EditProfileAPI(Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, this.setUploadedPercentage, ProfileImageNotRequired).then((resp) => {
+        EditProfileAPI(Name, Email, ProfileImageChanged, ProfileImage, Address, Landmark, Gender, PinCode, Token, this.setUploadedPercentage, ProfileImageNotRequired).then((resp) => {
             this.props.setProfile({
                 Name,
                 Email,
                 Address,
                 PinCode,
+                Landmark,
                 ProfileStatus: 2,
                 Gender: this.state.Female ? 0 : 1,
                 ... ProfileImageNotRequired ? {} : {ProfileImage: resp.ProfileImage}
@@ -262,6 +269,14 @@ class EditProfile extends React.Component {
                             placeholder='Address'
                             value={this.state.Address}
                             onChangeText={this.setAddress}
+                        />
+
+                        <Text h1 marginT-30>Landmark</Text>
+                        <CstmInput
+                            style={{height:100,borderRadius:20}}
+                            placeholder='Address'
+                            value={this.state.Landmark}
+                            onChangeText={this.setLandmark}
                         />
 
                         <Text h1 marginT-30>Pin Code</Text>
