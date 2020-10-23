@@ -52,33 +52,36 @@ class Search extends React.Component {
         this.abortController.abort();
     }
 
-    onProductEndReached = () => {
+    onProductEndReached = async () => {
         if(this.ProductLoadNewPage && this.state.ProductsData.length !== this.TotalProducts) {
             this.ProductLoadNewPage = false;
-            ProductBySearch(this.state.SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+
+            try {
+                const ProductResp = await ProductBySearch(this.state.SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken, this.abortController.signal);
                 this.ProductLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
-                    this.setState({ProductsData: [...this.state.ProductsData, ...resp.Products]})
+                    this.setState({ProductsData: [...this.state.ProductsData, ...ProductResp.Products]})
                 }
-            }).catch(() => {
+            } catch(err) {
                 this.ProductLoadNewPage = true;
-            });
+            };
         }
     }
 
-    onBrandEndReached = () => {
+    onBrandEndReached = async () => {
         if(this.BrandLoadNewPage && this.state.BrandData.length !== this.TotalBrand) {
             this.BrandLoadNewPage = false;
-            BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.state.BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+            try {
+                const BrandResp = await BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.state.BrandSort, this.props.AccessToken, this.abortController.signal);
                 this.BrandLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({
-                        BrandData : [...this.state.BrandData,...resp.Brands]
+                        BrandData : [...this.state.BrandData,...BrandResp.Brands]
                     });
                 }
-            }).catch(() => {
+            } catch(err) {
                 this.BrandLoadNewPage = true;
-            });
+            };
         }
     }
 
@@ -90,38 +93,38 @@ class Search extends React.Component {
         this.props.navigation.push('BrandProfile', {BrandID : BrandID})
     }
 
-    setProductSort = (ProductSort) => {
+    setProductSort = async (ProductSort) => {
         this.setState({
             ProductSort,
             ProductsData: []
         });
         this.ProductPage = 0;
-        ProductBySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+        try {
+            const ProductResp = await ProductBySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal)
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
-                    ProductsData : resp.Products
+                    ProductsData : ProductResp.Products
                 })
                 this.TotalProducts = resp.Total
             }
-        }).catch((err) => {
-            console.log(err);
-        });
+        } catch(err) {}
     }
 
-    setBrandSort = (BrandSort) => {
+    setBrandSort = async (BrandSort) => {
         this.setState({
             BrandSort,
             BrandData: []
         });
         this.BrandPage = 0;
-        BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken, this.abortController.signal).then(resp => {
+        try {
+            const BrandResp = await BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken, this.abortController.signal);
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
-                    BrandData : resp.Brands
+                    BrandData : BrandResp.Brands
                 })
                 this.TotalBrand = resp.Total
             }
-        }).catch(() => {});
+        } catch(err) {};
     }
 
     setSearchKey = (SearchKey) => {

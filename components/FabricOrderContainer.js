@@ -52,7 +52,7 @@ export default class FabricOrderContainer extends React.Component {
                     onPress={() => {this.props.navigateFabric(this.props.item.FabricID)}}
                 >
                     <AnimatedImage
-                        source={{uri:this.props.item.FabricImages[0]}}
+                        source={{uri:this.props.item.FabricImage}}
                         style={styles.drawerCover}
                         loader={<ActivityIndicator/>}
                         containerStyle={{backgroundColor: Colors.blue60}}
@@ -70,9 +70,8 @@ export default class FabricOrderContainer extends React.Component {
 
                     </View>
                     <View row>
-                        <Text paddingR-10 marginL-5 marginT-2 hb2 primary>₹{this.props.item.DiscountPrice}</Text>
-                        <Text paddingR-10 marginL-5 marginT-2 hb2 secondary style={{textDecorationLine: 'line-through'}}>₹{this.props.item.ActualPrice}</Text>
-                    </View>
+                        <Text paddingR-10 marginL-5 marginT-2 hb2 primary>₹{this.props.item.FabricPrice}</Text>
+                        </View>
                 </TouchableOpacity>
 
                 <Button
