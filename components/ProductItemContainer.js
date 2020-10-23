@@ -26,7 +26,7 @@ export default class ProductItemContainer extends React.Component {
                 AddWishlistProductByID(this.props.item.ProductID,this.props.Token)
             }
             catch(err) {
-                console.log(err);
+                //console.log(err);
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
             this.setState({addToWishlist: !this.state.addToWishlist});
@@ -53,14 +53,14 @@ export default class ProductItemContainer extends React.Component {
                     <AnimatedImage
                         source={{uri:this.props.item.ProductImages[0]}}
                         style={styles.drawerCover}
-                        loader={<ActivityIndicator/>}
-                        containerStyle={{backgroundColor: Colors.shadow}}
+                        loader={<ActivityIndicator />}
+                        containerStyle={{backgroundColor: Colors.shadow, borderRadius: 10}}
                     />
 
-                    <View row marginL-6 marginT-15>
+                    <View row marginL-10 marginT-15>
                         <View style={{flex: 0.8}}>
-                            <Text hb2 numberOfLines={1} ellipsizeMode='tail'>{this.props.item.Name}</Text>
-                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription}</Text>
+                            <Text hb1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
+                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
@@ -69,8 +69,16 @@ export default class ProductItemContainer extends React.Component {
 
                     </View>
                     <View row>
-                        <Text paddingR-10 marginL-5 marginT-2 hb2 primary>₹{this.props.item.DiscountPrice}</Text>
-                        <Text paddingR-10 marginL-5 marginT-2 hb2 secondary style={{textDecorationLine: 'line-through'}}>₹{this.props.item.ActualPrice}</Text>
+                        <View marginL-10 flex>
+                            <View row>
+                                <Text marginT-2 h2 secondary>min</Text>
+                                <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.MinPrice}</Text>
+                            </View>
+                            <View row>
+                                <Text marginT-2 h2 secondary>max</Text>
+                                <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.MaxPrice}</Text>
+                            </View>
+                        </View>
                     </View>
                 </TouchableOpacity>
 
@@ -81,7 +89,7 @@ export default class ProductItemContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.40,
+        height: deviceHeight * 0.50,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,
@@ -92,12 +100,19 @@ const styles = StyleSheet.create({
         alignContent: 'flex-end',
         flex: 0.2,
     },
-    drawerCover: { //image
+    drawerCover: {
+        //image
         alignSelf: "stretch",
         borderRadius:4,
-        height: deviceHeight * 0.25,
+        height: deviceHeight * 0.35,
         width: deviceWidth * 0.45,
     },
+    Icon : {
+        height:30,
+        width:30,
+        marginHorizontal: 6,
+        flex:0.25
+    }
 })
 
 
