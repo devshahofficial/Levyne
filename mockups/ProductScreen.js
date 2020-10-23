@@ -83,24 +83,18 @@ class ProductScreen extends React.Component {
                             <ImageCarouselProduct ProductImages={this.state.ProductObject.ProductImages}/>
                             <ProductScreenPartOne
                                 Title={this.state.ProductObject.Name}
-                                DiscountPrice={this.state.ProductObject.DiscountPrice}
-                                ActualPrice={this.state.ProductObject.ActualPrice}
+                                MinPrice={this.state.ProductObject.MinPrice}
+                                MaxPrice={this.state.ProductObject.MaxPrice}
                                 BrandID={this.state.ProductObject.BrandID}
                                 ProductRating={4.1}
-                                Materials={this.state.ProductObject.Materials}
-                                MaterialCost={this.state.ProductObject.MaterialCost}
-                                ProductionCost={this.state.ProductObject.ProductionCost}
                                 Category={this.state.ProductObject.Category}
-                                CategoryID={this.state.ProductObject.CategoryID}
                                 Styles={this.state.ProductObject.Styles}
                                 ProductWishlist={this.state.ProductObject.IsWishlist}
-                                BrandNavigation={this.BrandNavigation}
                                 ShortDescription={this.state.ProductObject.ShortDescription}
                                 AddToWishlistFn={this.AddToWishlistFn}
                                 RemoveFromWishlistFn={this.RemoveFromWishlistFn}
                                 ProductID={this.props.route.params.ProductID}
                                 Token={this.props.AccessToken}
-                                ProductImage={this.state.ProductObject.ProductImages}
                             />
                             <ProductScreenPartTwo
                                 LongDescription = {this.state.ProductObject.LongDescription}

@@ -7,7 +7,6 @@ import Colors from '../Style/Colors';
 import StarIconsComponent from "./StarIconsComponent";
 import {MachineWashIcon} from '../Icons/Secondary/MachineWashIcon';
 import {DeliveryIcon} from '../Icons/Secondary/DeliveryIcon';
-import {FabricIcon} from '../Icons/Secondary/FabricIcon';
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
 
@@ -94,22 +93,7 @@ export default class ProductScreenPartOne extends React.Component {
 						</View>
 						<View row bottom>
 							<Text b1 primary>
-								₹{this.props.DiscountPrice}
-							</Text>
-							<Text
-								h1
-								marginL-5
-								secondary
-								style={{textDecorationLine: 'line-through'}}>
-								₹{this.props.ActualPrice}
-							</Text>
-							<Text h1 marginL-5 black>
-								{Math.round(
-									((this.props.ActualPrice - this.props.DiscountPrice) /
-										this.props.ActualPrice) *
-										100,
-								)}
-								% off
+								₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
 							</Text>
 						</View>
 					</View>
@@ -126,24 +110,6 @@ export default class ProductScreenPartOne extends React.Component {
 						</TouchableOpacity>
 					</View>
 				</View>
-
-				{this.props.MaterialCost && (
-					<>
-						<View marginT-20 center row style={styles.View}>
-							<FabricIcon size={30} Color={Colors.black} />
-							<Text marginL-10 h2>
-								Get it made on your fabric!
-							</Text>
-						</View>
-						<View marginT-20>
-							<Text hb1 black>
-								Detailed Price
-							</Text>
-							<Text h2>Production Cost: ₹{this.props.ProductionCost}</Text>
-							<Text h2>Raw Material Cost: ₹{this.props.MaterialCost}</Text>
-						</View>
-					</>
-				)}
 
 				<View marginT-20 style={{marginHorizontal: -15}}>
 					<FlatList

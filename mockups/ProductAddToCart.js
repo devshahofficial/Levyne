@@ -14,7 +14,6 @@ class AddToCartScreen extends React.PureComponent {
         super(props);
         this.state = {
             SelectedSize: 0,
-            CustomerFabric: false,
             Fabrics: [],
             LoadMoreFabrics: false,
             SelectedFabric: '',
@@ -56,12 +55,6 @@ class AddToCartScreen extends React.PureComponent {
 
     SelectFabric = (SelectedFabric) => {
         this.setState({SelectedFabric});
-    }
-
-    setCustomerFabric = () => {
-        this.setState({
-            CustomerFabric: !this.state.CustomerFabric
-        });
     }
 
     StepperValueChange = (FabricQuantity) => {
@@ -140,20 +133,6 @@ class AddToCartScreen extends React.PureComponent {
                         </View>
                     </View>
                     {this.state.CustomFabric &&
-                        <View>
-                            <View row spread>
-                                <Text hb1 secondary>Provide my own fabric</Text>
-                                <Checkbox
-                                    value={this.state.CustomerFabric}
-                                    onValueChange={this.setCustomerFabric}
-                                    borderRadius={10}
-                                    size={25}
-                                    color={Colors.primary}
-                                />
-                            </View>
-                        </View>
-                    }
-                    {this.state.CustomFabric && !this.state.CustomerFabric &&
                         <View marginT-20>
                             <Text h1 secondary>Choose the fabric</Text>
                         </View>
