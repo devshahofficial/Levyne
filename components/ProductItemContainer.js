@@ -19,14 +19,14 @@ export default class ProductItemContainer extends React.Component {
         }
     }
 
-    onBookmarkPress = () => {
+    onBookmarkPress = async () => {
         if(!this.state.addToWishlist)
         {
             try {
-                AddWishlistProductByID(this.props.item.ProductID,this.props.Token)
+                await AddWishlistProductByID(this.props.item.ProductID,this.props.Token)
             }
             catch(err) {
-                //console.log(err);
+                console.log(err);
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
             this.setState({addToWishlist: !this.state.addToWishlist});
@@ -34,9 +34,10 @@ export default class ProductItemContainer extends React.Component {
         else
         {
             try {
-                RemoveWishlistProductByID(this.props.item.ProductID,this.props.Token)
+                await RemoveWishlistProductByID(this.props.item.ProductID,this.props.Token)
             }
             catch(err) {
+                console.log(err);
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
             this.setState({addToWishlist: !this.state.addToWishlist});

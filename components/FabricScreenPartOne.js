@@ -4,10 +4,12 @@ import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {ShareIcon} from "../Icons/ShareIcon";
 import {BookMarkIcon} from "../Icons/BookMarkIcon";
 import Colors from '../Style/Colors';
-import StarIconsComponent from "./StarIconsComponent";
 import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
+import Stars from '../components/StarIconsComponent';
+
 
 const defaultColors = ["#ff99cc","#7ac1ff"];
+
 
 export default class FabricScreenPartOne extends React.Component {
 
@@ -44,16 +46,17 @@ export default class FabricScreenPartOne extends React.Component {
 
             if (result.action === Share.sharedAction) {
                 if (result.activityType) {
-                    //console.log(result.activityType);
+                    ////console.log(result.activityType);
                 } else {
-                    //console.log(result.activityType);
+                    ////console.log(result.activityType);
                 }
             } else if (result.action === Share.dismissedAction) {
-                //console.log(result.action);
+                ////console.log(result.action);
             }
         } catch (error) {
-            //console.log(error.message);
-        }*/
+            ////console.log(error.message);
+        }
+        */
     }
 
     render() {
@@ -62,10 +65,10 @@ export default class FabricScreenPartOne extends React.Component {
                 <Text b1 black marginV-3>
                     {this.props.Title}
                 </Text>
-                {this.props.Dyeable && <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
+                {this.props.Dyeable ? <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     <MachineWashIcon size={30} Color={Colors.black}/>
                     <Text marginL-10 h2>Dry cleaning is recommended for the first wash!</Text>
-                </View>}
+                </View> : <View></View>}
                 <View row>
                     <View flex-7>
                         <Text marginV-3 h1 secondary>
@@ -73,16 +76,14 @@ export default class FabricScreenPartOne extends React.Component {
                         </Text>
                         <View row marginV-10>
                             <View row marginR-15>
-                                <StarIconsComponent BrandRating={Math.round(this.props.FabricRating)} />
+                                <Stars BrandRating={Math.round(this.props.FabricRating)} />
                             </View>
                             <Text h2>
                                 {this.props.FabricRating} Ratings
                             </Text>
                         </View>
                         <View row bottom>
-                            <Text b1 primary>₹{this.props.DiscountPrice}</Text>
-                            <Text h1 marginL-5 secondary style={{textDecorationLine: 'line-through'}}>₹{this.props.ActualPrice}</Text>
-                            <Text h1 marginL-5 black>{Math.round((this.props.ActualPrice-this.props.DiscountPrice)/this.props.ActualPrice * 100)}% off</Text>
+                            <Text b1 primary>₹{this.props.FabricPrice}</Text>    
                         </View>
                     </View>
 
@@ -101,7 +102,7 @@ export default class FabricScreenPartOne extends React.Component {
                         data={this.props.Styles}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
-                        keyExtractor={(item, index) => index.toString()}
+                        keyExtractor={(item, index) => item}
                         renderItem={({item, index}) => (
                             <View
                                 centerV
