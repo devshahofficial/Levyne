@@ -26,7 +26,7 @@ export default class FabricItemContainer extends React.Component {
                 AddWishlistFabricByID(this.props.item.FabricID,this.props.Token)
             }
             catch(err) {
-                console.log(err);
+                //console.log(err);
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
             this.setState({addToWishlist: !this.state.addToWishlist});
@@ -51,26 +51,31 @@ export default class FabricItemContainer extends React.Component {
                     onPress={() => {this.props.navigateFabric(this.props.item.FabricID)}}
                 >
                     <AnimatedImage
-                        source={{uri:this.props.item.FabricImages[0]}}
+                        source={{uri:this.props.item.FabricImage}}
                         style={styles.drawerCover}
-                        loader={<ActivityIndicator/>}
-                        containerStyle={{backgroundColor: Colors.blue60}}
+                        loader={<ActivityIndicator />}
+                        containerStyle={{backgroundColor: Colors.shadow, borderRadius: 10}}
                     />
 
-                    <View row marginL-6 marginT-15>
+                    <View row marginL-10 marginT-15>
                         <View style={{flex: 0.8}}>
-                            <Text hb2 numberOfLines={1} ellipsizeMode='tail'>{this.props.item.Name}</Text>
-                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
+                            <Text hb1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
+                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription}</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
                             <BookMarkIcon Fill={this.state.addToWishlist} Color={Colors.primary} size={25}/>
                         </TouchableOpacity>
 
+
                     </View>
                     <View row>
-                        <Text paddingR-10 marginL-5 marginT-2 hb2 primary>₹{this.props.item.DiscountPrice}</Text>
-                        <Text paddingR-10 marginL-5 marginT-2 hb2 secondary style={{textDecorationLine: 'line-through'}}>₹{this.props.item.ActualPrice}</Text>
+                        <View marginL-10 flex>
+                            <View row>
+                                <Text marginT-2 h2 secondary>Price</Text>
+                                <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.FabricPrice}</Text>
+                            </View>
+                        </View>
                     </View>
                 </TouchableOpacity>
 
@@ -98,6 +103,12 @@ const styles = StyleSheet.create({
         height: deviceHeight * 0.25,
         width: deviceWidth * 0.45,
     },
+    Icon : {
+        height:30,
+        width:30,
+        marginHorizontal: 6,
+        flex:0.25
+    }
 })
 
 
