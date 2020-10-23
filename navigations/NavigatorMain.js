@@ -23,7 +23,6 @@ import TermsConditionsScreen from '../mockups/Profile/TermsConditionsScreen';
 import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
 import {CategoriesIcon} from "../Icons/CategoriesIcon";
-import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import Cart from "../mockups/Home/Cart";
 import Notifications from "../mockups/Home/Notifications";
 import Menu from "../mockups/Home/Menu";
@@ -37,6 +36,7 @@ import MyFashionDesigners from "../mockups/Profile/MyFashionDesigners";
 import MyFits from "../mockups/Profile/MyFits";
 import FAQscreen from "../mockups/Profile/FAQscreen";
 import MyOrders from "../mockups/Profile/MyOrders";
+import BrandList from "../mockups/BrandList";
 import MyOrdersDetailed from "../mockups/Profile/MyOrdersDetailed";
 
 const MainStack = createStackNavigator();
@@ -140,6 +140,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='MyFits' component={MyFits}/>
 				<HomeStack.Screen name='MyOrders' component={MyOrders}/>
 				<HomeStack.Screen name='CheckOut' component={CheckOut}/>
+				<HomeStack.Screen name='BrandList' component={BrandList} />
 				<HomeStack.Screen name='MyOrdersDetailed' component={MyOrdersDetailed}/>
 				<HomeStack.Screen
                     name='Menu'
