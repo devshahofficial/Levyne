@@ -7,7 +7,7 @@ import {DeliveryIcon} from "../../Icons/Secondary/DeliveryIcon";
 import Colors from "../../Style/Colors";
 import BucketProduct from "../../components/BucketProduct";
 import {TimerIcon} from "../../Icons/Secondary/TimerIcon";
-import FetchCart from '../../API/FetchCart';
+import FetchBucket from '../../API/FetchBucket';
 import RemoveFabricFromCart from '../../API/RemoveFabricFromCart';
 import RemoveProductFromCart from '../../API/RemoveProductFromCart';
 import {CheckoutIcon} from "../../Icons/CheckoutIcon";
@@ -40,29 +40,20 @@ class Bucket extends React.Component {
     }
 
     componentDidMount() {
-        FetchCart(this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
-            Buckets = Buckets[0].concat(Buckets[1], Buckets[2], Buckets[3]).sort((a,b) => (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp));
+        FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
+
+            console.log(Buckets);
+
             this.setState({
                 Buckets,
                 Loading: false
-            });
-            Buckets.forEach(item => {
-                this.TotalProducts++;
-                if(item.ProductType === 3) {
-                    this.TotalActualPrice += (item.ProductionCost + item.MaterialCost);
-                    this.TotalDiscountPrice += (item.ProductionCost + item.MaterialCost);
-                } else {
-                    this.TotalActualPrice += item.ActualPrice;
-                    this.TotalDiscountPrice += item.DiscountPrice;
-                }
             });
         }).catch(err => {console.log(err)});
 
         this.willFocusSubscription = this.props.navigation.addListener(
             'focus', () => {
                 this.setState({Loading: true});
-                FetchCart(this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
-                    Buckets = Buckets[0].concat(Buckets[1], Buckets[2], Buckets[3]).sort((a,b) => (a.UpdatedTimestamp>b.UpdatedTimestamp)-(a.UpdatedTimestamp<b.UpdatedTimestamp));
+                FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
                     this.setState({
                         Buckets,
                         Loading: false

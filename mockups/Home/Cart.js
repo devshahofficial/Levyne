@@ -3,7 +3,7 @@ import {View, Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import BucketComponent from "../../components/BucketComponent";
-import FetchBuckets from '../../API/FetchBuckets';
+import FetchCart from '../../API/FetchCart';
 import {ActivityIndicator, FlatList} from 'react-native';
 
 class Cart extends React.Component {
@@ -19,12 +19,15 @@ class Cart extends React.Component {
     }
 
     componentDidMount() {
-        FetchBuckets(this.props.AccessToken, this.abortController.signal).then(Buckets => {
-            Buckets = Buckets.map(item => {
-                item.BrandID = item.BrandID.toString();
+        FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
+
+            console.log(Cart);
+
+            Cart = Cart.map(item => {
+                item.BucketID = item.BucketID.toString();
                 return item;
             });
-            this.setState({Buckets, Loading: false});
+            this.setState({Cart, Loading: false});
         }).catch(err => {
             console.log(err);
         });
@@ -32,12 +35,12 @@ class Cart extends React.Component {
         this.willFocusSubscription = this.props.navigation.addListener(
             'focus', () => {
                 this.setState({Loading: true});
-                FetchBuckets(this.props.AccessToken).then(Buckets => {
-                    Buckets = Buckets.map(item => {
-                        item.BrandID = item.BrandID.toString();
+                FetchCart(this.props.AccessToken).then(Cart => {
+                    Cart = Cart.map(item => {
+                        item.BucketID = item.BucketID.toString();
                         return item;
                     });
-                    this.setState({Buckets, Loading: false});
+                    this.setState({Cart, Loading: false});
                 }).catch(err => {
                     console.log(err);
                 });
@@ -52,12 +55,12 @@ class Cart extends React.Component {
         this.abortController.abort();
     }
 
-    onBucketPress = (BrandID, BrandName, TotalActualPrice, TotalDiscountPrice, TotalDiscount, TotalProducts) => {
-        this.props.navigation.navigate("Bucket", {BrandID, BrandName, TotalDiscountPrice, TotalDiscount, TotalActualPrice, TotalProducts});
+    onBucketPress = (BucketID, BrandID, BrandName, TotalProducts) => {
+        this.props.navigation.navigate("Bucket", {BucketID, BrandID, BrandName, TotalProducts});
     }
 
-    navigateCheckout = (BrandID, BrandName, TotalActualPrice, TotalDiscountPrice, TotalDiscount, TotalProducts) => {
-        this.props.navigation.navigate("CheckOut", {BrandID, BrandName, TotalDiscountPrice, TotalDiscount, TotalActualPrice, TotalProducts});
+    navigateCheckout = (BucketID, BrandID, BrandName, TotalProducts) => {
+        this.props.navigation.navigate("CheckOut", {BucketID, BrandID, BrandName, TotalProducts});
     }
 
     navigateBrand = (BrandID) => {
@@ -83,9 +86,9 @@ class Cart extends React.Component {
                     </View> :
                     <View paddingH-15 flex centerH>
                         <FlatList
-                            data={this.state.Buckets}
+                            data={this.state.Cart}
                             renderItem={this.FlatListRenderItem}
-                            keyExtractor={(item) => item.BrandID}
+                            keyExtractor={(item) => item.BucketID}
                             showsVerticalScrollIndicator={false}
                             ListEmptyComponent={
                                 <View flex centerV centerH style={{height:655}} paddingH-40>
