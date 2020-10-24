@@ -47,10 +47,6 @@ export default class BucketProduct extends React.PureComponent {
                             <Text flex hb2 secondary>Quantity</Text>
                             <Text flex-2 h1>{this.props.item.Quantity}</Text>
                         </View>
-                        <View row>
-                            <Text flex hb2 secondary>Fabric used</Text>
-                            <Text flex-2 h1>{this.props.item.FabricQuantityPerProduct*this.props.item.Quantity} meters</Text>
-                        </View>
                     </View>
 
                     <TouchableOpacity onPress={() => this.props.navigateProduct(this.props.item.ProductID)} center marginB-5 style={styles.TouchableOpacity}>
@@ -70,6 +66,8 @@ export default class BucketProduct extends React.PureComponent {
             </View>
         )
     }
+
+    /*
 
     OnlyFabric = () => {
         return(
@@ -113,7 +111,7 @@ export default class BucketProduct extends React.PureComponent {
             </View>
         )
     }
-
+    */
 
     OnlyProduct = () => {
         return(
@@ -163,6 +161,7 @@ export default class BucketProduct extends React.PureComponent {
         )
     }
 
+    /*
     ProductWithCustomerFabric = () => {
         return(
             <View padding-15>
@@ -214,16 +213,13 @@ export default class BucketProduct extends React.PureComponent {
             </View>
         )
     }
+    */
 
     render() {
         switch (this.props.item.ProductType) {
             case 1 :
                 return <this.OnlyProduct {...this.props} />
             case 2 :
-                return <this.OnlyFabric {...this.props} />
-            case 3 :
-                return <this.ProductWithCustomerFabric {...this.props} />
-            case 4 :
                 return <this.ProductWithFabric {...this.props} />
             default:
                 return <></>
