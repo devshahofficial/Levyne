@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"android": "source ~/.bash_profile && react-native run-android",
+		"android": "adb reverse tcp:8081 tcp:8081 && react-native run-android",
 		"ios": "react-native run-ios",
 		"ios-device": "react-native run-ios --device",
 		"start": "react-native start",
