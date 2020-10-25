@@ -81,7 +81,7 @@ export default class ProductItemContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.40,
+        height: deviceHeight * 0.50,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,
