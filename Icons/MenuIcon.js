@@ -1,16 +1,13 @@
 import React from 'react';
-import {Svg,Rect,G} from 'react-native-svg';
+import {Svg,Path,G} from 'react-native-svg';
 
 export const MenuIcon = (props) => {
     return (
-        <Svg xmlns="http://www.w3.org/2000/svg" width="16" height="22" viewBox="0 0 16 22">
-            <G id="Group_3911" data-name="Group 3911" transform="translate(6439 335)">
-                <Rect id="Rectangle_449" data-name="Rectangle 449" width="2" height="22" rx="1.5" transform="translate(-6432.835 -335)" fill={props.Color}/>
-                <Rect id="Rectangle_450" data-name="Rectangle 450" width="2" height="11" rx="1.5" transform="translate(-6426 -329)" fill={props.Color}/>
-                <Rect id="Rectangle_451" data-name="Rectangle 451" width="2" height="11" rx="1.5" transform="translate(-6439 -329)" fill={props.Color}/>
+        <Svg id="Iconly_Light-outline_Category" data-name="Iconly/Light-outline/Category" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <G id="Category" transform="translate(2 2)">
+                <Path id="Category-2" data-name="Category" d="M13.986,20a2.989,2.989,0,0,1-2.975-3V13.941a2.989,2.989,0,0,1,2.975-3h3.039a2.988,2.988,0,0,1,2.974,3V17a2.988,2.988,0,0,1-2.974,3Zm-1.58-6.059V17a1.593,1.593,0,0,0,1.58,1.6h3.039A1.592,1.592,0,0,0,18.6,17V13.941a1.592,1.592,0,0,0-1.58-1.6H13.986A1.593,1.593,0,0,0,12.406,13.941ZM2.975,20A2.989,2.989,0,0,1,0,17V13.941a2.989,2.989,0,0,1,2.975-3H6.014a2.989,2.989,0,0,1,2.975,3V17a2.989,2.989,0,0,1-2.975,3Zm-1.58-6.059V17a1.593,1.593,0,0,0,1.58,1.6H6.014A1.593,1.593,0,0,0,7.594,17V13.941a1.593,1.593,0,0,0-1.58-1.6H2.975A1.593,1.593,0,0,0,1.395,13.941ZM13.986,9.055a2.989,2.989,0,0,1-2.975-3V3a2.989,2.989,0,0,1,2.975-3h3.039A2.988,2.988,0,0,1,20,3V6.06a2.988,2.988,0,0,1-2.974,3ZM12.406,3V6.06a1.593,1.593,0,0,0,1.58,1.6h3.039a1.592,1.592,0,0,0,1.58-1.6V3a1.592,1.592,0,0,0-1.58-1.6H13.986A1.593,1.593,0,0,0,12.406,3Zm-9.43,6.06A2.989,2.989,0,0,1,0,6.06V3A2.989,2.989,0,0,1,2.975,0H6.014A2.989,2.989,0,0,1,8.989,3V6.06a2.989,2.989,0,0,1-2.975,3ZM1.395,3V6.06a1.593,1.593,0,0,0,1.58,1.6H6.014a1.593,1.593,0,0,0,1.58-1.6V3a1.593,1.593,0,0,0-1.58-1.6H2.975A1.593,1.593,0,0,0,1.395,3Z" fill={props.Color}/>
             </G>
         </Svg>
-
 
 
     )

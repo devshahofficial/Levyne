@@ -3,14 +3,13 @@ import React from "react";
 
 export const CustomizeIcon = (props) => {
     return (
-        <Svg xmlns="http://www.w3.org/2000/svg" width="26.69" height="24.3" viewBox="0 0 22.15 20.167">
-            <G id="sew" transform="translate(0 -22.751)">
-                <Path id="Path_2633" data-name="Path 2633" d="M4.091,92.08H1.962A1.31,1.31,0,0,1,.653,90.772V88.707H2.441v.833a.327.327,0,0,0,.327.327H6.879a.327.327,0,0,0,.327-.327v-.833H11.8a.327.327,0,0,0,0-.653H5.072V86.425h.366a.817.817,0,0,0,.816-.816v-.6h.074a1.716,1.716,0,0,0,1.655-1.269l.386-1.437a.761.761,0,0,1,.734-.563h5.076a.649.649,0,0,1,.648.648v5.015a.649.649,0,0,1-.648.648H13.106a.327.327,0,0,0,0,.653h1.072a1.3,1.3,0,0,0,1.3-1.3V82.391a1.3,1.3,0,0,0-1.3-1.3H9.1a1.416,1.416,0,0,0-1.366,1.048l-.385,1.437a1.061,1.061,0,0,1-1.024.785H3.078A.979.979,0,0,1,2.1,83.288l.469-4.92A1.931,1.931,0,0,1,4.5,76.614H6.729a.327.327,0,0,0,0-.653H5.15v-.8a.327.327,0,0,0-.653,0v.8a2.581,2.581,0,0,0-2.574,2.346l-.469,4.92a1.632,1.632,0,0,0,1.625,1.787h.158v.6a.817.817,0,0,0,.816.816h.366v1.628H.327A.327.327,0,0,0,0,88.381v2.391a1.964,1.964,0,0,0,1.962,1.962H4.091a.327.327,0,0,0,0-.653Zm-.2-6.471v-.6H5.6v.6a.163.163,0,0,1-.163.163H4.052A.163.163,0,0,1,3.889,85.609Zm2.663,3.6H3.094v-.507H6.552Z" transform="translate(0 -49.815)" fill={props.Color}/>
-                <Path id="Path_2634" data-name="Path 2634" d="M130.912,26.145h-.344V23.833a.327.327,0,0,0-.327-.327h-.606v-.429a.327.327,0,1,0-.653,0v.429h-.6a.327.327,0,0,0-.327.327v2.312h-8.662a.327.327,0,1,0,0,.653h11.522a1.941,1.941,0,0,1,1.939,1.939v12.22a1.31,1.31,0,0,1-1.309,1.309H116.753a.327.327,0,1,0,0,.653h14.789a1.964,1.964,0,0,0,1.962-1.962V28.737A2.6,2.6,0,0,0,130.912,26.145Zm-2.206-1.985h1.209v1.985h-1.209Z" transform="translate(-111.354)" fill={props.Color}/>
-                <Path id="Path_2635" data-name="Path 2635" d="M391.134,216.845a1.605,1.605,0,1,0,1.605,1.605A1.607,1.607,0,0,0,391.134,216.845Zm0,2.557a.952.952,0,1,1,.952-.952A.953.953,0,0,1,391.134,219.4Z" transform="translate(-372.561 -185.639)" fill={props.Color}/>
-                <Path id="Path_2636" data-name="Path 2636" d="M268.371,158.647a.327.327,0,0,0,0-.653h-.986a.327.327,0,0,0,0,.653Z" transform="translate(-255.425 -129.352)" fill={props.Color}/>
-                <Path id="Path_2637" data-name="Path 2637" d="M330.083,157.994h-5.113a.327.327,0,0,0,0,.653h5.113a.327.327,0,0,0,0-.653Z" transform="translate(-310.503 -129.352)" fill={props.Color}/>
+        <Svg id="Iconly_Light_Edit_Square" data-name="Iconly/Light/Edit Square" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <G id="Edit_Square" data-name="Edit Square" transform="translate(2 2)">
+                <Path id="Stroke_1" data-name="Stroke 1" d="M8.742,0H5C1.928,0,0,2.177,0,5.259v8.314c0,3.082,1.919,5.259,5,5.259h8.824c3.085,0,5-2.177,5-5.259V9.545" transform="translate(0.75 0.789)" fill="none" stroke={props.Color} stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <Path id="Stroke_3" data-name="Stroke 3" d="M.729,8.17,8.2.7a2.385,2.385,0,0,1,3.371,0L12.79,1.914a2.383,2.383,0,0,1,0,3.371L5.281,12.795a2.171,2.171,0,0,1-1.535.636H0l.094-3.78A2.17,2.17,0,0,1,.729,8.17Z" transform="translate(6.099 0.75)" fill="none" stroke={props.Color} stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
+                <Path id="Stroke_5" data-name="Stroke 5" d="M0,0,4.566,4.566" transform="translate(13.165 2.602)" fill="none" stroke={props.Color} stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
             </G>
         </Svg>
+
     )
 };

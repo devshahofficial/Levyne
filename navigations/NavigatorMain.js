@@ -14,7 +14,6 @@ import ProductScreen from '../mockups/ProductScreen';
 import {Colors} from "react-native-ui-lib";
 import {HomeIcon} from '../Icons/HomeIcon';
 import {ProfileIcon} from '../Icons/ProfileIcon';
-import ChatIcon from '../Icons/ChatIcon';
 import SettingsScreen from '../mockups/SettingsScreen';
 import BookmarkProducts from '../mockups/Home/BookmarkProducts';
 import Help from '../mockups/Profile/Help';
@@ -22,7 +21,6 @@ import FabricScreen from '../mockups/FabricScreen';
 import TermsConditionsScreen from '../mockups/Profile/TermsConditionsScreen';
 import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
-import {CategoriesIcon} from "../Icons/CategoriesIcon";
 import Cart from "../mockups/Home/Cart";
 import Notifications from "../mockups/Home/Notifications";
 import Menu from "../mockups/Home/Menu";
@@ -38,11 +36,10 @@ import FAQscreen from "../mockups/Profile/FAQscreen";
 import MyOrders from "../mockups/Profile/MyOrders";
 import BrandList from "../mockups/BrandList";
 import MyOrdersDetailed from "../mockups/Profile/MyOrdersDetailed";
-import {CustomizeIcon} from "../Icons/CustomizeIcon";
-import {FashionDesignerIcon} from "../Icons/Secondary/FashionDesignerIcon";
-import {LevyneIcon} from "../Icons/LevyneIcon";
+import LevyneIcon from "../Icons/LevyneIcon";
 import {TailorIcon} from "../Icons/Secondary/TailorIcon";
 import {OrdersIcon} from "../Icons/OrdersIcon";
+import {CustomizeIcon} from "../Icons/CustomizeIcon";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -76,7 +73,7 @@ class BottomTabNavigation extends React.PureComponent {
 					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<LevyneIcon Color={color} size={25}/>
+							<LevyneIcon Color={color} size={24}/>
 						),
 					}}
 				/>
@@ -85,12 +82,12 @@ class BottomTabNavigation extends React.PureComponent {
 					component={Customize}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<TailorIcon size={28} Color={color}/>
+							<CustomizeIcon size={28} Color={color}/>
 						),
 					}}
 				/>
 				<Tab.Screen
-					name="My Orders"
+					name="My Wardrobe"
 					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (

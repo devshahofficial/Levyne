@@ -6,8 +6,8 @@ import {BookMarkIcon} from "../Icons/BookMarkIcon";
 import {SearchIcon} from '../Icons/SearchIcon';
 import Logo from '../assets/images/Logo.svg';
 import {MenuIcon} from "../Icons/MenuIcon";
-import {OrdersIcon} from "../Icons/OrdersIcon";
-import {BellIcon} from "../Icons/BellIcon";
+import BellIcon from "../Icons/BellIcon";
+import {CheckoutIcon} from "../Icons/CheckoutIcon";
 
 export default class HomeNavBar extends React.PureComponent {
 
@@ -27,20 +27,12 @@ export default class HomeNavBar extends React.PureComponent {
                 </View>
                 <View flex row centerV right>
                     <TouchableOpacity
-                        marginL-5 marginR-8 br100
+                        marginL-12 marginR-4 br100
                         onPress={() => {
                             this.props.navigateSearch();
                         }}
                     >
                         <SearchIcon size={28} Color={Colors.black}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        marginH-8 br100
-                        onPress={() => {
-                            this.props.navigateNotifications();
-                        }}
-                    >
-                        <BellIcon size={22} Color={Colors.black}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         marginH-8 br100
@@ -51,12 +43,20 @@ export default class HomeNavBar extends React.PureComponent {
                         <BookMarkIcon size={24} Fill={false} Color={Colors.black}/>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        marginL-8 marginR-20 br100
+                        marginH-8 br100
                         onPress={() => {
-                            this.props.navigateCart();
+                            this.props.navigateBookMark();
                         }}
                     >
-                        <OrdersIcon size={22} Color={Colors.black}/>
+                        <BellIcon size={22} Fill={false} Color={Colors.black}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        marginL-4 marginR-12 br100
+                        onPress={() => {
+                            this.props.navigateBookMark();
+                        }}
+                    >
+                        <CheckoutIcon size={22} Fill={false} Color={Colors.black}/>
                     </TouchableOpacity>
                 </View>
             </View>
