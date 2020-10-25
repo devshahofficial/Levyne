@@ -1,7 +1,8 @@
 import io from "socket.io-client/dist/socket.io";
+import config from '../assets/constants';
 
 export default async (Token) => {
-    var socket = await io('https://api.levyne.com/?UserType=Brand', {
+    const socket = await io(config.URL + 'Customers', {
         transportOptions: {
             polling: {
                 extraHeaders: {
@@ -11,8 +12,10 @@ export default async (Token) => {
         },
         forceNode: true
     });
+
     await socket.on('Error', (err) => {
         console.log(err);
     });
+
     return socket;
 }

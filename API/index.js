@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import config from '../assets/constants';
 import CustomRequest from './CustomRequest';
+import NewSocket from './NewSocket';
 
-export const AuthCheck = async (setAuth, setProfile) => {
+export const AuthCheck = async (setAuth, setProfile, setSocket) => {
     try {
         const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus']);
         if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
@@ -17,6 +18,7 @@ export const AuthCheck = async (setAuth, setProfile) => {
         if(!(Response[0][1] && Response[1][1] && Response[2][1] && Response[3][1]))
             throw new Error('Tokens not found');
 
+        let AccessToken = Response[0][1];
         setAuth({
             AccessToken : Response[0][1],
             RefreshToken : Response[1][1],
@@ -44,6 +46,7 @@ export const AuthCheck = async (setAuth, setProfile) => {
                 ['RefreshToken', RefreshTokenJSON.RefreshToken],
                 ['Timestamp', RefreshTokenJSON.Timestamp]
             ])
+
             AccessToken = RefreshTokenJSON.AccessToken;
 
             setAuth({
@@ -53,6 +56,10 @@ export const AuthCheck = async (setAuth, setProfile) => {
                 SkipLogin: false
             })
         }
+        
+        const Socket = await NewSocket(AccessToken);
+
+        setSocket(Socket);
 
         switch (ProfileStatus) {
             case 2:
@@ -83,6 +90,7 @@ export const AuthCheck = async (setAuth, setProfile) => {
         }
     }
     catch(err) {
+        console.log(err);
         throw new Error('Login');
     }
 }

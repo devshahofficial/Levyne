@@ -12,9 +12,10 @@ class IndexScreen extends React.Component {
 
 		const setAuth = this.props.setAuth;
 		const setProfile = this.props.setProfile;
+		const setSocket = this.props.setSocket;
 
 
-		AuthCheck(setAuth, setProfile).then( value => {
+		AuthCheck(setAuth, setProfile, setSocket).then( value => {
 			if(value === 'Home')
 			{
 				this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
@@ -42,6 +43,7 @@ const mapDispatchToProps = dispatch => {
 	return {
         setAuth : (AuthObject) => dispatch({type: 'setAuth', value: AuthObject}),
 		setProfile : (ProfileObject) => dispatch({type: 'setProfile', value: ProfileObject}),
+		setSocket : (Socket) => dispatch({type: 'setSocket', value: Socket}),
 	}
 }
 
