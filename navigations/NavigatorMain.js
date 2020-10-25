@@ -38,6 +38,11 @@ import FAQscreen from "../mockups/Profile/FAQscreen";
 import MyOrders from "../mockups/Profile/MyOrders";
 import BrandList from "../mockups/BrandList";
 import MyOrdersDetailed from "../mockups/Profile/MyOrdersDetailed";
+import {CustomizeIcon} from "../Icons/CustomizeIcon";
+import {FashionDesignerIcon} from "../Icons/Secondary/FashionDesignerIcon";
+import {LevyneIcon} from "../Icons/LevyneIcon";
+import {TailorIcon} from "../Icons/Secondary/TailorIcon";
+import {OrdersIcon} from "../Icons/OrdersIcon";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -67,29 +72,29 @@ class BottomTabNavigation extends React.PureComponent {
 					}}
 				/>
 				<Tab.Screen
-					name="Categories"
+					name="Levyne"
 					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<CategoriesIcon Color={color}/>
+							<LevyneIcon Color={color} size={25}/>
 						),
 					}}
 				/>
-				{/*<Tab.Screen
+				<Tab.Screen
 					name="Customize"
 					component={Customize}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<CustomizeIcon Color={color}/>
+							<TailorIcon size={28} Color={color}/>
 						),
 					}}
-				/>*/}
+				/>
 				<Tab.Screen
-					name="Messages"
+					name="My Orders"
 					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<ChatIcon Color={color} IsAnyChatMessage={false}/>
+							<OrdersIcon Color={color} IsAnyChatMessage={false}/>
 						),
 					}}
 				/>
