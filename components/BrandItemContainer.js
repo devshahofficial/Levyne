@@ -8,7 +8,8 @@ export default class BrandItemContainer extends React.Component {
     render() {
         return (
             <TouchableOpacity
-                activeOpacity={0.6} row paddingL-10 marginB-10 flex
+                activeOpacity={0.6}
+                style={styles.Container}
                 onPress={() => {
                     this.props.navigateBrand(this.props.item.BrandID)
                 }}
@@ -18,14 +19,14 @@ export default class BrandItemContainer extends React.Component {
                         style={styles.headerImage}
                         source={{ uri: this.props.item.ProfileImage }}
                         loader={<ActivityIndicator />}
-                        containerStyle={{backgroundColor: Colors.blue60}}
+                        containerStyle={{backgroundColor: Colors.shadow}}
                     />
                 </View>
-                <View>
+                <View flex>
                     <Text hb1 style={styles.headerText}>
                         {this.props.item.Name}
                     </Text>
-                    <Text h2 grey40 marginL-10 marginR-200 left>{this.props.item.About.replace(/(\r\n|\r|\n){2,}/g, '\n')}</Text>
+                    <Text h2 grey40 marginH-10 left numberOfLines={3} ellipsizeMode='tail'>{this.props.item.About.replace(/(\r\n|\r|\n){2,}/g, '\n')}</Text>
                     <View row flex marginT-10 paddingL-10>
                         <StarIconsComponent BrandRating={Math.round(this.props.item.ratings)} />
                     </View>
@@ -36,7 +37,7 @@ export default class BrandItemContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     headerText: {
-        paddingTop: 20,
+        paddingTop: 0,
         marginLeft: 10,
         marginRight: 100,
     },
@@ -45,6 +46,15 @@ const styles = StyleSheet.create({
         width: 150,
         flex:1
     },
+    Container: {
+        borderWidth: 1,
+        borderColor: Colors.shadow,
+        borderRadius: 10,
+        padding: 10,
+        margin: 15,
+        flexDirection: "row",
+        flex: 1
+    }
 })
 
 

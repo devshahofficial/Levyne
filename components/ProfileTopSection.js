@@ -23,7 +23,7 @@ export default class ProfileTopSection extends React.PureComponent {
                     <Text h3 paddingV-4 center grey30>Products</Text>
                 </View>
 
-                <TouchableOpacity style={styles.threeBoxes} margin-4 center>
+                <TouchableOpacity style={styles.threeBoxes} margin-4 center onPress={this.props.navigateFollowings}>
                     <Text f1 paddingV-4 center>{this.props.Followings}</Text>
                     <Text h3 paddingV-4 center grey30>Following</Text>
                 </TouchableOpacity>

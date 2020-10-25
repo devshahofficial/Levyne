@@ -14,7 +14,12 @@ export default class BucketComponent extends React.Component {
   render() {
     return (
         <TouchableOpacity
-            onPress={() => this.props.Navigation(this.props.item.BrandID, this.props.item.Name, this.props.item.TotalActualPrice, this.props.item.TotalDiscountPrice, this.props.item.TotalDiscount, this.props.item.TotalProducts)}
+            onPress={() => this.props.Navigation(
+                this.props.item.BucketID,
+                this.props.item.BrandID,
+                this.props.item.Name,
+                this.props.item.TotalProducts
+            )}
             style={styles.Container}
             paddingH-20
             marginB-20
@@ -59,7 +64,14 @@ export default class BucketComponent extends React.Component {
                     </View>
                     <View flex>
                         <Button
-                            onPress={() => this.props.navigateCheckout(this.props.item.BrandID, this.props.item.Name, this.props.item.TotalActualPrice, this.props.item.TotalDiscountPrice, this.props.item.TotalDiscount, this.props.item.TotalProducts)}
+                            onPress={
+                                () => this.props.navigateCheckout(
+                                    this.props.item.BucketID,
+                                    this.props.item.BrandID,
+                                    this.props.item.Name,
+                                    this.props.item.TotalProducts
+                                )
+                            }
                             flex style={styles.Checkout}
                             label="Checkout"
                         />
