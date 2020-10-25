@@ -70,11 +70,16 @@ class FabricAddToCart extends React.Component {
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Fabric' : this.state.FabricObject.Name}/>
                 {!this.state.loading && this.state.success ?
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <ImageCarouselFabric FabricImages={this.state.FabricObject.FabricImages} height={this.props.route.params.height}/>
+                        <AnimatedImage
+                            containerStyle={{backgroundColor: Colors.blue60, marginBottom: 20}}
+                            source={{uri: this.state.FabricObject.FabricImage}}
+                            loader={<ActivityIndicator />}
+                            style={{width:screenWidth,height:screenWidth}}
+                            animationDuration={300}
+                        />
                         <FabricScreenPartOne
                             Title={this.state.FabricObject.Name}
-                            DiscountPrice={this.state.FabricObject.DiscountPrice}
-                            ActualPrice={this.state.FabricObject.ActualPrice}
+                            FabricPrice={this.state.FabricObject.FabricPrice}
                             BrandID={this.state.FabricObject.BrandID}
                             FabricRating={4.1}
                             Styles={this.state.FabricObject.Styles || []}
@@ -85,7 +90,6 @@ class FabricAddToCart extends React.Component {
                             AddToWishlistFn={this.AddToWishlistFn}
                             RemoveFromWishlistFn={this.RemoveFromWishlistFn}
                             Token={this.props.AccessToken}
-                            FabricImages={this.state.FabricObject.FabricImages}
                             Dyeable={this.state.FabricObject.Dyeable}
                         />
                         <FabricScreenPartTwo

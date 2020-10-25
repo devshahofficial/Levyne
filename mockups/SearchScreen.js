@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {View,TouchableOpacity} from 'react-native-ui-lib';
 import colors from "../assets/colors";
-import FabricBySearch from '../API/FabricsBySearch';
 import CstmInput from "../components/input";
 import ProductBySearch from '../API/ProductsBySearch';
 import BrandBySearch from '../API/BrandBySearch';
@@ -11,13 +10,11 @@ import {SearchIcon} from '../Icons/SearchIcon';
 import Colors from '../Style/Colors';
 import { TabView, TabBar } from 'react-native-tab-view';
 import ProductSearch from '../mockups/Search/ProductSearch';
-import FabricSearch from '../mockups/Search/FabricSearch';
 import BrandSearch from '../mockups/Search/BrandSearch';
 import {BackArrowIcon} from '../Icons/BackArrowIcon';
 
 const TabViewRoutes = [
     { key: 'Products', title: 'Products' },
-    { key: 'Fabrics', title: 'Fabrics'},
     { key: 'Brands', title: 'Brands'}
 ]
 
@@ -32,23 +29,17 @@ class Search extends React.Component {
             index : 0,
             BrandData : [],
             ProductsData : [],
-            FabricData : [],
             Loading: false,
             ProductSort: undefined,
-            FabricSort: undefined,
             BrandSort: undefined,
             LoadingProduct: false,
-            LoadingFabrics: false,
             LoadingBrands: false
         }
         this.TotalProducts = 0;
-        this.TotalFabrics = 0;
         this.TotalBrand = 0;
         this.BrandPage = 0;
         this.ProductPage = 0;
-        this.FabricPage = 0;
         this.ProductLoadNewPage = true;
-        this.FabricLoadNewPage = true;
         this.BrandLoadNewPage = true;
         this.abortController = new AbortController();
     }
@@ -61,110 +52,79 @@ class Search extends React.Component {
         this.abortController.abort();
     }
 
-    onProductEndReached = () => {
+    onProductEndReached = async () => {
         if(this.ProductLoadNewPage && this.state.ProductsData.length !== this.TotalProducts) {
             this.ProductLoadNewPage = false;
-            ProductBySearch(this.state.SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+
+            try {
+                const ProductResp = await ProductBySearch(this.state.SearchKey, ++this.ProductPage, this.state.ProductSort, this.props.AccessToken, this.abortController.signal);
                 this.ProductLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
-                    this.setState({ProductsData: [...this.state.ProductsData, ...resp.Products]})
+                    this.setState({ProductsData: [...this.state.ProductsData, ...ProductResp.Products]})
                 }
-            }).catch(() => {
+            } catch(err) {
                 this.ProductLoadNewPage = true;
-            });
+            };
         }
     }
 
-    onFabricEndReached = () => {
-        if(this.FabricLoadNewPage && this.state.FabricData.length !== this.TotalFabrics) {
-            this.FabricLoadNewPage = false;
-            FabricBySearch(this.state.SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken, this.abortController.signal).then(resp => {
-                this.FabricLoadNewPage = true;
-                if(this.state.SearchKey && this._isMounted) {
-                    this.setState({FabricData: [...this.state.FabricData, ...resp.Fabrics]})
-                }
-            }).catch(() => {
-                this.FabricLoadNewPage = true;
-            });
-        }
-    }
-
-    onBrandEndReached = () => {
+    onBrandEndReached = async () => {
         if(this.BrandLoadNewPage && this.state.BrandData.length !== this.TotalBrand) {
             this.BrandLoadNewPage = false;
-            BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.state.BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+            try {
+                const BrandResp = await BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.state.BrandSort, this.props.AccessToken, this.abortController.signal);
                 this.BrandLoadNewPage = true;
                 if(this.state.SearchKey && this._isMounted) {
                     this.setState({
-                        BrandData : [...this.state.BrandData,...resp.Brands]
+                        BrandData : [...this.state.BrandData,...BrandResp.Brands]
                     });
                 }
-            }).catch(() => {
+            } catch(err) {
                 this.BrandLoadNewPage = true;
-            });
+            };
         }
     }
 
     navigateProduct = (ProductID) => {
         this.props.navigation.push('Product', {ProductID : ProductID})
     }
-    navigateFabric = (FabricID) => {
-        this.props.navigation.push('Fabric', {FabricID : FabricID})
-    }
+
     navigateBrand = (BrandID) => {
         this.props.navigation.push('BrandProfile', {BrandID : BrandID})
     }
 
-    setProductSort = (ProductSort) => {
+    setProductSort = async (ProductSort) => {
         this.setState({
             ProductSort,
             ProductsData: []
         });
         this.ProductPage = 0;
-        ProductBySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+        try {
+            const ProductResp = await ProductBySearch(this.state.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal)
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
-                    ProductsData : resp.Products
+                    ProductsData : ProductResp.Products
                 })
                 this.TotalProducts = resp.Total
             }
-        }).catch((err) => {
-            console.log(err);
-        });
+        } catch(err) {}
     }
 
-    setFabricSort = (FabricSort) => {
-        this.setState({
-            FabricSort,
-            FabricData: []
-        });
-        this.FabricPage = 0;
-        FabricBySearch(this.state.SearchKey, ++this.FabricPage, FabricSort, this.props.AccessToken, this.abortController.signal).then(resp => {
-            if(this._isMounted && this.state.SearchKey) {
-                this.setState({
-                    FabricData : resp.Fabrics
-                })
-                this.TotalFabrics = resp.Total
-            }
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
-
-    setBrandSort = (BrandSort) => {
+    setBrandSort = async (BrandSort) => {
         this.setState({
             BrandSort,
             BrandData: []
         });
         this.BrandPage = 0;
-        BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken, this.abortController.signal).then(resp => {
+        try {
+            const BrandResp = await BrandBySearch(this.state.SearchKey, ++this.BrandPage, this.props.AccessToken, this.abortController.signal);
             if(this._isMounted && this.state.SearchKey) {
                 this.setState({
-                    BrandData : resp.Brands
+                    BrandData : BrandResp.Brands
                 })
                 this.TotalBrand = resp.Total
             }
-        }).catch(() => {});
+        } catch(err) {};
     }
 
     setSearchKey = (SearchKey) => {
@@ -189,18 +149,6 @@ class Search extends React.Component {
                         LoadingProduct: false
                     })
                     this.TotalProducts = resp.Total
-                }
-            }).catch(() => {});
-
-            //Searching Fabrics
-            this.FabricPage = 0;
-            FabricBySearch(SearchKey, ++this.FabricPage, this.state.FabricSort, this.props.AccessToken, this.abortController.signal ).then(resp => {
-                if(this._isMounted && SearchKey) {
-                    this.setState({
-                        FabricData : resp.Fabrics,
-                        LoadingFabrics: false
-                    })
-                    this.TotalFabrics = resp.Total
                 }
             }).catch(() => {});
 
@@ -271,15 +219,6 @@ class Search extends React.Component {
                                         navigateProduct={this.navigateProduct}
                                         onProductEndReached={this.onProductEndReached}
                                         LoadingProduct={this.state.LoadingProduct}
-                                    />
-                                case 'Fabrics':
-                                    return <FabricSearch
-                                        FabricsData={this.state.FabricData}
-                                        AccessToken={this.props.AccessToken}
-                                        setFabricSort={this.setFabricSort}
-                                        navigateFabric={this.navigateFabric}
-                                        onFabricEndReached={this.onFabricEndReached}
-                                        LoadingFabrics={this.state.LoadingFabrics}
                                     />
                                 case 'Brands':
                                     return <BrandSearch 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator} from 'react-native';
 import CstmShadowView from "../components/CstmShadowView";
-import {Text, View, TouchableOpacity, Colors, Button, Checkbox, Toast, Stepper} from "react-native-ui-lib";
+import {Text, View, TouchableOpacity, Colors, Button, Checkbox, Toast} from "react-native-ui-lib";
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
 import FabricOrderContainer from "../components/FabricOrderContainer";
 import FetchFabricByBrandIDAndMaterials from '../API/FetchFabricByBrandIDAndMaterials';
@@ -14,7 +14,6 @@ class AddToCartScreen extends React.PureComponent {
         super(props);
         this.state = {
             SelectedSize: 0,
-            CustomerFabric: false,
             Fabrics: [],
             LoadMoreFabrics: false,
             SelectedFabric: '',
@@ -29,25 +28,27 @@ class AddToCartScreen extends React.PureComponent {
         this.abortController = new AbortController();
     }
 
-    setSelectedSize = (SelectedSize) => {
-        this.setState({SelectedSize});
-    }
-
     LoadFabric = () => {
+
+        if(!this.state.CustomFabric) {
+            if(!this.FabricLoaded) {
+                FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
+                    this._isMounted && this.setState({
+                        Fabrics: resp.Fabrics,
+                    });
+                    this.FabricLoaded = true;
+                    this.FabricTotal = resp.Total;
+                }).catch(err => {
+                    console.log(err);
+                })
+            }
+        } else {
+            this.SelectFabric('');
+        }
+
         this.setState({
             CustomFabric: !this.state.CustomFabric
         });
-        if(!this.FabricLoaded) {
-            FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
-                this._isMounted && this.setState({
-                    Fabrics: resp.Fabrics,
-                });
-                this.FabricLoaded = true;
-                this.FabricTotal = resp.Total;
-            }).catch(err => {
-                console.log(err);
-            })
-        }
     }
 
     componentWillUnmount() {
@@ -58,22 +59,12 @@ class AddToCartScreen extends React.PureComponent {
         this.setState({SelectedFabric});
     }
 
-    setCustomerFabric = () => {
-        this.setState({
-            CustomerFabric: !this.state.CustomerFabric
-        });
-    }
-
-    StepperValueChange = (FabricQuantity) => {
-        this.setState({FabricQuantity})
-    }
-
     navigateFabric = (FabricID) => {
         this.props.navigation.push('FabricAddToCart', {FabricID})
     }
 
     AddProductToCart = () => {
-        if(this.state.CustomFabric && !this.state.CustomerFabric && !this.state.SelectedFabric) {
+        if(this.state.CustomFabric && !this.state.SelectedFabric) {
             this._isMounted && this.setState({
                 showCustomToast: true
             });
@@ -86,18 +77,11 @@ class AddToCartScreen extends React.PureComponent {
         }
         AddProductToCartAPI(
             this.props.route.params.ProductID,
-            1,
-            this.state.SelectedSize,
-            this.state.CustomerFabric && this.state.CustomFabric,
-            this.state.SelectedFabric,
-            1,
+            this.state.SelectedFabric ? this.state.SelectedFabric : undefined,
             this.props.AccessToken,
             this.abortController.signal
         ).then(() => {
-            this.setState({
-                SelectedSize: 0,
-                SelectedFabric: undefined
-            });
+            this.SelectFabric('');
             this.props.navigation.push('Cart');
         }).catch(console.log)
     }
@@ -140,20 +124,6 @@ class AddToCartScreen extends React.PureComponent {
                         </View>
                     </View>
                     {this.state.CustomFabric &&
-                        <View>
-                            <View row spread>
-                                <Text hb1 secondary>Provide my own fabric</Text>
-                                <Checkbox
-                                    value={this.state.CustomerFabric}
-                                    onValueChange={this.setCustomerFabric}
-                                    borderRadius={10}
-                                    size={25}
-                                    color={Colors.primary}
-                                />
-                            </View>
-                        </View>
-                    }
-                    {this.state.CustomFabric && !this.state.CustomerFabric &&
                         <View marginT-20>
                             <Text h1 secondary>Choose the fabric</Text>
                         </View>
@@ -198,7 +168,7 @@ class AddToCartScreen extends React.PureComponent {
                 <View paddingT-10 paddingH-5 flex>
                     <FlatList
                         ListHeaderComponent={this.headerFlatList}
-                        data={!this.state.CustomerFabric && this.state.CustomFabric ? this.state.Fabrics : []}
+                        data={this.state.CustomFabric ? this.state.Fabrics : []}
                         numColumns={2}
                         ListEmptyComponent={this.FlatListLoader}
                         showsVerticalScrollIndicator={false}
