@@ -53,7 +53,7 @@ export default class HomeNavBar extends React.PureComponent {
                     <TouchableOpacity
                         marginL-4 marginR-12 br100
                         onPress={() => {
-                            this.props.navigateBookMark();
+                            this.props.navigateCart();
                         }}
                     >
                         <CheckoutIcon size={22} Fill={false} Color={Colors.black}/>
