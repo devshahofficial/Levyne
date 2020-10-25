@@ -137,7 +137,7 @@ class EditProfile extends React.Component {
         const PinCode = this.state.PinCode;
         const ProfileImage = this.state.ProfileImage;
         const Token = this.props.AccessToken;
-        const Landmark = this.props.Landmark;
+        const Landmark = this.state.Landmark;
         const ProfileImageChanged = this.state.ProfileImageChanged;
         const ProfileImageNotRequired = this.state.ProfileImageNotRequired;
 

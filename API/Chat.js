@@ -1,7 +1,8 @@
 import io from "socket.io-client";
+import config from '../assets/constants';
 export const Chat = {
     StartChat : (Token, BrandID) => {
-        io('https://api.levyne.com?UserType=Brand', {
+        io(config.URL + 'Customers', {
             transportOptions: {
                 polling: {
                     extraHeaders: {

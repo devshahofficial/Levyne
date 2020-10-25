@@ -57,7 +57,22 @@ const ProfileReducer = (state = IntialProfileStates, action) => {
     }
 }
 
+const InitialSocketState = {};
+
+const SocketReducer = (state = InitialSocketState, action) => {
+	switch (action.type) {
+		case 'setSocket':
+			return {...state, Socket: action.value};
+		case 'ResetSocket':
+			state.Socket.close && state.Socket.close();
+			return {};
+		default:
+			return state;
+	}
+};
+
 export default createStore(combineReducers({
     Auth: AuthReducer,
-    Profile: ProfileReducer
+    Profile: ProfileReducer,
+    Socket: SocketReducer
 }));
