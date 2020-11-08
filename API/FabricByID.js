@@ -1,6 +1,13 @@
-import CustomRequest from './CustomRequest';
-const FabricByID = (FabricID, Token, abortControllerSignal) => {
-    return new CustomRequest('Fabrics/FetchByFabricID?FabricID=' + FabricID, 'GET', true, Token, null, abortControllerSignal);
+import {GET} from './CustomFetch';
+
+const FabricbyID = async (FabricID, Token, abortControllerSignal) => {
+
+    return await GET('Fabrics/FetchByFabricID', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {FabricID}
+    }, abortControllerSignal)
+
 }
 
-export default FabricByID;
+export default FabricbyID; 

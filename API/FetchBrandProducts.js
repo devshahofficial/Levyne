@@ -1,7 +1,13 @@
-import CustomRequest from './CustomRequest';
+import {GET} from './CustomFetch';
+
 const FetchBrandProducts = async (BrandID, Page, Token, abortControllerSignal) => {
-    return await CustomRequest(`Products/FetchBySearch?BrandID[]=${BrandID}&Page=${Page}`, 'GET', true, Token, null, abortControllerSignal);
+
+    return await GET('Products/FetchBySearch', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {BrandID: [BrandID], Page}
+    }, abortControllerSignal)
+
 }
 
-
-export default FetchBrandProducts;
+export default FetchBrandProducts; 

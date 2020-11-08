@@ -1,10 +1,13 @@
-import CustomRequest from './CustomRequest';
-//diff query  in docs
+import {GET} from './CustomFetch';
+
 const FetchFabricByBrandIDAndMaterials = async (BrandID, MaterialIDs, Page, Token, abortControllerSignal) => {
-    let QueryForMaterialIDs = '';
-    MaterialIDs.split(',').forEach(MaterialID => {
-        QueryForMaterialIDs = QueryForMaterialIDs + 'MaterialIDs=' + MaterialID + '&';
-    });
-    return await CustomRequest(`Fabrics/FetchByBrandID?BrandID=${BrandID}&Page=${Page}&${QueryForMaterialIDs}`, 'GET', true, Token, null, abortControllerSignal);
+
+    return await GET('Fabrics/FetchByBrandID', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {BrandID, Page, MaterialIDs: MaterialIDs.split(',')}
+    }, abortControllerSignal)
+
 }
-export default FetchFabricByBrandIDAndMaterials;
+
+export default FetchFabricByBrandIDAndMaterials; 

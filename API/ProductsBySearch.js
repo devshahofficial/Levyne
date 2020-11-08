@@ -1,7 +1,17 @@
-import CustomRequest from './CustomRequest';
+import {GET} from './CustomFetch';
 
-const ProductBySearch = async (SearchKey, Page, OrderBy, Token, abortControllerSignal) => {
-    return await CustomRequest(`Products/FetchBySearch/?SearchKey=${encodeURI(SearchKey)}` + (Page ? `&Page=${Page}` : '') + (OrderBy ? `&OrderBy=${OrderBy}` : ''), 'GET', true, Token, null, abortControllerSignal);
+const ProductbySearch = async (SearchKey, Page, OrderBy, Token, abortControllerSignal) => {
+
+    return await GET('Products/FetchBySearch', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {
+            SearchKey,
+            Page,
+            OrderBy
+        }
+    }, abortControllerSignal)
+
 }
 
-export default ProductBySearch;
+export default ProductbySearch;

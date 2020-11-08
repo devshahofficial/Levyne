@@ -1,7 +1,13 @@
-import CustomRequest from './CustomRequest';
+import {GET} from './CustomFetch';
 
 const FetchBucket = async (BucketID, Token, abortControllerSignal) => {
-    return await CustomRequest('Products/FetchBucket?BucketID=' + BucketID, 'GET', true, Token, null, abortControllerSignal);
+
+    return await GET('Products/FetchBucket', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {BucketID}
+    }, abortControllerSignal)
+
 }
 
-export default FetchBucket;
+export default FetchBucket; 

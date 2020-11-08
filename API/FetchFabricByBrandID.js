@@ -1,6 +1,13 @@
-import CustomRequest from './CustomRequest';
-//diff query  in docs
+import {GET} from './CustomFetch';
+
 const FetchFabricByBrandID = async (BrandID, Page, Token, abortControllerSignal) => {
-    return await CustomRequest(`Fabrics/FetchByBrandID?BrandID=${BrandID}&Page=${Page}`, 'GET', true, Token, null, abortControllerSignal);
+
+    return await GET('Fabrics/FetchByBrandID', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {BrandID, Page}
+    }, abortControllerSignal)
+
 }
-export default FetchFabricByBrandID;
+
+export default FetchFabricByBrandID; 

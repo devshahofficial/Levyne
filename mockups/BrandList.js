@@ -4,9 +4,10 @@ import {View, Text, TouchableOpacity, Toast, LoaderScreen} from 'react-native-ui
 import Colors from "../Style/Colors";
 import NavBarBack from '../components/NavBarBack';
 import {connect} from 'react-redux';
-import FetchFollowedBrands from '../API/FetchFollowedBrands';
+import BrandFollowings from '../API/BrandFollowing';
 import Stars from '../components/StarIconsComponent';
 
+const FetchFollowedBrands = BrandFollowings.FetchFollowedBrands;
 class BrandList extends React.PureComponent {
 
 	constructor(props){

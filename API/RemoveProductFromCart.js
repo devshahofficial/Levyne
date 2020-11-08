@@ -1,5 +1,12 @@
-import CustomRequest from './CustomRequest';
+import {POST} from './CustomFetch';
 
 export default RemoveProductFromCart = async (CartID, ProductType, Token, abortControllerSignal) => {
-    await CustomRequest(`Products/RemoveFromCartByCartID`, 'POST', false, Token, {CartID, ProductType}, abortControllerSignal);
+
+    await POST('Products/RemoveFromCartByCartID', {
+        Body: {
+            CartID,
+            ProductType
+        },
+        Token,
+    }, abortControllerSignal);
 }

@@ -1,18 +1,15 @@
 import React, {Component, PureComponent} from 'react';
-import {StyleSheet, Alert, FlatList} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
-import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, Drawer, Button, View} from 'react-native-ui-lib'; //eslint-disable-line
+import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View} from 'react-native-ui-lib'; //eslint-disable-line
 import {connect} from 'react-redux';
-import TextNavBar from '../../components/TextNavBar';
+import TextNavBar from '../components/TextNavBar';
 
 
 class ConversationListScreen extends Component {
 
     constructor(props) {
         super(props);
-        this.lastIndex = undefined;
-        this.refArray = [];
-        this.batchCounter = 0;
         if(!this.props.ChatList) {
             this.props.ChatList = [];
         }
@@ -23,34 +20,15 @@ class ConversationListScreen extends Component {
         //New chat API
     }
 
-    closeLast(index) {
-        if (this.lastIndex !== undefined && this.lastIndex !== index) {
-            this.closeDrawer(this.lastIndex);
-        }
-        this.lastIndex = index;
-    }
-
-    closeDrawer(index) {
-        this.refArray[index].closeDrawer();
-    }
-
-    addRef = (ref, index) => {
-        this.refArray[index] = ref;
-    }
-
     onEndReached = () => {
         this.getNewItems();
     }
 
-    onSwipeableWillOpen = (props) => {
-        this.closeLast(props.index);
-    }
-
     renderItem = ({item, index}) => {
-        return <ContactItem item={item} index={index} addRef={this.addRef} onSwipeableWillOpen={this.onSwipeableWillOpen}/>
+        return <ContactItem item={item}/>
     }
 
-    keyExtractor = (item, index) => `${item.name}-${index}`;
+    keyExtractor = (item, index) => item.BucketID.toString();
 
     render() {
         return (
@@ -59,32 +37,22 @@ class ConversationListScreen extends Component {
                 <View flex>
                     <FlatList
                         data={
-                            this.props.ChatList ?
-                                this.props.ChatList.map((item, index) => {
-                                    const initials = AvatarHelper.getInitials(item.BrandName);
-                                    const avatarBadgeProps = item.count ? {backgroundColor:  Colors.blue90} : null;
-                                    const listOnPress = () => this.props.navigation.navigate('Chat', {
-                                        ChatID : item.ChatID,
-                                        BrandID : item.ChatID.replace('Chat-' + this.props.BrandID + 'N', ''),
-                                        BrandName : item.BrandName,
-                                        BrandImage : item.Thumbnail
-                                    });
-                                    const imageSource = item.Thumbnail ? {uri: item.Thumbnail} : null;
-                                    const leftButton = {
-                                        text: 'Delete',
-                                        background: Colors.red10,
-                                        onPress: () => Alert.alert(`Delete`)
-                                    };
-
-                                    return {
-                                        ...item,
-                                        initials,
-                                        avatarBadgeProps,
-                                        listOnPress,
-                                        imageSource,
-                                        leftButton
-                                    };
-                                }) : []
+                            this.props.ChatList.map((item) => {
+                                const initials = AvatarHelper.getInitials(item.Name);
+                                const avatarBadgeProps = item.unread ? {backgroundColor:  Colors.blue90} : null;
+                                const listOnPress = () => this.props.navigation.navigate('Chat', {
+                                    BucketID : item.BucketID,
+                                    Name : item.Name,
+                                });
+                                const imageSource = item.ProfileImage ? {uri: item.ProfileImage} : null;
+                                return {
+                                    ...item,
+                                    initials,
+                                    avatarBadgeProps,
+                                    listOnPress,
+                                    imageSource,
+                                };
+                            })
                         }
                         ListEmptyComponent={
                             <View flex centerV centerH style={{height:655}} paddingH-40>
@@ -103,47 +71,31 @@ class ConversationListScreen extends Component {
 
 class ContactItem extends PureComponent {
     render() {
-        const {item, index, addRef, onSwipeableWillOpen} = this.props;
-        if(item.Timestamp) {
-            this.Hours = item.Timestamp.timeHours;
-            this.minute = item.Timestamp.timeMinutes;
-        } else {
-            this.Hours = 0;
-            this.minute = 0;
-        }
+        const {item} = this.props;
         return (
-            <Drawer
-                leftItem={item.leftButton}
-                // itemsMinWidth={80}
-                ref={r => addRef(r, index)}
-                index={index} // sent for the 'closeLast' functionality
-                onSwipeableWillOpen={onSwipeableWillOpen} // sent for the 'closeLast' functionality
+            <ListItem
+                height={75.8}
+                onPress={item.listOnPress}
             >
-                <ListItem
-                    height={75.8}
-                    onPress={item.listOnPress}
-                >
-                    <ListItem.Part left>
-                        <Avatar
-                            size={54}
-                            source={item.imageSource}
-                            label={item.initials}
-                            badgeProps={item.avatarBadgeProps}
-                            containerStyle={styles.avatar}
-                        />
+                <ListItem.Part left>
+                    <Avatar
+                        size={54}
+                        source={item.imageSource}
+                        label={item.initials}
+                        badgeProps={item.avatarBadgeProps}
+                        containerStyle={styles.avatar}
+                    />
+                </ListItem.Part>
+                <ListItem.Part middle column containerStyle={styles.border}>
+                    <ListItem.Part containerStyle={styles.middle}>
+                        <Text style={styles.text} text70 color={Colors.dark10} numberOfLines={1}>{item.Name}</Text>
+                        <Text style={styles.subtitle} text90 color={Colors.dark50}>{item.Timestamp}</Text>
                     </ListItem.Part>
-                    <ListItem.Part middle column containerStyle={styles.border}>
-                        <ListItem.Part containerStyle={styles.middle}>
-                            <Text style={styles.text} text70 color={Colors.dark10} numberOfLines={1}>{item.BrandName}</Text>
-                            <Text style={styles.subtitle} text90 color={Colors.dark50}>{this.Hours + ":" + this.minute}</Text>
-                        </ListItem.Part>
-                        <ListItem.Part>
-                            <Text style={styles.text} text80 color={Colors.dark40} numberOfLines={1}>{item.LastMessage}</Text>
-                            {item.count > 0 && <Button size={'small'} label={item.count} onPress={item.buttonPress}/>}
-                        </ListItem.Part>
+                    <ListItem.Part>
+                        <Text style={styles.text} text80 color={Colors.dark40} numberOfLines={1}>{item.Message}</Text>
                     </ListItem.Part>
-                </ListItem>
-            </Drawer>
+                </ListItem.Part>
+            </ListItem>
         );
     }
 }

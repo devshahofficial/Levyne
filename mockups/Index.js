@@ -10,12 +10,10 @@ class IndexScreen extends React.Component {
 
 	componentDidMount() {
 
-		const setAuth = this.props.setAuth;
-		const setProfile = this.props.setProfile;
-		const setSocket = this.props.setSocket;
+		const {setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead} = this.props;
 
 
-		AuthCheck(setAuth, setProfile, setSocket).then( value => {
+		AuthCheck(setAuth, setProfile, setSocket,  setChatList, MarkBucketAsUnRead).then( value => {
 			if(value === 'Home')
 			{
 				this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
@@ -44,6 +42,8 @@ const mapDispatchToProps = dispatch => {
         setAuth : (AuthObject) => dispatch({type: 'setAuth', value: AuthObject}),
 		setProfile : (ProfileObject) => dispatch({type: 'setProfile', value: ProfileObject}),
 		setSocket : (Socket) => dispatch({type: 'setSocket', value: Socket}),
+		setChatList : (ChatList) => dispatch({type: 'setChatList', value: ChatList}),
+		MarkBucketAsUnRead: (Buckets) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets}),
 	}
 }
 

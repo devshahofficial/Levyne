@@ -1,8 +1,11 @@
-import CustomRequest from './CustomRequest';
+import { POST } from "./CustomFetch";
+
 const AddWishlistProductByID = async (ProductID, Token, abortControllerSignal) => {
-    await CustomRequest(`Products/AddToWishList`, 'POST', false, Token, {ProductID}, abortControllerSignal);
-    return;
+    return await POST("Products/AddToWishList", {
+        Token,
+        Body: {
+            ProductID,
+        }
+    }, abortControllerSignal)
 }
-
-
 export default AddWishlistProductByID;

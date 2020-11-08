@@ -1,10 +1,11 @@
-import CustomRequest from './CustomRequest';
+import { POST } from "./CustomFetch";
+
 const AddWishlistFabricByID = async (FabricID, Token, abortControllerSignal) => {
-    try {
-        await CustomRequest(`Fabrics/AddToWishList`, 'POST', false, Token, {FabricID}, abortControllerSignal);
-    } catch(err) {
-        console.log(err);
-    }
-    return;
+    return await POST("Fabrics/AddToWishList", {
+        Token,
+        Body: {
+            FabricID,
+        }
+    }, abortControllerSignal)
 }
 export default AddWishlistFabricByID;

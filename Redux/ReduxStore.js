@@ -71,8 +71,34 @@ const SocketReducer = (state = InitialSocketState, action) => {
 	}
 };
 
+const InitialChatStates = {
+	UnreadBuckets: [],
+	ChatList: [],
+};
+
+const ChatReducer = (state = InitialChatStates, action) => {
+	switch (action.type) {
+		case 'setChatList':
+			return {...state, ChatList: action.value};
+		case 'MarkBucketAsUnRead':
+			state.UnreadBuckets.push(...action.value);
+			return state;
+		case 'MarkBucketAsRead':
+			const index = arr.indexOf(action.value);
+			if (index > -1) {
+				state.UnreadBuckets.splice(index, 1);
+			}
+			return state;
+		case 'ResetChat':
+			return {};
+		default:
+			return state;
+	}
+};
+
 export default createStore(combineReducers({
     Auth: AuthReducer,
     Profile: ProfileReducer,
-    Socket: SocketReducer
+    Socket: SocketReducer,
+    Chat: ChatReducer,
 }));
