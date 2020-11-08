@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, LayoutAnimation, Platform, UIManager, Touchable
 import {Icon} from '@ui-kitten/components';
 import colors from "../assets/colors";
 import RatingComponent from '../components/RatingComponent';
-import getReviews from '../API/GetReviews';
+//import getReviews from '../API/GetReviews';
 
 export default class RatingsAndReviews extends React.PureComponent {
     constructor(props) {
@@ -19,7 +19,7 @@ export default class RatingsAndReviews extends React.PureComponent {
 
     changeLayout = () => {
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        if(!this.state.expanded)
+        /*if(!this.state.expanded)
         {
             getReviews(this.props.productID, 1, this.props.Token).then((resp) => {
                 this.setState({
@@ -39,6 +39,7 @@ export default class RatingsAndReviews extends React.PureComponent {
                 expanded: false
             });
         }
+        */
     }
 
     _listEmptyComponent = () => {

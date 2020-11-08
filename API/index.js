@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import config from '../assets/constants';
-import CustomRequest from './CustomRequest';
 import NewSocket from './NewSocket';
+import FetchChatBuckets from './GetChatlists';
+import { POST } from './CustomFetch';
 
-export const AuthCheck = async (setAuth, setProfile, setSocket) => {
+export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead) => {
     try {
         const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus']);
         if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
@@ -39,8 +40,15 @@ export const AuthCheck = async (setAuth, setProfile, setSocket) => {
 
         if(Timestamp < yesterday)
         {
-            const RefreshTokenJSON = await CustomRequest('RefreshToken', 'POST', true, undefined, {UserID, RefreshToken: Response[1][1], UID: config.DeviceID});
-            
+            const RefreshTokenJSON = await POST('RefreshToken', {
+                Body: {
+                    UserID,
+                    RefreshToken: Response[1][1],
+                    UID: config.DeviceID
+                },
+                ReturnResponse: true
+            });
+
             await AsyncStorage.multiSet([
                 ['AccessToken', RefreshTokenJSON.AccessToken],
                 ['RefreshToken', RefreshTokenJSON.RefreshToken],
@@ -60,6 +68,13 @@ export const AuthCheck = async (setAuth, setProfile, setSocket) => {
         const Socket = await NewSocket(AccessToken);
 
         setSocket(Socket);
+
+        FetchChatBuckets(AccessToken, 1).then(rows => {
+            MarkBucketAsUnRead(rows[1]);
+            setChatList(rows[0]);
+        }).catch(err => {
+            console.log(err);
+        })
 
         switch (ProfileStatus) {
             case 2:

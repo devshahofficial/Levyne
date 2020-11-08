@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-//import NewSocket from '../API/NewSocket';
-import CustomRequest from './CustomRequest';
+import { POST } from './CustomFetch';
 /**
  *  Error codes
  *  1) 0 -> OTP length less then 6 or greater then 6, Human Error
@@ -15,7 +14,8 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
     }
     else
     {
-        const json = await CustomRequest('verifyOTP', 'POST', true, undefined, {Mobile, OTP, OTPTokenHash, UID});
+        const json = await POST('verifyOTP', {ReturnResponse: true, Body: {Mobile, OTP, OTPTokenHash, UID}})
+
         switch(json.ProfileStatus) {
             case 1 :
                 await AsyncStorage.multiSet([

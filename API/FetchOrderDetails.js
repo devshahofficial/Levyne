@@ -1,7 +1,13 @@
-import CustomRequest from './CustomRequest';
+import {GET} from './CustomFetch';
 
 const FetchOrderDetails = async (OrderID, Token, abortControllerSignal) => {
-    return await CustomRequest('Orders/FetchOrderByOrderID?OrderID=' + OrderID, 'GET', true, Token, null, abortControllerSignal);
+
+    return await GET('Orders/FetchOrderByOrderID', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {OrderID}
+    }, abortControllerSignal)
+
 }
 
-export default FetchOrderDetails;
+export default FetchOrderDetails; 

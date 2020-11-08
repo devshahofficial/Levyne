@@ -1,5 +1,11 @@
-//import config from '../assets/constants';
-import CustomRequest from './CustomRequest';
+import {GET} from './CustomFetch';
+
 export default ListBookmarkProducts = async (Page, Token, abortControllerSignal) => {
-    return await CustomRequest(`Products/ListWishlistProducts?Page=${Page}`, 'GET', true, Token, null, abortControllerSignal)
+
+    return await GET('Products/ListWishlistProducts', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {Page}
+    }, abortControllerSignal)
+
 }

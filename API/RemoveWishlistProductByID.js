@@ -1,8 +1,15 @@
-import CustomRequest from './CustomRequest';
-const RemoveWishlistProductbyid = async (ProductID, Token, abortControllerSignal) => {
-    await CustomRequest(`Products/RemoveFromWishList`, 'POST', false, Token, {ProductID}, abortControllerSignal);
-    return;
+import {POST} from './CustomFetch';
+const RemoveWishlistProductByID = async (ProductID, Token) => {
+
+    try {
+        await POST('Products/RemoveFromWishList', {
+            Token,
+            Body: {ProductID}
+        })
+    } catch(err) {
+        //console.log(err);
+    }
 }
 
 
-export default RemoveWishlistProductbyid;
+export default RemoveWishlistProductByID;

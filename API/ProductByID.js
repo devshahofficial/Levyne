@@ -1,6 +1,13 @@
-import CustomRequest from './CustomRequest';
-const ProductByID = (ProductID, Token, abortControllerSignal) => {
-    return new CustomRequest('Products/FetchByProductID?ProductID=' + ProductID, 'GET', true, Token, null, abortControllerSignal);
+import { GET } from './CustomFetch';
+
+const ProductbyID = (ProductID, Token, abortControllerSignal) => {
+    return new GET('Products/FetchByProductID', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {
+            ProductID
+        }
+    }, abortControllerSignal)
 }
 
-export default ProductByID;
+export default ProductbyID;

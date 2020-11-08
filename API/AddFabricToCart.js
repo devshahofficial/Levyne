@@ -1,8 +1,11 @@
-import CustomRequest from './CustomRequest';
+import {POST} from './CustomFetch';
 
 export default AddToCart = async (FabricID, Quantity, Token, abortControllerSignal) => {
-    await CustomRequest(`Fabrics/AddToCartByFabricID`, 'POST', false, Token, {
-        FabricID,
-        Quantity
-    }, abortControllerSignal);
+    return await POST("Fabrics/AddToCartByFabricID", {
+        Token,
+        Body: {
+            FabricID,
+            Quantity
+        }
+    }, abortControllerSignal)
 }
