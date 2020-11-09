@@ -65,9 +65,12 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
             })
         }
         
-        const Socket = await NewSocket(AccessToken);
-
-        setSocket(Socket);
+        try {
+            const Socket = await NewSocket(AccessToken);
+            setSocket(Socket);
+        } catch(err) {
+            console.log('Socket Creation', err);
+        }
 
         FetchChatBuckets(AccessToken, 1).then(rows => {
             MarkBucketAsUnRead(rows[1]);
