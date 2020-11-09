@@ -1,4 +1,4 @@
-import io from "socket.io-client/dist/socket.io";
+import io from "socket.io-client";
 import config from '../assets/constants';
 
 export default async (Token) => {
@@ -14,7 +14,7 @@ export default async (Token) => {
     });
 
     await socket.on('Error', (err) => {
-        console.log(err);
+        console.log('Socket Error', err);
     });
 
     return socket;

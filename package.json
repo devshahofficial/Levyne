@@ -19,9 +19,9 @@
 		"@react-native-community/netinfo": "^5.9.7",
 		"@react-native-community/picker": "^1.8.1",
 		"@react-native-community/push-notification-ios": "^1.7.1",
-		"@react-navigation/bottom-tabs": "^5.10.6",
-		"@react-navigation/native": "^5.8.6",
-		"@react-navigation/stack": "^5.12.3",
+		"@react-navigation/bottom-tabs": "^5.10.7",
+		"@react-navigation/native": "^5.8.7",
+		"@react-navigation/stack": "^5.12.4",
 		"react-native-device-info": "^7.0.2",
 		"react-native-gesture-handler": "^1.8.0",
 		"react-native-image-crop-picker": "^0.35.1",
@@ -36,12 +36,12 @@
 		"react-native-svg": "^12.1.0",
 		"react-native-svg-transformer": "^0.14.3",
 		"react-native-tab-view": "^2.15.2",
-		"react-native-ui-lib": "^5.15.0",
+		"react-native-ui-lib": "^5.16.0",
 		"react-native-webp-format": "^1.1.2",
-		"react-native-webview": "^10.10.0",
+		"react-native-webview": "^10.10.2",
 		"react-redux": "^7.2.2",
 		"redux": "^4.0.5",
-		"socket.io-client": "^3.0.0"
+		"socket.io-client": "^2.3.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.12.3",
