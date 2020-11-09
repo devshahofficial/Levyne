@@ -37,7 +37,6 @@ import MyOrders from "../mockups/Profile/MyOrders";
 import BrandList from "../mockups/BrandList";
 import MyOrdersDetailed from "../mockups/Profile/MyOrdersDetailed";
 import LevyneIcon from "../Icons/LevyneIcon";
-import {TailorIcon} from "../Icons/Secondary/TailorIcon";
 import {OrdersIcon} from "../Icons/OrdersIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
