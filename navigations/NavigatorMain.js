@@ -40,6 +40,7 @@ import LevyneIcon from "../Icons/LevyneIcon";
 import {TailorIcon} from "../Icons/Secondary/TailorIcon";
 import {OrdersIcon} from "../Icons/OrdersIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
+import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -144,6 +145,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='CheckOut' component={CheckOut}/>
 				<HomeStack.Screen name='BrandList' component={BrandList} />
 				<HomeStack.Screen name='MyOrdersDetailed' component={MyOrdersDetailed}/>
+				<HomeStack.Screen name='ProductDetailsPage' component={ProductDetailsPage}/>
 				<HomeStack.Screen
                     name='Menu'
                     component={Menu}
