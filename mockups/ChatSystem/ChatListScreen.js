@@ -15,8 +15,17 @@ class ConversationListScreen extends Component {
             this.props.ChatList = [];
         };
         this.Page = 1;
+
+        this.props.Socket.on('ChatMessage', this.SocketListener);
     }
 
+    SocketListener = (Message) => {
+        console.log("ChatList: ", Message);
+    }
+
+    componentWillUnmount = () => {
+        this.props.Socket.off('ChatMessage', this.SocketListener);
+    }
 
     onEndReached = () => {
         if(this.props.ChatList.length >= this.Page*20) {
@@ -147,6 +156,7 @@ const mapsStateToProps = state => ({
     ChatList : state.Chat.ChatList,
     BrandID : state.Auth.BrandID,
     ChatLoading: state.Chat.ChatLoading,
+    Socket: state.Socket.Socket,
 });
 
 const mapDispatchToProps = dispatch => {

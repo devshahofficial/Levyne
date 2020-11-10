@@ -3,17 +3,21 @@ import config from '../assets/constants';
 
 export default async (Token) => {
     const socket = await io(config.URL + 'Customers', {
-        transportOptions: {
-            polling: {
-                extraHeaders: {
-                    'authentication': Token
-                }
-            }
+        auth: {
+            authentication: Token
         },
-        forceNode: true
+        localAddress: null,
     });
 
-    await socket.on('Error', (err) => {
+    socket.on('connect', function () {
+        console.log('connect');
+    });
+
+    socket.on('connect_error', function (data) {
+        console.log(data || 'connect_failed');
+    });
+
+    socket.on('Error', (err) => {
         console.log('Socket Error', err);
     });
 

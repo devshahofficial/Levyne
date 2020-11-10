@@ -16,7 +16,15 @@ class ChatScreen extends Component {
             Messages: []
         }
         this.Page = 0;
-	}
+
+        this.props.Socket.on('ChatMessage', this.SocketListener);
+    }
+    
+    SocketListener = (Message) => {
+        if(Message.BucketID === this.props.route.params.BucketID) {
+            console.log(Message);
+        }
+    }
 
     componentDidMount = () => {
         GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Messages => {
@@ -24,8 +32,14 @@ class ChatScreen extends Component {
             //this.setState({Messages});
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
+
+
+    componentWillUnmount = () => {
+        this.props.Socket.off('ChatMessage', this.SocketListener);
+    }
+    
 
     Navigation = () => {
         this.props.navigation.goBack();
@@ -55,6 +69,7 @@ const styles = StyleSheet.create({
 
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken,
+    Socket: state.Socket.Socket
 });
 
 export default connect(mapsStateToProps)(ChatScreen);
