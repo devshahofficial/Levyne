@@ -5,7 +5,7 @@ import {Colors} from 'react-native-ui-lib';
 export default class BellIcon extends React.PureComponent {
 
     render() {
-        if (false) {
+        if (true) {
             return (
                 <Svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <G id="Group_4068" data-name="Group 4068" transform="translate(-2967 -6005.904)">
