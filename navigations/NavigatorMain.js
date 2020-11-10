@@ -8,6 +8,7 @@ import HomeScreen from '../mockups/Home/Home';
 import MyProfile from '../mockups/Profile/MyProfile';
 import BrandProfile from '../mockups/BrandProfile';
 import SearchScreen from '../mockups/SearchScreen';
+import ChatListScreen from '../mockups/ChatSystem/ChatListScreen';
 import InitialProfile from '../mockups/InitialProfile';
 import ChatScreen from '../mockups/ChatSystem/ChatScreen';
 import ProductScreen from '../mockups/ProductScreen';
@@ -36,10 +37,11 @@ import FAQscreen from "../mockups/Profile/FAQscreen";
 import MyOrders from "../mockups/Profile/MyOrders";
 import BrandList from "../mockups/BrandList";
 import MyOrdersDetailed from "../mockups/Profile/MyOrdersDetailed";
-import LevyneIcon from "../Icons/LevyneIcon";
+import ChatIcon from '../Icons/ChatIcon';
 import {OrdersIcon} from "../Icons/OrdersIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
+import {connect} from 'react-redux';
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -69,11 +71,11 @@ class BottomTabNavigation extends React.PureComponent {
 					}}
 				/>
 				<Tab.Screen
-					name="Levyne"
-					component={MyProfile}
+					name="Messages"
+					component={ChatListScreen}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<LevyneIcon Color={color} size={24}/>
+							<ChatIcon Color={color} IsAnyUnreadMessage={this.props.IsAnyUnreadMessage}/>
 						),
 					}}
 				/>
@@ -109,6 +111,11 @@ class BottomTabNavigation extends React.PureComponent {
 	}
 }
 
+const mapsStateToProps = state => ({
+    IsAnyUnreadMessage : state.Chat.UnreadBuckets.length,
+});
+
+const BottomTabNavigationConnect = connect(mapsStateToProps)(BottomTabNavigation);
 
 class MainHomeStack extends React.PureComponent {
 	render() {
