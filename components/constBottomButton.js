@@ -12,13 +12,22 @@ export default class ConstBottomButton extends React.PureComponent {
     render() {
         return (
             <View style={styles.Main}>
-                <ShadowView style={styles.ShadowView}>
+                {this.props.ButtonA && (
+                    <ShadowView style={styles.ShadowView}>
+                        <Button
+                            onPress={() => this.props.ButtonActionA(this.props.BrandID)}
+                            style={[styles.Button,{borderColor: Colors.white}]}
+                            h1 label={this.props.ButtonA}
+                        />
+                    </ShadowView>
+                )}
+                {/* <ShadowView style={styles.ShadowView}>
                     <Button
                         onPress={() => this.props.ButtonActionA(this.props.BrandID)}
                         style={[styles.Button,{borderColor: Colors.white}]}
                         h1 label={this.props.ButtonA}
                     />
-                </ShadowView>
+                </ShadowView> */}
                 <ShadowView style={styles.ShadowView}>
                     <Button
                         onPress={this.props.ButtonActionB}

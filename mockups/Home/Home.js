@@ -71,7 +71,7 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('Notifications');
     }
     navigateMenu = () => {
-        this.props.navigation.navigate('Menu');
+        this.props.navigation.navigate('ProductDetailsPage');
     }
 
     render() {
