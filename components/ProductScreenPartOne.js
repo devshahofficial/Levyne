@@ -55,7 +55,10 @@ export default class ProductScreenPartOne extends React.Component {
 
 	render() {
 		return (
-			<View flex primary marginH-15>
+			<>
+			<View flex primary>
+			{ this.props.DryCleaning && (
+				<>
 				<View row bottom>
 					<Text b1 black marginV-3>
 						{this.props.Title}
@@ -80,7 +83,9 @@ export default class ProductScreenPartOne extends React.Component {
 						Dry cleaning is recommended for the first wash!
 					</Text>
 				</View>
-				<View row>
+				</>
+			)}
+				<View row paddingH-15>
 					<View flex-7>
 						<Text marginV-3 h1 secondary>
 							{this.props.ShortDescription}
@@ -91,11 +96,14 @@ export default class ProductScreenPartOne extends React.Component {
 							</View>
 							<Text h2>{this.props.ProductRating} Ratings</Text>
 						</View>
-						<View row bottom>
-							<Text b1 primary>
-								₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
-							</Text>
-						</View>
+						{this.props.MinPrice && this.props.MaxPrice && (
+							<View row bottom>
+								<Text b1 primary>
+									₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
+								</Text>
+							</View>
+						)}
+						
 					</View>
 					<View flex-end>
 						<TouchableOpacity marginV-10 onPress={this.onBookmarkPress}>
@@ -145,6 +153,7 @@ export default class ProductScreenPartOne extends React.Component {
 					)}
 				</View>
 			</View>
+			</>
 		);
 	}
 }
@@ -159,7 +168,7 @@ const styles = StyleSheet.create({
 	View: {
 		height: 50,
 		width: Dimensions.get('window').width,
-		marginLeft: -15,
+		// marginLeft: -15,
 		backgroundColor: Colors.shadow,
 	},
 });

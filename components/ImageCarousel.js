@@ -30,6 +30,7 @@ export default class ImageCarousel extends Component {
             >
                 {this.props.imageURL.map((item, index) => {
                     if (this.props.imageURL.length !== 5 && index === this.props.imageURL.length - 1) {
+                        // console.log(item);
                         return (
                             <View key={index.toString()} style={{...styles.addImageButtonView, width: this.props.width, height: this.props.height}}>
                                 <TouchableOpacity style={[styles.iconCircle, {width : 80, height: 80}]} onPress={() => {this.props.addImage()}}>
@@ -40,7 +41,7 @@ export default class ImageCarousel extends Component {
                     }
                     if (index !== 4) {
                         return (
-                            <ImageBackground key={index.toString()} source={item} style={{...styles.ImageBG, width: this.props.width, height: this.props.height}}>
+                            <ImageBackground key={index.toString()} source={{uri: item}} style={{...styles.ImageBG, width: this.props.width, height: this.props.height}}>
                                 <TouchableOpacity style={styles.iconCircle} onPress={() => this.props.removeImage(index)}>
                                     <Text b1 primary>x</Text>
                                 </TouchableOpacity>
