@@ -1,33 +1,72 @@
 import React, { PureComponent } from 'react';
-import {View} from 'react-native';
-import {TouchableOpacity} from 'react-native-ui-lib';
+import {TextArea, TouchableOpacity, View} from 'react-native-ui-lib';
+import {StyleSheet, Platform} from 'react-native';
 import {ShareIcon} from "../Icons/ShareIcon";
-import {CameraIcon} from "../Icons/CameraIcon";
-import CstmInput from "./input";
 import CstmShadowView from "./CstmShadowView";
 import Colors from '../Style/Colors';
+import {CameraIcon} from "../Icons/CameraIcon";
 //The bar at the bottom with a textbox and a send button.
 export default class ChatInputBar extends PureComponent {
 
     render() {
         return (
-            <View style={{flexDirection: 'row', justifyContent: 'center', marginBottom:5, marginRight:5, marginLeft:5,}}>
-                <View style={{flex:5,marginHorizontal:5}}>
-                    <CstmInput
-                        placeholder='Type a message...'
-                        value={this.props.text}
-                        onChangeText={(text) => this.props.onChangeText(text)}
-                        editable
-                        multiline={true}
-                    />
+            <View paddingB-20 row center>
+                <View flex-85 row centerV marginL-10 marginR-5>
+                    <CstmShadowView style={styles.ShadowViewInput}>
+                        <View centerV marginL-10 flex-10 style={styles.TextArea}>
+                            <TextArea
+                                hideUnderline h1
+                                blurOnSubmit={true}
+                                placeholderTextColor={Colors.secondary}
+                                {...this.props}
+                            />
+                        </View>
+                        <TouchableOpacity flex onPress={this.props.onSendPressed} center style={styles.TouchableOpacity}>
+                            <View center>
+                                <CameraIcon size={25} Color={Colors.black}/>
+                            </View>
+                        </TouchableOpacity>
+                    </CstmShadowView>
                 </View>
-                <CstmShadowView style={{flex:1, marginRight: 5, marginLeft: 5}}>
-                    <TouchableOpacity onPress={this.props.onCameraButtonPressed} flex centerV centerH marginB-4 style={{borderRadius: 50}}><CameraIcon size={27} Color={Colors.primary}/></TouchableOpacity>
-                </CstmShadowView>
-                <CstmShadowView style={{flex:1, marginLeft: 5, marginRight: 5}}>
-                    <TouchableOpacity onPress={this.props.onSendPressed} flex centerV centerH marginB-4 style={{borderRadius: 50}}><ShareIcon Color={Colors.primary}/></TouchableOpacity>
-                </CstmShadowView>
+
+                <TouchableOpacity flex-15 marginL-5 marginR-10 onPress={this.props.onSendPressed} center>
+                    <CstmShadowView style={styles.ShadowViewButton}>
+                        <View center style={styles.ShareIcon}>
+                            <ShareIcon size={25} Color={Colors.black}/>
+                        </View>
+                    </CstmShadowView>
+                </TouchableOpacity>
             </View>
         );
     }
 }
+
+
+const styles = StyleSheet.create({
+    ShadowViewInput:{
+        paddingRight: 10,
+        flex:1,
+        flexDirection:"row", 
+        alignItems:'flex-end'
+    },
+    ShadowViewButton:{
+        height:50,
+        width: 50,
+        justifyContent:'center'
+    },
+    ShareIcon: {
+        borderRadius:50
+    },
+    TextArea: {
+        borderRadius:50,
+        paddingHorizontal: 10,
+        paddingVertical: 5
+    },
+    TouchableOpacity: {
+        borderRadius:50,
+        height:50,
+        width: 50,
+        paddingRight:Platform.OS === 'ios' ? 5 : 0
+    }
+})
+
