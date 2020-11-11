@@ -29,7 +29,6 @@ import EditProfile from "../mockups/Profile/EditProfile";
 import Customize from "../mockups/Customize";
 import Bucket from "../mockups/Home/Bucket";
 import ProductAddToCart from '../mockups/ProductAddToCart';
-import FabricAddToCart from "../mockups/FabricAddToCart";
 import CheckOut from "../mockups/CheckOut";
 import MyFashionDesigners from "../mockups/Profile/MyFashionDesigners";
 import MyFits from "../mockups/Profile/MyFits";
@@ -129,7 +128,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="Product" component={ProductScreen} />
                 <HomeStack.Screen name="Fabric" component={FabricScreen} />
 				<HomeStack.Screen name="FAQs" component={FAQscreen} />
-				<HomeStack.Screen name="FabricAddToCart" component={FabricAddToCart} />
 				<HomeStack.Screen name="MyProfile" component={MyProfile} />
 				<HomeStack.Screen name="InitialProfile" component={InitialProfile} />
 				<HomeStack.Screen name="BrandProfile" component={BrandProfile}/>
