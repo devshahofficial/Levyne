@@ -1,16 +1,17 @@
 import React from 'react';
-import {SafeAreaView, ScrollView, ActivityIndicator} from "react-native";
+import {SafeAreaView, ScrollView} from "react-native";
 import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../components/ProductScreenPartThree';
 import ImageCarouselProduct from "./ImageCarouselProduct";
-import ProductByID from '../API/ProductByID';
+import ProductByID from '../API/ProductbyID';
 import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, View } from "react-native-ui-lib";
+import { Colors, LoaderScreen, View } from "react-native-ui-lib";
 import ConstBottomButton from "../components/constBottomButton";
+import ImageView from "react-native-image-viewing";
 
 class ProductScreen extends React.Component {
 
@@ -20,6 +21,9 @@ class ProductScreen extends React.Component {
             loading : true,
             ProductObject : {},
             success : true,
+            ModalVisible: false,
+            ImageIndex: 0,
+            EmbroideryModalVisible: false
         }
         this._isMounted = true;
         this.abortController = new AbortController();
@@ -73,14 +77,44 @@ class ProductScreen extends React.Component {
         })
     }
 
+    CloseModal = () => {
+        this.setState({ModalVisible: false})
+    }
+
+    EmbroideryCloseModal = () => {
+        this.setState({EmbroideryModalVisible: false})
+    }
+
+    EmbroideryDisplayModal = () => {
+        this.setState({EmbroideryModalVisible: true})
+    }
+
+    DisplayModal = (ImageIndex) => {
+        this.setState({ModalVisible: true, ImageIndex})
+    }
+
     render() {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Product' : this.state.ProductObject.Name}/>
                 {!this.state.loading && this.state.success ?
                     <>
+                        <ImageView
+                            images={this.state.ProductObject.ProductImages.map(item => {return {uri: item}})}
+                            visible={this.state.ModalVisible}
+                            onRequestClose={this.CloseModal}
+                            imageIndex={this.state.ImageIndex}
+                        />
+                        <ImageView
+                            images={[{uri: this.state.ProductObject.EmbroideryImage}]}
+                            visible={this.state.EmbroideryModalVisible}
+                            onRequestClose={this.EmbroideryCloseModal}
+                        />
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <ImageCarouselProduct ProductImages={this.state.ProductObject.ProductImages}/>
+                            <ImageCarouselProduct
+                                ProductImages={this.state.ProductObject.ProductImages}
+                                DisplayModal={this.DisplayModal}
+                            />
                             <ProductScreenPartOne
                                 Title={this.state.ProductObject.Name}
                                 MinPrice={this.state.ProductObject.MinPrice}
@@ -105,6 +139,7 @@ class ProductScreen extends React.Component {
                                 navigation={this.props.navigation}
                             />
                             <ProductScreenPartThree
+                                EmbroideryDisplayModal = {this.EmbroideryDisplayModal}
                                 EmbroideryImage = {this.state.ProductObject.EmbroideryImage}
                             />
                         </ScrollView>
@@ -117,7 +152,7 @@ class ProductScreen extends React.Component {
                         />
                     </> :
                     <View flex center>
-                        <ActivityIndicator />
+                        <LoaderScreen />
                     </View>
                 }
             </SafeAreaView>
