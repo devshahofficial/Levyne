@@ -133,7 +133,7 @@ class ChatScreen extends Component {
         this.state.Messages.unshift({
             Message: {
                 Type: 2,
-                Sender: 1,
+                Sender: 0,
                 ImageURL: `data:${response.mime};base64,${response.data}`,
             },
             BucketMessagesID: Math.random(),
@@ -188,7 +188,7 @@ class ChatScreen extends Component {
             this.state.Messages.unshift({
                 Message: {
                     Type: 1,
-                    Sender: 1,
+                    Sender: 0,
                     Text: this.state.TextInput,
                 },
                 BucketMessagesID: Math.random(),
@@ -249,7 +249,6 @@ class ChatScreen extends Component {
                     </CstmShadowView>
                 </Modal>
                 <ChatHeader
-
                     {...this.props.route.params}
                     Navigation={this.Navigation}
                 />
