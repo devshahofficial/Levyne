@@ -8,8 +8,7 @@ import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import { Colors, View, AnimatedImage } from "react-native-ui-lib";
-import ConstBottomButton from "../components/constBottomButton";
-import AddFabricToCart from '../API/AddFabricToCart';
+
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -53,12 +52,6 @@ class FabricScreen extends React.Component {
         });
     }
 
-    AddToCart = () => {
-        AddFabricToCart(this.props.route.params.FabricID, 1, this.props.AccessToken, this.abortController.signal).then(() => {
-            this.props.navigation.push('Cart');
-        }).catch(console.log);
-    }
-
     AddToWishlistFn(FabricID, Token) {
         AddWishlistFabricByID(FabricID, Token).catch(err => {console.log(err)});
     }
@@ -71,45 +64,36 @@ class FabricScreen extends React.Component {
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Fabric' : this.state.FabricObject.Name}/>
                 {!this.state.loading && this.state.success ?
-                    <>
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                            <AnimatedImage
-                                containerStyle={{backgroundColor: Colors.blue60, marginBottom: 20}}
-                                source={{uri: this.state.FabricObject.FabricImage}}
-                                loader={<ActivityIndicator />}
-                                style={{width:screenWidth,height:screenWidth}}
-                                animationDuration={300}
-                            />
-                            <FabricScreenPartOne
-                                Title={this.state.FabricObject.Name}
-                                FabricPrice={this.state.FabricObject.FabricPrice}
-                                BrandID={this.state.FabricObject.BrandID}
-                                FabricRating={4.1}
-                                Styles={this.state.FabricObject.Styles || []}
-                                FabricID={this.state.FabricObject.FabricID}
-                                FabricWishlist={this.state.FabricObject.IsWishlist}
-                                BrandNavigation={this.BrandNavigation}
-                                ShortDescription={this.state.FabricObject.ShortDescription}
-                                AddToWishlistFn={this.AddToWishlistFn}
-                                RemoveFromWishlistFn={this.RemoveFromWishlistFn}
-                                Token={this.props.AccessToken}
-                                Dyeable={this.state.FabricObject.Dyeable}
-                            />
-                            <FabricScreenPartTwo
-                                LongDescription = {this.state.FabricObject.LongDescription}
-                                ColorFades = {this.state.FabricObject.ColorFades}
-                                shrinkable = {this.state.FabricObject.Shrinkable}
-                            />
-                        </ScrollView>
-                        <ConstBottomButton
-                            ButtonA={"Visit Brand"}
-                            ButtonB={"Add to Cart"}
-                            ButtonActionA={this.BrandNavigation}
-                            ButtonActionB={this.AddToCart}
-                            BrandID={this.state.FabricObject.BrandID}
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <AnimatedImage
+                            containerStyle={{backgroundColor: Colors.blue60, marginBottom: 20}}
+                            source={{uri: this.state.FabricObject.FabricImage}}
+                            loader={<ActivityIndicator />}
+                            style={{width:screenWidth,height:screenWidth}}
+                            animationDuration={300}
                         />
-                    </>
-                    : 
+                        <FabricScreenPartOne
+                            Title={this.state.FabricObject.Name}
+                            FabricPrice={this.state.FabricObject.FabricPrice}
+                            BrandID={this.state.FabricObject.BrandID}
+                            FabricRating={4.1}
+                            Styles={this.state.FabricObject.Styles || []}
+                            FabricID={this.state.FabricObject.FabricID}
+                            FabricWishlist={this.state.FabricObject.IsWishlist}
+                            BrandNavigation={this.BrandNavigation}
+                            ShortDescription={this.state.FabricObject.ShortDescription}
+                            AddToWishlistFn={this.AddToWishlistFn}
+                            RemoveFromWishlistFn={this.RemoveFromWishlistFn}
+                            Token={this.props.AccessToken}
+                            Dyeable={this.state.FabricObject.Dyeable}
+                        />
+                        <FabricScreenPartTwo
+                            LongDescription = {this.state.FabricObject.LongDescription}
+                            ColorFades = {this.state.FabricObject.ColorFades}
+                            shrinkable = {this.state.FabricObject.Shrinkable}
+                        />
+                    </ScrollView>
+                    :
                     <View flex center>
                         <ActivityIndicator />
                     </View>
@@ -120,7 +104,7 @@ class FabricScreen extends React.Component {
 };
 
 const mapsStateToProps = state => ({
-	AccessToken : state.Auth.AccessToken
+    AccessToken : state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(FabricScreen)

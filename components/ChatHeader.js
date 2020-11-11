@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet,Dimensions,FlatList} from 'react-native';
-import {Avatar,Text,Button,View, Modal} from 'react-native-ui-lib';
-import colors from "../assets/colors";
+import {StyleSheet,Dimensions} from 'react-native';
+import {Avatar, Text, View, Colors, TouchableOpacity} from 'react-native-ui-lib';
+import {BackArrowIcon} from "../Icons/BackArrowIcon";
 
 export default class ChatHeader extends React.PureComponent {
 
@@ -15,77 +15,48 @@ export default class ChatHeader extends React.PureComponent {
     render() {
         return (
             <>
-                <View style={styles.container}>
+                <View row center style={styles.container}>
+                    <TouchableOpacity marginL-10 onPress={this.props.Navigation}><BackArrowIcon/></TouchableOpacity>
                     <View style={styles.avatarView}>
                         <Avatar
-                            //source={this.props.item.profilePic}
-                            //please uncomment line 35 and delete line 37
-                            source={{uri : this.props.BrandIcon}}
+                            source={this.props.imageSource}
+                            label={this.props.initials}
+                            containerStyle={styles.avatar}
                         />
                     </View>
                     <View style={styles.textView}>
-                        <Text style={styles.text} hb1 left
-                            // please use props, {this.props.item.title} were removed for testing purposes
-                    >{this.props.BrandName}</Text>
+                        <Text hb1>{this.props.Name}</Text>
+                        <Text secondary h3>Bucket ID: {this.props.BucketID}</Text>
                     </View>
                 </View>
+                <View center style={styles.Header}>
+                    <Text hb2>Under Confirmation</Text>
+                </View>
+
             </>
         )
     }
 }
 
-const deviceWidth = Dimensions.get("screen").width
-
+const deviceWidth = Dimensions.get("screen").width;
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
         width: deviceWidth,
-        height: 75,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderBottomWidth:0.3,
-        borderBottomColor:colors.trivisionGrey
+        height: 60,
     },
     avatarView: {
         flex: 0.2,
-        marginLeft:15,
+        marginLeft:5,
         alignItems: 'center',
         justifyContent: 'center',
     },
     textView:{
-        flex:0.6,
+        flex:0.9,
+        marginLeft:20,
     },
-    text: {
-        fontSize: 16,
-        fontWeight:'bold',
-        textAlign: 'left',
-    },
-    ShadowView:{
-        marginRight:25,
-        marginBottom:15,
-        flex:0.27,
-    },
-    Modal:{
-        width:deviceWidth-80,
-        flex:0.7,
-        alignSelf:'center',
-        shadowColor: colors.trivisionShadow,
-        shadowOpacity: 1,
-        shadowRadius: 6,
-        shadowOffset: {width: 0,height: 3},
-        backgroundColor: colors.trivisionWhite,
-        marginTop:deviceWidth/2,
-        borderRadius:10,
-    },
-    ModalText:{
-        color: colors.trivisionPink,
-        fontSize: 16,
-        flex:5,
-        alignSelf:'center',
-        marginLeft: 10
-    },
-    FlatList: {
-        marginBottom:5,
+    Header: {
+        backgroundColor: Colors.shadow,
+        height: 40
     }
 })
 

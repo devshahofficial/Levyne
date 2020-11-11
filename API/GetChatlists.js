@@ -38,10 +38,10 @@ function timeAgo(prev, curr = new Date()) {
 const GetLastMessage = (Message) => {
     Message = JSON.parse(Message);
     switch(Message.Type) {
-        case 1 : 
-            return Message.Text;
         case 2 :
             return '📷 Photo';
+        default : 
+            return Message.Text;
 
         //More cases here
     }
@@ -56,7 +56,7 @@ const GetChatLists = async (Token, Page) => {
             Page
         }
     })
-    
+
     const unreadBuckets = []; 
     ChatList = ChatList.map(item => {
         if(item.unread) {

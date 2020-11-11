@@ -6,7 +6,7 @@ import {Colors} from 'react-native-ui-lib';
 class ChatIcon extends React.PureComponent {
 
     render() {
-        if (this.props.IsAnyChatMessage) {
+        if (this.props.IsAnyUnreadMessage) {
             return (
                 <Svg xmlns="http://www.w3.org/2000/svg" width='24' height='24' viewBox="0 0 35 35">
                     <G id="Group_3786" data-name="Group 3786" transform="translate(19454 9974)">
@@ -36,8 +36,4 @@ class ChatIcon extends React.PureComponent {
     }
 };
 
-const mapsStateToProps = state => ({
-	IsAnyChatMessage : state.IsAnyChatMessage
-});
-
-export default connect(mapsStateToProps)(ChatIcon);
+export default connect()(ChatIcon);
