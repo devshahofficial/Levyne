@@ -5,6 +5,7 @@ import {ShareIcon} from "../Icons/ShareIcon";
 import CstmShadowView from "./CstmShadowView";
 import Colors from '../Style/Colors';
 import {CameraIcon} from "../Icons/CameraIcon";
+
 //The bar at the bottom with a textbox and a send button.
 export default class ChatInputBar extends PureComponent {
 
@@ -71,4 +72,3 @@ const styles = StyleSheet.create({
         paddingRight:Platform.OS === 'ios' ? 5 : 0
     }
 })
-
