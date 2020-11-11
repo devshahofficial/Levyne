@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, ActivityIndicator} from 'react-native';
-import {View, Text, Colors, AnimatedImage} from 'react-native-ui-lib';
+import {View, Text, Colors, AnimatedImage, TouchableOpacity} from 'react-native-ui-lib';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -13,14 +13,16 @@ export default class ProductScreenPartThree extends React.PureComponent {
 						<Text hb1 marginB-10>
 							Embroidery Overlook
 						</Text>
-						<AnimatedImage
-                            containerStyle={{backgroundColor: Colors.blue60}}
-                            loader={<ActivityIndicator />}
-							style={{width: deviceWidth, height: 200, marginLeft: -15}}
-							source={{
-								uri: this.props.EmbroideryImage,
-							}}
-						/>
+						<TouchableOpacity activeOpacity={0.8} onPress={this.props.EmbroideryDisplayModal}>
+							<AnimatedImage
+								containerStyle={{backgroundColor: Colors.blue60}}
+								loader={<ActivityIndicator />}
+								style={{width: deviceWidth, height: 200, marginLeft: -15}}
+								source={{
+									uri: this.props.EmbroideryImage,
+								}}
+							/>
+						</TouchableOpacity>
 					</View>
 				)}
 				<View

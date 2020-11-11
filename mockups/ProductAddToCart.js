@@ -60,7 +60,7 @@ class AddToCartScreen extends React.PureComponent {
     }
 
     navigateFabric = (FabricID) => {
-        this.props.navigation.push('FabricAddToCart', {FabricID})
+        this.props.navigation.push('Fabric', {FabricID})
     }
 
     AddProductToCart = () => {
