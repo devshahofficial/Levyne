@@ -215,7 +215,7 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity marginT-5>
+                    <TouchableOpacity marginT-5 onPress={this.NavigateFAQs}>
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 FAQs
