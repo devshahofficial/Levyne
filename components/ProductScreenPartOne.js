@@ -57,16 +57,21 @@ export default class ProductScreenPartOne extends React.Component {
 		return (
 			<>
 			<View flex primary>
+				<View row bottom>
+					{this.props.Title && (
+						<Text b1 black marginV-3 marginL-15>
+							{this.props.Title}
+						</Text>
+					)}
+					{this.props.Category && (
+						<Text marginL-10 h2 secondary marginV-3>
+							({this.props.Category})
+						</Text>
+					)}
+					
+				</View>
 			{ this.props.DryCleaning && (
 				<>
-				<View row bottom>
-					<Text b1 black marginV-3>
-						{this.props.Title}
-					</Text>
-					<Text marginL-10 h2 secondary marginV-3>
-						({this.props.Category})
-					</Text>
-				</View>
 				<View
 					marginT-10
 					paddingH-15
@@ -75,7 +80,7 @@ export default class ProductScreenPartOne extends React.Component {
 					style={{
 						height: 50,
 						width: Dimensions.get('window').width,
-						marginLeft: -15,
+						// marginLeft: -15,
 						backgroundColor: Colors.shadow,
 					}}>
 					<MachineWashIcon size={30} Color={Colors.black} />
@@ -87,15 +92,21 @@ export default class ProductScreenPartOne extends React.Component {
 			)}
 				<View row paddingH-15>
 					<View flex-7>
-						<Text marginV-3 h1 secondary>
-							{this.props.ShortDescription}
-						</Text>
-						<View row marginV-10>
-							<View row marginR-15>
-								<StarIconsComponent BrandRating={Math.round(this.props.ProductRating)} />
+						{this.props.ShortDescription && (
+							<Text marginV-3 h1 secondary>
+								{this.props.ShortDescription}
+							</Text>
+						)}
+
+						{this.props.ProductRating && (
+							<View row marginV-13>
+								<View row marginR-15>
+									<StarIconsComponent BrandRating={Math.round(this.props.ProductRating)} />
+								</View>
+								<Text h2>{this.props.ProductRating} Ratings</Text>
 							</View>
-							<Text h2>{this.props.ProductRating} Ratings</Text>
-						</View>
+						)}
+						
 						{this.props.MinPrice && this.props.MaxPrice && (
 							<View row bottom>
 								<Text b1 primary>
@@ -103,10 +114,10 @@ export default class ProductScreenPartOne extends React.Component {
 								</Text>
 							</View>
 						)}
-						
 					</View>
+					
 					<View flex-end>
-						<TouchableOpacity marginV-10 onPress={this.onBookmarkPress}>
+						<TouchableOpacity marginV-5 onPress={this.onBookmarkPress}>
 							<BookMarkIcon
 								Fill={this.state.ProductWishlist}
 								size={28}
@@ -118,40 +129,44 @@ export default class ProductScreenPartOne extends React.Component {
 						</TouchableOpacity>
 					</View>
 				</View>
-
-				<View marginT-20 style={{marginHorizontal: -15}}>
-					<FlatList
-						data={this.props.Styles}
-						showsHorizontalScrollIndicator={false}
-						horizontal={true}
-						keyExtractor={(item, index) => index.toString()}
-						renderItem={({item, index}) => (
-							<View
-								centerV
-								style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}>
-								<Text hb2 white>
-                                    {item}
+				{this.props.Styles && (
+					<View marginT-20 style={{marginHorizontal: -15}}>
+						<FlatList
+							data={this.props.Styles}
+							showsHorizontalScrollIndicator={false}
+							horizontal={true}
+							keyExtractor={(item, index) => index.toString()}
+							renderItem={({item, index}) => (
+								<View
+									centerV
+									style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}>
+									<Text hb2 white>
+										{item}
+									</Text>
+								</View>
+							)}
+						/>
+					</View>
+				)}
+				{this.props.FreeDelivery && (
+					<View marginT-10 paddingH-15 center row style={styles.View}>
+						<DeliveryIcon size={30} Color={Colors.black} />
+						{this.props.Delivery === 1 ? (
+							<>
+								<Text marginL-10 h2>
+									Free Delivery!
 								</Text>
-							</View>
+							</>
+						) : (
+							<>
+								<Text marginL-10 h2>
+									Free Delivery on buckets over ₹1000{'/-'}
+								</Text>
+							</>
 						)}
-					/>
-				</View>
-				<View marginT-20 paddingH-15 center row style={styles.View}>
-					<DeliveryIcon size={30} Color={Colors.black} />
-					{this.props.Delivery === 1 ? (
-						<>
-							<Text marginL-10 h2>
-								Free Delivery!
-							</Text>
-						</>
-					) : (
-						<>
-							<Text marginL-10 h2>
-								Free Delivery on buckets over ₹1000{'/-'}
-							</Text>
-						</>
-					)}
-				</View>
+					</View>
+				)}
+				
 			</View>
 			</>
 		);

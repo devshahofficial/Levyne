@@ -29,7 +29,7 @@ export default class ImageCarousel extends Component {
                 }}
             >
                 {this.props.imageURL.map((item, index) => {
-                    if (this.props.imageURL.length !== 5 && index === this.props.imageURL.length - 1) {
+                    if (this.props.imageURL.length !== 5 && index === this.props.imageURL.length) {
                         // console.log(item);
                         return (
                             <View key={index.toString()} style={{...styles.addImageButtonView, width: this.props.width, height: this.props.height}}>

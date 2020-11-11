@@ -7,21 +7,10 @@ import ProductScreenPartOne from "../../components/ProductScreenPartOne"
 import ConstBottomButton from "../../components/constBottomButton"
 
 const imgUrls = [
+    "https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
     "https://images.unsplash.com/photo-1566491888763-e71518bbe846?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    "https://images.unsplash.com/photo-1566491888763-e71518bbe846?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    "https://images.unsplash.com/photo-1566491888763-e71518bbe846?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    "https://images.unsplash.com/photo-1566491888763-e71518bbe846?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
+    "https://images.unsplash.com/photo-1576350591619-5f0841c6cab5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
 ]
-    // {
-    //     link:"https://images.unsplash.com/photo-1566491888763-e71518bbe846?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-    // },
-    // {
-    //     link:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-    // },
-    // {
-    //     link:"https://images.unsplash.com/photo-1576350591619-5f0841c6cab5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-    // },
-// ]
 
 export default class ProductDetailsPage extends Component {
     render() {
@@ -29,8 +18,8 @@ export default class ProductDetailsPage extends Component {
             <>
                 <NavbarBack Title={"#RS00011"} Navigation={this.props.navigation.goBack}/>
                 <ScrollView>
-                    <ImageCarousel imageURL={imgUrls}></ImageCarousel>
-                    <ProductScreenPartOne Title={"Short Description"} Category={"Women"} 
+                    <ImageCarousel width={"100%"} height={400} imageURL={imgUrls}></ImageCarousel>
+                    <ProductScreenPartOne Title={"Short Description"} Category={"Women"} FreeDelivery={true}
                     ProductRating={4.7} MinPrice={2000} MaxPrice={2500}
                     ></ProductScreenPartOne>
                     <View >
