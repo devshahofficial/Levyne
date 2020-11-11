@@ -74,21 +74,25 @@ const SocketReducer = (state = InitialSocketState, action) => {
 const InitialChatStates = {
 	UnreadBuckets: [],
 	ChatList: [],
+	ChatLoading: true
 };
 
 const ChatReducer = (state = InitialChatStates, action) => {
 	switch (action.type) {
 		case 'setChatList':
-			return {...state, ChatList: action.value};
+			return {...state, ChatList: [...state.ChatList, ...action.value], ChatLoading: false};
 		case 'MarkBucketAsUnRead':
 			state.UnreadBuckets.push(...action.value);
-			return state;
+			return {...state};
 		case 'MarkBucketAsRead':
-			const index = arr.indexOf(action.value);
+			const index = state.UnreadBuckets.indexOf(action.value);
 			if (index > -1) {
 				state.UnreadBuckets.splice(index, 1);
 			}
-			return state;
+			state.ChatList[action.itemIndex].unread = 0;
+			return {ChatList: [...state.ChatList], UnreadBuckets: [...state.UnreadBuckets]};
+		case 'StopChatLoading':
+			return {...state, ChatLoading: false};
 		case 'ResetChat':
 			return {};
 		default:

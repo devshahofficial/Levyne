@@ -7,6 +7,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import './Style/Components';
 import './Style/Colors';
 import ReduxStore from './Redux/ReduxStore';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Unrecognized WebSocket connection option(s) `localAddress`. Did you mean to put these under `headers`?']);
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
