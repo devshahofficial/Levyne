@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
-import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList} from "react-native";
+import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
 import ConfirmModal from "../../components/ConfirmModal";
 import GetChatMessage from '../../API/GetChatMessage';
 import CstmShadowView from '../../components/CstmShadowView';
+import ImagePicker from 'react-native-image-crop-picker';
 import ImageView from "react-native-image-viewing";
 import Hyperlink from 'react-native-hyperlink';
+import {GalleryIcon} from "../../Icons/GalleryIcon";
+import {CameraIcon} from "../../Icons/CameraIcon";
+
+const windowHeight = Dimensions.get('window').height;
 
 // The actual chat view itself- a ScrollView of BubbleMessages, with an InputBar at the bottom, which moves with the keyboard
 class ChatScreen extends Component {
@@ -19,12 +24,14 @@ class ChatScreen extends Component {
             Messages: [],
             LoadingMessages: true,
             ImageToDisplay: [],
-            ModalVisible: false
+            ModalVisible: false,
+            ImagePickerModalVisible: false,
+            TextInput: '',
+            TextInputKey: Math.random()
         }
         this.Page = 0;
         this.FlatListRef = React.createRef();
         this.props.Socket.on('ChatMessage', this.SocketListener);
-
 	}
 
     SocketListener = (Message) => {
@@ -119,6 +126,93 @@ class ChatScreen extends Component {
 
     keyExtractor = (item) => item.BucketMessagesID.toString();
 
+    handleImagePicker = (response) => {
+
+        this.ImagePickerModalSwitchVisibility()
+        
+        this.state.Messages.unshift({
+            Message: {
+                Type: 2,
+                Sender: 1,
+                ImageURL: `data:${response.mime};base64,${response.data}`,
+            },
+            BucketMessagesID: Math.random(),
+            Timestamp: 'now'
+        });
+
+        this.setState({Messages: this.state.Messages});
+
+        this.props.Socket.emit('SendMessage', {
+            BucketID: this.props.route.params.BucketID,
+            BrandID: this.props.route.params.BrandID,
+            CustomerID: this.props.UserID,
+            Type: 2,
+            Base64Image: `data:${response.mime};base64,${response.data}`
+        })
+    }
+
+    ShowGallery = async() => {
+        ImagePicker.openPicker({
+            width: 500,
+            height: 500,
+            cropping: true,
+            mediaType: 'photo',
+            includeBase64: true,
+            writeTempFile: false,
+            forceJpg: true
+        }).then(this.handleImagePicker).catch(err => {})
+    }
+
+    ShowCamera = async() => {
+        ImagePicker.openCamera({
+            width: 500,
+            height: 500,
+            cropping: true,
+            mediaType: 'photo',
+            includeBase64: true,
+            writeTempFile: false,
+            forceJpg: true
+        }).then(this.handleImagePicker).catch(err => {})
+    }
+
+    SendMessage = () => {
+        if(this.state.TextInput) {
+            this.props.Socket.emit('SendMessage', {
+                BucketID: this.props.route.params.BucketID,
+                BrandID: this.props.route.params.BrandID,
+                CustomerID: this.props.UserID,
+                Type: 1,
+                Text: this.state.TextInput
+            }); 
+
+            this.state.Messages.unshift({
+                Message: {
+                    Type: 1,
+                    Sender: 1,
+                    Text: this.state.TextInput,
+                },
+                BucketMessagesID: Math.random(),
+                Timestamp: 'now'
+            });
+    
+            this.setState({Messages: this.state.Messages});
+
+            this.EmptyTextInput();
+        }
+    }
+
+    ImagePickerModalSwitchVisibility = () => {
+        this.setState({ImagePickerModalVisible: !this.state.ImagePickerModalVisible})
+    }
+
+    onChangeTextInput = (TextInput) => {
+        this.setState({TextInput});
+    }
+
+    EmptyTextInput = () => {
+        this.setState({TextInput: '', TextInputKey: Math.random()});
+    }
+
 	render() {
 	    return (
             <SafeAreaView style={styles.container}>
@@ -127,7 +221,35 @@ class ChatScreen extends Component {
                     visible={this.state.ModalVisible}
                     onRequestClose={this.CloseModal}
                 />
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.ImagePickerModalVisible}
+                >
+                    <CstmShadowView style={styles.Modal}>
+                        <View flex row centerV marginT-10>
+                            <Text flex-9 h1 secondary center>Choose Medium to Upload:</Text>
+                            <TouchableOpacity
+                                flex
+                                onPress={this.ImagePickerModalSwitchVisibility}
+                            >
+                                <Text primary hb1>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View row flex-5 marginH-30>
+                            <TouchableOpacity flex center onPress={this.ShowGallery}>
+                                <GalleryIcon size={28} Color={Colors.primary}/>
+                                <Text h3 secondary marginT-10>Gallery</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity flex center onPress={this.ShowCamera}>
+                                <CameraIcon size={32} Color={Colors.primary}/>
+                                <Text h3 secondary marginT-10>Camera</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </CstmShadowView>
+                </Modal>
                 <ChatHeader
+
                     {...this.props.route.params}
                     Navigation={this.Navigation}
                 />
@@ -155,7 +277,13 @@ class ChatScreen extends Component {
                     />
                 }
                 <ConfirmModal/>
-                <ChatInputBar/>
+                <ChatInputBar
+                    DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
+                    SendMessage = {this.SendMessage}
+                    value = {this.state.InputText}
+                    onChangeText={this.onChangeTextInput}
+                    TextInputKey={this.state.TextInputKey}
+                />
             </SafeAreaView>
         )
     }
@@ -189,7 +317,14 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
-    }
+    },
+    Modal:{
+        flex:0.3,
+        borderRadius: 20,
+        marginHorizontal:30,
+        paddingTop: 0,
+        marginTop: windowHeight/2.5
+    },
 });
 
 const mapsStateToProps = state => ({

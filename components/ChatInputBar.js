@@ -18,10 +18,12 @@ export default class ChatInputBar extends PureComponent {
                                 hideUnderline h1
                                 blurOnSubmit={true}
                                 placeholderTextColor={Colors.secondary}
-                                {...this.props}
+                                value={this.props.value}
+                                onChangeText={this.props.onChangeText}
+                                key={this.props.TextInputKey}
                             />
                         </View>
-                        <TouchableOpacity flex onPress={this.props.onSendPressed} center style={styles.TouchableOpacity}>
+                        <TouchableOpacity flex onPress={this.props.DisplayImagePicker} center style={styles.TouchableOpacity}>
                             <View center>
                                 <CameraIcon size={25} Color={Colors.black}/>
                             </View>
@@ -29,7 +31,7 @@ export default class ChatInputBar extends PureComponent {
                     </CstmShadowView>
                 </View>
 
-                <TouchableOpacity flex-15 marginL-5 marginR-10 onPress={this.props.onSendPressed} center>
+                <TouchableOpacity flex-15 marginL-5 marginR-10 onPress={this.props.SendMessage} center>
                     <CstmShadowView style={styles.ShadowViewButton}>
                         <View center style={styles.ShareIcon}>
                             <ShareIcon size={25} Color={Colors.black}/>

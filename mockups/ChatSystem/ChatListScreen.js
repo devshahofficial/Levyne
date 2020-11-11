@@ -68,6 +68,7 @@ class ConversationListScreen extends Component {
                                             BucketID : item.BucketID,
                                             Name : item.Name,
                                             Status: item.Status,
+                                            BrandID: item.BrandID,
                                             OrderID: item.OrderID,
                                             imageSource,
                                             initials
