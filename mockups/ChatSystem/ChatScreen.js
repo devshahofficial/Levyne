@@ -36,7 +36,13 @@ class ChatScreen extends Component {
 
     SocketListener = (Message) => {
         if(Message.BucketID === this.props.route.params.BucketID) {
-            console.log("ChatList", Message);
+            this.state.Messages.unshift({
+                Message,
+                BucketMessagesID: Math.random(),
+                Timestamp: 'now'
+            });
+
+            this.setState({Messages: this.state.Messages});
         }
     }
 
@@ -133,7 +139,7 @@ class ChatScreen extends Component {
         this.state.Messages.unshift({
             Message: {
                 Type: 2,
-                Sender: 0,
+                Sender: 1,
                 ImageURL: `data:${response.mime};base64,${response.data}`,
             },
             BucketMessagesID: Math.random(),
@@ -188,7 +194,7 @@ class ChatScreen extends Component {
             this.state.Messages.unshift({
                 Message: {
                     Type: 1,
-                    Sender: 0,
+                    Sender: 1,
                     Text: this.state.TextInput,
                 },
                 BucketMessagesID: Math.random(),
