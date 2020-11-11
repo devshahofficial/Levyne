@@ -1,7 +1,7 @@
 import React, {Component, PureComponent} from 'react';
-import {StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
-import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View} from 'react-native-ui-lib'; //eslint-disable-line
+import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View, LoaderScreen} from 'react-native-ui-lib'; //eslint-disable-line
 import {connect} from 'react-redux';
 import TextNavBar from '../../components/TextNavBar';
 import FetchChatBuckets from '../../API/GetChatlists';
@@ -50,7 +50,7 @@ class ConversationListScreen extends Component {
                 <TextNavBar Title={'Messages'}/>
                 {this.props.ChatLoading ? 
                     <View flex center>
-                        <ActivityIndicator />
+                        <LoaderScreen />
                     </View>
                     :
                     <View flex>
@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken,
     ChatList : state.Chat.ChatList,
-    BrandID : state.Auth.BrandID,
+    UserID : state.Auth.UserID,
     ChatLoading: state.Chat.ChatLoading,
     Socket: state.Socket.Socket,
 });

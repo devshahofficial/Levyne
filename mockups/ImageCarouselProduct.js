@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Dimensions, ActivityIndicator} from 'react-native';
-import {Carousel, AnimatedImage, Colors} from 'react-native-ui-lib';
+import {Carousel, AnimatedImage, Colors, TouchableOpacity} from 'react-native-ui-lib';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -28,14 +28,15 @@ export default class ImageCarouselProduct extends Component{
                 }}
             >
                 {this.props.ProductImages.map((item, index) => (
-                    <AnimatedImage
-                        key={index.toString()}
-                        containerStyle={{backgroundColor: Colors.blue60}}
-                        source={{uri: item}}
-                        loader={<ActivityIndicator />}
-                        style={{width:screenWidth,height:screenWidth * 1.5}}
-                        animationDuration={index === 0 ? 300 : 800}
-                    />
+                    <TouchableOpacity activeOpacity={0.8} onPress={() => this.props.DisplayModal(index)} key={index.toString()}>
+                        <AnimatedImage
+                            containerStyle={{backgroundColor: Colors.blue60}}
+                            source={{uri: item}}
+                            loader={<ActivityIndicator />}
+                            style={{width:screenWidth,height:screenWidth * 1.5}}
+                            animationDuration={index === 0 ? 300 : 800}
+                        />
+                    </TouchableOpacity>
                 ))}
             </Carousel>
         )
