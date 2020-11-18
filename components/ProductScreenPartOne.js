@@ -130,7 +130,7 @@ export default class ProductScreenPartOne extends React.Component {
 					</View>
 				</View>
 				{this.props.Styles && (
-					<View marginT-20 style={{marginHorizontal: -15}}>
+					<View marginT-20>
 						<FlatList
 							data={this.props.Styles}
 							showsHorizontalScrollIndicator={false}
