@@ -64,8 +64,16 @@ class ChatScreen extends Component {
         })
     }
 
-    Navigation = () => {
+    NavigateBack = () => {
         this.props.navigation.goBack();
+    }
+
+    NavigateBrandProfile = () => {
+        this.props.navigation.push('BrandProfile', {BrandID: this.props.route.params.BrandID})
+    }
+
+    NavigateBucket = () => {
+        this.props.navigation.push('Bucket', {BucketID: this.props.route.params.BucketID})
     }
 
     RightText = ({TextInput, Timestamp}) => (
@@ -290,7 +298,9 @@ class ChatScreen extends Component {
                 </Modal>
                 <ChatHeader
                     {...this.props.route.params}
-                    Navigation={this.Navigation}
+                    NavigateBack={this.NavigateBack}
+                    NavigateBrandProfile={this.NavigateBrandProfile}
+                    NavigateBucket={this.NavigateBucket}
                 />
                 {this.state.LoadingMessages ? <LoaderScreen /> :
                     <FlatList
