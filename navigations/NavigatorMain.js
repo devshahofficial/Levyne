@@ -7,7 +7,7 @@ import OTPScreen from '../mockups/OTP';
 import HomeScreen from '../mockups/Home/Home';
 import MyProfile from '../mockups/Profile/MyProfile';
 import BrandProfile from '../mockups/BrandProfile';
-import SearchScreen from '../mockups/SearchScreen';
+import SearchScreen from '../mockups/Search/SearchScreen';
 import ChatListScreen from '../mockups/ChatSystem/ChatListScreen';
 import InitialProfile from '../mockups/InitialProfile';
 import ChatScreen from '../mockups/ChatSystem/ChatScreen';
@@ -41,6 +41,7 @@ import {OrdersIcon} from "../Icons/OrdersIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
 import {connect} from 'react-redux';
+import SearchText from "../mockups/Search/SearchText";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -134,7 +135,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
-				<HomeStack.Screen name="Search" component={SearchScreen} />
+				<HomeStack.Screen name="Search" component={SearchText} />
 				<HomeStack.Screen name="Settings" component={SettingsScreen} />
 				<HomeStack.Screen name='Help' component={Help}/>
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
