@@ -60,7 +60,7 @@ class HomeScreen extends React.Component {
     }
 
     navigateSearch = () => {
-        this.props.navigation.navigate('Search');
+        this.props.navigation.navigate('SearchText');
     }
     navigateBookMark = () => {
         this.props.navigation.navigate('BookMark');
