@@ -6,6 +6,7 @@ import StarIconsComponent from "./StarIconsComponent";
 
 export default class BrandItemContainer extends React.Component {
     render() {
+        console.log(this.props);
         return (
             <TouchableOpacity
                 activeOpacity={0.6}
@@ -19,7 +20,7 @@ export default class BrandItemContainer extends React.Component {
                         style={styles.headerImage}
                         source={{ uri: this.props.item.ProfileImage }}
                         loader={<ActivityIndicator />}
-                        containerStyle={{backgroundColor: Colors.shadow}}
+                        containerStyle={styles.AnimatedImageContainerStyle}
                     />
                 </View>
                 <View flex>
@@ -46,6 +47,11 @@ const styles = StyleSheet.create({
         width: 150,
         flex:1
     },
+    AnimatedImageContainerStyle: {
+        backgroundColor: Colors.shadow,
+        width:150,
+        height:150
+    },
     Container: {
         borderWidth: 1,
         borderColor: Colors.shadow,
@@ -53,7 +59,6 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 15,
         flexDirection: "row",
-        // flex: 1
     }
 })
 
