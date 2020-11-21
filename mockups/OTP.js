@@ -8,6 +8,8 @@ import {generateOTP} from '../API/Login';
 import {connect} from 'react-redux';
 import CstmShadowView from "../components/CstmShadowView";
 import KeyboardAwareView from '../components/KeyBoardAwareView';
+const PushNotification = require("react-native-push-notification");
+import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
 class OTPScreen extends React.Component {
 
@@ -23,6 +25,22 @@ class OTPScreen extends React.Component {
             showCustomToast: false,
             showContent : 'Please enter a valid OTP'
         }
+
+        this.FirebaseToken = '';
+
+        PushNotification.configure({
+            // (optional) Called when Token is generated (iOS and Android)
+            onRegister: (token) => {
+                this.FirebaseToken = token.token;
+            },
+            // (required) Called when a remote is received or opened, or local notification is opened
+            onNotification: (notification) => {
+                notification.finish(PushNotificationIOS.FetchResult.NoData);
+            },
+
+            requestPermissions: true,
+        });
+
     }
 
     componentDidMount() {
@@ -81,8 +99,12 @@ class OTPScreen extends React.Component {
             this.state.OTP,
             OTPTokenHash,
             UUID,
+            this.FirebaseToken,
             this.props.setAuth,
             this.props.setProfile,
+            this.props.setSocket,
+            this.props.setChatList,
+            this.props.MarkBucketAsUnRead,
         ).then(NavigateTo => {
             clearInterval(this.state.intervalId);
             this.props.navigation.navigate(NavigateTo);
@@ -200,8 +222,11 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setAuth : (Auth) => dispatch({type: 'setAuth', value: Auth}),
-        setProfile : (Profile) => dispatch({type: 'setProfile', value: Profile}),
+		setAuth : (AuthObject) => dispatch({type: 'setAuth', value: AuthObject}),
+		setSocket : (Socket) => dispatch({type: 'setSocket', value: Socket}),
+		setProfile : (ProfileObject) => dispatch({type: 'setProfile', value: ProfileObject}),
+		setChatList : (ChatList) => dispatch({type: 'setChatList', value: ChatList}),
+		MarkBucketAsUnRead: (Buckets) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets}),
 	}
 }
 
