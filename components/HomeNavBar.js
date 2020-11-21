@@ -23,7 +23,7 @@ export default class HomeNavBar extends React.PureComponent {
                     <MenuIcon size={28} Color={Colors.black}/>
                 </TouchableOpacity>
                 <View marginR-20 marginL-10 flex-1 row>
-                    <Logo width='70%'/>
+                    <Logo width='70%'height={50} />
                 </View>
                 <View flex row centerV right>
                     <TouchableOpacity
