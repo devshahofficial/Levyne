@@ -9,7 +9,7 @@ export default class TopDesigners extends Component {
     }
     render() {
         return (
-            <View paddingL-15 marginT-25>
+            <View paddingL-15 paddingT-15>
                 <Text hb1 secondary marginB-15>Recent Uploads from your following</Text>
                 <FlatList
                     data={this.props.Data} horizontal
@@ -18,7 +18,7 @@ export default class TopDesigners extends Component {
                         <View style={styles.View}>
                             <Image
                                 id={item.id}
-                                source={item.source}
+                                source={{uri:item.source}}
                                 style={styles.Image}
                             />
                         </View>

@@ -4,6 +4,7 @@ import {View, Colors, Text, ConnectionStatusBar, Toast} from'react-native-ui-lib
 import {connect} from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
 
+import CustomHome from "./CustomHome"
 import {WebView} from "react-native-webview";
 
 ConnectionStatusBar.registerGlobalOnConnectionLost(() => {
@@ -95,12 +96,12 @@ class HomeScreen extends React.Component {
                 >
                     {this.renderCustomContent()}
                 </Toast>
-                <WebView
+                {/* <WebView
                     source={{
                         uri: 'https://levyne3dtrial.netlify.app/'
                     }}
-                />
-
+                /> */}
+                <CustomHome></CustomHome>
             </>
         );
     };
