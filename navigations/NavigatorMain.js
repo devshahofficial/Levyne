@@ -135,7 +135,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
-				<HomeStack.Screen name="Search" component={SearchText} />
+				<HomeStack.Screen name="SearchText" component={SearchText} />
 				<HomeStack.Screen name="Settings" component={SettingsScreen} />
 				<HomeStack.Screen name='Help' component={Help}/>
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
@@ -151,6 +151,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='BrandList' component={BrandList} />
 				<HomeStack.Screen name='MyOrdersDetailed' component={MyOrdersDetailed}/>
 				<HomeStack.Screen name='ProductDetailsPage' component={ProductDetailsPage}/>
+				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
 				<HomeStack.Screen
                     name='Menu'
                     component={Menu}

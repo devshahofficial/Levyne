@@ -2,13 +2,11 @@ import React from 'react';
 import {StyleSheet, Dimensions, Animated} from 'react-native';
 import {View,TouchableOpacity,Colors,Text} from 'react-native-ui-lib';
 import CstmInput from "../../components/input";
-import ProductBySearch from '../../API/ProductsBySearch';
-import BrandBySearch from '../../API/BrandBySearch';
 import {connect} from 'react-redux';
 import {SearchIcon} from '../../Icons/SearchIcon';
 import {BackArrowIcon} from '../../Icons/BackArrowIcon';
 import CstmShadowView from "../../components/CstmShadowView";
-import BrandItemContainer from "../../components/BrandItemContainer";
+import SearchSuggestionsAPI from '../../API/SearchSuggestions';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -17,24 +15,9 @@ class SearchText extends React.Component {
         super(props);
         this.state = {
             SearchKey: '',
-            BrandPage: 1,
-            ProductPage: 1,
-            BrokerPage: 1,
-            index : 0,
-            BrandData : [],
-            ProductsData : [],
+            SearchSuggestions: [],
             Loading: false,
-            ProductSort: 0,
-            BrandSort: 0,
-            LoadingProduct: false,
-            LoadingBrands: false
         }
-        this.TotalProducts = 0;
-        this.TotalBrand = 0;
-        this.BrandPage = 0;
-        this.ProductPage = 0;
-        this.ProductLoadNewPage = true;
-        this.BrandLoadNewPage = true;
         this.abortController = new AbortController();
     }
 
@@ -46,113 +29,32 @@ class SearchText extends React.Component {
         this.abortController.abort();
     }
 
-    SearchProduct = (SearchKey, ProductSort) => {
+    navigateSearch(SearchKey) {
         if(SearchKey) {
-            ProductBySearch(SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
-                if(this._isMounted && SearchKey) {
-                    this.setState({
-                        ProductsData: [...this.state.ProductsData, ...resp.Products],
-                        LoadingProduct: false
-                    })
-                    this.TotalProducts = resp.Total
-                }
-            }).catch(() => {});
-        } else {
-            this.setState({
-                LoadingProduct: false
-            })
+            this.props.navigation.push('SearchScreen', {SearchKey});
         }
     }
 
-    SearchBrand = (SearchKey, BrandSort) => {
-        if(SearchKey) {
-            BrandBySearch(SearchKey, ++this.BrandPage, BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
-                if(this._isMounted && SearchKey) {
-                    this.setState({
-                        BrandData : [...this.state.BrandData, ...resp.Brands],
-                        LoadingBrands: false
-                    })
-                    this.TotalBrand = resp.Total
-                }
-            }).catch(err => {
-                console.log(err);
-            });
-        } else {
-            this.setState({
-                LoadingBrands: false
-            })
-        }
-    }
-
-    onProductEndReached = async () => {
-        if(this.ProductLoadNewPage && this.state.ProductsData.length !== this.TotalProducts) {
-            this.ProductLoadNewPage = false;
-            this.SearchProduct(this.state.SearchKey, this.state.ProductSort);
-        }
-    }
-
-    onBrandEndReached = async () => {
-        if(this.BrandLoadNewPage && this.state.BrandData.length !== this.TotalBrand) {
-            this.BrandLoadNewPage = false;
-            this.SearchBrand(this.state.SearchKey, this.state.BrandSort);
-        }
-    }
-
-    navigateProduct = (ProductID) => {
-        this.props.navigation.push('Product', {ProductID : ProductID})
-    }
-
-    navigateBrand = (BrandID) => {
-        this.props.navigation.push('BrandProfile', {BrandID : BrandID})
-    }
-
-    setProductSort = async (ProductSort) => {
-        this.setState({
-            ProductSort,
-            ProductsData: [],
-            LoadingProduct: true,
-        });
-        this.ProductPage = 0;
-        this.SearchProduct(this.state.SearchKey, ProductSort);
-    }
-
-    setBrandSort = async (BrandSort) => {
-        this.setState({
-            BrandSort,
-            BrandData: [],
-            LoadingBrands: true,
-        });
-        this.BrandPage = 0;
-        this.SearchBrand(this.state.SearchKey, BrandSort);
-    }
+    renderItem = ({item}) => (
+        <TouchableOpacity activeOpacity={0.5} style={styles.TextResultContainer} onPress={() => this.navigateSearch(item)}>
+            <CstmShadowView style={styles.TextResult}>
+                <Text marginL-15 h1 secondary>{item}</Text>
+            </CstmShadowView>
+        </TouchableOpacity>
+    )
 
     setSearchKey = (SearchKey) => {
         this.setState({
             SearchKey: SearchKey
         });
-        if(SearchKey !== '')
-        {
-
-            this.setState({
-                LoadingProduct: true,
-                LoadingBrands: true
-            });
-
-            //Searching Products
-            this.ProductPage = 0;
-            this.state.ProductsData = [];
-            this.SearchProduct(SearchKey, this.state.ProductSort);
-
-            //Searching Brands
-            this.BrandPage = 0;
-            this.state.BrandData = [];
-            this.SearchBrand(SearchKey, this.state.BrandSort);
-
-        } else {
-            this.setState({
-                BrandData: [],
-                ProductsData: [],
+        if(SearchKey !== '') {
+            SearchSuggestionsAPI(SearchKey).then(SearchSuggestions => {
+                this.setState({SearchSuggestions});
+            }).catch(err => {
+                console.log(err);
             })
+        } else {
+            this.setState({SearchSuggestions : []});
         }
     }
 
@@ -174,24 +76,16 @@ class SearchText extends React.Component {
                             onChangeText={this.setSearchKey}
                             style={{flex:10}}
                         />
-                        <View flex-1 marginT-13 style={{marginLeft:-40}}>
+                        <TouchableOpacity onPress={() => this.navigateSearch(this.state.SearchKey)} flex-1 marginT-13 style={{marginLeft:-40}}>
                             <SearchIcon Color={Colors.grey40}/>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
-                <View centerH marginT-10>
+                <View flex centerH marginT-10>
                     <Animated.FlatList
-                        data={this.props.BrandData}
-                        ListHeaderComponent={<View marginV-20></View>}
-                        renderItem={
-                            ({ item }) =>
-                                <TouchableOpacity activeOpacity={0.5} style={styles.TextResultContainer}>
-                                    <CstmShadowView style={styles.TextResult}>
-                                        <Text marginL-15 h1 secondary>Put props here</Text>
-                                    </CstmShadowView>
-                                </TouchableOpacity>
-                        }
-                        keyExtractor={(item) => 'Brand' + item.BrandID}
+                        data={this.state.SearchSuggestions}
+                        renderItem={this.renderItem}
+                        keyExtractor={(item) => item}
                         showsVerticalScrollIndicator={false}
                         ListEmptyComponent={
                             <View flex centerV centerH style={{height:605}} paddingH-40>

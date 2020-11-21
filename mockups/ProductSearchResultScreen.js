@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, Dimensions, TouchableOpacity, View, ImageBackground, Image, FlatList } from 'react-native';
-import { DrawerHeaderFooter, Layout, Text, Button, List, ListItem, Icon } from '@ui-kitten/components';
+import { StyleSheet, Dimensions, View, FlatList } from 'react-native';
+import { Layout, Text, Icon } from '@ui-kitten/components';
 import colors from "../assets/colors"; // '../assets..'
 import ProductItemContainer from '../components/ProductItemContainer'
 
 const coverImage1 = require("../assets/images/5.jpg"); 
 const coverImage2 = require("../assets/images/6.jpg"); 
-const deviceHeight = Dimensions.get("window").height;
-const deviceWidth = Dimensions.get("window").width;
 
 const DATA = [
     {
