@@ -32,7 +32,7 @@ const imgUrlsTopDesigners = [
 
 const urlsBrandItemContainer = 
 {
-    ProfileImage:"https://d9n1pxcc9f1lk.cloudfront.net/2020-09-15-71d953988d9ab5a03c2d50956860e715410fb74a729571baeaa0cd0df9426de2.webp",
+    ProfileImage:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
     Name:"Hardy",
     About:"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deserunt sed at nihil consequatur repellat minima blanditiis quidem rem possimus ullam.",
     ratings:3.5,

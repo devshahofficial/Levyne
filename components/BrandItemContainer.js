@@ -6,7 +6,6 @@ import StarIconsComponent from "./StarIconsComponent";
 
 export default class BrandItemContainer extends React.Component {
     render() {
-        console.log(this.props);
         return (
             <TouchableOpacity
                 activeOpacity={0.6}
