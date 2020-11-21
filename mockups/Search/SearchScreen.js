@@ -1,17 +1,17 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {View,TouchableOpacity} from 'react-native-ui-lib';
-import colors from "../assets/colors";
-import CstmInput from "../components/input";
-import ProductBySearch from '../API/ProductsBySearch';
-import BrandBySearch from '../API/BrandBySearch';
+import colors from "../../assets/colors";
+import CstmInput from "../../components/input";
+import ProductBySearch from '../../API/ProductsBySearch';
+import BrandBySearch from '../../API/BrandBySearch';
 import {connect} from 'react-redux';
-import {SearchIcon} from '../Icons/SearchIcon';
-import Colors from '../Style/Colors';
+import {SearchIcon} from '../../Icons/SearchIcon';
+import Colors from '../../Style/Colors';
 import { TabView, TabBar } from 'react-native-tab-view';
-import ProductSearch from '../mockups/Search/ProductSearch';
-import BrandSearch from '../mockups/Search/BrandSearch';
-import {BackArrowIcon} from '../Icons/BackArrowIcon';
+import ProductSearch from './ProductSearch';
+import BrandSearch from './BrandSearch';
+import {BackArrowIcon} from '../../Icons/BackArrowIcon';
 
 const TabViewRoutes = [
     { key: 'Products', title: 'Products' },
@@ -153,7 +153,7 @@ class Search extends React.Component {
             this.BrandPage = 0;
             this.state.BrandData = [];
             this.SearchBrand(SearchKey, this.state.BrandSort);
-            
+
         } else {
             this.setState({
                 BrandData: [],
@@ -208,7 +208,7 @@ class Search extends React.Component {
                                         LoadingProduct={this.state.LoadingProduct}
                                     />
                                 case 'Brands':
-                                    return <BrandSearch 
+                                    return <BrandSearch
                                         BrandData={this.state.BrandData}
                                         AccessToken={this.props.AccessToken}
                                         setBrandSort={this.setBrandSort}
