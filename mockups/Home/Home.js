@@ -101,7 +101,7 @@ class HomeScreen extends React.Component {
                         uri: 'https://levyne3dtrial.netlify.app/'
                     }}
                 /> */}
-                <CustomHome></CustomHome>
+                <CustomHome />
             </>
         );
     };
