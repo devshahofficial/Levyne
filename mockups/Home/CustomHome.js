@@ -17,15 +17,15 @@ export default class CustomHome extends Component {
 
 const imgUrlsTopDesigners = [
     {
-        id:1,
+        id:'1',
         source:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
     },
     {
-        id:2,
+        id:'2',
         source:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
     },
     {
-        id:3,
+        id:'3',
         source:"https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
     }
 ]
