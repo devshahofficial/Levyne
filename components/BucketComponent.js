@@ -51,15 +51,15 @@ export default class BucketComponent extends React.Component {
                         +{this.props.item.TotalProducts}
                     </Text>
                 </ImageBackground>
-                <View spread marginL-30>
+                <View spread marginL-10>
                     <View row flex-15>
                         <View>
-                            <Text secondary h2>Total</Text>
-                            <Text secondary h2>Discount</Text>
+                            <Text secondary h2>Average</Text>
+                            <Text secondary h2>Decided</Text>
                         </View>
                         <View marginL-10>
-                            <Text hb1>₹{this.props.item.TotalDiscountPrice}</Text>
-                            <Text h1 primary>{this.props.item.TotalDiscount}% off</Text>
+                            <Text hb1>₹{this.props.item.AveragePrice}</Text>
+                            <Text h1 primary>{this.props.item.DecidedPrice ? '₹' + this.props.item.DecidedPrice : 'Chat to decide'}</Text>
                         </View>
                     </View>
                     <View flex>
@@ -72,6 +72,7 @@ export default class BucketComponent extends React.Component {
                                     this.props.item.TotalProducts
                                 )
                             }
+                            size={'small'}
                             flex style={styles.Checkout}
                             label="Checkout"
                         />

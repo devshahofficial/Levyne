@@ -5,6 +5,8 @@ import ProductItemContainer from "../../components/ProductItemContainer";
 import colors from "../../assets/colors";
 import Colors from '../../Style/Colors';
 import PickerModal from "../../components/PickerModal";
+import {FilterIcon} from "../../Icons/FilterIcon";
+import {SettingsIcon} from "../../Icons/SettingsIcon";
 
 
 export default class ProductSearchScreen extends React.Component {
@@ -17,35 +19,51 @@ export default class ProductSearchScreen extends React.Component {
         }
         this.actionItems = [
             {
-                id: 1,
-                label: 'Latest Arrival',
+                id: 0,
+                label: 'Relevance',
                 onPress: () => {
                     this.setSortModel();
-                    this.props.setProductSort(1);
+                    this.props.setProductSort(0);
                 }
             },
             {
-                id: 2,
-                label: 'Price high to low',
+                id: 5,
+                label: 'Price - high to low',
                 onPress: () => {
                     this.setSortModel();
-                    this.props.setProductSort(2);
+                    this.props.setProductSort(5);
+                }
+            },
+            {
+                id: 6,
+                label: 'Price - low to high',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setProductSort(6);
+                }
+            },
+            {
+                id: 8,
+                label: 'Manufacturing Time - low to high',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setProductSort(8);
+                }
+            },
+            {
+                id: 7,
+                label: 'Manufacturing Time - high to low',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setProductSort(7);
                 }
             },
             {
                 id: 3,
-                label: 'Discount',
+                label: 'Latest Arrival',
                 onPress: () => {
                     this.setSortModel();
                     this.props.setProductSort(3);
-                }
-            },
-            {
-                id: 4,
-                label: 'Price low to high',
-                onPress: () => {
-                    this.setSortModel();
-                    this.props.setProductSort(4);
                 }
             },
         ];
@@ -73,15 +91,17 @@ export default class ProductSearchScreen extends React.Component {
                     }}
                 >
                     <TouchableOpacity
-                        flex style={styles.Filter} center
+                        flex style={{...styles.Filter, borderRightColor: Colors.shadow, borderRightWidth: 1}} center
                         onPress={this.setSortModel}
                     >
-                        <Text hb1 secondary>Sort</Text>
+                        <SettingsIcon size={18} Color={Colors.black} />
+                        <Text hb1 secondary marginL-10>Sort</Text>
                     </TouchableOpacity>
                     <TouchableOpacity flex
                         style={styles.Filter} center
                     >
-                        <Text hb1 secondary>Filter</Text>
+                        <FilterIcon size={18} Color={Colors.black} />
+                        <Text hb1 secondary marginL-10>Filter</Text>
                     </TouchableOpacity>
                 </Animated.View>
                 {
@@ -93,7 +113,7 @@ export default class ProductSearchScreen extends React.Component {
                     <Animated.FlatList
                         data={this.props.ProductsData}
                         numColumns={2}
-                        ListHeaderComponent={<View marginV-25></View>}
+                        ListHeaderComponent={<View marginV-15></View>}
                         renderItem={({ item }) =>
                             <ProductItemContainer
                                 Token={this.props.AccessToken}
@@ -153,9 +173,13 @@ const styles = StyleSheet.create({
         marginLeft: 2,
     },
     Filter: {
-        height: 60,
-        backgroundColor: Colors.shadow,
+        height: 40,
+        backgroundColor: Colors.white,
+        borderBottomColor: Colors.shadow,
+        borderBottomWidth: 1,
         borderColor: Colors.white,
-        borderWidth: 5
+        borderWidth: 5,
+        flexWrap: 'wrap',
+        alignContent: 'center'
     }
 });

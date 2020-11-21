@@ -125,7 +125,7 @@ class Bucket extends React.Component {
                     <View flex>
                         <FlatList
                             ListFooterComponent={
-                                <View margin-20 paddingH-15 center row style={styles.View}>
+                                <View marginV-20 paddingH-15 center row style={styles.View}>
                                     <DeliveryIcon size={30} Color={Colors.black} />
                                     <DeliveryChargeComponent TotalPrice = {this.props.route.params.TotalDiscountPrice} />
                                 </View>
@@ -164,7 +164,6 @@ const styles = StyleSheet.create({
     View: {
         height: 50,
         width: Dimensions.get('window').width,
-        marginLeft: -15,
         backgroundColor: Colors.shadow,
     },
     Product: {

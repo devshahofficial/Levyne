@@ -5,21 +5,7 @@ import colors from "../../assets/colors";
 import Colors from '../../Style/Colors';
 import BrandItemContainer from '../../components/BrandItemContainer';
 import PickerModal from "../../components/PickerModal";
-
-const actionCompanyItems = [
-    {
-        id: 1,
-        label: 'Popularity',
-    },
-    {
-        id: 5,
-        label: 'Customer Rating',
-    },
-    {
-        id: 6,
-        label: 'Located near me',
-    },
-];
+import {SettingsIcon} from "../../Icons/SettingsIcon";
 
 export default class ProductSearchScreen extends React.Component {
     
@@ -29,6 +15,48 @@ export default class ProductSearchScreen extends React.Component {
             sortModel: false,
             scrollY: new Animated.Value(0)
         }
+        this.actionCompanyItems = [
+            {
+                id: 0,
+                label: 'Relevance',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setBrandSort(0);
+                }
+            },
+            {
+                id: 1,
+                label: 'Located near me',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setBrandSort(1);
+                }
+            },
+            {
+                id: 2,
+                label: 'A-Z',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setBrandSort(2);
+                }
+            },
+            {
+                id: 3,
+                label: 'Z-A',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setBrandSort(3);
+                }
+            },
+            {
+                id: 4,
+                label: 'Newly Added',
+                onPress: () => {
+                    this.setSortModel();
+                    this.props.setBrandSort(4);
+                }
+            },
+        ];
     }
 
     setSortModel = () => {
@@ -41,7 +69,7 @@ export default class ProductSearchScreen extends React.Component {
         return (
             <View flex>
                 <PickerModal
-                    ActionItems={actionCompanyItems}
+                    ActionItems={this.actionCompanyItems}
                     modalVisible={this.state.sortModel}
                     setModalVisible={this.setSortModel}
                 />
@@ -53,10 +81,11 @@ export default class ProductSearchScreen extends React.Component {
                     }}
                 >
                     <TouchableOpacity
-                        flex style={styles.Filter} center
+                        flex style={{...styles.Filter, borderRightColor: Colors.shadow, borderRightWidth: 1}} center
                         onPress={this.setSortModel}
                     >
-                        <Text hb1 secondary>Sort</Text>
+                        <SettingsIcon size={18} Color={Colors.black} />
+                        <Text hb1 secondary marginL-10>Sort</Text>
                     </TouchableOpacity>
                 </Animated.View>
                 {
@@ -67,7 +96,7 @@ export default class ProductSearchScreen extends React.Component {
                     :
                     <Animated.FlatList
                         data={this.props.BrandData}
-                        ListHeaderComponent={<View marginV-25></View>}
+                        ListHeaderComponent={<View marginV-20></View>}
                         renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.props.navigateBrand}/>}
                         keyExtractor={(item) => 'Brand' + item.BrandID}
                         showsVerticalScrollIndicator={false}
@@ -117,9 +146,13 @@ const styles = StyleSheet.create({
         marginLeft: 2,
     },
     Filter: {
-        height: 60,
-        backgroundColor: Colors.shadow,
+        height: 40,
+        backgroundColor: Colors.white,
+        borderBottomColor: Colors.shadow,
+        borderBottomWidth: 1,
         borderColor: Colors.white,
-        borderWidth: 5
+        borderWidth: 5,
+        flexWrap: 'wrap',
+        alignContent: 'center'
     }
 });

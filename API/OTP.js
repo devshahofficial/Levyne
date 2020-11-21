@@ -1,20 +1,16 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { POST } from './CustomFetch';
-/**
- *  Error codes
- *  1) 0 -> OTP length less then 6 or greater then 6, Human Error
- *  2) 1 -> Netowork Error
- *  3) 2 -> SHA Library Error
- *  4) 3 -> AsyncStorage Error
- */
-const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) => {
+import NewSocket from './NewSocket';
+import FetchChatBuckets from './GetChatlists';
+
+const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead) => {
     if(OTP.length != 6)
     {
         throw new Error('Not a valid OTP');
     }
     else
     {
-        const json = await POST('verifyOTP', {ReturnResponse: true, Body: {Mobile, OTP, OTPTokenHash, UID}})
+        const json = await POST('verifyOTP', {ReturnResponse: true, Body: {Mobile, OTP, OTPTokenHash, UID, FirebaseToken}})
 
         switch(json.ProfileStatus) {
             case 1 :
@@ -24,8 +20,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     ['Timestamp', json.Timestamp],
                     ['Mobile', Mobile.toString()],
                     ['ProfileStatus', '1'],
-                    ['UserID', json.CustomerID.toString()],
-                    ['SkipLogin', '0']
+                    ['UserID', json.CustomerID.toString()]
                 ]);
 
                 setAuth({
@@ -36,6 +31,20 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     UserID : json.CustomerID,
                     SkipLogin: false
                 })
+
+                NewSocket(json.AccessToken).then(Socket => {
+                    setSocket(Socket);
+                }).catch(err => {
+                    console.log(err);
+                })
+        
+                FetchChatBuckets(json.AccessToken, 1).then(rows => {
+                    MarkBucketAsUnRead(rows[1]);
+                    setChatList(rows[0]);
+                }).catch(err => {
+                    console.log(err);
+                })
+
                 return 'EditProfileAuth';
             case 2 :
                 await AsyncStorage.multiSet([
@@ -50,8 +59,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     ['PinCode', json.PinCode.toString()],
                     ['Gender', json.Gender.toString()],
                     ['ProfileStatus', '2'],
-                    ['UserID', json.CustomerID.toString()],
-                    ['SkipLogin', '0']
+                    ['UserID', json.CustomerID.toString()]
                 ]);
 
                 setAuth({
@@ -72,9 +80,22 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, setAuth, setProfile) =>
                     Gender : parseInt(json.Gender),
                     ProfileStatus: 2
                 });
+
+                NewSocket(json.AccessToken).then(Socket => {
+                    setSocket(Socket);
+                }).catch(err => {
+                    console.log(err);
+                })
+        
+                FetchChatBuckets(json.AccessToken, 1).then(rows => {
+                    MarkBucketAsUnRead(rows[1]);
+                    setChatList(rows[0]);
+                }).catch(err => {
+                    console.log(err);
+                })
+
                 return 'MainHomeStack';
             default :
-                console.log(json);
                 return 'MainHomeStack';
         }
     }
