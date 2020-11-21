@@ -3,7 +3,7 @@ import {SafeAreaView, ScrollView} from "react-native";
 import ProductScreenPartOne from '../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../components/ProductScreenPartThree';
-import ImageCarouselProduct from "./ImageCarouselProduct";
+import ImageCarouselProduct from "../components/ImageCarouselProduct";
 import ProductByID from '../API/ProductByID';
 import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';

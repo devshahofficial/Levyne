@@ -16,18 +16,18 @@ export default class ChatHeader extends React.PureComponent {
         return (
             <>
                 <View row center style={styles.container}>
-                    <TouchableOpacity marginL-10 onPress={this.props.Navigation}><BackArrowIcon/></TouchableOpacity>
-                    <View style={styles.avatarView}>
+                    <TouchableOpacity marginL-10 onPress={this.props.NavigateBack}><BackArrowIcon/></TouchableOpacity>
+                    <TouchableOpacity style={styles.avatarView} onPress={this.props.NavigateBrandProfile}>
                         <Avatar
                             source={this.props.imageSource}
                             label={this.props.initials}
                             containerStyle={styles.avatar}
                         />
-                    </View>
-                    <View style={styles.textView}>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.textView} onPress={this.props.NavigateBucket}>
                         <Text hb1>{this.props.Name}</Text>
                         <Text secondary h3>Bucket ID: {this.props.BucketID}</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View center style={styles.Header}>
                     <Text hb2>Under Confirmation</Text>

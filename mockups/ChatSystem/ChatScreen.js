@@ -12,7 +12,7 @@ import ImageView from "react-native-image-viewing";
 import Hyperlink from 'react-native-hyperlink';
 import {GalleryIcon} from "../../Icons/GalleryIcon";
 import {CameraIcon} from "../../Icons/CameraIcon";
-
+import UpdateReadTimestamp from '../../API/UpdateReadTimestamp';
 const windowHeight = Dimensions.get('window').height;
 
 // The actual chat view itself- a ScrollView of BubbleMessages, with an InputBar at the bottom, which moves with the keyboard
@@ -27,11 +27,13 @@ class ChatScreen extends Component {
             ModalVisible: false,
             ImagePickerModalVisible: false,
             TextInput: '',
-            TextInputKey: Math.random()
+            TextInputKey: Math.random(),
+            ImageSent: {}
         }
         this.Page = 0;
         this.FlatListRef = React.createRef();
         this.props.Socket.on('ChatMessage', this.SocketListener);
+        this.TimeOutArray = [];
 	}
 
     SocketListener = (Message) => {
@@ -56,10 +58,22 @@ class ChatScreen extends Component {
 
     componentWillUnmount = () => {
         this.props.Socket.off('ChatMessage', this.SocketListener);
+        UpdateReadTimestamp(this.props.route.params.BucketID, this.props.AccessToken).catch(err => console.log(err));
+        this.TimeOutArray.forEach(item => {
+            clearTimeout(item);
+        })
     }
 
-    Navigation = () => {
+    NavigateBack = () => {
         this.props.navigation.goBack();
+    }
+
+    NavigateBrandProfile = () => {
+        this.props.navigation.push('BrandProfile', {BrandID: this.props.route.params.BrandID})
+    }
+
+    NavigateBucket = () => {
+        this.props.navigation.push('Bucket', {BucketID: this.props.route.params.BucketID})
     }
 
     RightText = ({TextInput, Timestamp}) => (
@@ -134,7 +148,15 @@ class ChatScreen extends Component {
 
     handleImagePicker = (response) => {
 
-        this.ImagePickerModalSwitchVisibility()
+        this.ImagePickerModalSwitchVisibility();
+
+        const BucketMessagesID = Math.random().toString();
+
+        this.state.ImageSent[BucketMessagesID] = false;
+
+        this.setState({
+            ImageSent: this.state.ImageSent
+        });
         
         this.state.Messages.unshift({
             Message: {
@@ -142,7 +164,7 @@ class ChatScreen extends Component {
                 Sender: 1,
                 ImageURL: `data:${response.mime};base64,${response.data}`,
             },
-            BucketMessagesID: Math.random(),
+            BucketMessagesID,
             Timestamp: 'now'
         });
 
@@ -154,7 +176,27 @@ class ChatScreen extends Component {
             CustomerID: this.props.UserID,
             Type: 2,
             Base64Image: `data:${response.mime};base64,${response.data}`
+        }, () => {
+            console.log(BucketMessagesID, 'Image Sent');
+            if(this.state && this.state.Messages) {
+                this.state.ImageSent[BucketMessagesID] = true;
+                this.setState({
+                    ImageSent: this.state.ImageSent
+                });
+            }
         })
+
+        this.ImageSendVerify(BucketMessagesID);
+    }
+
+    ImageSendVerify = (BucketMessagesID) => {
+        this.TimeOutArray.push(setTimeout(() => {
+            if(this.state && this.state.Messages) {
+                if(!this.state.ImageSent[BucketMessagesID]) {
+                    console.log(BucketMessagesID, 'Image Not Sent');
+                }
+            }
+        }, 60000));
     }
 
     ShowGallery = async() => {
@@ -256,7 +298,9 @@ class ChatScreen extends Component {
                 </Modal>
                 <ChatHeader
                     {...this.props.route.params}
-                    Navigation={this.Navigation}
+                    NavigateBack={this.NavigateBack}
+                    NavigateBrandProfile={this.NavigateBrandProfile}
+                    NavigateBucket={this.NavigateBucket}
                 />
                 {this.state.LoadingMessages ? <LoaderScreen /> :
                     <FlatList
