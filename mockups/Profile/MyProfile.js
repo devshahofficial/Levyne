@@ -5,6 +5,7 @@ import TextNavBar from "../../components/TextNavBar";
 import Logout from '../../API/Logout';
 import CstmShadowView from "../../components/CstmShadowView";
 import {connect} from 'react-redux';
+import { getVersion } from 'react-native-device-info';
 
 class ProfileTopSection extends React.PureComponent {
 
@@ -177,7 +178,7 @@ class ProfileTopSection extends React.PureComponent {
                             label="Log Out"
                         />
                     </CstmShadowView>
-                    <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION 1.0.0</Text>
+                    <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
                 </View>
             </View>
         )
@@ -237,7 +238,7 @@ class ProfileTopSection extends React.PureComponent {
                     </TouchableOpacity>
                 </View>
 
-                <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION 1.0.0</Text>
+                <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
             </View>
         )
     }
