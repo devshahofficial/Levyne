@@ -1,11 +1,13 @@
 import React from 'react';
-import {BackHandler} from 'react-native';
+import {BackHandler, Animated, ScrollView, FlatList} from 'react-native';
 import {View, Colors, Text, ConnectionStatusBar, Toast} from'react-native-ui-lib';
 import {connect} from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
+import Category from "../../components/Category";
+import BlogContent from "../../components/BlogContent";
+import Stories from "../../components/Stories";
+import StoryModal from "../../components/StoryModal";
 
-import CustomHome from "./CustomHome"
-import {WebView} from "react-native-webview";
 
 ConnectionStatusBar.registerGlobalOnConnectionLost(() => {
 
@@ -75,6 +77,45 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('ProductDetailsPage');
     }
 
+    scrollY = new Animated.Value(0);
+    diffClampScrollY = Animated.diffClamp(this.scrollY,0,95);
+    headerY = this.diffClampScrollY.interpolate({
+        inputRange:[64.5,125],
+        outputRange:[-20,-85]
+    })
+
+    footerY = this.diffClampScrollY.interpolate({
+        inputRange:[0,40],
+        outputRange:[0,40]
+    })
+
+    setModalVisible = () => {
+        this.setState({ modalVisible: !this.state.modalVisible });
+    };
+
+    navigateAddStory = () => {
+        this.props.navigation.navigate('AddStory')
+    }
+
+    navigateBlog = (Title, Content, Image, Published) => {
+        this.props.navigation.navigate('BlogPost', {
+            Content: Content,
+            Title: Title,
+            Image: Image,
+            Published: Published
+        })
+    }
+
+    ReadStory = (index) => {
+        this.state.StoryData[index].UnRead = 0;
+        this.setState({
+            modalVisible: true,
+            selectedStoryIndex: index,
+            StoryData: this.state.StoryData
+        });
+        ReadStoryAPI(this.state.StoryData[index].StoryID, this.props.access_token).catch(console.log)
+    }
+
     render() {
         return (
             <>
@@ -96,12 +137,82 @@ class HomeScreen extends React.Component {
                 >
                     {this.renderCustomContent()}
                 </Toast>
-                {/* <WebView
-                    source={{
-                        uri: 'https://levyne3dtrial.netlify.app/'
-                    }}
-                /> */}
-                <CustomHome />
+                <Animated.View style={{transform:[{translateY:this.headerY}], position:'absolute', zIndex:1 }}>
+                    <View>
+                        <ScrollView
+                            horizontal={true} style={{height:90, alignContent:"center"}}
+                            showsHorizontalScrollIndicator={false}
+                        >
+                            <Category title={'Men'} Image={"https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                            <Category title={'Women'} Image={"https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                            <Category title={'Accessories'} Image={"https://images.pexels.com/photos/2735970/pexels-photo-2735970.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}/>
+                        </ScrollView>
+                    </View>
+                </Animated.View>
+
+                <Animated.ScrollView
+                    style={[{backgroundColor:Colors.white}]}
+                    showsVerticalScrollIndicator={false}
+                    bounces={false}
+                    onScroll={Animated.event([{nativeEvent:{contentOffset:{y:this.scrollY}}}], {useNativeDriver: true})}
+                >
+                    {isFinite(this.state.selectedStoryIndex) &&
+                    <StoryModal
+                        modalVisible={this.state.modalVisible}
+                        setModalVisible={this.setModalVisible}
+                        StoryItem={this.state.StoryData[this.state.selectedStoryIndex]}
+                        setDeleteModalVisible={this.setDeleteModalVisible}
+                    />
+                    }
+
+                    <View marginT-100>
+                        <Text b1 secondary marginL-20>
+                            Sensations From Levyne
+                        </Text>
+                        <FlatList
+                            data={this.state.StoryData}
+                            horizontal={true}
+                            ListHeaderComponent={
+                                this.state.StoryAddAllowed && <Stories
+                                    ProfileImage={require('../../assets/images/Plus.webp')}
+                                    ReadStory={this.navigateAddStory}
+                                />
+                            }
+                            renderItem={({item, index}) => {
+                                return <Stories
+                                    ProfileImage={{uri: item.ProfileImage}}
+                                    ReadStory={() => this.ReadStory(index)}
+                                    UnRead={item.UnRead}
+                                />
+                            }}
+                            keyExtractor={(item, index) => item.StoryID.toString()}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+
+                    <View marginT-30 paddingH-10>
+                        <View row>
+                            <Text b1 secondary flex>Blogs</Text>
+                            <Text h3 primary marginR-10 flexS>Swipe {'->'}</Text>
+                        </View>
+                        <FlatList
+                            data={this.state.BlogPosts}
+                            horizontal={true}
+                            renderItem={({ item }) => {
+                                return <BlogContent
+                                    Navigation={this.navigateBlog}
+                                    Content={item.Content}
+                                    Headline={item.Title}
+                                    Image={item.Image}
+                                    Published={item.Published}
+                                    ImageBig={item.ImageBig}
+                                />
+                            }}
+                            keyExtractor={(item, index) => index.toString()}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </Animated.ScrollView>
             </>
         );
     };
