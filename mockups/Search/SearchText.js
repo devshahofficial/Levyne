@@ -64,8 +64,7 @@ class SearchText extends React.Component {
             this.setState({SearchSuggestions: SearchSuggestionFromLocal});
             SearchSuggestionsAPI(SearchKey).then(SearchSuggestions => {
                 this.setState({SearchSuggestions: [...SearchSuggestionFromLocal, ...SearchSuggestions]});
-            }).catch(err => {
-            })
+            }).catch(() => {})
         } else {
             this.setState({SearchSuggestions : []});
         }
