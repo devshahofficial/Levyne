@@ -1,4 +1,5 @@
 import {createStore, combineReducers } from 'redux';
+import _ from 'lodash';
 
 const IntialAuthStates = {
 	AccessToken : undefined,
@@ -80,7 +81,8 @@ const InitialChatStates = {
 const ChatReducer = (state = InitialChatStates, action) => {
 	switch (action.type) {
 		case 'setChatList':
-			return {...state, ChatList: [...state.ChatList, ...action.value], ChatLoading: false};
+			//Removing any duplicates
+			return {...state, ChatList: _.unionBy(action.value, state.ChatList, 'BucketID'), ChatLoading: false};
 		case 'MarkBucketAsUnRead':
 			state.UnreadBuckets.push(...action.value);
 			return {...state};
