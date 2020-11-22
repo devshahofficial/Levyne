@@ -123,7 +123,7 @@ class HomeScreen extends React.Component {
             selectedStoryIndex: index,
             StoryData: this.state.StoryData
         });
-        PutStoryAsRead(this.state.StoryData[index].ProductID, this.props.access_token).catch(console.log)
+        PutStoryAsRead(this.state.StoryData[index].ProductID, this.props.AccessToken).catch(console.log)
     }
 
     render() {
@@ -190,7 +190,7 @@ class HomeScreen extends React.Component {
                             }
                             renderItem={({item, index}) => {
                                 return <Stories
-                                    ProfileImage={{uri: item.ProfileImage}}
+                                    ProfileImage={{uri: item.BrandProfileImage}}
                                     ReadStory={() => this.ReadStory(index)}
                                     UnRead={item.UnRead}
                                 />
