@@ -68,7 +68,7 @@ export default class ProductScreenPartOne extends React.Component {
 							({this.props.Category})
 						</Text>
 					)}
-					
+
 				</View>
 			{ this.props.DryCleaning && (
 				<>
@@ -106,7 +106,7 @@ export default class ProductScreenPartOne extends React.Component {
 								<Text h2>{this.props.ProductRating} Ratings</Text>
 							</View>
 						)}
-						
+
 						{this.props.MinPrice && this.props.MaxPrice && (
 							<View row bottom>
 								<Text b1 primary>
@@ -115,7 +115,7 @@ export default class ProductScreenPartOne extends React.Component {
 							</View>
 						)}
 					</View>
-					
+
 					<View flex-end>
 						<TouchableOpacity marginV-5 onPress={this.onBookmarkPress}>
 							<BookMarkIcon
@@ -125,7 +125,7 @@ export default class ProductScreenPartOne extends React.Component {
 							/>
 						</TouchableOpacity>
 						<TouchableOpacity marginV-10 onPress={this.onShare}>
-							<ShareIcon size={24} Color={Colors.primary} />
+							<ShareIcon size={28} Color={Colors.primary} />
 						</TouchableOpacity>
 					</View>
 				</View>
@@ -166,7 +166,7 @@ export default class ProductScreenPartOne extends React.Component {
 						)}
 					</View>
 				)}
-				
+
 			</View>
 			</>
 		);
