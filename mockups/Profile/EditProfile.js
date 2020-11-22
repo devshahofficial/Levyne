@@ -227,6 +227,7 @@ class EditProfile extends React.Component {
                             placeholder='Name'
                             value={this.state.Name}
                             onChangeText={this.setName}
+                            textContentType={'name'}
                         />
                         <Spinner
                             visible={this.state.showLoading}
@@ -240,6 +241,8 @@ class EditProfile extends React.Component {
                             placeholder='Email'
                             value={this.state.Email}
                             onChangeText={this.setEmail}
+                            keyboardType={'email-address'}
+                            textContentType={'emailAddress'}
                         />
 
 
