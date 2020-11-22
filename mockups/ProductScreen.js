@@ -121,12 +121,15 @@ class ProductScreen extends React.Component {
                                 BrandID={this.state.ProductObject.BrandID}
                                 ProductRating={4.1}
                                 Category={this.state.ProductObject.Category}
+                                CategoryID={this.state.ProductObject.CategoryID}
                                 Styles={this.state.ProductObject.Styles}
+                                StyleIDs={this.state.ProductObject.StyleIDs}
                                 ProductWishlist={this.state.ProductObject.IsWishlist}
                                 ShortDescription={this.state.ProductObject.ShortDescription}
                                 AddToWishlistFn={this.AddToWishlistFn}
                                 RemoveFromWishlistFn={this.RemoveFromWishlistFn}
                                 ProductID={this.props.route.params.ProductID}
+                                navigation={this.props.navigation}
                                 Token={this.props.AccessToken}
                             />
                             <ProductScreenPartTwo
