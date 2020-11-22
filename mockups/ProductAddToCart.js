@@ -26,6 +26,7 @@ class AddToCartScreen extends React.PureComponent {
         this.FabricTotal = 0;
         this._isMounted = true;
         this.abortController = new AbortController();
+        this.Timeout = [];
     }
 
     LoadFabric = () => {
@@ -53,6 +54,9 @@ class AddToCartScreen extends React.PureComponent {
 
     componentWillUnmount() {
         this.abortController.abort();
+        this.Timeout.forEach(item => {
+            clearTimeout(item);
+        })
     }
 
     SelectFabric = (SelectedFabric) => {
@@ -68,11 +72,11 @@ class AddToCartScreen extends React.PureComponent {
             this._isMounted && this.setState({
                 showCustomToast: true
             });
-            setTimeout(() => {
+            this.Timeout.push(setTimeout(() => {
                 this._isMounted && this.setState({
                     showCustomToast: false
                 });
-            }, 3000)
+            }, 3000));
             return;
         }
         AddProductToCartAPI(
