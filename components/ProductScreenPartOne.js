@@ -160,25 +160,22 @@ export default class ProductScreenPartOne extends React.Component {
 						/>
 					</View>
 				)}
-				{this.props.FreeDelivery && (
-					<View marginT-10 paddingH-15 center row style={styles.View}>
-						<DeliveryIcon size={30} Color={Colors.black} />
-						{this.props.Delivery === 1 ? (
-							<>
-								<Text marginL-10 h2>
-									Free Delivery!
-								</Text>
-							</>
-						) : (
-							<>
-								<Text marginL-10 h2>
-									Free Delivery on buckets over ₹1000{'/-'}
-								</Text>
-							</>
-						)}
-					</View>
-				)}
-				
+				<View marginT-10 paddingH-15 center row style={styles.View}>
+					<DeliveryIcon size={30} Color={Colors.black} />
+					{this.props.MinPrice > 1000 ? (
+						<>
+							<Text marginL-10 h2>
+								Free Delivery!
+							</Text>
+						</>
+					) : (
+						<>
+							<Text marginL-10 h2>
+								Free Delivery on buckets over ₹1000{'/-'}
+							</Text>
+						</>
+					)}
+				</View>
 			</View>
 			</>
 		);
