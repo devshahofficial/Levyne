@@ -97,12 +97,16 @@ export default class ProductSearchScreen extends React.Component {
                         <SettingsIcon size={18} Color={Colors.black} />
                         <Text hb1 secondary marginL-10>Sort</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity flex
-                        style={styles.Filter} center
-                    >
-                        <FilterIcon size={18} Color={Colors.black} />
-                        <Text hb1 secondary marginL-10>Filter</Text>
-                    </TouchableOpacity>
+                    {
+                        /*
+                        <TouchableOpacity flex
+                            style={styles.Filter} center
+                        >
+                            <FilterIcon size={18} Color={Colors.black} />
+                            <Text hb1 secondary marginL-10>Filter</Text>
+                        </TouchableOpacity>
+                        */
+                    }
                 </Animated.View>
                 {
                     this.props.LoadingProduct ? 
