@@ -35,6 +35,12 @@ class SearchText extends React.Component {
         }
     }
 
+    navigateSearchWithStateSearchKey = () => {
+        if(this.state.SearchKey) {
+            this.props.navigation.push('SearchScreen', {SearchKey: this.state.SearchKey});
+        }
+    }
+
     renderItem = ({item}) => {
         const NavigateSearch = () => this.navigateSearch(item);
         return (
@@ -47,6 +53,7 @@ class SearchText extends React.Component {
     }
 
     setSearchKey = (SearchKey) => {
+
         this.setState({
             SearchKey: SearchKey
         });
@@ -78,8 +85,11 @@ class SearchText extends React.Component {
                             value={this.state.SearchKey}
                             onChangeText={this.setSearchKey}
                             style={{flex:10}}
+                            autoFocus={true}
+                            returnKeyType='search'
+                            onSubmitEditing={this.navigateSearchWithStateSearchKey}
                         />
-                        <TouchableOpacity onPress={() => this.navigateSearch(this.state.SearchKey)} flex-1 marginT-13 style={{marginLeft:-40}}>
+                        <TouchableOpacity onPress={this.navigateSearchWithStateSearchKey} flex-1 marginT-13 style={{marginLeft:-40}}>
                             <SearchIcon Color={Colors.grey40}/>
                         </TouchableOpacity>
                     </View>
