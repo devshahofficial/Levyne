@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import Logout from '../API/Logout';
 import CstmShadowView from '../components/CstmShadowView';
+import { getVersion } from 'react-native-device-info';
 
 class SettingsScreen extends React.Component {
 
@@ -14,6 +15,7 @@ class SettingsScreen extends React.Component {
             showCustomToast: false,
             showContent: '',
         }
+        console.log(getVersion());
     }
 
     navigateAdvertise = () => {
@@ -145,7 +147,7 @@ class SettingsScreen extends React.Component {
                                 label="Log Out"
                             />
                         </CstmShadowView>
-                        <Text marginT-20 grey40 h3 center>APP VERSION 1.0.0</Text>
+                        <Text marginT-20 grey40 h3 center>APP VERSION {getVersion()}</Text>
                     </View>
                 </View>
             </>
