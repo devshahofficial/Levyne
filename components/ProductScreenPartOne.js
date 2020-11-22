@@ -53,6 +53,26 @@ export default class ProductScreenPartOne extends React.Component {
 		}
 	};
 
+	NavigateCategory = () => {
+		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 0, Index: this.props.CategoryID, Label: this.props.Category}});
+	}
+
+	NavigateStyle = ({Index, Label}) => {
+		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 1, Index, Label}});
+	}
+
+	StylesRenderItem = ({item, index}) => (
+		<TouchableOpacity
+			centerV
+			style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}
+			onPress={() => this.NavigateStyle({Label: item, Index: this.props.StyleIDs[index]})}
+		>
+			<Text hb2 white>
+				{item}
+			</Text>
+		</TouchableOpacity>
+	);
+
 	render() {
 		return (
 			<>
@@ -64,7 +84,7 @@ export default class ProductScreenPartOne extends React.Component {
 						</Text>
 					)}
 					{this.props.Category && (
-						<Text marginL-10 h2 secondary marginV-3>
+						<Text marginL-10 h2 secondary marginV-3 onPress={this.NavigateCategory}>
 							({this.props.Category})
 						</Text>
 					)}
@@ -136,15 +156,7 @@ export default class ProductScreenPartOne extends React.Component {
 							showsHorizontalScrollIndicator={false}
 							horizontal={true}
 							keyExtractor={(item, index) => index.toString()}
-							renderItem={({item, index}) => (
-								<View
-									centerV
-									style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}>
-									<Text hb2 white>
-										{item}
-									</Text>
-								</View>
-							)}
+							renderItem={this.StylesRenderItem}
 						/>
 					</View>
 				)}
