@@ -5,7 +5,7 @@ import ProductItemContainer from "../../components/ProductItemContainer";
 import colors from "../../assets/colors";
 import Colors from '../../Style/Colors';
 import PickerModal from "../../components/PickerModal";
-import {FilterIcon} from "../../Icons/FilterIcon";
+//import {FilterIcon} from "../../Icons/FilterIcon";
 import {SettingsIcon} from "../../Icons/SettingsIcon";
 
 
@@ -97,12 +97,16 @@ export default class ProductSearchScreen extends React.Component {
                         <SettingsIcon size={18} Color={Colors.black} />
                         <Text hb1 secondary marginL-10>Sort</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity flex
-                        style={styles.Filter} center
-                    >
-                        <FilterIcon size={18} Color={Colors.black} />
-                        <Text hb1 secondary marginL-10>Filter</Text>
-                    </TouchableOpacity>
+                    {
+                        /*
+                        <TouchableOpacity flex
+                            style={styles.Filter} center
+                        >
+                            <FilterIcon size={18} Color={Colors.black} />
+                            <Text hb1 secondary marginL-10>Filter</Text>
+                        </TouchableOpacity>
+                        */
+                    }
                 </Animated.View>
                 {
                     this.props.LoadingProduct ? 

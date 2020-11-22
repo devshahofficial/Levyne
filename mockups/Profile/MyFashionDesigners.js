@@ -60,7 +60,6 @@ class MyFashionDesigners extends React.Component {
                             :
                             <Animated.FlatList
                                 data={this.state.BrandData}
-                                ListHeaderComponent={<View marginV-25></View>}
                                 renderItem={({ item }) => <BrandItemContainer item={item} navigateBrand={this.navigateBrand}/>}
                                 keyExtractor={(item) => 'Brand' + item.BrandID}
                                 showsVerticalScrollIndicator={false}

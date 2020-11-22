@@ -14,12 +14,12 @@ export default class BucketProduct extends React.PureComponent {
                         <View flex paddingH-10>
                             <Image
                                 style={{ flex: 1 }}
-                                source={{ uri: this.props.item.FabricImage }}
+                                source={{ uri: this.props.item.ProductImage }}
                             />
                         </View>
                         <View flex paddingH-10>
                             <View>
-                                <Text hb1 secondary>Average Cost</Text>
+                                <Text hb1 secondary>Expected Cost</Text>
                                 <View row>
                                     <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
                                 </View>
@@ -88,7 +88,7 @@ export default class BucketProduct extends React.PureComponent {
                         </View>
                         <View flex paddingH-10>
                             <View>
-                                <Text hb1 secondary>Average Cost</Text>
+                                <Text hb1 secondary>Expected Cost</Text>
                                 <View row>
                                     <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
                                 </View>

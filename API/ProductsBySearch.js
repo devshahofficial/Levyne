@@ -1,12 +1,12 @@
 import {GET} from './CustomFetch';
 
-const ProductbySearch = async (SearchKey, Page, OrderBy, Token, abortControllerSignal) => {
+const ProductbySearch = async (Filters, Page, OrderBy, Token, abortControllerSignal) => {
 
     return await GET('Products/FetchBySearch', {
         ReturnResponse: true,
         Token,
         QueryData: {
-            SearchKey,
+            ...Filters,
             Page,
             OrderBy
         }
