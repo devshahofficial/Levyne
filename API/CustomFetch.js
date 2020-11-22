@@ -56,6 +56,7 @@ export const POST = async (URL, {ReturnResponse, Token, Body}, abortControllerSi
  */
 
 export const GET = async (URL, {ReturnResponse, Token, QueryData}, abortControllerSignal) => {
+
     const resp = await fetch(config.BaseURL + URL + '?' + encodeQueryData(QueryData), {
         method: 'GET',
         signal: abortControllerSignal,

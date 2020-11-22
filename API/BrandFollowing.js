@@ -24,14 +24,13 @@ const UnFollowTheBrand = async (BrandID, Token, abortControllerSignal) => {
 
 const FetchFollowedBrands = async (Page, Token, abortControllerSignal) => {
 
-    await GET('Brand/FetchFollowedBrands', {
+    return await GET('Brand/FetchFollowedBrands', {
         ReturnResponse: true,
         Token,
         QueryData: {
             Page
         }
     }, abortControllerSignal);
-    return;
 }
 
 export default {

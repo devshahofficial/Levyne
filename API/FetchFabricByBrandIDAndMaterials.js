@@ -5,7 +5,7 @@ const FetchFabricByBrandIDAndMaterials = async (BrandID, MaterialIDs, Page, Toke
     return await GET('Fabrics/FetchByBrandID', {
         ReturnResponse: true,
         Token,
-        QueryData: {BrandID, Page, MaterialIDs: MaterialIDs.split(',')}
+        QueryData: {BrandID, Page, MaterialIDs}
     }, abortControllerSignal)
 
 }

@@ -35,12 +35,30 @@ class Search extends React.Component {
         this.ProductLoadNewPage = true;
         this.BrandLoadNewPage = true;
         this.abortController = new AbortController();
+        
+
+        this.Filter = {};
+
+        switch(this.props.route.params.SearchFilter.Type) {
+            case 0 :
+                this.Filter.Category = [this.props.route.params.SearchFilter.Index];
+                break;
+            case 1 :
+                this.Filter.Styles = [this.props.route.params.SearchFilter.Index];
+                break;
+            case 2 :
+                this.Filter.Materials = [this.props.route.params.SearchFilter.Index];
+                break;
+            case 3 :
+                this.Filter.SearchKey = this.props.route.params.SearchFilter.Label;
+        }
+
         this.SearchProduct(this.state.ProductSort);
         this.SearchBrand(this.state.BrandSort);
     }
 
     SearchProduct = (ProductSort) => {
-        ProductBySearch(this.props.route.params.SearchKey, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+        ProductBySearch(this.Filter, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
             if(this._isMounted) {
                 this.setState({
                     ProductsData: [...this.state.ProductsData, ...resp.Products],
@@ -52,7 +70,7 @@ class Search extends React.Component {
     }
 
     SearchBrand = (BrandSort) => {
-        BrandBySearch(this.props.route.params.SearchKey, ++this.BrandPage, BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+        BrandBySearch(this.props.route.params.SearchFilter.Label, ++this.BrandPage, BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
             if(this._isMounted) {
                 this.setState({
                     BrandData : [...this.state.BrandData, ...resp.Brands],
@@ -102,7 +120,7 @@ class Search extends React.Component {
             LoadingProduct: true,
         });
         this.ProductPage = 0;
-        this.SearchProduct(this.state.SearchKey, ProductSort);
+        this.SearchProduct(ProductSort);
     }
 
     setBrandSort = async (BrandSort) => {
@@ -112,7 +130,7 @@ class Search extends React.Component {
             LoadingBrands: true,
         });
         this.BrandPage = 0;
-        this.SearchBrand(this.state.SearchKey, BrandSort);
+        this.SearchBrand(BrandSort);
     }
 
     NavigateBack = () => {
@@ -122,7 +140,7 @@ class Search extends React.Component {
     render() {
         return (
             <View flex>
-                <NavBarBack Title={this.props.route.params.SearchKey} Navigation={this.NavigateBack} />
+                <NavBarBack Title={this.props.route.params.SearchFilter.Label} Navigation={this.NavigateBack} />
                 <View style={styles.searchRow}>
                     <TabView
                         navigationState={{index : this.state.index, routes : TabViewRoutes}}

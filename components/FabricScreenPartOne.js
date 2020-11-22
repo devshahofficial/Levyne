@@ -37,6 +37,23 @@ export default class FabricScreenPartOne extends React.Component {
         }
 
     };
+
+    NavigateStyle = ({Index, Label}) => {
+		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 1, Index, Label}});
+	}
+
+    StylesRenderItem = ({item, index}) => (
+		<TouchableOpacity
+			centerV
+			style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}
+			onPress={() => this.NavigateStyle({Label: item, Index: this.props.StyleIDs[index]})}
+		>
+			<Text hb2 white>
+				{item}
+			</Text>
+		</TouchableOpacity>
+	);
+
     onShare = async () => {
         /*try {
             const result = await Share.share({
@@ -97,23 +114,17 @@ export default class FabricScreenPartOne extends React.Component {
                     </View>
                 </View>
 
-                <View marginT-20 style={{marginHorizontal: -15}}>
-                    <FlatList
-                        data={this.props.Styles}
-                        showsHorizontalScrollIndicator={false}
-                        horizontal={true}
-                        keyExtractor={(item, index) => item}
-                        renderItem={({item, index}) => (
-                            <View
-                                centerV
-                                style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}>
-                                <Text hb2 white>
-                                    {item}
-                                </Text>
-                            </View>
-                        )}
-                    />
-                </View>
+                {this.props.Styles && (
+					<View marginT-20>
+						<FlatList
+							data={this.props.Styles}
+							showsHorizontalScrollIndicator={false}
+							horizontal={true}
+							keyExtractor={(item, index) => index.toString()}
+							renderItem={this.StylesRenderItem}
+						/>
+					</View>
+				)}
             </View>
 
         );

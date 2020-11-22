@@ -62,6 +62,10 @@ export default class ProductScreenPartTwo extends React.PureComponent {
         }
     }
 
+    NavigateSearch = (SearchFilter) => {
+        this.props.navigation.push('SearchScreen', {SearchFilter});
+    }
+
     render() {
         return (
             <View marginT-30 marginB-20 marginH-15>
@@ -83,9 +87,10 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                             horizontal={true}
                             extraData={this.props.navigation}
                             keyExtractor={(item) => item}
-						    renderItem={({item}) => (
+						    renderItem={({item, index}) => (
                                 <Category
                                     title={item}
+                                    NavigateSearch={() => this.NavigateSearch({Type: 2, Index: this.props.MaterialIDs[index], Label: item})}
                                     ImageStyle={styles.Image}
                                 />
                             )}
