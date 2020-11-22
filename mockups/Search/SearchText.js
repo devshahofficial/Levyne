@@ -7,6 +7,7 @@ import {SearchIcon} from '../../Icons/SearchIcon';
 import {BackArrowIcon} from '../../Icons/BackArrowIcon';
 import CstmShadowView from "../../components/CstmShadowView";
 import SearchSuggestionsAPI from '../../API/SearchSuggestions';
+import SearchSuggestionsLocal from '../../API/SearchSuggestionsLocal';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -29,15 +30,15 @@ class SearchText extends React.Component {
         this.abortController.abort();
     }
 
-    navigateSearch(SearchKey) {
-        if(SearchKey) {
-            this.props.navigation.push('SearchScreen', {SearchKey});
+    navigateSearch(SearchFilter) {
+        if(SearchFilter) {
+            this.props.navigation.push('SearchScreen', {SearchFilter});
         }
     }
 
     navigateSearchWithStateSearchKey = () => {
         if(this.state.SearchKey) {
-            this.props.navigation.push('SearchScreen', {SearchKey: this.state.SearchKey});
+            this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 3, Label: this.state.SearchKey}});
         }
     }
 
@@ -46,7 +47,7 @@ class SearchText extends React.Component {
         return (
             <TouchableOpacity activeOpacity={0.5} style={styles.TextResultContainer} onPress={NavigateSearch}>
                 <CstmShadowView style={styles.TextResult}>
-                    <Text marginL-15 h1 secondary>{item}</Text>
+                    <Text marginL-15 h1 secondary>{item.Label}</Text>
                 </CstmShadowView>
             </TouchableOpacity>
         )
@@ -57,9 +58,15 @@ class SearchText extends React.Component {
         this.setState({
             SearchKey: SearchKey
         });
+        
         if(SearchKey !== '') {
+
+            this.setState({
+                SearchSuggestions: SearchSuggestionsLocal(SearchKey)
+            })
+
             SearchSuggestionsAPI(SearchKey).then(SearchSuggestions => {
-                this.setState({SearchSuggestions});
+                this.setState({SearchSuggestions: [...this.state.SearchSuggestions, ...SearchSuggestions]});
             }).catch(err => {
                 console.log(err);
             })
@@ -98,7 +105,7 @@ class SearchText extends React.Component {
                     <Animated.FlatList
                         data={this.state.SearchSuggestions}
                         renderItem={this.renderItem}
-                        keyExtractor={(item) => item}
+                        keyExtractor={(item) => item.Label + item.Type}
                         showsVerticalScrollIndicator={false}
                         ListEmptyComponent={
                             <View flex centerV centerH style={{height:605}} paddingH-40>
