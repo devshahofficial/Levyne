@@ -27,7 +27,7 @@ export default class HomeNavBar extends React.PureComponent {
                 </View>
                 <View flex row centerV right>
                     <TouchableOpacity
-                        marginL-12 marginR-4 br100
+                        marginL-12 marginR-12 br100
                         onPress={() => {
                             this.props.navigateSearch();
                         }}
@@ -35,7 +35,7 @@ export default class HomeNavBar extends React.PureComponent {
                         <SearchIcon size={28} Color={Colors.black}/>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        marginH-8 br100
+                        marginR-12 br100
                         onPress={() => {
                             this.props.navigateBookMark();
                         }}
@@ -43,7 +43,7 @@ export default class HomeNavBar extends React.PureComponent {
                         <BookMarkIcon size={24} Fill={false} Color={Colors.black}/>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        marginH-8 br100
+                        marginR-12 br100
                         onPress={() => {
                             this.props.navigateBookMark();
                         }}
@@ -51,7 +51,7 @@ export default class HomeNavBar extends React.PureComponent {
                         <BellIcon size={22} Fill={false} Color={Colors.black}/>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        marginL-4 marginR-12 br100
+                        marginR-16 br100
                         onPress={() => {
                             this.props.navigateCart();
                         }}

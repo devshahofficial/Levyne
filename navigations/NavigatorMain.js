@@ -42,6 +42,7 @@ import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
 import {connect} from 'react-redux';
 import SearchText from "../mockups/Search/SearchText";
+import BlogPost from "../mockups/Home/BlogPost";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -151,6 +152,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='BrandList' component={BrandList} />
 				<HomeStack.Screen name='MyOrdersDetailed' component={MyOrdersDetailed}/>
 				<HomeStack.Screen name='ProductDetailsPage' component={ProductDetailsPage}/>
+				<HomeStack.Screen name='BlogPost' component={BlogPost}/>
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
 				<HomeStack.Screen
                     name='Menu'
