@@ -24,6 +24,7 @@ class InitialProfile extends React.Component {
             Name : '',
             Email : '',
             About : '',
+            Landmark: '',
             ProfileImage : require('../assets/images/icon.png'),
             Address : '',
             PinCode : '',
@@ -127,17 +128,19 @@ class InitialProfile extends React.Component {
         const Gender = this.state.Female ? '0' : '1';
         const Address = this.state.Address;
         const PinCode = this.state.PinCode;
+        const Landmark = this.state.Landmark;
         const ProfileImage = this.state.ProfileImage;
         const Token = this.props.AccessToken;
         const ProfileImageChanged = this.state.ProfileImageChanged;
 
-        EditProfileAPI(Name, Email, ProfileImageChanged, ProfileImage, Address, Gender, PinCode, Token, this.setUploadedPercentage).then((resp) => {
+        EditProfileAPI(Name, Email, ProfileImageChanged, ProfileImage, Address, Landmark, Gender, PinCode, Token, this.setUploadedPercentage).then((resp) => {
             this.props.setProfile({
                 Name,
                 Email,
                 ProfileImage : resp.ProfileImage,
                 Address,
                 PinCode,
+                Landmark,
                 ProfileStatus: 2,
                 Gender: this.state.Female,
             });
@@ -159,6 +162,10 @@ class InitialProfile extends React.Component {
 
     setGender = () => {
         this.setState({ Female: !this.state.Female });
+    }
+
+    setLandmark = (Landmark) => {
+        this.setState({Landmark});
     }
 
     navigateHome = () => {
@@ -216,6 +223,7 @@ class InitialProfile extends React.Component {
                             placeholder='Name'
                             value={this.state.Name}
                             onChangeText={this.setName}
+                            textContentType={'name'}
                         />
                         <Spinner
                             visible={this.state.showLoading}
@@ -229,6 +237,8 @@ class InitialProfile extends React.Component {
                             placeholder='Email'
                             value={this.state.Email}
                             onChangeText={this.setEmail}
+                            keyboardType={'email-address'}
+                            textContentType={'emailAddress'}
                         />
 
 
@@ -258,6 +268,14 @@ class InitialProfile extends React.Component {
                             placeholder='Address'
                             value={this.state.Address}
                             onChangeText={this.setAddress}
+                        />
+
+                        <Text h1 marginT-30>Landmark</Text>
+                        <CstmInput
+                            style={{height:100,borderRadius:20}}
+                            placeholder='Address'
+                            value={this.state.Landmark}
+                            onChangeText={this.setLandmark}
                         />
 
                         <Text h1 marginT-30>Pin Code</Text>
