@@ -32,6 +32,27 @@ export default class ProductScreenPartOne extends React.Component {
 			});
 		}
 	};
+
+	NavigateStyle = ({Index, Label}) => {
+		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 1, Index, Label}});
+	}
+
+	navigateCategory = () => {
+		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 0, Index: this.props.CategoryID, Label: this.props.Category}});
+	}
+
+    StylesRenderItem = ({item, index}) => (
+		<TouchableOpacity
+			centerV
+			style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}
+			onPress={() => this.NavigateStyle({Label: item, Index: this.props.StyleIDs[index]})}
+		>
+			<Text hb2 white>
+				{item}
+			</Text>
+		</TouchableOpacity>
+	);
+
 	onShare = async () => {
 		try {
 			const result = await Share.share({
@@ -55,41 +76,15 @@ export default class ProductScreenPartOne extends React.Component {
 
 	render() {
 		return (
-			<>
 			<View flex primary>
 				<View row bottom>
-					{this.props.Title && (
-						<Text b1 black marginV-3 marginL-15>
-							{this.props.Title}
-						</Text>
-					)}
-					{this.props.Category && (
-						<Text marginL-10 h2 secondary marginV-3>
-							({this.props.Category})
-						</Text>
-					)}
-
-				</View>
-			{ this.props.DryCleaning && (
-				<>
-				<View
-					marginT-10
-					paddingH-15
-					center
-					row
-					style={{
-						height: 50,
-						width: Dimensions.get('window').width,
-						// marginLeft: -15,
-						backgroundColor: Colors.shadow,
-					}}>
-					<MachineWashIcon size={30} Color={Colors.black} />
-					<Text marginL-10 h2>
-						Dry cleaning is recommended for the first wash!
+					<Text b1 black marginV-3 marginL-15>
+						{this.props.Title}
+					</Text>
+					<Text marginL-10 h2 secondary marginV-3 onPress={this.navigateCategory}>
+						({this.props.Category})
 					</Text>
 				</View>
-				</>
-			)}
 				<View row paddingH-15>
 					<View flex-7>
 						{this.props.ShortDescription && (
@@ -137,38 +132,35 @@ export default class ProductScreenPartOne extends React.Component {
 							horizontal={true}
 							keyExtractor={(item, index) => index.toString()}
 							renderItem={({item, index}) => (
-								<View
+								<TouchableOpacity
 									centerV
+									onPress={() => this.NavigateStyle({Index: this.props.StyleIDs[index], Label: item})}
 									style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}>
 									<Text hb2 white>
 										{item}
 									</Text>
-								</View>
+								</TouchableOpacity>
 							)}
 						/>
 					</View>
 				)}
-				{this.props.FreeDelivery && (
-					<View marginT-10 paddingH-15 center row style={styles.View}>
-						<DeliveryIcon size={30} Color={Colors.black} />
-						{this.props.Delivery === 1 ? (
-							<>
-								<Text marginL-10 h2>
-									Free Delivery!
-								</Text>
-							</>
-						) : (
-							<>
-								<Text marginL-10 h2>
-									Free Delivery on buckets over ₹1000{'/-'}
-								</Text>
-							</>
-						)}
-					</View>
-				)}
-
+				<View marginT-10 paddingH-15 center row style={styles.View}>
+					<DeliveryIcon size={30} Color={Colors.black} />
+					{this.props.MinPrice >= 1000 ? (
+						<>
+							<Text marginL-10 h2>
+								Free Delivery!
+							</Text>
+						</>
+					) : (
+						<>
+							<Text marginL-10 h2>
+								Free Delivery on buckets over ₹1000{'/-'}
+							</Text>
+						</>
+					)}
+				</View>
 			</View>
-			</>
 		);
 	}
 }
