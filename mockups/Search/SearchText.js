@@ -1,14 +1,16 @@
 import React from 'react';
 import {StyleSheet, Dimensions, Animated} from 'react-native';
-import {View,TouchableOpacity,Colors,Text} from 'react-native-ui-lib';
+import {View,TouchableOpacity,Colors,Text,Image} from 'react-native-ui-lib';
 import CstmInput from "../../components/input";
 import {connect} from 'react-redux';
 import {SearchIcon} from '../../Icons/SearchIcon';
 import {BackArrowIcon} from '../../Icons/BackArrowIcon';
 import CstmShadowView from "../../components/CstmShadowView";
 import SearchSuggestionsAPI from '../../API/SearchSuggestions';
+import SearchTextSVG from '../../assets/images/AppImages/SearchText.svg';
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 class SearchText extends React.Component {
     constructor(props){
@@ -70,7 +72,7 @@ class SearchText extends React.Component {
 
     render() {
         return (
-            <View flex>
+            <>
                 <View row centerV paddingL-10 paddingR-30>
                     <TouchableOpacity
                         onPress={this.props.navigation.goBack}
@@ -94,23 +96,22 @@ class SearchText extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View flex centerH marginT-10>
+                <View flex centerH >
                     <Animated.FlatList
                         data={this.state.SearchSuggestions}
                         renderItem={this.renderItem}
                         keyExtractor={(item) => item}
                         showsVerticalScrollIndicator={false}
                         ListEmptyComponent={
-                            <View flex centerV centerH style={{height:605}} paddingH-40>
-                                <Text center b1 grey50>Your brand is what other people say about you when you are not in the room.  </Text>
-                                <Text center h3 grey50 marginT-10>- Jeff Bezoz, Founder & CEO of Amazon  </Text>
+                            <View center style={styles.Image}>
+                                <SearchTextSVG width={'90%'}/>
                             </View>
                         }
                         onEndReached={this.props.onBrandEndReached}
                         onEndReachedThreshold={0.75}
                     />
                 </View>
-            </View>
+            </>
         );
     }
 
@@ -122,12 +123,22 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop:0,
         flex:1,
-        justifyContent: "center"
+        justifyContent: "center",
+        shadowOpacity: 1,
+        shadowRadius: 2,
+        shadowOffset: {width: 0,height: 1}
     },
     TextResultContainer: {
         width: screenWidth*0.95,
         height:50,
-        marginTop:2,
+        marginTop:0,
+        marginBottom: 2,
+        borderRadius: 10,
+        paddingHorizontal: 10
+    },
+    Image: {
+        width: screenWidth,
+        height: screenHeight-90,
     }
 });
 

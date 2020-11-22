@@ -1,11 +1,12 @@
 import React from 'react';
-import {FlatList, ActivityIndicator} from 'react-native';
+import {FlatList, ActivityIndicator, StyleSheet, Dimensions, RefreshControl} from 'react-native';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import ListBookmarkProducts from '../../API/ListBookmarkProducts';
-import {View,Text} from 'react-native-ui-lib';
+import {View, Colors} from 'react-native-ui-lib';
 import ProductItemContainer from '../../components/ProductItemContainer';
 import FabricItemContainer from "../../components/FabricItemContainer";
+import LikedSVG from "../../assets/images/AppImages/Liked.svg";
 
 
 class BookmarkProducts extends React.Component {
@@ -90,11 +91,17 @@ class BookmarkProducts extends React.Component {
                             data={this.state.Products}
                             numColumns={2}
                             renderItem={this.FlatListRenderItem}
+                            refreshControl={
+                                <RefreshControl
+                                    colors={[Colors.primary]}
+                                    progressBackgroundColor={Colors.white}
+                                />
+                            }
                             keyExtractor={(item) => item.ProductID || '0' + item.FabricID || '0'}
                             showsVerticalScrollIndicator={false}
                             ListEmptyComponent={
-                                <View flex centerV centerH style={{height:655}} paddingH-40>
-                                    <Text center b1 grey40>Make a wish and we'll make sure that it comes true.</Text>
+                                <View centerH style={styles.Image}>
+                                    <LikedSVG width={'90%'}/>
                                 </View>
                             }
                             onEndReached={this.FlatListOnEndReached}
@@ -107,7 +114,15 @@ class BookmarkProducts extends React.Component {
     }
 }
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+const styles = StyleSheet.create({
 
+    Image: {
+        width: screenWidth,
+        height: screenHeight-90,
+    }
+});
 
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken

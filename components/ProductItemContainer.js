@@ -61,7 +61,7 @@ export default class ProductItemContainer extends React.Component {
                     <View row marginL-10 marginT-15>
                         <View style={{flex: 0.8}}>
                             <Text hb1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
-                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
+                            <Text h3 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
@@ -88,6 +88,8 @@ export default class ProductItemContainer extends React.Component {
         )
     }
 }
+
+
 const styles = StyleSheet.create({
     shadow: {
         height: deviceHeight * 0.50,
@@ -115,5 +117,6 @@ const styles = StyleSheet.create({
         flex:0.25
     }
 })
+
 
 

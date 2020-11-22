@@ -1,11 +1,14 @@
 import React from 'react';
-import {Svg,Path} from 'react-native-svg';
+import {Svg,Path,G} from 'react-native-svg';
 
 export const ShareIcon = (props) => {
     return (
-        <Svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 22.51 20.529">
-            <Path id="multimedia-option" d="M22.51,10.757,13.155.5V6.62H11.167A11.166,11.166,0,0,0,0,17.786v3.243l.883-.968A15.852,15.852,0,0,1,12.593,14.9h.563v6.12Zm0,0" transform="translate(0 -0.5)" fill={props.Color}/>
+        <Svg id="Iconly_Light_Send" data-name="Iconly/Light/Send" xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 24 24">
+            <G id="Send" transform="translate(3 3)">
+                <Path id="Send-2" data-name="Send" d="M12.855,5.121l-5.664,5.7L.561,6.741A1.182,1.182,0,0,1,.847,4.6L16.5.047a1.176,1.176,0,0,1,1.447,1.471L13.3,17.158a1.168,1.168,0,0,1-2.123.274l-3.989-6.61" fill="none" stroke={props.Color} stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+            </G>
         </Svg>
+
 
     )
 };
