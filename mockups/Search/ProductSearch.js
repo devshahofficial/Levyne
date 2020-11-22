@@ -5,7 +5,7 @@ import ProductItemContainer from "../../components/ProductItemContainer";
 import colors from "../../assets/colors";
 import Colors from '../../Style/Colors';
 import PickerModal from "../../components/PickerModal";
-import {FilterIcon} from "../../Icons/FilterIcon";
+//import {FilterIcon} from "../../Icons/FilterIcon";
 import {SettingsIcon} from "../../Icons/SettingsIcon";
 
 

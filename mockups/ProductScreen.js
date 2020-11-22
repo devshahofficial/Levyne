@@ -40,7 +40,6 @@ class ProductScreen extends React.Component {
                     loading : false
                 })
             }
-            
         }).catch(() => {
             if(this._isMounted) {
                 this.setState({
@@ -135,6 +134,7 @@ class ProductScreen extends React.Component {
                                 FabricDescription = {this.state.ProductObject.FabricDescription}
                                 ApprxDaysForProduction = {this.state.ProductObject.ApprxDaysForProduction}
                                 Materials={this.state.ProductObject.Materials}
+                                MaterialIDs={this.state.ProductObject.MaterialIDs}
                                 FabricWashType={this.state.ProductObject.FabricWashType}
                                 navigation={this.props.navigation}
                             />
