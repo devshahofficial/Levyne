@@ -35,13 +35,16 @@ class SearchText extends React.Component {
         }
     }
 
-    renderItem = ({item}) => (
-        <TouchableOpacity activeOpacity={0.5} style={styles.TextResultContainer} onPress={() => this.navigateSearch(item)}>
-            <CstmShadowView style={styles.TextResult}>
-                <Text marginL-15 h1 secondary>{item}</Text>
-            </CstmShadowView>
-        </TouchableOpacity>
-    )
+    renderItem = ({item}) => {
+        const NavigateSearch = () => this.navigateSearch(item);
+        return (
+            <TouchableOpacity activeOpacity={0.5} style={styles.TextResultContainer} onPress={NavigateSearch}>
+                <CstmShadowView style={styles.TextResult}>
+                    <Text marginL-15 h1 secondary>{item}</Text>
+                </CstmShadowView>
+            </TouchableOpacity>
+        )
+    }
 
     setSearchKey = (SearchKey) => {
         this.setState({
