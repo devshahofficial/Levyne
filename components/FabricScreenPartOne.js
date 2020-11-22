@@ -120,7 +120,7 @@ export default class FabricScreenPartOne extends React.Component {
 							data={this.props.Styles}
 							showsHorizontalScrollIndicator={false}
 							horizontal={true}
-							keyExtractor={(item, index) => index.toString()}
+							keyExtractor={(item, index) => item}
 							renderItem={this.StylesRenderItem}
 						/>
 					</View>
