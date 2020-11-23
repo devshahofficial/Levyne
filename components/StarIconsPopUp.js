@@ -14,7 +14,8 @@ export default class StarIconsPopUp extends React.Component {
     }
 
     onPress(rating){
-        this.setState({BrandRating:rating+1})
+        //this.setState({BrandRating:rating+1})
+        this.state.BrandRating = rating + 1;
         let i,num=[];
 
         for (i = 0; i < this.state.BrandRating; i++) {
@@ -23,8 +24,7 @@ export default class StarIconsPopUp extends React.Component {
         for (i = this.state.BrandRating; i < 5; i++) {
             num.push(false);
         }
-        console.log(num);
-        this.setState({stars: num})
+        this.setState({stars: num, BrandRating: this.state.BrandRating});
     }
 
     render() {
