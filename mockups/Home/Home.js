@@ -7,6 +7,8 @@ import Category from "../../components/Category";
 import BlogContent from "../../components/BlogContent";
 import Stories from "../../components/Stories";
 import StoryModal from "../../components/StoryModal";
+import FetchStories from '../../API/FetchStories';
+import PutStoryAsRead from '../../API/PutStoryAsRead';
 
 
 ConnectionStatusBar.registerGlobalOnConnectionLost(() => {
@@ -20,8 +22,10 @@ class HomeScreen extends React.Component {
             showCustomToast: false,
             showContent: '',
             isConnected: true,
+            StoryData: []
         }
         this.backPressed = 0;
+        this.abortController = new AbortController();
     };
 
     renderCustomContent = () => {
@@ -53,7 +57,13 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
-		BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
+        BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
+        FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
+            console.log(StoryData);
+            this.setState({StoryData})
+        }).catch(err => {
+            console.log(err);
+        })
 	}
 
 	componentWillUnmount() {
@@ -113,7 +123,7 @@ class HomeScreen extends React.Component {
             selectedStoryIndex: index,
             StoryData: this.state.StoryData
         });
-        ReadStoryAPI(this.state.StoryData[index].StoryID, this.props.access_token).catch(console.log)
+        PutStoryAsRead(this.state.StoryData[index].ProductID, this.props.AccessToken).catch(console.log)
     }
 
     render() {
@@ -180,12 +190,12 @@ class HomeScreen extends React.Component {
                             }
                             renderItem={({item, index}) => {
                                 return <Stories
-                                    ProfileImage={{uri: item.ProfileImage}}
+                                    ProfileImage={{uri: item.BrandProfileImage}}
                                     ReadStory={() => this.ReadStory(index)}
                                     UnRead={item.UnRead}
                                 />
                             }}
-                            keyExtractor={(item, index) => item.StoryID.toString()}
+                            keyExtractor={(item) => item.ProductID.toString()}
                             showsHorizontalScrollIndicator={false}
                         />
                     </View>

@@ -50,15 +50,15 @@ export default class StoryModal extends React.PureComponent {
                             <View style={{borderColor: Colors.shadow, borderRadius: 50, borderWidth:1, padding:10}}>
                                 <Avatar
                                     size={50}
-                                    source={{uri : this.props.StoryItem.ProfileImage}}
+                                    source={{uri : this.props.StoryItem.BrandProfileImage}}
                                 />
                             </View>
                             <View marginL-25 centerV>
                                 <Text hb1>
-                                    {this.props.StoryItem.Name}
+                                    {this.props.StoryItem.BrandName}
                                 </Text>
                                 <View row>
-                                    <Stars BrandRating="0"/>
+                                    <Stars BrandRating="4"/>
                                 </View>
                             </View>
                         </View>
