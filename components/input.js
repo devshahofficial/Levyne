@@ -8,7 +8,7 @@ export default class CstmInput extends React.PureComponent {
     }
     render() {
         return (
-            <CstmShadowView style={{paddingLeft: 20,...this.props.style}}>
+            <CstmShadowView style={{paddingLeft: 30,...this.props.style}}>
                 <TextArea
                     hideUnderline
                     blurOnSubmit = {true}
