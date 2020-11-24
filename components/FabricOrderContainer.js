@@ -26,7 +26,7 @@ export default class FabricOrderContainer extends React.Component {
                 AddWishlistFabricByID(this.props.item.FabricID,this.props.Token)
             }
             catch(err) {
-                console.log(err);
+                //console.log(err);
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
             this.setState({addToWishlist: !this.state.addToWishlist});
