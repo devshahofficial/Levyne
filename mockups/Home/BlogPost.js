@@ -3,11 +3,53 @@ import {Text, View, AnimatedImage, Colors} from 'react-native-ui-lib';
 import { StyleSheet, Dimensions, ScrollView} from 'react-native';
 import NavBarBack from "../../components/NavBarBack";
 const deviceHeight = Dimensions.get("window").height;
+import FetchBlogByID from '../../API/FetchBlogByID';
+import BlogBody from '../../components/BlogBody';
 
-export default class BlogPost extends React.PureComponent {
+export default class BlogPost extends React.Component {
     constructor(props){
         super(props);
-        this.Time = new Date(this.props.route.params.Published);
+        this.state = {
+            BlogBodyChildren : []
+        }
+        this.abortController = new AbortController();
+    }
+
+    componentDidMount() {
+        FetchBlogByID(this.props.route.params.PostID, this.abortController.signal).then(resp => {
+            this.setState({
+                BlogBodyChildren: JSON.parse(resp.Body).children
+            });
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    RenderBlogBody = (props) => {
+        console.log(props.Root);
+        switch(props.Root.type) {
+            case 0 :
+
+                console.log(`return (<Text>${props.Root.textContent}</Text>);`);
+                return <Text></Text>
+
+            case 1 :
+                console.log(`(<Text h1>
+                    ${props.Root.children.map(item => <this.RenderBlogBody Root={item} />)}
+                </Text>);`)
+                
+                return <Text></Text>
+            case 2 :
+                console.log(`(<Text marginB-10></Text>);`)
+                    return <Text></Text>
+            case 3 :
+                console.log(`return (<Text>${props.Root.children.map((item) => {
+                    return <this.RenderBlogBody Root={item} />
+                })}</Text>);`);
+            
+            default :
+                return (<Text marginB-10></Text>);
+        }
     }
 
     render() {
@@ -24,15 +66,14 @@ export default class BlogPost extends React.PureComponent {
                             {this.props.route.params.Title}
                         </Text>
                         <Text style={styles.time}>
-                            {this.Time.toLocaleString('en-IN', { hour: 'numeric', minute: 'numeric', hour12: true })}
+                            {this.props.route.params.Timestamp}
                         </Text>
                     </View>
-                    <View padding-20>
-                        {this.props.route.params.Content.map((item, index) =>
-                            <Text key={index.toString()} h1 style={styles.text}>{item}</Text>
-                        )}
+                    <View flex margin-20>
+                        <Text>
+                            <BlogBody RootChildrens={this.state.BlogBodyChildren} />
+                        </Text>
                     </View>
-                    {/* </ScrollView> */}
                 </ScrollView>
             </>
         );
