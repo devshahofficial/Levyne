@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text } from 'react-native-ui-lib';
-import {StyleSheet} from 'react-native';
 
 export default class BlogBody extends React.PureComponent {
 
