@@ -1,11 +1,13 @@
 import React, {Component, PureComponent} from 'react';
-import {StyleSheet, FlatList} from 'react-native';
+import {StyleSheet, FlatList, Dimensions} from 'react-native';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View, LoaderScreen} from 'react-native-ui-lib'; //eslint-disable-line
 import {connect} from 'react-redux';
 import TextNavBar from '../../components/TextNavBar';
 import FetchChatBuckets from '../../API/GetChatlists';
+import MessageSVG from '../../assets/images/AppImages/Messages.svg';
 
+const windowHeight = Dimensions.get('window').height;
 
 class ConversationListScreen extends Component {
 
@@ -48,7 +50,7 @@ class ConversationListScreen extends Component {
         return (
             <>
                 <TextNavBar Title={'Messages'}/>
-                {this.props.ChatLoading ? 
+                {this.props.ChatLoading ?
                     <View flex center>
                         <LoaderScreen />
                     </View>
@@ -84,8 +86,8 @@ class ConversationListScreen extends Component {
                                 })
                             }
                             ListEmptyComponent={
-                                <View flex centerV centerH style={{height:655}} paddingH-40>
-                                    <Text center b1 grey40>No messages.</Text>
+                                <View flex center style={{height:windowHeight-100}}>
+                                    <MessageSVG width={'80%'}/>
                                 </View>
                             }
                             renderItem={this.renderItem}
@@ -94,7 +96,7 @@ class ConversationListScreen extends Component {
                         />
                     </View>
                 }
-                
+
             </>
         );
     }

@@ -26,7 +26,7 @@ export default class ProductItemContainer extends React.Component {
                 await AddWishlistProductByID(this.props.item.ProductID,this.props.Token)
             }
             catch(err) {
-                console.log(err);
+                //console.log(err);
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
             this.setState({addToWishlist: !this.state.addToWishlist});
@@ -37,7 +37,7 @@ export default class ProductItemContainer extends React.Component {
                 await RemoveWishlistProductByID(this.props.item.ProductID,this.props.Token)
             }
             catch(err) {
-                console.log(err);
+                //console.log(err);
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
             this.setState({addToWishlist: !this.state.addToWishlist});

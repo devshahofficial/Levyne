@@ -28,8 +28,7 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
         if(!ProfileImageNotRequired) {
             formData.append('ProfileImage', ProfileImage);
         }
-        //var body = formData;
-        console.log(formData);
+        
 
         try {
             var xhr = new XMLHttpRequest();
