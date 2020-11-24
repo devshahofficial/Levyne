@@ -1,7 +1,11 @@
 import React from 'react';
-import {View,Text} from 'react-native-ui-lib';
+import {View} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
+import MessageSVG from '../../assets/images/AppImages/Notifications.svg';
+import {Dimensions} from "react-native";
+
+const windowHeight = Dimensions.get('window').height;
 
 class Notifications extends React.Component {
 
@@ -9,8 +13,8 @@ class Notifications extends React.Component {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Notifications'}/>
-                <View paddingL-15 paddingR-15 flex centerV centerH>
-                    <Text marginL-50 marginR-50 center b1 grey40>Notification</Text>
+                <View flex center style={{height:windowHeight-50}}>
+                    <MessageSVG width={'80%'}/>
                 </View>
             </>
         );

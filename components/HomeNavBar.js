@@ -45,7 +45,7 @@ export default class HomeNavBar extends React.PureComponent {
                     <TouchableOpacity
                         marginR-12 br100
                         onPress={() => {
-                            this.props.navigateBookMark();
+                            this.props.navigateNotifications();
                         }}
                     >
                         <BellIcon size={22} Fill={false} Color={Colors.black}/>
