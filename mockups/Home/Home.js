@@ -59,7 +59,7 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
-            console.log(StoryData);
+            console.log('Stoies', StoryData);
             this.setState({StoryData})
         }).catch(err => {
             console.log(err);
