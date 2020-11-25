@@ -14,7 +14,8 @@ class BookmarkProducts extends React.Component {
         super(props);
         this.state = {
             Products : [],
-            Loading: true
+            Loading: true,
+            Refreshing: false
         }
         this.TotalProducts = 0;
         this.Page = 0;
@@ -67,14 +68,27 @@ class BookmarkProducts extends React.Component {
             this.loadNewPage = false;
             ListBookmarkProducts(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this.loadNewPage = true;
-                if(this._isMounted) {
-                    this.setState({
-                        Products : [...this.state.Products, ...resp.Products]
-                    })
-                }
+                this.setState({
+                    Products : [...this.state.Products, ...resp.Products]
+                })
             }).catch(err => {
             });
         }
+    }
+
+    onRefresh = () => {
+        this.Page = 0;
+        this.loadNewPage = false;
+        this.setState({Refreshing: true})
+        ListBookmarkProducts(++this.Page, this.props.AccessToken, this.abortController.signal, true).then(resp => {
+            this.loadNewPage = true;
+            this.setState({
+                Products : resp.Products,
+                Refreshing: false
+            })
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     render() {
@@ -91,12 +105,6 @@ class BookmarkProducts extends React.Component {
                             data={this.state.Products}
                             numColumns={2}
                             renderItem={this.FlatListRenderItem}
-                            refreshControl={
-                                <RefreshControl
-                                    colors={[Colors.primary]}
-                                    progressBackgroundColor={Colors.white}
-                                />
-                            }
                             keyExtractor={(item) => item.ProductID || '0' + item.FabricID || '0'}
                             showsVerticalScrollIndicator={false}
                             ListEmptyComponent={
@@ -104,8 +112,10 @@ class BookmarkProducts extends React.Component {
                                     <LikedSVG width={'90%'}/>
                                 </View>
                             }
+                            refreshing={this.state.Refreshing}
                             onEndReached={this.FlatListOnEndReached}
                             onEndReachedThreshold={0.75}
+                            onRefresh={this.onRefresh}
                         />
                     }
                 </View>
