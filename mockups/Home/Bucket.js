@@ -12,6 +12,7 @@ import RemoveFabricFromCart from '../../API/RemoveFabricFromCart';
 import RemoveProductFromCart from '../../API/RemoveProductFromCart';
 import {CheckoutIcon} from "../../Icons/CheckoutIcon";
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
+import ImageView from "react-native-image-viewing";
 
 /**
  *
@@ -31,7 +32,9 @@ class Bucket extends React.Component {
         super(props);
         this.state= {
             Buckets: [],
-            Loading: true
+            Loading: true,
+            ImageViewVisible: false,
+            ImageViewImage: {}
         }
         this.TotalActualPrice = 0;
         this.TotalDiscountPrice = 0;
@@ -70,6 +73,7 @@ class Bucket extends React.Component {
     FatListRenderItem = ({item}) => (
         <BucketProduct
             item={item}
+            DisplayImageView={this.DisplayImageView}
             navigateProduct={this.navigateProduct}
             navigateFabric={this.navigateFabric}
             RemoveProductFromCart={this.RemoveProductFromCart}
@@ -95,6 +99,17 @@ class Bucket extends React.Component {
                 BrandID: this.props.route.params.BrandID
             });
         }
+    }
+
+    DisplayImageView = (ImageURL) => {
+        this.setState({
+            ImageViewVisible: true,
+            ImageViewImage: {uri: ImageURL}
+        })
+    }
+
+    CloseImageView = () => {
+        this.setState({ImageViewVisible: false})
     }
 
     RemoveProductFromCart = (CartID, ProductType) => {
@@ -142,6 +157,12 @@ class Bucket extends React.Component {
                         />
                     </View>
                 }
+                <ImageView
+                    images={[this.state.ImageViewImage]}
+                    visible={this.state.ImageViewVisible}
+                    onRequestClose={this.CloseImageView}
+                    imageIndex={0}
+                />
                 <TouchableOpacity
                     center row style={styles.Button} activeOpacity={0.8}
                     onPress={this.navigateCheckout}
