@@ -25,33 +25,6 @@ export default class BlogPost extends React.Component {
         })
     }
 
-    RenderBlogBody = (props) => {
-        console.log(props.Root);
-        switch(props.Root.type) {
-            case 0 :
-
-                console.log(`return (<Text>${props.Root.textContent}</Text>);`);
-                return <Text></Text>
-
-            case 1 :
-                console.log(`(<Text h1>
-                    ${props.Root.children.map(item => <this.RenderBlogBody Root={item} />)}
-                </Text>);`)
-                
-                return <Text></Text>
-            case 2 :
-                console.log(`(<Text marginB-10></Text>);`)
-                    return <Text></Text>
-            case 3 :
-                console.log(`return (<Text>${props.Root.children.map((item) => {
-                    return <this.RenderBlogBody Root={item} />
-                })}</Text>);`);
-            
-            default :
-                return (<Text marginB-10></Text>);
-        }
-    }
-
     render() {
         return (
             <>
