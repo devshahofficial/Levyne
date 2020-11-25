@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Avatar, Colors, TouchableOpacity} from 'react-native-ui-lib';
 import {StyleSheet, Modal, SafeAreaView, ImageBackground, ActivityIndicator} from 'react-native';
 import Stars from '../components/StarIconsComponent';
+import {CancelIcon} from "../Icons/Cancel";
 
 
 export default class StoryModal extends React.PureComponent {
@@ -26,7 +27,6 @@ export default class StoryModal extends React.PureComponent {
                                 <TouchableOpacity
                                     marginL-20 marginB-10 row
                                     style={{backgroundColor: 'rgba(255, 255, 255, 0)'}}
-                                    onPress={this.props.setModalVisible}
                                 >
                                     <View
                                         style={{
@@ -39,21 +39,24 @@ export default class StoryModal extends React.PureComponent {
                                         />
                                     </View>
                                     <View
-                                        marginL-25 centerV
+                                        style={{
+                                            padding:10,
+                                            backgroundColor: 'rgba(255, 255, 255, 0)'
+                                        }} centerV
+                                    >
+                                        <Text hb1 white>
+                                            {this.props.StoryItem.BrandName}
+                                        </Text>
+                                    </View>
+                                    <TouchableOpacity
                                         style={{
                                             padding:10,
                                             backgroundColor: 'rgba(255, 255, 255, 0)'
                                         }}
+                                        center onPress={this.props.setModalVisible}
                                     >
-                                        <Text hb1>
-                                            {this.props.StoryItem.BrandName}
-                                        </Text>
-                                        <View
-                                            row style={{ backgroundColor: 'rgba(255, 255, 255, 0)'}}
-                                        >
-                                            <Stars BrandRating="4"/>
-                                        </View>
-                                    </View>
+                                        <CancelIcon size={26} Color={Colors.white}/>
+                                    </TouchableOpacity>
                                 </TouchableOpacity>
                             </ImageBackground>
                         </View>
