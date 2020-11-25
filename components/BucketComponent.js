@@ -46,12 +46,12 @@ export default class BucketComponent extends React.Component {
                                 <Text secondary hb2>Expected</Text>
                                 <Text secondary hb2>Final</Text>
                             </View>
-                            <View marginL-10>
+                            <View marginH-10>
                                 <Text hb1>₹{this.props.item.AveragePrice}</Text>
                                 <Text h3 primary>{this.props.item.DecidedPrice ? '₹' + this.props.item.DecidedPrice : 'Chat to finalize!'}</Text>
                             </View>
                         </View>
-                        <View flex center>
+                        <View flex center marginL-30>
                             <ImageBackground
                                 source={{uri: this.props.item.PrimaryImage}}
                                 style={styles.imageBackground}
