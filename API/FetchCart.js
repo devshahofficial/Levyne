@@ -2,7 +2,7 @@ import {GET} from './CustomFetch';
 
 const FetchCart = async (Token, abortControllerSignal) => {
 
-    return await GET('Products/FetchCart', {
+    return await GET('Cart/FetchCart', {
         ReturnResponse: true,
         Token
     }, abortControllerSignal)
