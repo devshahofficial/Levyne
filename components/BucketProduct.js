@@ -11,12 +11,16 @@ export default class BucketProduct extends React.PureComponent {
             <View padding-15>
                 <ShadowView style={styles.View}>
                     <View flex row centerH style={{ height: 150 }}>
-                        <View flex paddingH-10>
+                        <TouchableOpacity
+                            flex
+                            paddingH-10
+                            onPress={() => this.props.DisplayImageView(this.props.item.ProductImage)}
+                        >
                             <Image
                                 style={{ flex: 1 }}
                                 source={{ uri: this.props.item.ProductImage }}
                             />
-                        </View>
+                        </TouchableOpacity>
                         <View flex paddingH-10>
                             <View>
                                 <Text hb1 secondary>Expected Cost</Text>
@@ -43,12 +47,18 @@ export default class BucketProduct extends React.PureComponent {
                         </View>
                     </View>
 
-                    <View flex marginT-20 padding-20 center>
+                    <TouchableOpacity
+                        flex
+                        marginT-20
+                        padding-20
+                        center
+                        onPress={() => this.props.DisplayImageView(this.props.item.FabricImage)}
+                    >
                         <Image
                             style={{ height: 50, width: Dimensions.get('window').width - 40, borderRadius: 5 }}
                             source={{ uri: this.props.item.FabricImage }}
                         />
-                    </View>
+                    </TouchableOpacity>
 
                     <View flex marginV-20>
                         <View row>
@@ -79,13 +89,17 @@ export default class BucketProduct extends React.PureComponent {
         return (
             <View padding-15>
                 <ShadowView style={styles.View}>
-                <View flex row centerH style={{ height: 150 }}>
-                        <View flex paddingH-10>
+                    <View flex row centerH style={{ height: 150 }}>
+                        <TouchableOpacity
+                            flex
+                            paddingH-10
+                            onPress={() => this.props.DisplayImageView(this.props.item.ProductImage)}
+                        >
                             <Image
                                 style={{ flex: 1 }}
                                 source={{ uri: this.props.item.ProductImage }}
                             />
-                        </View>
+                        </TouchableOpacity>
                         <View flex paddingH-10>
                             <View>
                                 <Text hb1 secondary>Expected Cost</Text>
