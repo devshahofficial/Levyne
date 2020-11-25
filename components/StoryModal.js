@@ -13,6 +13,7 @@ export default class StoryModal extends React.PureComponent {
                 animationType="slide"
                 visible={this.props.modalVisible}
                 presentationStyle={'overFullScreen'}
+                useNativeDriver
             >
                 <SafeAreaView style={{flex: 1}}>
                     <TouchableOpacity activeOpacity={1} flex center onPress={this.props.ChangeStoryIndex}>

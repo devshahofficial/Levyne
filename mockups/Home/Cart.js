@@ -33,7 +33,7 @@ class Cart extends React.Component {
         this.willFocusSubscription = this.props.navigation.addListener(
             'focus', () => {
                 this.setState({Loading: true});
-                FetchCart(this.props.AccessToken).then(Cart => {
+                FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
                     Cart = Cart.map(item => {
                         item.BucketID = item.BucketID.toString();
                         return item;
@@ -47,10 +47,10 @@ class Cart extends React.Component {
     }
 
     componentWillUnmount() {
+        this.abortController.abort();
         if(this.willFocusSubscription) {
             this.willFocusSubscription();
         }
-        this.abortController.abort();
     }
 
     onBucketPress = (BucketID, BrandID, BrandName, TotalProducts) => {
