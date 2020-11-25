@@ -95,10 +95,9 @@ class HomeScreen extends React.Component {
     componentDidMount() {
         BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
-            console.log('Stoies', StoryData);
             this.setState({StoryData})
         }).catch(err => {
-            console.log(err);
+            console.log('Story',err);
         });
 
         FetchBlogPosts(this.abortController.signal).then(BlogPosts => {
@@ -223,12 +222,6 @@ class HomeScreen extends React.Component {
                         <FlatList
                             data={this.state.StoryData}
                             horizontal={true}
-                            ListHeaderComponent={
-                                this.state.StoryAddAllowed && <Stories
-                                    ProfileImage={require('../../assets/images/Plus.webp')}
-                                    ReadStory={this.navigateAddStory}
-                                />
-                            }
                             renderItem={({item, index}) => {
                                 return <Stories
                                     ProfileImage={{uri: item.BrandProfileImage}}
