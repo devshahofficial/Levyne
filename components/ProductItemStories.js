@@ -8,7 +8,6 @@ import CstmShadowView from "./CstmShadowView";
 export default class ProductItemStories extends React.PureComponent {
 
     render() {
-        console.log(this.props);
         return (
             <CstmShadowView style={styles.shadow}>
                 <TouchableOpacity
