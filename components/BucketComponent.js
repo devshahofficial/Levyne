@@ -53,11 +53,11 @@ export default class BucketComponent extends React.Component {
                         </View>
                         <View flex center>
                             <ImageBackground
-                                source={{uri: this.props.item.PrimaryImages[0]}}
+                                source={{uri: this.props.item.PrimaryImage}}
                                 style={styles.imageBackground}
                                 blurRadius={5}
                             >
-                                <Text center b1 white style={styles.text}>{"+"}{this.props.item.PrimaryImages.length}</Text>
+                                <Text center b1 white style={styles.text}>{"+"}{this.props.item.ProductsCount}</Text>
                             </ImageBackground>
                         </View>
                     </View>
