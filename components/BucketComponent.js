@@ -15,7 +15,7 @@ export default class BucketComponent extends React.Component {
     render() {
         return (
             <TouchableOpacity
-                onPress={() => this.props.Navigation(
+                onPress={() => this.props.NavigateBucket(
                     this.props.item.BucketID,
                     this.props.item.BrandID,
                     this.props.item.Name,
@@ -69,10 +69,12 @@ export default class BucketComponent extends React.Component {
                         <Button
                             hb2 flex style={styles.ButtonLeft}
                             label={'Chat'}
+                            onPress={() => this.props.navigateChat(this.props.item.BucketID, this.props.item.Name, this.props.item.BrandID, {uri : this.props.item.ProfileImage})}
                         />
                         <Button
                             hb2 flex style={styles.ButtonRight}
                             label={'Checkout'} color={Colors.white}
+                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Status)}
                         />
                     </View>
                 </CstmShadowView>

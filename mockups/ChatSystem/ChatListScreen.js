@@ -17,7 +17,9 @@ class ConversationListScreen extends Component {
             this.props.ChatList = [];
         };
         this.Page = 1;
+    }
 
+    componentDidMount = () => {
         this.props.Socket.on('ChatMessage', this.SocketListener);
     }
 
@@ -40,11 +42,11 @@ class ConversationListScreen extends Component {
         }
     }
 
-    renderItem = ({item, index}) => {
+    renderItem = ({item}) => {
         return <ContactItem item={item}/>
     }
 
-    keyExtractor = (item, index) => item.BucketID.toString() + '-' + item.unread.toString();
+    keyExtractor = (item) => item.BucketID.toString() + '-' + item.unread.toString();
 
     render() {
         return (
