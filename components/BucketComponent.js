@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.shadow,
     },
     ShadowContainer: {
-        height: screenWidth*0.76,
+        height: "auto",
         width: screenWidth*0.9,
         borderRadius: 10,
         paddingTop:15,
