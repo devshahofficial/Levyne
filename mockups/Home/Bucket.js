@@ -41,9 +41,6 @@ class Bucket extends React.Component {
 
     componentDidMount() {
         FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
-
-            console.log(Buckets);
-
             this.setState({
                 Buckets,
                 Loading: false
