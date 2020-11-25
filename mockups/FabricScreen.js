@@ -7,7 +7,8 @@ import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
 import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, View, AnimatedImage } from "react-native-ui-lib";
+import { Colors, View, AnimatedImage, TouchableOpacity } from "react-native-ui-lib";
+import ImageView from "react-native-image-viewing";
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -19,7 +20,8 @@ class FabricScreen extends React.Component {
         this.state = {
             loading : true,
             FabricObject : {},
-            success : true
+            success : true,
+            ImageViewVisible: false,
         }
         this.abortController = new AbortController();
     }
@@ -52,9 +54,14 @@ class FabricScreen extends React.Component {
         });
     }
 
+    ToggleImageView = () => {
+        this.setState({ImageViewVisible: !this.state.ImageViewVisible})
+    }
+
     AddToWishlistFn(FabricID, Token) {
         AddWishlistFabricByID(FabricID, Token).catch(err => {console.log(err)});
     }
+
     RemoveFromWishlistFn(FabricID, Token) {
         RemoveWishlistFabricByID(FabricID, Token).catch(err => {console.log(err)});
     }
@@ -65,13 +72,21 @@ class FabricScreen extends React.Component {
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Fabric' : this.state.FabricObject.Name}/>
                 {!this.state.loading && this.state.success ?
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <AnimatedImage
-                            containerStyle={{backgroundColor: Colors.blue60, marginBottom: 20}}
-                            source={{uri: this.state.FabricObject.FabricImage}}
-                            loader={<ActivityIndicator />}
-                            style={{width:screenWidth,height:screenWidth}}
-                            animationDuration={300}
+                        <ImageView
+                            images={[{uri: this.state.FabricObject.FabricImage}]}
+                            visible={this.state.ImageViewVisible}
+                            onRequestClose={this.ToggleImageView}
+                            imageIndex={0}
                         />
+                        <TouchableOpacity onPress={this.ToggleImageView}>
+                            <AnimatedImage
+                                containerStyle={{backgroundColor: Colors.blue60, marginBottom: 20}}
+                                source={{uri: this.state.FabricObject.FabricImage}}
+                                loader={<ActivityIndicator />}
+                                style={{width:screenWidth,height:screenWidth}}
+                                animationDuration={300}
+                            />
+                        </TouchableOpacity>
                         <FabricScreenPartOne
                             Title={this.state.FabricObject.Name}
                             FabricPrice={this.state.FabricObject.FabricPrice}
