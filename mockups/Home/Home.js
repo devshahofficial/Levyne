@@ -60,9 +60,11 @@ class HomeScreen extends React.Component {
             StoryData: [],
             BlogPosts: [],
             modalVisible: false,
+            CurrentStory: null,
         }
         this.backPressed = 0;
         this.abortController = new AbortController();
+        this.timeout = null;
     };
 
     renderCustomContent = () => {
@@ -97,7 +99,6 @@ class HomeScreen extends React.Component {
         BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
             this.setState({StoryData})
-            console.log(StoryData);
         }).catch(err => {
             console.log('Story',err);
         });
@@ -115,30 +116,47 @@ class HomeScreen extends React.Component {
 
 	componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.backButtonHandler);
-        clearTimeout(this.BackHandlerTimeOut)
+        clearTimeout(this.BackHandlerTimeOut);
+        clearTimeout(this.timeout);
     }
 
-    navigateProduct = (ProductID) => {
-        this.setState({
-            modalVisible: false
-        });
-        this.props.navigation.navigate('Product', { ProductID });
+    navigateProduct = () => {
+        this.setModalVisible();
+        this.props.navigation.navigate('Product', { ProductID : this.state.StoryData[this.state.CurrentStory].ProductID });
     }
 
     navigateSearch = () => {
         this.props.navigation.navigate('SearchText');
     }
+
     navigateBookMark = () => {
         this.props.navigation.navigate('BookMark');
     }
+
     navigateCart = () => {
         this.props.navigation.navigate('Cart');
     }
+
     navigateNotifications = () => {
         this.props.navigation.navigate('Notifications');
     }
+
     navigateMenu = () => {
         this.props.navigation.navigate('ProductDetailsPage');
+    }
+
+    ChangeStoryIndex = () => {
+        this.setModalVisible();
+        this.timeout = setTimeout(() => {
+            if(this.state.CurrentStory < (this.state.StoryData.length - 1)) {
+                this.ReadStory(this.state.CurrentStory + 1)
+            }
+        }, 100)
+    }
+
+    navigateBrand = () => {
+        this.setModalVisible();
+        this.props.navigation.push('BrandProfile', {BrandID : this.state.StoryData[this.state.CurrentStory].BrandID})
     }
 
     scrollY = new Animated.Value(0);
@@ -166,10 +184,10 @@ class HomeScreen extends React.Component {
         this.state.StoryData[index].UnRead = 0;
         this.setState({
             modalVisible: true,
-            selectedStoryIndex: index,
-            StoryData: this.state.StoryData
+            StoryData: this.state.StoryData,
+            CurrentStory: index
         });
-        PutStoryAsRead(this.state.StoryData[index].ProductID, this.props.AccessToken).catch(console.log)
+        PutStoryAsRead(this.state.StoryData[index].ProductID, this.props.AccessToken).catch(() => {})
     }
 
     render() {
@@ -212,14 +230,16 @@ class HomeScreen extends React.Component {
                     bounces={false}
                     onScroll={Animated.event([{nativeEvent:{contentOffset:{y:this.scrollY}}}], {useNativeDriver: true})}
                 >
-                    {isFinite(this.state.selectedStoryIndex) &&
-                    <StoryModal
-                        modalVisible={this.state.modalVisible}
-                        setModalVisible={this.setModalVisible}
-                        navigateProduct={this.navigateProduct}
-                        StoryItem={this.state.StoryData[this.state.selectedStoryIndex]}
-                        setDeleteModalVisible={this.setDeleteModalVisible}
-                    />
+                    {Number.isFinite(this.state.CurrentStory) &&
+                        <StoryModal
+                            modalVisible={this.state.modalVisible}
+                            setModalVisible={this.setModalVisible}
+                            navigateProduct={this.navigateProduct}
+                            StoryItem={this.state.StoryData[this.state.CurrentStory]}
+                            setDeleteModalVisible={this.setDeleteModalVisible}
+                            NavigateBrand={this.navigateBrand}
+                            ChangeStoryIndex={this.ChangeStoryIndex}
+                        />
                     }
 
                     <View marginT-100>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Colors, TouchableOpacity, View, Text, Avatar} from 'react-native-ui-lib';
-import {StyleSheet, Modal} from 'react-native';
-import Stars from '../components/StarIconsComponent';
+import {Modal, SafeAreaView} from 'react-native';
 import {CancelIcon} from "../Icons/Cancel";
 import ProductItemStories from "./ProductItemStories";
 
@@ -10,14 +9,13 @@ export default class StoryModal extends React.PureComponent {
 
     render() {
         return (
-            <>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={this.props.modalVisible}
-                    presentationStyle={'overFullScreen'}
-                >
-                    <View flex center>
+            <Modal
+                animationType="slide"
+                visible={this.props.modalVisible}
+                presentationStyle={'overFullScreen'}
+            >
+                <SafeAreaView style={{flex: 1}}>
+                    <TouchableOpacity activeOpacity={1} flex center onPress={this.props.ChangeStoryIndex}>
                         <TouchableOpacity center
                             style={{
                                 borderRadius: 50,
@@ -31,12 +29,11 @@ export default class StoryModal extends React.PureComponent {
                         >
                             <CancelIcon size={26} Color={Colors.black}/>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            flex center
-                        >
+                        <View flex center>
                             <TouchableOpacity
                                 marginB-10 row
                                 style={{backgroundColor: 'rgba(255, 255, 255, 0)'}}
+                                onPress={this.props.NavigateBrand}
                             >
                                 <View
                                     style={{
@@ -61,51 +58,14 @@ export default class StoryModal extends React.PureComponent {
                             </TouchableOpacity>
                             <ProductItemStories
                                 {...this.props.StoryItem}
-                                navigateProduct={() => this.props.navigateProduct(this.props.StoryItem.ProductID)}
+                                navigateProduct={this.props.navigateProduct}
                             />
-                        </TouchableOpacity>
-                    </View>
-                </Modal>
-            </>
+                        </View>
+                    </TouchableOpacity>
+                </SafeAreaView>
+            </Modal>
         )
     }
 }
 
-const styles = StyleSheet.create({
-    Modal:{
-        flex:1,
-        justifyContent: 'space-between',
-        paddingTop: 0,
-        backgroundColor: Colors.white
-    },
-    avatarView:{
-        flex: 0.5,
-        justifyContent:'center',
-    },
-    boxes: {
-        borderWidth:1,
-        height:50,
-        borderRadius:10,
-        borderColor:Colors.primary,
-    },
-    Property: {
-        borderWidth:1,
-        height:50,
-        borderRadius:10,
-        borderColor:Colors.shadow,
-        width:300,
-        marginVertical:5
-    },
-    headerImage: {
-        flex:1,
-        width: '100%'
-    },
-    Container: {
-        borderWidth: 1,
-        borderColor: Colors.shadow,
-        borderRadius: 10,
-        padding: 10,
-        margin: 15,
-        flexDirection: "row",
-    }
-})
+
