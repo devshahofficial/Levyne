@@ -147,11 +147,11 @@ class HomeScreen extends React.Component {
 
     ChangeStoryIndex = () => {
         this.setModalVisible();
-        this.timeout = setTimeout(() => {
+        setImmediate(() => {
             if(this.state.CurrentStory < (this.state.StoryData.length - 1)) {
                 this.ReadStory(this.state.CurrentStory + 1)
             }
-        }, 100)
+        })
     }
 
     navigateBrand = () => {

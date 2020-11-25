@@ -1,11 +1,11 @@
 
 import React from 'react';
-import {View, Text} from 'react-native-ui-lib';
+import {View, Text, AvatarHelper} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import BucketComponent from "../../components/BucketComponent";
 import FetchCart from '../../API/FetchCart';
-import {ActivityIndicator, FlatList} from 'react-native';
+import {ActivityIndicator, FlatList, Alert} from 'react-native';
 
 class Cart extends React.Component {
 
@@ -57,20 +57,36 @@ class Cart extends React.Component {
         this.props.navigation.navigate("Bucket", {BucketID, BrandID, BrandName, TotalProducts});
     }
 
-    navigateCheckout = (BucketID, BrandID, BrandName, TotalProducts) => {
-        this.props.navigation.navigate("CheckOut", {BucketID, BrandID, BrandName, TotalProducts});
+    navigateCheckout = (BucketID, Status) => {
+        if(Status === 0) {
+            Alert.alert('Warning', 'Checkout is disabled')
+        } else {
+            this.props.navigation.navigate("CheckOut", {BucketID});
+        }
     }
 
     navigateBrand = (BrandID) => {
         this.props.navigation.navigate("BrandProfile", {BrandID});
     }
 
+    navigateChat = (BucketID, Name, BrandID, imageSource) => {
+        this.props.navigation.navigate('Chat', {
+            BucketID, Name,
+            Status: 0,
+            BrandID,
+            OrderID: 0,
+            imageSource,
+            initials: AvatarHelper.getInitials(Name)
+        })
+    }
+
     FlatListRenderItem = ({item}) => (
         <BucketComponent
             item={item}
-            Navigation={this.onBucketPress}
+            NavigateBucket={this.onBucketPress}
             navigateCheckout={this.navigateCheckout}
             navigateBrand={this.navigateBrand}
+            navigateChat={this.navigateChat}
         />
     )
 
