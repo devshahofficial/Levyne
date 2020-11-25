@@ -28,7 +28,7 @@ export default class BlogPost extends React.Component {
     render() {
         return (
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={"The trendiest topics"}/>
+                <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.Title}/>
                 <ScrollView style={{flex: 1, backgroundColor: 'white'}}>
                     <AnimatedImage
                         style={styles.pic}
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     heading: {
         paddingTop:15,
-        fontSize: 27,
+        fontSize: 22,
         textAlign: 'left',
         lineHeight: 37,
     },
