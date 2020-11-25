@@ -21,9 +21,6 @@ class Cart extends React.Component {
 
     componentDidMount() {
         FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
-
-            console.log(Cart);
-
             Cart = Cart.map(item => {
                 item.BucketID = item.BucketID.toString();
                 return item;
