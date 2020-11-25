@@ -52,7 +52,7 @@ export default class ProductItemContainer extends React.Component {
                     onPress={() => {this.props.navigateProduct(this.props.item.ProductID)}}
                 >
                     <AnimatedImage
-                        source={{uri:this.props.item.ProductImages[0]}}
+                        source={{uri:this.props.item.ProductImage}}
                         style={styles.drawerCover}
                         loader={<ActivityIndicator />}
                         containerStyle={{backgroundColor: Colors.shadow, borderRadius: 10}}
