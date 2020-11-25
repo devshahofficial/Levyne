@@ -33,8 +33,21 @@ const FetchFollowedBrands = async (Page, Token, abortControllerSignal) => {
     }, abortControllerSignal);
 }
 
+const FetchBrandFollowings = async (Page, BrandID, Token, abortControllerSignal) => {
+
+    return await GET('Brand/FetchBrandFollowings', {
+        ReturnResponse: true,
+        Token,
+        QueryData: {
+            Page,
+            BrandID
+        }
+    }, abortControllerSignal);
+}
+
 export default {
     FollowTheBrand,
     UnFollowTheBrand,
-    FetchFollowedBrands
+    FetchFollowedBrands,
+    FetchBrandFollowings
 };

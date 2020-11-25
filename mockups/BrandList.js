@@ -7,7 +7,8 @@ import {connect} from 'react-redux';
 import BrandFollowings from '../API/BrandFollowing';
 import Stars from '../components/StarIconsComponent';
 
-const FetchFollowedBrands = BrandFollowings.FetchFollowedBrands;
+const FetchBrandFollowings = BrandFollowings.FetchBrandFollowings;
+
 class BrandList extends React.PureComponent {
 
 	constructor(props){
@@ -19,10 +20,12 @@ class BrandList extends React.PureComponent {
 			Loading : true
 		},
         this.Page = 0;
+
+        this.abortController = new AbortController();
 	}
 	componentDidMount() {
         this._isMounted = true;
-		FetchFollowedBrands(++this.Page, this.props.route.params.BrandID, this.props.AccessToken).then(rows => {
+		FetchBrandFollowings(++this.Page, this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then(rows => {
 			if(this._isMounted) {
 				this.setState({
 					BrandList : rows.Brands,
@@ -32,15 +35,6 @@ class BrandList extends React.PureComponent {
 			}
 		}).catch((err) => {
             console.log(err);
-			this.setState({
-				showCustomToast : true,
-				Loading : false
-			});
-			setTimeout(() => {
-				if(this._isMounted) {
-					this.setState({showCustomToast : false})
-				}
-			}, 3000);
 		});
 	}
 
@@ -53,7 +47,47 @@ class BrandList extends React.PureComponent {
                 <Text white h1>Oops! Something went wrong </Text>
             </View>
 		);
-	};
+    };
+    
+    onEndReached = () => {
+        if(this.state.BrandList.length < this.state.Total) {
+            FetchBrandFollowings(++this.Page, this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then(resp => {
+                if(this._isMounted) {
+                    this.setState({
+                        BrandList : [...this.state.BrandList, ...resp.Brands],
+                    });
+                }
+            }).catch(() => {
+                
+            })
+        }
+    }
+
+    renderItem = ({ item }) => (
+        <TouchableOpacity
+            onPress={() => this.props.navigation.push("BrandProfile", {BrandID : item.BrandID})}
+            activeOpacity={0.6}
+            style={styles.Container}
+            row paddingL-10 marginB-20 flex
+        >
+            <View>
+                <Image
+                    style={styles.headerImage}
+                    source={{ uri: item.ProfileImage }}
+                />
+            </View>
+            <View marginL-10 marginT-5>
+                <Text hb1 style={styles.headerText}>
+                    {item.Name}
+                </Text>
+                <Text numberOfLines={4} h2 grey40 marginR-160 left>{item.About} </Text>
+                <View row flex marginT-10>
+                    <Stars BrandRating={Math.round(5)} />
+                </View>
+            </View>
+        </TouchableOpacity>
+    )
+
 
 	render() {
 		return (
@@ -81,47 +115,8 @@ class BrandList extends React.PureComponent {
                                     <Text center b1 grey40>No brands followed.</Text>
                                 </View>
                             }
-                            renderItem={({ item }) =>
-                                <TouchableOpacity onPress={
-                                    () => this.props.navigation.push("BrandProfile", {BrandID : item.BrandID})
-                                } activeOpacity={0.6} style={styles.Container} row paddingL-10 marginB-20 flex>
-                                    <View>
-                                        <Image
-                                                style={styles.headerImage}
-                                                source={{ uri: item.ProfileImage }}
-                                        />
-                                    </View>
-                                    <View marginL-10 marginT-5>
-                                        <Text hb1 style={styles.headerText}>
-                                            {item.Name}
-                                        </Text>
-                                        <Text numberOfLines={4} h2 grey40 marginR-160 left>{item.About} </Text>
-                                        <View row flex marginT-10>
-                                            <Stars BrandRating={Math.round(5)} />
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>
-                            }
-                            onEndReached = {() => {
-                                if(this.state.BrandList.length < this.state.Total) {
-                                    FetchFollowedBrands(++this.Page, this.props.route.params.BrandID, this.props.AccessToken).then(resp => {
-                                        if(this._isMounted) {
-                                            this.setState({
-                                                BrandList : [...this.state.BrandList, ...resp.Brands],
-                                            });
-                                        }
-                                    }).catch(() => {
-                                        this.setState({
-                                            showCustomToast : true
-                                        });
-                                        setTimeout(() => {
-                                            if(this._isMounted) {
-                                                this.setState({showCustomToast : false})
-                                            }
-                                        }, 3000);
-                                    })
-                                }
-                            }}
+                            renderItem={this.renderItem}
+                            onEndReached = {this.onEndReached}
                             onEndReachedThreshold={0.75}
                             keyExtractor={(item) => item.BrandID.toString()}
                         />
