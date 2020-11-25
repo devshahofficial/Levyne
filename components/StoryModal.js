@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, Text, Avatar, Colors, TouchableOpacity} from 'react-native-ui-lib';
-import {StyleSheet, Modal, SafeAreaView, ImageBackground, ActivityIndicator} from 'react-native';
+import { Colors, TouchableOpacity, View, Text, Avatar} from 'react-native-ui-lib';
+import {StyleSheet, Modal} from 'react-native';
 import Stars from '../components/StarIconsComponent';
 import {CancelIcon} from "../Icons/Cancel";
+import ProductItemStories from "./ProductItemStories";
 
 
 export default class StoryModal extends React.PureComponent {
@@ -16,51 +17,54 @@ export default class StoryModal extends React.PureComponent {
                     visible={this.props.modalVisible}
                     presentationStyle={'overFullScreen'}
                 >
-                    <SafeAreaView style={styles.Modal}>
-                        <View flex right>
-                            <ImageBackground
-                                style={styles.headerImage}
-                                source={{ uri: this.props.StoryItem.ProductImage }}
-                                loader={<ActivityIndicator />}
-                                containerStyle={styles.AnimatedImageContainerStyle}
+                    <View flex center>
+                        <TouchableOpacity center
+                            style={{
+                                borderRadius: 50,
+                                height: 60,
+                                width: 60,
+                                borderWidth:1,
+                                borderColor: Colors.shadow
+                            }}
+                            center marginT-20
+                            onPress={this.props.setModalVisible}
+                        >
+                            <CancelIcon size={26} Color={Colors.black}/>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            flex center
+                        >
+                            <TouchableOpacity
+                                marginB-10 row
+                                style={{backgroundColor: 'rgba(255, 255, 255, 0)'}}
                             >
-                                <TouchableOpacity
-                                    marginL-20 marginB-10 row
-                                    style={{backgroundColor: 'rgba(255, 255, 255, 0)'}}
+                                <View
+                                    style={{
+                                        padding:10,
+                                        backgroundColor: 'rgba(255, 255, 255, 0)'
+                                    }}>
+                                    <Avatar
+                                        size={50}
+                                        source={{uri : this.props.StoryItem.BrandProfileImage}}
+                                    />
+                                </View>
+                                <View
+                                    style={{
+                                        padding:10,
+                                        backgroundColor: 'rgba(255, 255, 255, 0)'
+                                    }} centerV
                                 >
-                                    <View
-                                        style={{
-                                            padding:10,
-                                            backgroundColor: 'rgba(255, 255, 255, 0)'
-                                        }}>
-                                        <Avatar
-                                            size={50}
-                                            source={{uri : this.props.StoryItem.BrandProfileImage}}
-                                        />
-                                    </View>
-                                    <View
-                                        style={{
-                                            padding:10,
-                                            backgroundColor: 'rgba(255, 255, 255, 0)'
-                                        }} centerV
-                                    >
-                                        <Text hb1 white>
-                                            {this.props.StoryItem.BrandName}
-                                        </Text>
-                                    </View>
-                                    <TouchableOpacity
-                                        style={{
-                                            padding:10,
-                                            backgroundColor: 'rgba(255, 255, 255, 0)'
-                                        }}
-                                        center onPress={this.props.setModalVisible}
-                                    >
-                                        <CancelIcon size={26} Color={Colors.white}/>
-                                    </TouchableOpacity>
-                                </TouchableOpacity>
-                            </ImageBackground>
-                        </View>
-                    </SafeAreaView>
+                                    <Text hb1>
+                                        {this.props.StoryItem.BrandName}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
+                            <ProductItemStories
+                                {...this.props.StoryItem}
+                                navigateProduct={() => this.props.navigateProduct(this.props.StoryItem.ProductID)}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </Modal>
             </>
         )
