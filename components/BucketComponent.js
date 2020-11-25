@@ -61,7 +61,7 @@ export default class BucketComponent extends React.Component {
                             </ImageBackground>
                         </View>
                     </View>
-                    <View center marginT-10 row style={styles.View}>
+                    <View center marginT-20 row style={styles.View}>
                         <DeliveryIcon size={30} Color={Colors.black} />
                         <DeliveryChargeComponent TotalPrice={this.props.item.TotalDiscountPrice} />
                     </View>
