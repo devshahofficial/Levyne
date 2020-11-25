@@ -41,12 +41,7 @@ class ProductScreen extends React.Component {
                 })
             }
         }).catch(() => {
-            if(this._isMounted) {
-                this.setState({
-                    loading : false,
-                    success : false
-                })
-            }
+            
         })
     }
 
