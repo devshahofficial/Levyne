@@ -4,93 +4,85 @@ import {View, Text, TouchableOpacity, Button, Avatar,Colors} from 'react-native-
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 import StarIconsComponent from "./StarIconsComponent";
+import CstmShadowView from "./CstmShadowView";
 const screenWidth = Dimensions.get('window').width;
 
 export default class BucketComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+    constructor(props) {
+        super(props);
+    }
 
-  render() {
-    return (
-        <TouchableOpacity
-            onPress={() => this.props.Navigation(
-                this.props.item.BucketID,
-                this.props.item.BrandID,
-                this.props.item.Name,
-                this.props.item.TotalProducts
-            )}
-            style={styles.Container}
-            paddingH-20
-            marginB-20
-            activeOpacity={0.8} marginT-10
-        >
-            <View row>
-                <Avatar
-                    size={50}
-                    source={{uri : this.props.item.ProfileImage}}
-                    onPress={() => this.props.navigateBrand(this.props.item.BrandID)}
-                />
-                <View marginL-25 centerV>
-                    <Text hb2>
-                        {this.props.item.Name}
-                    </Text>
+    render() {
+        return (
+            <TouchableOpacity
+                onPress={() => this.props.Navigation(
+                    this.props.item.BucketID,
+                    this.props.item.BrandID,
+                    this.props.item.Name,
+                    this.props.item.TotalProducts
+                )}
+                marginB-20 paddingH-10
+                activeOpacity={0.8} marginT-10
+            >
+                <CstmShadowView style={styles.ShadowContainer}>
                     <View row>
-                        <StarIconsComponent BrandRating="0" />
-                    </View>
-                </View>
-            </View>
-            <View row marginV-10 centerV>
-                <ImageBackground
-                    blurRadius={2}
-                    imageStyle={{ borderRadius: 10}}
-                    source={{ uri: this.props.item.ProductImage }}
-                    style={styles.image}
-                >
-                    <Text f1 style={{lineHeight:30}} white center>
-                        +{this.props.item.TotalProducts}
-                    </Text>
-                </ImageBackground>
-                <View spread marginL-10>
-                    <View row flex-15>
-                        <View>
-                            <Text secondary h2>Average</Text>
-                            <Text secondary h2>Decided</Text>
-                        </View>
-                        <View marginL-10>
-                            <Text hb1>₹{this.props.item.AveragePrice}</Text>
-                            <Text h1 primary>{this.props.item.DecidedPrice ? '₹' + this.props.item.DecidedPrice : 'Chat to decide'}</Text>
+                        <Avatar
+                            size={50}
+                            source={{uri : this.props.item.ProfileImage}}
+                            onPress={() => this.props.navigateBrand(this.props.item.BrandID)}
+                        />
+                        <View marginL-25 centerV>
+                            <Text hb1 numberOfLines={1} ellipsizeMode='tail'>
+                                {this.props.item.Name}
+                            </Text>
+                            <View row marginT-5>
+                                <StarIconsComponent BrandRating="4" />
+                            </View>
                         </View>
                     </View>
-                    <View flex>
+                    <View centerV row marginT-20>
+                        <View row flex-2>
+                            <View>
+                                <Text secondary hb2>Expected</Text>
+                                <Text secondary hb2>Final</Text>
+                            </View>
+                            <View marginL-10>
+                                <Text hb1>₹{this.props.item.AveragePrice}</Text>
+                                <Text h3 primary>{this.props.item.DecidedPrice ? '₹' + this.props.item.DecidedPrice : 'Chat to finalize!'}</Text>
+                            </View>
+                        </View>
+                        <View flex center>
+                            <ImageBackground
+                                source={{uri: this.props.item.PrimaryImages[0]}}
+                                style={styles.imageBackground}
+                                blurRadius={5}
+                            >
+                                <Text center b1 white style={styles.text}>{"+"}{this.props.item.PrimaryImages.length}</Text>
+                            </ImageBackground>
+                        </View>
+                    </View>
+                    <View center marginT-10 row style={styles.View}>
+                        <DeliveryIcon size={30} Color={Colors.black} />
+                        <DeliveryChargeComponent TotalPrice={this.props.item.TotalDiscountPrice} />
+                    </View>
+                    <View row marginT-20 style={{marginHorizontal:-15,borderBottomLeftRadius: 10,borderBottomRightRadius: 10}}>
                         <Button
-                            onPress={
-                                () => this.props.navigateCheckout(
-                                    this.props.item.BucketID,
-                                    this.props.item.BrandID,
-                                    this.props.item.Name,
-                                    this.props.item.TotalProducts
-                                )
-                            }
-                            size={'small'}
-                            flex style={styles.Checkout}
-                            label="Checkout"
+                            hb2 flex style={styles.ButtonLeft}
+                            label={'Chat'}
+                        />
+                        <Button
+                            hb2 flex style={styles.ButtonRight}
+                            label={'Checkout'} color={Colors.white}
                         />
                     </View>
-                </View>
-            </View>
-            <View center row style={styles.View}>
-                <DeliveryIcon size={30} Color={Colors.black} />
-                <DeliveryChargeComponent TotalPrice={this.props.item.TotalDiscountPrice} />
-            </View>
-        </TouchableOpacity>
-    );
-  }
+                </CstmShadowView>
+            </TouchableOpacity>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
     image: {
-        paddingTop: Platform.OS === 'ios' ? 5 : 0,
         height: 150,
         width: 150,
         justifyContent: 'center',
@@ -98,21 +90,33 @@ const styles = StyleSheet.create({
     },
     View: {
         height: 50,
-        margin: -20,
         marginTop:10,
         backgroundColor: Colors.shadow,
     },
-    Container: {
+    ShadowContainer: {
+        height: 312,
         width: screenWidth*0.9,
-        borderWidth: 1,
-        padding: 10,
-        borderColor: Colors.shadow
-    },
-    Checkout: {
-        width: 150,
-        borderWidth: 1,
-        borderColor: Colors.primary,
         borderRadius: 10,
-        height: 30
+        paddingTop:15,
+        paddingHorizontal:15,
+        marginTop:0,
+    },
+    ButtonRight: {
+        backgroundColor: Colors.primary,
+        borderRadius: 0,
+        borderBottomRightRadius:10
+    },
+    ButtonLeft: {
+        borderRadius: 0,
+        borderBottomLeftRadius:10,
+        borderWidth:0.5,
+        borderColor:Colors.primary
+    },
+    imageBackground: {
+        height:100,
+        width:100,
+        resizeMode: "cover",
+        justifyContent: "center",
+        alignContent: "center"
     }
 });

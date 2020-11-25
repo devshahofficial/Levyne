@@ -85,7 +85,7 @@ class Cart extends React.Component {
                     <View flex center>
                         <ActivityIndicator />
                     </View> :
-                    <View paddingH-15 flex centerH>
+                    <View flex centerH>
                         <FlatList
                             data={this.state.Cart}
                             renderItem={this.FlatListRenderItem}
