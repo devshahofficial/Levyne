@@ -2,21 +2,7 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import { Icon } from '@ui-kitten/components';
 import colors from "../assets/colors";
-
-const Stars = (props) => {
-    var stars = [];
-    for(var i=0;i<props.rating;i++)
-    {
-        stars.push('star');
-    }
-    for(var i = props.rating;i<5;i++)
-    {
-        stars.push('star-outline');
-    }
-    return (
-        stars.map((name, i) => <Icon key={i} name={name} width={14} height={14} fill={colors.trivisionPink}/> )
-    );
-}
+import Stars from '../components/StarIconsComponent';
 
 export default class RatingComponent extends React.PureComponent{
     constructor(props) {

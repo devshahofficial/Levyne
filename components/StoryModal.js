@@ -1,29 +1,8 @@
 import React from 'react';
-import {View, TouchableOpacity, Text, Avatar, Button, Colors} from 'react-native-ui-lib';
-import {StyleSheet, Modal, SafeAreaView } from 'react-native';
-import {StarIcon} from "../Icons/StarIcon";
+import {View, Text, Avatar, Colors, Image} from 'react-native-ui-lib';
+import {StyleSheet, Modal, SafeAreaView, ActivityIndicator } from 'react-native';
+import Stars from '../components/StarIconsComponent';
 
-const Stars = (props) => {
-    let i;
-    const stars = [];
-    for (i = 0; i < props.BrandRating; i++) {
-        stars.push(true);
-    }
-    for (i = props.BrandRating; i < 5; i++) {
-        stars.push(false);
-    }
-    return stars.map((name, i) => {
-        return (
-            <StarIcon
-                key={i.toString()}
-                Fill={name}
-                height={15}
-                width={15}
-                Color={Colors.primary}
-            />
-        );
-    });
-};
 
 export default class StoryModal extends React.PureComponent {
 
@@ -37,15 +16,15 @@ export default class StoryModal extends React.PureComponent {
                     presentationStyle={'overFullScreen'}
                 >
                     <SafeAreaView style={styles.Modal}>
-                        <View flex right marginB-50 marginR-20>
-                            <TouchableOpacity
-                                flex
-                                onPress={this.props.setModalVisible}
-                            >
-                                <Text b2 paddingT-20 primary>x</Text>
-                            </TouchableOpacity>
+                        <View flex right marginB-50>
+                            <Text onPress={this.props.setModalVisible} b2 paddingT-20 marginR-20 primary>x</Text>
+                            <Image
+                                style={styles.headerImage}
+                                source={{ uri: this.props.StoryItem.ProductImage }}
+                                loader={<ActivityIndicator />}
+                                containerStyle={styles.AnimatedImageContainerStyle}
+                            />
                         </View>
-
                         <View marginL-20 row>
                             <View style={{borderColor: Colors.shadow, borderRadius: 50, borderWidth:1, padding:10}}>
                                 <Avatar
@@ -93,5 +72,17 @@ const styles = StyleSheet.create({
         borderColor:Colors.shadow,
         width:300,
         marginVertical:5
+    },
+    headerImage: {
+        flex:1,
+        width: '100%'
+    },
+    Container: {
+        borderWidth: 1,
+        borderColor: Colors.shadow,
+        borderRadius: 10,
+        padding: 10,
+        margin: 15,
+        flexDirection: "row",
     }
 })
