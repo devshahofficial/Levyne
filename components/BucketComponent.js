@@ -6,7 +6,6 @@ import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
 const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
 
 export default class BucketComponent extends React.Component {
     constructor(props) {
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.shadow,
     },
     ShadowContainer: {
-        height: screenHeight*0.385,
+        height: screenWidth*0.76,
         width: screenWidth*0.9,
         borderRadius: 10,
         paddingTop:15,
