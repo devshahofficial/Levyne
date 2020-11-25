@@ -2,7 +2,7 @@ import {GET} from './CustomFetch';
 
 const FetchBucket = async (BucketID, Token, abortControllerSignal) => {
 
-    return await GET('Products/FetchBucket', {
+    return await GET('Cart/FetchBucket', {
         ReturnResponse: true,
         Token,
         QueryData: {BucketID}
