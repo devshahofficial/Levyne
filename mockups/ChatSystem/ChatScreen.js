@@ -318,8 +318,12 @@ class ChatScreen extends Component {
                                         <this.RightImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
                                         :
                                         <this.LeftImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
-                                default:
-                                    return <this.CenterText TextInput={item.Message.Text}/>
+                                case 3 :
+                                    return <this.CenterText TextInput={'Brand has decided the price'}/>
+                                case 4 :
+                                    return <this.CenterText TextInput={'You added the product in the cart'}/>
+                                case 5 :
+                                    return <this.CenterText TextInput={'You removed the product in the cart'}/>
                             }
                         }}
                         keyExtractor = {this.keyExtractor}

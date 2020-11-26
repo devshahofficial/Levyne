@@ -40,6 +40,12 @@ const GetLastMessage = (Message) => {
     switch(Message.Type) {
         case 2 :
             return '📷 Photo';
+        case 3 :
+            return 'Brand has decided the price';
+        case 4 :
+            return 'You added the product in the cart';
+        case 5 :
+            return 'You removed the product in the cart';
         default : 
             return Message.Text;
 
