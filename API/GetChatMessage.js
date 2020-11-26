@@ -35,18 +35,6 @@ function timeAgo(prev, curr = new Date()) {
     }
 }
 
-const GetLastMessage = (Message) => {
-    Message = JSON.parse(Message);
-    switch(Message.Type) {
-        case 1 : 
-            return Message.Text;
-        case 2 :
-            return '📷 Photo';
-
-        //More cases here
-    }
-}
-
 const GetChatMessages = async (BucketID, Page, Token) => {
 
     let ChatMessages = await POST('Chat/FetchBucketMessages', {
