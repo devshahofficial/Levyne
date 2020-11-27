@@ -45,7 +45,7 @@ const GetLastMessage = (Message) => {
         case 4 :
             return 'You added the product in the cart';
         case 5 :
-            return 'You removed the product in the cart';
+            return 'You removed the product from the cart';
         default : 
             return Message.Text;
 
