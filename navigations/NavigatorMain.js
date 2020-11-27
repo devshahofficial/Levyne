@@ -75,9 +75,7 @@ class BottomTabNavigation extends React.PureComponent {
 					name="Messages"
 					component={ChatListScreen}
 					options={{
-						tabBarIcon: ({ color}) => (
-							<ChatIcon Color={color} IsAnyUnreadMessage={this.props.IsAnyUnreadMessage}/>
-						),
+						tabBarIcon: ({ color}) => <ChatIcon Color={color} IsAnyUnreadMessage={this.props.IsAnyUnreadMessage}/>
 					}}
 				/>
 				<Tab.Screen
@@ -94,7 +92,7 @@ class BottomTabNavigation extends React.PureComponent {
 					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<OrdersIcon Color={color} IsAnyChatMessage={false}/>
+							<OrdersIcon Color={color}/>
 						),
 					}}
 				/>
@@ -125,7 +123,7 @@ class MainHomeStack extends React.PureComponent {
 				headerMode='none'
 				hideStatusBar={true}
 			>
-				<HomeStack.Screen name="Home" component={BottomTabNavigation}/>
+				<HomeStack.Screen name="Home" component={BottomTabNavigationConnect}/>
 				<HomeStack.Screen name="Customize" component={Customize} />
 				<HomeStack.Screen name="Product" component={ProductScreen} />
                 <HomeStack.Screen name="Fabric" component={FabricScreen} />
