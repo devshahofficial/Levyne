@@ -73,54 +73,15 @@ export default class MyFits extends Component {
         }
     }
 
-    // renderItem({item}){
-    //     return (
-    //         <>
-    //         {console.log(item)}
-    //             <CstmShadowView style={{height: 375, borderRadius: 20,margin: 15, padding:0}}>
-    //                 <Image
-    //                     source = {{uri: item.src}}
-    //                     height={350}
-    //                     style={styles.ImageCSS}
-    //                 />
-    //             </CstmShadowView>
-    //             <View style={styles.Outer}>
-    //                 <Text style={styles.HeaderStyle}>
-    //                     {item.name}
-    //                     {console.log(item)}
-    //                 </Text>
-    //                 <View style={styles.InnerElementsContainer}>
-    //                     {item.subCategories.map(ele => (
-    //                         <View row>
-    //                             <View style={styles.InnerText}>
-    //                                 <Text style={styles.InnerElements}>{ ele.name }</Text>
-    //                             </View>
-    //                             <View style={styles.InputBox}>
-    //                                 <Input placeholder={`${ele.val}`} style={{width:"60%",paddingLeft:"25%",paddingTop:5}}></Input>
-    //                             </View>
-    //                         </View>
-    //                     ))}
-    //                 </View>
-    //             </View>
-    //         </>
-    //     )
-    // }
-
     render() {
         return(
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'}/>
                 <SearchBar/>
                 <Carousel>
-                    {/* <FlatList
-                        data={this.state.imgUrls}
-                        renderItem={this.renderItem}
-                        keyExtractor={item => item.id}
-                    /> */}
-                    {this.state.imgUrls.map(page=>(
-                        <ScrollView
-                            contentContainerStyle={{}}
-                        >
+
+                    {this.state.imgUrls.map((page, index) => (
+                        <ScrollView>
                             <CstmShadowView style={{height: 375, borderRadius: 20,margin: 15, padding:0}}>
                                 <Image
                                     source = {{uri: page.src}}
@@ -134,8 +95,8 @@ export default class MyFits extends Component {
                                     {console.log(page)}
                                 </Text>
                                 <View style={styles.InnerElementsContainer}>
-                                    {page.subCategories.map(ele => (
-                                        <View row>
+                                    {page.subCategories.map((ele) => (
+                                        <View row key={ele.name}>
                                             <View style={styles.InnerText}>
                                                 <Text style={styles.InnerElements}>{ ele.name }</Text>
                                             </View>
