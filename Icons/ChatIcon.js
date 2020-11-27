@@ -1,6 +1,5 @@
 import React from 'react';
 import {Svg,Path,G,Rect} from 'react-native-svg';
-import {connect} from 'react-redux';
 import {Colors} from 'react-native-ui-lib';
 
 class ChatIcon extends React.PureComponent {
@@ -36,4 +35,4 @@ class ChatIcon extends React.PureComponent {
     }
 };
 
-export default connect()(ChatIcon);
+export default ChatIcon;
