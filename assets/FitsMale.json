@@ -1,0 +1,31 @@
+{
+  "Upper Body": [
+    "Neck Round",
+    "Chest Round",
+    "Shoulder to Chest Length",
+    "Shoulder to Waist Length"
+  ],
+  "Waist": [
+    "Stomach Round",
+    "Waist Round",
+    "Hip Round",
+    "Waist to Hip Length",
+    "Waist to Below Croch Length",
+    "Waist to Above Knee",
+    "Waist to Ankle",
+    "Waist to Floor",
+    "Stomach"
+  ],
+  "Arms": [
+    "Armhole Round",
+    "Cap Sleeves Round (biceps)",
+    "Half Sleeves Round",
+    "1/2 Sleeve Length (Above Elbow)",
+    "Full Sleeve Length"
+  ],
+  "Legs": [
+    "Single Thigh Round",
+    "Above Knee Round",
+    "Ankle Round"
+  ]
+}
