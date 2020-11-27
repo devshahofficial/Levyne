@@ -1,114 +1,77 @@
 import React, { Component } from 'react';
-import {View,  Text, Image, Carousel} from 'react-native-ui-lib';
-import {StyleSheet, ScrollView} from "react-native"
+import { View, Text, Image, Carousel } from 'react-native-ui-lib';
+import { StyleSheet, ScrollView } from "react-native";
+import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
 import SearchBar from "../../components/SearchBar"
 import CstmShadowView from "../../components/CstmShadowView"
 import NavBarBack from '../../components/NavBarBack';
 
-export default class MyFits extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            imgUrls:[
-                {
-                    id:1,
-                    src:"https://images.unsplash.com/photo-1562373353-7db88744f982?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fGRyZXNzfGVufDB8fDB8&auto=format&fit=crop&w=500&q=60",
-                    name:"Arms",
-                    subCategories: [
-                        {
-                            name:"Biceps",
-                            val: 15
-                        },
-                        {
-                            name:"Triceps",
-                            val: 15
-                        },
-                        {
-                            name:"Wrist",
-                            val: 15
-                        },
-                    ]
-                },
-                {
-                    id:2,
-                    src:"https://images.unsplash.com/photo-1530893608544-cd10fda1ac14?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8ZHJlc3N8ZW58MHx8MHw%3D&auto=format&fit=crop&w=500&q=60",
-                    name:"Legs",
-                    subCategories: [
-                        {
-                            name:"Calves",
-                            val: 20
-                        },
-                        {
-                            name:"Thighs",
-                            val: 20
-                        },
-                        {
-                            name:"Ankle",
-                            val: 20
-                        },
-                    ]
-                },
-                {
-                    id:3,
-                    src:"https://images.unsplash.com/photo-1599255260684-682356f09ab1?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8NTh8fGRyZXNzfGVufDB8fDB8&auto=format&fit=crop&w=500&q=60",
-                    name:"Upper Body",
-                    subCategories: [
-                        {
-                            name:"Chest",
-                            val: 32
-                        },
-                        {
-                            name:"Waist",
-                            val: 28
-                        },
-                        {
-                            name:"Hips",
-                            val: 32
-                        },
-                    ]
-                }
-            ],
+class MyFits extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+        if(this.props.Gender) {
+            //Gender 0 means Female and 1 means male
+            this.Fits = require('../../assets/FitsMale').default;
+        } else {
+            this.Fits = require('../../assets/FitsFemale').default;
         }
+
+        Object.keys(this.Fits).forEach(item => {
+            this.Fits[item].items.forEach((Category) => {
+                this.state[Category] = '';
+            });
+        });
+        
     }
 
     render() {
-        return(
+        return (
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'}/>
-                <SearchBar/>
-                <Carousel>
-
-                    {this.state.imgUrls.map((page, index) => (
-                        <ScrollView>
-                            <CstmShadowView style={{height: 375, borderRadius: 20,margin: 15, padding:0}}>
-                                <Image
-                                    source = {{uri: page.src}}
-                                    height={350}
-                                    style={styles.ImageCSS}
-                                />
-                            </CstmShadowView>
-                            <View style={styles.Outer}>
-                                <Text style={styles.HeaderStyle}>
-                                    {page.name}
-                                    {console.log(page)}
-                                </Text>
-                                <View style={styles.InnerElementsContainer}>
-                                    {page.subCategories.map((ele) => (
-                                        <View row key={ele.name}>
-                                            <View style={styles.InnerText}>
-                                                <Text style={styles.InnerElements}>{ ele.name }</Text>
+                <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
+                <SearchBar />
+                <Carousel containerStyle={{ flex: 1 }}>
+                    {Object.keys(this.Fits).map((PageName) => {
+                        return (
+                            <ScrollView key={PageName}>
+                                <CstmShadowView style={{ height: 375, borderRadius: 20, margin: 15, padding: 0 }}>
+                                    <Image
+                                        source={{ uri: this.Fits[PageName].Image }}
+                                        height={350}
+                                        style={styles.ImageCSS}
+                                    />
+                                </CstmShadowView>
+                                <View style={styles.Outer}>
+                                    <Text style={styles.HeaderStyle}>
+                                        {PageName}
+                                    </Text>
+                                    <View style={styles.InnerElementsContainer}>
+                                        {this.Fits[PageName].items.map((FitName) => (
+                                            <View row key={FitName}>
+                                                <View style={styles.InnerText}>
+                                                    <Text style={styles.InnerElements}>{FitName}</Text>
+                                                </View>
+                                                <View style={styles.InputBox}>
+                                                    <Input
+                                                        placeholder={'Enter Size'}
+                                                        maxLength={5}
+                                                        textAlign={'center'} 
+                                                        style={{ width: "60%", paddingLeft: 'auto', paddingTop: 5 }}
+                                                        value={this.state[FitName]}
+                                                        onChangeText={value => {
+                                                            this.setState({[FitName]: value})
+                                                        }}
+                                                    />
+                                                </View>
                                             </View>
-                                            <View style={styles.InputBox}>
-                                                <Input placeholder={`${ele.val}`} style={{width:"60%",paddingLeft:"25%",paddingTop:5}}></Input>
-                                            </View>
-                                        </View>
-                                    ))}
+                                        ))}
+                                    </View>
                                 </View>
-                            </View>
-                        </ScrollView>
-                    ))}
+                            </ScrollView>
+                        )
+                    })}
                 </Carousel>
             </>
         );
@@ -121,11 +84,11 @@ const styles = StyleSheet.create({
         marginTop: 12,
         borderRadius: 15
     },
-    Outer:{
+    Outer: {
         flexDirection: "column",
         paddingLeft: 20
     },
-    HeaderStyle:{
+    HeaderStyle: {
         margin: 10,
         paddingTop: 10,
         fontSize: 18,
@@ -135,19 +98,26 @@ const styles = StyleSheet.create({
         borderBottomColor: Colors.primary,
         borderWidth: 2
     },
-    InnerElementsContainer:{
+    InnerElementsContainer: {
         paddingBottom: 50
     },
-    InnerElements:{
+    InnerElements: {
         padding: 25,
         fontSize: 15
     },
-    InnerText:{
+    InnerText: {
         width: "40%",
-        marginRight:"10%"
+        marginRight: "10%"
     },
     InputBox: {
         width: "60%",
         justifyContent: "center"
     }
 })
+
+const mapsStateToProps = state => ({
+    Gender : state.Profile.Gender,
+    AccessToken : state.Auth.AccessToken
+})
+
+export default connect(mapsStateToProps)(MyFits);
