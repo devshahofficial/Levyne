@@ -1,9 +1,9 @@
 import React from 'react';
-import {FlatList, ActivityIndicator, StyleSheet, Dimensions, RefreshControl} from 'react-native';
+import {FlatList, ActivityIndicator, StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import ListBookmarkProducts from '../../API/ListBookmarkProducts';
-import {View, Colors} from 'react-native-ui-lib';
+import {View} from 'react-native-ui-lib';
 import ProductItemContainer from '../../components/ProductItemContainer';
 import FabricItemContainer from "../../components/FabricItemContainer";
 import LikedSVG from "../../assets/images/AppImages/Liked.svg";
@@ -71,7 +71,7 @@ class BookmarkProducts extends React.Component {
                 this.setState({
                     Products : [...this.state.Products, ...resp.Products]
                 })
-            }).catch(err => {
+            }).catch(() => {
             });
         }
     }
