@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Carousel } from 'react-native-ui-lib';
+import { View, Text, Image, Carousel, TouchableOpacity } from 'react-native-ui-lib';
 import { StyleSheet, ScrollView } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
-import SearchBar from "../../components/SearchBar"
-import CstmShadowView from "../../components/CstmShadowView"
+import SearchBar from "../../components/SearchBar";
+import CstmShadowView from "../../components/CstmShadowView";
 import NavBarBack from '../../components/NavBarBack';
+import {RightIcon} from "../../Icons/RightIcon";
 
 class MyFits extends Component {
     constructor(props) {
@@ -31,7 +32,14 @@ class MyFits extends Component {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
-                <SearchBar />
+                <View row centerV paddingH-10>
+                    <SearchBar flex={8}/>
+                    <CstmShadowView style={styles.Submit}>
+                        <TouchableOpacity flex center style={{borderRadius: 20}}>
+                            <RightIcon size={20} Color={Colors.primary}/>
+                        </TouchableOpacity>
+                    </CstmShadowView>
+                </View>
                 <Carousel containerStyle={{ flex: 1 }}>
                     {Object.keys(this.Fits).map((PageName) => {
                         return (
@@ -84,11 +92,11 @@ const styles = StyleSheet.create({
         marginTop: 12,
         borderRadius: 15
     },
-    Outer: {
+    Outer:{
         flexDirection: "column",
         paddingLeft: 20
     },
-    HeaderStyle: {
+    HeaderStyle:{
         margin: 10,
         paddingTop: 10,
         fontSize: 18,
@@ -98,20 +106,28 @@ const styles = StyleSheet.create({
         borderBottomColor: Colors.primary,
         borderWidth: 2
     },
-    InnerElementsContainer: {
+    InnerElementsContainer:{
         paddingBottom: 50
     },
-    InnerElements: {
+    InnerElements:{
         padding: 25,
         fontSize: 15
     },
-    InnerText: {
+    InnerText:{
         width: "40%",
-        marginRight: "10%"
+        marginRight:"10%"
     },
     InputBox: {
         width: "60%",
         justifyContent: "center"
+    },
+    Submit: {
+        flex:1,
+        height:"auto",
+        width:"auto",
+        margin:10,
+        justifyContent: "center",
+        alignContent: "center",
     }
 })
 
