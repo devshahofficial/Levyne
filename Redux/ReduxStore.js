@@ -1,7 +1,7 @@
 import {createStore, combineReducers } from 'redux';
 import _ from 'lodash';
 
-const IntialAuthStates = {
+const InitialAuthStates = {
 	AccessToken : undefined,
 	RefreshToken : undefined,
     Timestamp : undefined,
@@ -10,7 +10,7 @@ const IntialAuthStates = {
     SkipLogin: false
 }
 
-const AuthReducer = (state = IntialAuthStates, action) => {
+const AuthReducer = (state = InitialAuthStates, action) => {
 	switch(action.type)
 	{
         case 'setSkipLogin' :
@@ -34,11 +34,11 @@ const AuthReducer = (state = IntialAuthStates, action) => {
 	}
 }
 
-const IntialProfileStates = {
+const InitialProfileStates = {
     ProfileStatus: 0
 }
 
-const ProfileReducer = (state = IntialProfileStates, action) => {
+const ProfileReducer = (state = InitialProfileStates, action) => {
     switch(action.type)
     {
         case 'setName' :
