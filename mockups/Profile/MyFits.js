@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {View,  Text} from 'react-native-ui-lib';
+import {View,  Text, Image} from 'react-native-ui-lib';
 import {StyleSheet, FlatList} from "react-native"
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
+import SearchBar from "../../components/SearchBar"
 import NavBarBack from '../../components/NavBarBack';
 
 export default class MyFits extends Component {
@@ -98,6 +99,8 @@ export default class MyFits extends Component {
         return(
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'}/>
+                <SearchBar></SearchBar>
+                <Image></Image>
                 <FlatList
                     data={this.state.apiTemp}
                     renderItem={this.renderItem}
