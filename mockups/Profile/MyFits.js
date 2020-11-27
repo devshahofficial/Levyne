@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import {View,  Text, Image, Carousel} from 'react-native-ui-lib';
-import {StyleSheet, ScrollView} from "react-native"
-import Input from "../../components/input"
+import {View,  Text, Image, Carousel,TouchableOpacity} from 'react-native-ui-lib';
+import {StyleSheet, ScrollView} from "react-native";
+import Input from "../../components/input";
 import Colors from '../../Style/Colors';
-import SearchBar from "../../components/SearchBar"
-import CstmShadowView from "../../components/CstmShadowView"
+import SearchBar from "../../components/SearchBar";
+import CstmShadowView from "../../components/CstmShadowView";
 import NavBarBack from '../../components/NavBarBack';
+import {RightIcon} from "../../Icons/RightIcon";
 
 export default class MyFits extends Component {
     constructor(props){
@@ -77,7 +78,14 @@ export default class MyFits extends Component {
         return(
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'}/>
-                <SearchBar/>
+                <View row centerV paddingH-10>
+                    <SearchBar flex={8}/>
+                    <CstmShadowView style={styles.Submit}>
+                        <TouchableOpacity flex center style={{borderRadius: 20}}>
+                            <RightIcon size={20} Color={Colors.primary}/>
+                        </TouchableOpacity>
+                    </CstmShadowView>
+                </View>
                 <Carousel>
 
                     {this.state.imgUrls.map((page, index) => (
@@ -149,5 +157,13 @@ const styles = StyleSheet.create({
     InputBox: {
         width: "60%",
         justifyContent: "center"
+    },
+    Submit: {
+        flex:1,
+        height:"auto",
+        width:"auto",
+        margin:10,
+        justifyContent: "center",
+        alignContent: "center",
     }
 })
