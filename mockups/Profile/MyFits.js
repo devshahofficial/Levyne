@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {View,  Text, Image, Carousel} from 'react-native-ui-lib';
-import {StyleSheet, FlatList} from "react-native"
+import {StyleSheet, ScrollView} from "react-native"
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
 import SearchBar from "../../components/SearchBar"
@@ -77,10 +77,10 @@ export default class MyFits extends Component {
     //     return (
     //         <>
     //         {console.log(item)}
-    //             <CstmShadowView style={{height: 375, borderRadius: 20,margin: 15, padding:0}}> 
-    //                 <Image 
-    //                     source = {{uri: item.src}} 
-    //                     height={350} 
+    //             <CstmShadowView style={{height: 375, borderRadius: 20,margin: 15, padding:0}}>
+    //                 <Image
+    //                     source = {{uri: item.src}}
+    //                     height={350}
     //                     style={styles.ImageCSS}
     //                 />
     //             </CstmShadowView>
@@ -110,7 +110,7 @@ export default class MyFits extends Component {
         return(
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'}/>
-                <SearchBar></SearchBar>
+                <SearchBar/>
                 <Carousel>
                     {/* <FlatList
                         data={this.state.imgUrls}
@@ -118,11 +118,13 @@ export default class MyFits extends Component {
                         keyExtractor={item => item.id}
                     /> */}
                     {this.state.imgUrls.map(page=>(
-                        <>
-                            <CstmShadowView style={{height: 375, borderRadius: 20,margin: 15, padding:0}}> 
-                                <Image 
-                                    source = {{uri: page.src}} 
-                                    height={350} 
+                        <ScrollView
+                            contentContainerStyle={{}}
+                        >
+                            <CstmShadowView style={{height: 375, borderRadius: 20,margin: 15, padding:0}}>
+                                <Image
+                                    source = {{uri: page.src}}
+                                    height={350}
                                     style={styles.ImageCSS}
                                 />
                             </CstmShadowView>
@@ -144,7 +146,7 @@ export default class MyFits extends Component {
                                     ))}
                                 </View>
                             </View>
-                        </>
+                        </ScrollView>
                     ))}
                 </Carousel>
             </>
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
         borderWidth: 2
     },
     InnerElementsContainer:{
-        paddingBottom: 50  
+        paddingBottom: 50
     },
     InnerElements:{
         padding: 25,
