@@ -12,12 +12,20 @@ import {RightIcon} from "../../Icons/RightIcon";
 class MyFits extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
-        if(this.props.Gender) {
-            //Gender 0 means Female and 1 means male
-            this.Fits = require('../../assets/FitsMale').default;
-        } else {
-            this.Fits = require('../../assets/FitsFemale').default;
+        this.state = {
+            ProfileNotCompleted : false
+        }
+
+        switch(this.props.Gender) {
+            case 0 :
+                this.Fits = require('../../assets/FitsFemale').default;
+                break;
+            case 1 :
+                this.Fits = require('../../assets/FitsMale').default;
+                break;
+            default :
+                this.state.ProfileNotCompleted = true;
+                this.Fits = {}
         }
 
         Object.keys(this.Fits).forEach(item => {
@@ -40,47 +48,53 @@ class MyFits extends Component {
                         </TouchableOpacity>
                     </CstmShadowView>
                 </View>
-                <Carousel containerStyle={{ flex: 1 }}>
-                    {Object.keys(this.Fits).map((PageName) => {
-                        return (
-                            <ScrollView key={PageName}>
-                                <CstmShadowView style={{ height: 375, borderRadius: 20, margin: 15, padding: 0 }}>
-                                    <Image
-                                        source={{ uri: this.Fits[PageName].Image }}
-                                        height={350}
-                                        style={styles.ImageCSS}
-                                    />
-                                </CstmShadowView>
-                                <View style={styles.Outer}>
-                                    <Text style={styles.HeaderStyle}>
-                                        {PageName}
-                                    </Text>
-                                    <View style={styles.InnerElementsContainer}>
-                                        {this.Fits[PageName].items.map((FitName) => (
-                                            <View row key={FitName}>
-                                                <View style={styles.InnerText}>
-                                                    <Text style={styles.InnerElements}>{FitName}</Text>
+                {this.state.ProfileNotCompleted ? 
+                    <View center>
+                        <Text>Profile Incomplete</Text>
+                    </View>
+                    :
+                    <Carousel containerStyle={{ flex: 1 }}>
+                        {Object.keys(this.Fits).map((PageName) => {
+                            return (
+                                <ScrollView key={PageName}>
+                                    <CstmShadowView style={{ height: 375, borderRadius: 20, margin: 15, padding: 0 }}>
+                                        <Image
+                                            source={{ uri: this.Fits[PageName].Image }}
+                                            height={350}
+                                            style={styles.ImageCSS}
+                                        />
+                                    </CstmShadowView>
+                                    <View style={styles.Outer}>
+                                        <Text style={styles.HeaderStyle}>
+                                            {PageName}
+                                        </Text>
+                                        <View style={styles.InnerElementsContainer}>
+                                            {this.Fits[PageName].items.map((FitName) => (
+                                                <View row key={FitName}>
+                                                    <View style={styles.InnerText}>
+                                                        <Text style={styles.InnerElements}>{FitName}</Text>
+                                                    </View>
+                                                    <View style={styles.InputBox}>
+                                                        <Input
+                                                            placeholder={'Enter Size'}
+                                                            maxLength={5}
+                                                            textAlign={'center'} 
+                                                            style={{ width: "60%", paddingLeft: 'auto', paddingTop: 5 }}
+                                                            value={this.state[FitName]}
+                                                            onChangeText={value => {
+                                                                this.setState({[FitName]: value})
+                                                            }}
+                                                        />
+                                                    </View>
                                                 </View>
-                                                <View style={styles.InputBox}>
-                                                    <Input
-                                                        placeholder={'Enter Size'}
-                                                        maxLength={5}
-                                                        textAlign={'center'} 
-                                                        style={{ width: "60%", paddingLeft: 'auto', paddingTop: 5 }}
-                                                        value={this.state[FitName]}
-                                                        onChangeText={value => {
-                                                            this.setState({[FitName]: value})
-                                                        }}
-                                                    />
-                                                </View>
-                                            </View>
-                                        ))}
+                                            ))}
+                                        </View>
                                     </View>
-                                </View>
-                            </ScrollView>
-                        )
-                    })}
-                </Carousel>
+                                </ScrollView>
+                            )
+                        })}
+                    </Carousel>
+                }
             </>
         );
     }
