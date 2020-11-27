@@ -134,9 +134,6 @@ const styles = StyleSheet.create({
     },
     Container: {
         marginVertical: 15,
-    },
-    Category: {
-
     }
 })
 
