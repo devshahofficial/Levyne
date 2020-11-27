@@ -22,24 +22,12 @@ export default class ProductItemContainer extends React.Component {
     onBookmarkPress = async () => {
         if(!this.state.addToWishlist)
         {
-            try {
-                await AddWishlistProductByID(this.props.item.ProductID,this.props.Token)
-            }
-            catch(err) {
-                //console.log(err);
-                this.setState({addToWishlist: !this.state.addToWishlist});
-            }
+            AddWishlistProductByID(this.props.item.ProductID,this.props.Token);
             this.setState({addToWishlist: !this.state.addToWishlist});
         }
         else
         {
-            try {
-                await RemoveWishlistProductByID(this.props.item.ProductID,this.props.Token)
-            }
-            catch(err) {
-                //console.log(err);
-                this.setState({addToWishlist: !this.state.addToWishlist});
-            }
+            RemoveWishlistProductByID(this.props.item.ProductID,this.props.Token)
             this.setState({addToWishlist: !this.state.addToWishlist});
         }
     }
