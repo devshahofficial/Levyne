@@ -88,7 +88,7 @@ class SearchText extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <View flex centerH >
+                {/* <View flex centerH >
                     <Animated.FlatList
                         data={this.state.SearchSuggestions}
                         renderItem={this.renderItem}
@@ -102,7 +102,7 @@ class SearchText extends React.Component {
                         onEndReached={this.props.onBrandEndReached}
                         onEndReachedThreshold={0.75}
                     />
-                </View>
+                </View> */}
             </>
         );
     }
