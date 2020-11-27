@@ -243,7 +243,7 @@ class HomeScreen extends React.Component {
                     }
 
                     <View marginT-100>
-                        <Text b1 secondary marginL-20>
+                        <Text b1 secondary marginL-20 marginB-10>
                             Sensations From Levyne
                         </Text>
                         <FlatList
