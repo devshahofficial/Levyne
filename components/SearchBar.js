@@ -72,7 +72,7 @@ class SearchText extends React.Component {
     render() {
         return (
             <>
-                <View row centerV paddingL-10 paddingR-30>
+                <View row centerV style={{flex:this.props.flex}}>
                     <View row centerV marginL-15 marginR-10 marginB-10>
                         <CstmInput
                             placeholder='Search...'
