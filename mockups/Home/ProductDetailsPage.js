@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {ScrollView,Text,View, StyleSheet} from "react-native"
 
 import NavbarBack from "../../components/NavBarBack"
-import ImageCarousel from "../../components/ImageCarousel"
+import ImageCarouselProduct from "../../components/ImageCarouselProduct"
 import ProductScreenPartOne from "../../components/ProductScreenPartOne"
 import ConstBottomButton from "../../components/constBottomButton"
 import ModalPopUp from '../../components/ModalPopUp'
@@ -20,7 +20,7 @@ export default class ProductDetailsPage extends Component {
             <>
                 <NavbarBack Title={"#RS00011"} Navigation={this.props.navigation.goBack}/>
                 <ScrollView>
-                    <ImageCarousel width={"100%"} height={400} imageURL={imgUrls}></ImageCarousel>
+                    <ImageCarouselProduct ProductImages={imgUrls}></ImageCarouselProduct>
                     <ProductScreenPartOne
                         Title={"Short Description"}
                         Category={"Women"}
