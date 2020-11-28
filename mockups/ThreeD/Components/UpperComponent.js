@@ -1,21 +1,20 @@
 import React from 'react';
-import { StyleSheet, Dimensions} from 'react-native';
-import {Text, TouchableOpacity, View, Colors } from "react-native-ui-lib";
+import { StyleSheet} from 'react-native';
+import {Text, TouchableOpacity, Colors } from "react-native-ui-lib";
 import CstmShadowView from "../../../components/CstmShadowView";
 
-export default class UpperComponent extends React.Component {
+export default class UpperComponent extends React.PureComponent {
 
 
     render() {
-        // console.warn(this.props)
         return (
             <CstmShadowView style={styles.shadow}>
                 <TouchableOpacity
                     padding-15
-                    style={this.props.item.number === this.props.selected ? styles.boxSelected : styles.box}
-                    onPress={() => (this.props.onUpperPressed(this.props.item.number))}
+                    style={this.props.index === this.props.selected ? styles.boxSelected : styles.box}
+                    onPress={() => (this.props.onUpperPressed(this.props.index))}
                 >
-                    <Text h2 secondary> {this.props.item.title} </Text>
+                    <Text h2 secondary> {this.props.item} </Text>
                 </TouchableOpacity>
             </CstmShadowView>
 
@@ -23,9 +22,11 @@ export default class UpperComponent extends React.Component {
         )
     }
 }
+
 const BOX_WIDTH = "auto";
 const BOX_HEIGHT = 60;
 const BOX_RADIUS = 15;
+
 const styles = StyleSheet.create({
     shadow: {
         height: BOX_HEIGHT,
