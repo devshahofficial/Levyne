@@ -87,7 +87,7 @@ class Customize extends React.Component {
         return (
             <>
                 <TextNavBar Title={'Customize on Levyne'}/>
-                <View flex paddingH-10>
+                <View flex>
                     <FlatList
                         data={ProductsData}
                         ListHeaderComponent={this.headerContainer}
