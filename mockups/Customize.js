@@ -70,7 +70,7 @@ class Customize extends React.Component {
     }
 
     renderItem = ({ item }) => (
-        <TouchableOpacity centerH style={[styles.Container,{width: this.imgWidth, height: this.imgHeight}]}>
+        <TouchableOpacity center style={[styles.Container,{width: this.imgWidth+40, height: this.imgHeight}]}>
             <Image
                 source={{uri:item.Image}}
                 style={{ width: this.imgWidth, height: this.imgHeight }}
@@ -83,7 +83,7 @@ class Customize extends React.Component {
         return (
             <>
                 <TextNavBar Title={'Customize on Levyne'}/>
-                <View flex centerH>
+                <View flex paddingH-10>
                     <FlatList
                         data={ProductsData}
                         ListHeaderComponent={this.headerContainer}
