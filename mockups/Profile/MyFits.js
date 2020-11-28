@@ -43,7 +43,7 @@ class MyFits extends Component {
                 <View row centerV paddingH-10>
                     <SearchBar flex={8}/>
                     <CstmShadowView style={styles.Submit}>
-                        <TouchableOpacity flex cebn nter style={{borderRadius: 20}}>
+                        <TouchableOpacity flex center style={{borderRadius: 20}}>
                             <RightIcon size={20} Color={Colors.primary}/>
                         </TouchableOpacity>
                     </CstmShadowView>
