@@ -4,90 +4,72 @@ import {View} from "react-native-ui-lib";
 import UpperComponent from '../Components/UpperComponent'
 import NavBarBack from "../../../components/NavBarBack";
 import WebView from "react-native-webview";
-
-
-const upperList = [
-    {
-        number: 1,
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb288a',
-        title: '#HA0001',
-    },
-    {
-        number: 2,
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        title: '#RS0029',
-    },
-    {
-        number: 3,
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f78',
-        title: '#NP0015',
-    },
-    {
-        number: 4,
-        id: '58694a0f-3da1-471f-bd96-145571e29d72',
-        title: '#NB0008',
-    },
-    {
-        number: 5,
-        id: '3ac68afc-c405-48d3-a4f8-fbd91aa97f63',
-        title: '#SJ0019',
-    },
-];
+import Models from '../../../assets/3DModels';
 
 export default class NewScreen extends Component {
 
-    state = {
-        upperSelected: 1,
-        lowerSelected: 1,
+    constructor(props) {
+        super(props);
     }
+
+    state = {
+        upperSelected: 0,
+        lowerSelected: 0,
+        URL3DModel: 'https://levyne3dtrial.netlify.app/'
+    }
+
+    Category = this.props.route.params.Category;
+
+
+    onUpperPressed = (selectedIndex) => {
+        this.setState({ upperSelected: selectedIndex })
+    }
+
+    onLowerPressed = (selectedIndex) => {
+        this.setState({ lowerSelected: selectedIndex })
+    }
+
+    goBack = () => {
+        this.props.navigation.goBack();
+    }
+
+    renderItem = ({ item, index }) => (
+        <UpperComponent
+            item={item}
+            index={index}
+            selected={this.state.upperSelected}
+            onUpperPressed={this.onUpperPressed}
+        />
+    )
+
 
     render() {
         return (
             <>
-                <NavBarBack Title={"Design 3D here!"}/>
+                <NavBarBack Title={"Design 3D here!"} Navigation={this.goBack} />
                 <View>
                     <FlatList
                         showsHorizontalScrollIndicator={false}
-                        style={styles.Flatlist}
-                        data={upperList}
+                        style={styles.FlatList}
+                        data={Models[this.Category].items}
                         horizontal={true}
-                        renderItem={({ item }) =>
-                            <UpperComponent
-                                item={item}
-                                selected={this.state.upperSelected}
-                                onUpperPressed={(data) => this.onUpperPressed(data)}
-                            />
-                        }
-                        keyExtractor={item => item.id}
+                        renderItem={this.renderItem}
+                        keyExtractor={item => item}
                     />
                 </View>
 
-                <WebView
-                    source={{
-                        uri: 'https://levyne3dtrial.netlify.app/',
-                    }}
-                />
+                <WebView source={{ uri: this.state.URL3DModel }}/>
 
             </>
         )
 
     }
-
-    onUpperPressed = (selectedOne) => {
-        this.setState({ upperSelected: selectedOne })
-        // console.warn('upper pressed', selectedOne)
-    }
-
-    onLowerPressed = (selectedOne) => {
-        this.setState({ lowerSelected: selectedOne })
-        // console.warn(' lower pressed', selectedOne)
-    }
 }
 
 const styles = StyleSheet.create({
-    Flatlist: {
+    FlatList: {
         marginTop: 10,
-        paddingLeft: 20
+        paddingLeft: 20,
     },
 })
 

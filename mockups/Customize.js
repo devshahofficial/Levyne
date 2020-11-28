@@ -42,8 +42,12 @@ class Customize extends React.Component {
 
     ModelKeys = Object.keys(Models);
 
-    headerContainerRender = ({ item }) => (
-        <TouchableOpacity style={styles.Category} center>
+    Navigate3D = (index) => {
+        this.props.navigation.push('ThreeD', {Category: this.ModelKeys[index]})
+    }
+
+    headerContainerRender = ({ item, index }) => (
+        <TouchableOpacity onPress={() => this.Navigate3D(index)} style={styles.Category} center>
             <View>
                 <Image source={{uri: Models[item].ImageURL}} style={styles.ImageUpper}/>
             </View>
