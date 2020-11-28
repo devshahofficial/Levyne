@@ -43,6 +43,8 @@ import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
 import {connect} from 'react-redux';
 import SearchText from "../mockups/Search/SearchText";
 import BlogPost from "../mockups/Home/BlogPost";
+import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
+
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -140,7 +142,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
 				<HomeStack.Screen name='MyFashionDesigners' component={MyFashionDesigners}/>
 				<HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
-				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
+				<HomeStack.Screen name='TermsAndCondition' component={ThreeD}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>
 				<HomeStack.Screen name='Cart' component={Cart}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
@@ -152,6 +154,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='ProductDetailsPage' component={ProductDetailsPage}/>
 				<HomeStack.Screen name='BlogPost' component={BlogPost}/>
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
+				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
 				<HomeStack.Screen
                     name='Menu'
                     component={Menu}
