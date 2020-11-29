@@ -11,6 +11,7 @@ import {CameraIcon} from "../../Icons/CameraIcon";
 import Spinner from 'react-native-loading-spinner-overlay';
 import NavBarBack from "../../components/NavBarBack";
 
+//Gender 0 means Female and 1 means Male
 
 const windowHeight = Dimensions.get('window').height;
 
