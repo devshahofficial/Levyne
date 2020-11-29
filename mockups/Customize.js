@@ -58,7 +58,7 @@ class Customize extends React.Component {
     headerContainer = () => {
         return(
             <View>
-                <Text marginL-5 marginV-10 hb1>3D by Levyne</Text>
+                <Text marginL-15 marginV-10 hb1>3D by Levyne</Text>
                 <View center>
                     <FlatList
                         data={this.ModelKeys}
@@ -68,7 +68,7 @@ class Customize extends React.Component {
                         keyExtractor={(item) => item}
                     />
                 </View>
-                <Text marginL-5 marginV-10 hb1>Designs by Levyne</Text>
+                <Text marginL-15 marginV-10 hb1>Designs by Levyne</Text>
             </View>
         )
     }
