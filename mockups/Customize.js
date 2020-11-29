@@ -1,79 +1,99 @@
 import React from 'react';
-import {StyleSheet, Dimensions, FlatList, Animated, ImageBackground} from 'react-native';
-import {View, Colors, Text, TouchableOpacity, Image} from 'react-native-ui-lib';
+import {StyleSheet, Dimensions, FlatList} from 'react-native';
+import {View, Text, TouchableOpacity, Image} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import TextNavBar from '../components/TextNavBar';
+import Models from '../assets/3DModels';
 
-const screenWidth = Dimensions.get('window').width;
+const windowWidth = Dimensions.get('window').width;
 
 const ProductsData = [
     {
         id: "dajwefvka",
-        Title: "Designed at Levyne",
-        Image: "https://media-exp1.licdn.com/dms/image/C4D0BAQHcOy3X-JWnQw/company-logo_200_200/0?e=2159024400&v=beta&t=XkI8512lSLGFQyAvYBrzs4zSujmX_qnbnqWMUsbRLSI"
+        Title: "Ethnic Wear",
+        Image: "https://d364lz1eqz350v.cloudfront.net/EthnicWear.png"
     },
     {
         id: "guwiqugd",
-        Title: "Shirt",
-        Image: "https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg"
+        Title: "Trousseau wear",
+        Image: "https://d364lz1eqz350v.cloudfront.net/TrousseauWear.png"
     },
     {
         id: "oqhguwiqugd",
-        Title: "Pant",
-        Image: "https://www.ericmusgrave.co.uk/wp-content/uploads/MM-5.jpg"
+        Title: "Men's Wear",
+        Image: "https://d364lz1eqz350v.cloudfront.net/MensWear.png"
     },
     {
         id: "dajvka",
-        Title: "Blazers",
-        Image: "https://singaporebrides.com/articles/wp-content/uploads/2017/05/Bespoke-Mens-Tailors-for-Weddings-in-Singapore-Dorcas-Stitch.jpg"
+        Title: "Fusion Wear",
+        Image: "https://d364lz1eqz350v.cloudfront.net/FusionWear.png"
     },
     {
         id: "guwiquwkgduqgd",
-        Title: "Vest",
-        Image: "https://www.dhresource.com/f2/albu/g10/M01/6D/93/rBVaWV5TiQaAEz12AALE8qMCOqw900.jpg"
-    },
-    {
-        id: "oqhguwiqwqugd",
-        Title: "Blouse",
-        Image: "https://i.pinimg.com/originals/78/08/04/780804374d512943da57104eca419643.jpg"
-    },
-    {
-        id: "dajqwvka",
-        Title: "Kurti",
-        Image: "https://asset22.ckassets.com/thegoodlookbook/wp-content/uploads/sites/2/2018/09/front-slit-kurti.jpg"
-    },
-    {
-        id: "guwiqugdweqd",
-        Title: "Face Mask",
-        Image: "https://s1.stabroeknews.com/images/2020/04/miss-1.jpg"
-    },
-    {
-        id: "oqhgu21wiqugd",
-        Title: "Cholis",
-        Image: "https://i.pinimg.com/originals/13/6c/1e/136c1e5adc00740bbb08134ac548f8df.jpg"
-    },
+        Title: "Bridal Wear",
+        Image: "https://d364lz1eqz350v.cloudfront.net/BridalWear.png"
+    }
 ];
 
 class Customize extends React.Component {
+
+    imgWidth = Dimensions.get('window').width - 40;
+    imgHeight = 80*(Dimensions.get('window').width - 40)/335;
+
+    ModelKeys = Object.keys(Models);
+
+    Navigate3D = (index) => {
+        this.props.navigation.push('ThreeD', {Category: this.ModelKeys[index]})
+    }
+
+    headerContainerRender = ({ item, index }) => (
+        <TouchableOpacity onPress={() => this.Navigate3D(index)} style={styles.Category} center>
+            <View>
+                <Image source={{uri: Models[item].ImageURL}} style={styles.ImageUpper}/>
+            </View>
+            <Text h3 secondary marginT-10>{item}</Text>
+        </TouchableOpacity>
+    )
+
+    headerContainer = () => {
+        return(
+            <View>
+                <Text marginL-5 marginV-10 hb1>3D by Levyne</Text>
+                <View center>
+                    <FlatList
+                        data={this.ModelKeys}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        renderItem = {this.headerContainerRender}
+                        keyExtractor={(item) => item}
+                    />
+                </View>
+                <Text marginL-5 marginV-10 hb1>Designs by Levyne</Text>
+            </View>
+        )
+    }
+
+    renderItem = ({ item }) => (
+        <TouchableOpacity center style={[styles.Container,{width: this.imgWidth+40, height: this.imgHeight}]}>
+            <Image
+                source={{uri:item.Image}}
+                style={{ width: this.imgWidth, height: this.imgHeight }}
+            />
+        </TouchableOpacity>
+    )
+
+
     render() {
         return (
             <>
                 <TextNavBar Title={'Customize on Levyne'}/>
-                <View flex center>
+                <View flex>
                     <FlatList
                         data={ProductsData}
-                        numColumns={2}
-                        renderItem={
-                            ({ item }) =>
-                                <TouchableOpacity style={styles.Container}>
-                                    <View>
-                                        <Image source={{uri:item.Image}} style={styles.Image}/>
-                                    </View>
-                                    <View center style={styles.Text}>
-                                        <Text hb1 secondary>{item.Title}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                        }
+                        ListHeaderComponent={this.headerContainer}
+                        showsVerticalScrollIndicator={false}
+                        renderItem={this.renderItem}
+                        keyExtractor={(item) => item.id}
                     />
                 </View>
             </>
@@ -82,23 +102,14 @@ class Customize extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    Image: {
-        height: screenWidth*0.45,
-        width: screenWidth*0.45,
-        flex: 1,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10
+    ImageUpper: {
+        height: windowWidth*0.25,
+        width: windowWidth*0.25,
+        borderRadius: 100,
+        marginHorizontal: 10
     },
     Container: {
-        marginHorizontal: 10,
-        marginVertical: 20,
-    },
-    Text: {
-        borderWidth: 1,
-        borderColor: Colors.shadow,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10,
-        height:40
+        marginVertical: 15,
     }
 })
 
@@ -107,4 +118,4 @@ const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken
 });
 
-export default connect(mapsStateToProps)(Customize)
+export default connect(mapsStateToProps)(Customize);

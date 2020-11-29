@@ -73,8 +73,8 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
         }
 
         FetchChatBuckets(AccessToken, 1).then(rows => {
-            MarkBucketAsUnRead(rows[1]);
             setChatList(rows[0]);
+            MarkBucketAsUnRead(rows[1]);
         }).catch(err => {
             console.log(err);
         })

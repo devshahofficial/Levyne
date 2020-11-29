@@ -43,6 +43,8 @@ import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
 import {connect} from 'react-redux';
 import SearchText from "../mockups/Search/SearchText";
 import BlogPost from "../mockups/Home/BlogPost";
+import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
+
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -75,9 +77,7 @@ class BottomTabNavigation extends React.PureComponent {
 					name="Messages"
 					component={ChatListScreen}
 					options={{
-						tabBarIcon: ({ color}) => (
-							<ChatIcon Color={color} IsAnyUnreadMessage={this.props.IsAnyUnreadMessage}/>
-						),
+						tabBarIcon: ({ color}) => <ChatIcon Color={color} IsAnyUnreadMessage={this.props.IsAnyUnreadMessage}/>
 					}}
 				/>
 				<Tab.Screen
@@ -94,7 +94,7 @@ class BottomTabNavigation extends React.PureComponent {
 					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<OrdersIcon Color={color} IsAnyChatMessage={false}/>
+							<OrdersIcon Color={color}/>
 						),
 					}}
 				/>
@@ -125,7 +125,7 @@ class MainHomeStack extends React.PureComponent {
 				headerMode='none'
 				hideStatusBar={true}
 			>
-				<HomeStack.Screen name="Home" component={BottomTabNavigation}/>
+				<HomeStack.Screen name="Home" component={BottomTabNavigationConnect}/>
 				<HomeStack.Screen name="Customize" component={Customize} />
 				<HomeStack.Screen name="Product" component={ProductScreen} />
                 <HomeStack.Screen name="Fabric" component={FabricScreen} />
@@ -142,7 +142,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
 				<HomeStack.Screen name='MyFashionDesigners' component={MyFashionDesigners}/>
 				<HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
-				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
+				<HomeStack.Screen name='TermsAndCondition' component={ThreeD}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>
 				<HomeStack.Screen name='Cart' component={Cart}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
@@ -154,6 +154,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='ProductDetailsPage' component={ProductDetailsPage}/>
 				<HomeStack.Screen name='BlogPost' component={BlogPost}/>
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
+				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
 				<HomeStack.Screen
                     name='Menu'
                     component={Menu}
