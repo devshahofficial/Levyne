@@ -10,15 +10,20 @@ export default class NewScreen extends Component {
 
     constructor(props) {
         super(props);
-    }
+        this.state = {
+            upperSelected: 0,
+            lowerSelected: 0
+        }
 
-    state = {
-        upperSelected: 0,
-        lowerSelected: 0,
-        URL3DModel: 'https://levyne3dtrial.netlify.app/'
+        this.Category = this.props.route.params.Category
+    
+        if(this.Category) {
+            this.URL3DModelBase = `https://apitesting603.levyne.com/3D/${this.Category}/`;
+            this.Model = Models[this.Category];
+        } else {
+            this.goBack();
+        }
     }
-
-    Category = this.props.route.params.Category;
 
 
     onUpperPressed = (selectedIndex) => {
@@ -51,14 +56,14 @@ export default class NewScreen extends Component {
                     <FlatList
                         showsHorizontalScrollIndicator={false}
                         style={styles.FlatList}
-                        data={Models[this.Category].items}
+                        data={this.Model.items}
                         horizontal={true}
                         renderItem={this.renderItem}
                         keyExtractor={item => item}
                     />
                 </View>
 
-                <WebView source={{ uri: this.state.URL3DModel }}/>
+                <WebView source={{ uri: this.URL3DModelBase + this.Model.items[this.state.upperSelected] }}/>
 
             </>
         )
