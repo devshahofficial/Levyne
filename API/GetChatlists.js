@@ -57,24 +57,28 @@ const GetLastMessage = (Message) => {
 
 const GetChatLists = async (Token, Page) => {
 
-    let ChatList = await GET('Chat/FetchChatBuckets', {
-        ReturnResponse: true,
-        Token,
-        QueryData: {
-            Page
-        }
-    })
-
-    const unreadBuckets = []; 
-    ChatList = ChatList.map(item => {
-        if(item.unread) {
-            unreadBuckets.push(item.BucketID);
-        }
-        item.Message = GetLastMessage(item.Message);
-        item.Timestamp = timeAgo(item.Timestamp);
-        return item;
-    });
-    return [ChatList, unreadBuckets];
+    if(Token) {
+        let ChatList = await GET('Chat/FetchChatBuckets', {
+            ReturnResponse: true,
+            Token,
+            QueryData: {
+                Page
+            }
+        })
+    
+        const unreadBuckets = []; 
+        ChatList = ChatList.map(item => {
+            if(item.unread) {
+                unreadBuckets.push(item.BucketID);
+            }
+            item.Message = GetLastMessage(item.Message);
+            item.Timestamp = timeAgo(item.Timestamp);
+            return item;
+        });
+        return [ChatList, unreadBuckets];
+    } else {
+        return [[], []];
+    }
 }
 
 export default GetChatLists;
