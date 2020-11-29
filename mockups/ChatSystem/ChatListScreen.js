@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import TextNavBar from '../../components/TextNavBar';
 import FetchChatBuckets from '../../API/GetChatlists';
 import MessageSVG from '../../assets/images/AppImages/Messages.svg';
+import UnLoggedScreen from '../../components/UnLoggedScreen';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -20,7 +21,7 @@ class ConversationListScreen extends Component {
     }
 
     componentDidMount = () => {
-        this.props.Socket.on('ChatMessage', this.SocketListener);
+        this.props.Socket && this.props.Socket.on('ChatMessage', this.SocketListener);
     }
 
     SocketListener = (Message) => {
@@ -28,7 +29,7 @@ class ConversationListScreen extends Component {
     }
 
     componentWillUnmount = () => {
-        this.props.Socket.off('ChatMessage', this.SocketListener);
+        this.props.Socket && this.props.Socket.off('ChatMessage', this.SocketListener);
     }
 
     onEndReached = () => {
@@ -52,53 +53,55 @@ class ConversationListScreen extends Component {
         return (
             <>
                 <TextNavBar Title={'Messages'}/>
-                {this.props.ChatLoading ?
-                    <View flex center>
-                        <LoaderScreen />
-                    </View>
+                {this.props.SkipLogin ?
+                    <UnLoggedScreen />
                     :
-                    <View flex>
-                        <FlatList
-                            data={
-                                this.props.ChatList.map((item, itemIndex) => {2
-                                    const initials = AvatarHelper.getInitials(item.Name);
-                                    const avatarBadgeProps = item.unread ? {backgroundColor:  Colors.primary} : null;
-                                    const imageSource = item.ProfileImage ? {uri: item.ProfileImage} : null;
-                                    const listOnPress = () => {
-                                        if(item.unread) {
-                                            this.props.MarkBucketAsRead(item.BucketID, itemIndex);
-                                        }
-                                        this.props.navigation.navigate('Chat', {
-                                            BucketID : item.BucketID,
-                                            Name : item.Name,
-                                            Status: item.Status,
-                                            BrandID: item.BrandID,
-                                            OrderID: item.OrderID,
+                    this.props.ChatLoading ?
+                        <View flex center>
+                            <LoaderScreen />
+                        </View>
+                        :
+                        <View flex>
+                            <FlatList
+                                data={
+                                    this.props.ChatList.map((item, itemIndex) => {2
+                                        const initials = AvatarHelper.getInitials(item.Name);
+                                        const avatarBadgeProps = item.unread ? {backgroundColor:  Colors.primary} : null;
+                                        const imageSource = item.ProfileImage ? {uri: item.ProfileImage} : null;
+                                        const listOnPress = () => {
+                                            if(item.unread) {
+                                                this.props.MarkBucketAsRead(item.BucketID, itemIndex);
+                                            }
+                                            this.props.navigation.navigate('Chat', {
+                                                BucketID : item.BucketID,
+                                                Name : item.Name,
+                                                Status: item.Status,
+                                                BrandID: item.BrandID,
+                                                OrderID: item.OrderID,
+                                                imageSource,
+                                                initials
+                                            })
+                                        };
+                                        return {
+                                            ...item,
+                                            initials,
+                                            avatarBadgeProps,
+                                            listOnPress,
                                             imageSource,
-                                            initials
-                                        })
-                                    };
-                                    return {
-                                        ...item,
-                                        initials,
-                                        avatarBadgeProps,
-                                        listOnPress,
-                                        imageSource,
-                                    };
-                                })
-                            }
-                            ListEmptyComponent={
-                                <View flex center style={{height:windowHeight-100}}>
-                                    <MessageSVG width={'80%'}/>
-                                </View>
-                            }
-                            renderItem={this.renderItem}
-                            keyExtractor={this.keyExtractor}
-                            onEndReached={this.onEndReached}
-                        />
-                    </View>
+                                        };
+                                    })
+                                }
+                                ListEmptyComponent={
+                                    <View flex center style={{height:windowHeight-100}}>
+                                        <MessageSVG width={'80%'}/>
+                                    </View>
+                                }
+                                renderItem={this.renderItem}
+                                keyExtractor={this.keyExtractor}
+                                onEndReached={this.onEndReached}
+                            />
+                        </View>
                 }
-
             </>
         );
     }
@@ -162,6 +165,7 @@ const mapsStateToProps = state => ({
     UserID : state.Auth.UserID,
     ChatLoading: state.Chat.ChatLoading,
     Socket: state.Socket.Socket,
+    SkipLogin: state.Auth.SkipLogin
 });
 
 const mapDispatchToProps = dispatch => {
