@@ -142,7 +142,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
 				<HomeStack.Screen name='MyFashionDesigners' component={MyFashionDesigners}/>
 				<HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
-				<HomeStack.Screen name='TermsAndCondition' component={ThreeD}/>
+				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>
 				<HomeStack.Screen name='Cart' component={Cart}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
