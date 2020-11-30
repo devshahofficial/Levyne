@@ -5,8 +5,6 @@ import NavbarBack from "../../components/NavBarBack"
 import ImageCarouselProduct from "../../components/ImageCarouselProduct"
 import ProductScreenPartOne from "../../components/ProductScreenPartOne"
 import ConstBottomButton from "../../components/constBottomButton"
-import ModalPopUp from '../../components/ModalPopUp'
-import { TouchableOpacity } from 'react-native-ui-lib'
 
 const imgUrls = [
     "https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
