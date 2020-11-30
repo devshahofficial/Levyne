@@ -1,15 +1,16 @@
 import React from 'react';
-import {View, Button, Colors} from 'react-native-ui-lib';
+import {Button, Colors} from 'react-native-ui-lib';
 import LoginSVG from "../assets/images/AppImages/Login.svg";
+import {SafeAreaView} from "react-native";
 
 export default class UnLoggedScreen extends React.PureComponent {
 
     render() {
         return (
             <>
-                <View flex center>
+                <SafeAreaView flex center>
                     <LoginSVG width={'90%'}/>
-                </View>
+                </SafeAreaView>
                 <Button
                     hb1 label={'Login'}
                     style={{
