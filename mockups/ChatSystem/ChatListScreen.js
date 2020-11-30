@@ -47,6 +47,10 @@ class ConversationListScreen extends Component {
         return <ContactItem item={item}/>
     }
 
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     keyExtractor = (item) => item.BucketID.toString() + '-' + item.unread.toString();
 
     render() {
@@ -54,7 +58,7 @@ class ConversationListScreen extends Component {
             <>
                 <TextNavBar Title={'Messages'}/>
                 {this.props.SkipLogin ?
-                    <UnLoggedScreen />
+                    <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
                     :
                     this.props.ChatLoading ?
                         <View flex center>

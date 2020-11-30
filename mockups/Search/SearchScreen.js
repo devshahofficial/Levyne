@@ -137,6 +137,10 @@ class Search extends React.Component {
         this.props.navigation.goBack();
     }
 
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
         return (
             <View flex>
@@ -162,6 +166,7 @@ class Search extends React.Component {
                                         navigateProduct={this.navigateProduct}
                                         onProductEndReached={this.onProductEndReached}
                                         LoadingProduct={this.state.LoadingProduct}
+                                        NavigateLogin={this.NavigateLogin}
                                     />
                                 case 'Brands':
                                     return <BrandSearch

@@ -123,6 +123,7 @@ export default class ProductSearchScreen extends React.Component {
                                 Token={this.props.AccessToken}
                                 item={item}
                                 navigateProduct={this.props.navigateProduct}
+                                NavigateLogin={this.props.NavigateLogin}
                             />
                         }
                         keyExtractor={(item) => 'Product' + item.ProductID}

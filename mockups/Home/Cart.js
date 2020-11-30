@@ -6,6 +6,7 @@ import NavBarBack from '../../components/NavBarBack';
 import BucketComponent from "../../components/BucketComponent";
 import FetchCart from '../../API/FetchCart';
 import {ActivityIndicator, FlatList, Alert} from 'react-native';
+import UnLoggedScreen from '../../components/UnLoggedScreen';
 
 class Cart extends React.Component {
 
@@ -20,30 +21,32 @@ class Cart extends React.Component {
     }
 
     componentDidMount() {
-        FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
-            Cart = Cart.map(item => {
-                item.BucketID = item.BucketID.toString();
-                return item;
-            });
-            this.setState({Cart, Loading: false});
-        }).catch(err => {
-            console.log(err);
-        });
-
-        this.willFocusSubscription = this.props.navigation.addListener(
-            'focus', () => {
-                this.setState({Loading: true});
-                FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
-                    Cart = Cart.map(item => {
-                        item.BucketID = item.BucketID.toString();
-                        return item;
-                    });
-                    this.setState({Cart, Loading: false});
-                }).catch(err => {
-                    console.log(err);
+        if(!this.props.SkipLogin) {
+            FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
+                Cart = Cart.map(item => {
+                    item.BucketID = item.BucketID.toString();
+                    return item;
                 });
-            }
-        );
+                this.setState({Cart, Loading: false});
+            }).catch(err => {
+                console.log(err);
+            });
+    
+            this.willFocusSubscription = this.props.navigation.addListener(
+                'focus', () => {
+                    this.setState({Loading: true});
+                    FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
+                        Cart = Cart.map(item => {
+                            item.BucketID = item.BucketID.toString();
+                            return item;
+                        });
+                        this.setState({Cart, Loading: false});
+                    }).catch(err => {
+                        console.log(err);
+                    });
+                }
+            );
+        }
     }
 
     componentWillUnmount() {
@@ -90,27 +93,35 @@ class Cart extends React.Component {
         />
     )
 
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Your Wardrobe'}/>
-                {this.state.Loading ?
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View> :
-                    <View flex centerH>
-                        <FlatList
-                            data={this.state.Cart}
-                            renderItem={this.FlatListRenderItem}
-                            keyExtractor={(item) => item.BucketID}
-                            showsVerticalScrollIndicator={false}
-                            ListEmptyComponent={
-                                <View flex centerV centerH style={{height:655}} paddingH-40>
-                                    <Text center b1 grey40>Make a wish and we'll make sure that it comes true.</Text>
-                                </View>
-                            }
-                        />
-                    </View>
+                {this.props.SkipLogin ?
+                    <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
+                    :
+                    this.state.Loading ?
+                        <View flex center>
+                            <ActivityIndicator />
+                        </View>
+                        :
+                        <View flex centerH>
+                            <FlatList
+                                data={this.state.Cart}
+                                renderItem={this.FlatListRenderItem}
+                                keyExtractor={(item) => item.BucketID}
+                                showsVerticalScrollIndicator={false}
+                                ListEmptyComponent={
+                                    <View flex centerV centerH style={{height:655}} paddingH-40>
+                                        <Text center b1 grey40>Make a wish and we'll make sure that it comes true.</Text>
+                                    </View>
+                                }
+                            />
+                        </View>
                 }
             </>
         );
@@ -119,7 +130,8 @@ class Cart extends React.Component {
 };
 
 const mapsStateToProps = state => ({
-    AccessToken : state.Auth.AccessToken
+    AccessToken : state.Auth.AccessToken,
+    SkipLogin: state.Auth.SkipLogin
 });
 
 export default connect(mapsStateToProps)(Cart);

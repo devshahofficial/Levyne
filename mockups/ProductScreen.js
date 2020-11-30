@@ -63,12 +63,16 @@ class ProductScreen extends React.Component {
     }
 
     AddToCart = () => {
-        this.props.navigation.push('ProductAddToCart', {
-            BrandID: this.state.ProductObject.BrandID,
-            AvailableSizes: this.state.ProductObject.AvailableSizes,
-            MaterialIDs: this.state.ProductObject.MaterialIDs,
-            ProductID: this.props.route.params.ProductID
-        })
+        if(this.props.SkipLogin) {
+            this.props.navigation.navigate("Login");
+        } else {
+            this.props.navigation.push('ProductAddToCart', {
+                BrandID: this.state.ProductObject.BrandID,
+                AvailableSizes: this.state.ProductObject.AvailableSizes,
+                MaterialIDs: this.state.ProductObject.MaterialIDs,
+                ProductID: this.props.route.params.ProductID
+            })
+        }
     }
 
     CloseModal = () => {
@@ -85,6 +89,10 @@ class ProductScreen extends React.Component {
 
     DisplayModal = (ImageIndex) => {
         this.setState({ModalVisible: true, ImageIndex})
+    }
+
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
     }
 
     render() {
@@ -123,6 +131,7 @@ class ProductScreen extends React.Component {
                                 ShortDescription={this.state.ProductObject.ShortDescription}
                                 AddToWishlistFn={this.AddToWishlistFn}
                                 RemoveFromWishlistFn={this.RemoveFromWishlistFn}
+                                NavigateLogin={this.NavigateLogin}
                                 ProductID={this.props.route.params.ProductID}
                                 navigation={this.props.navigation}
                                 Token={this.props.AccessToken}
@@ -159,7 +168,8 @@ class ProductScreen extends React.Component {
 };
 
 const mapsStateToProps = state => ({
-	AccessToken : state.Auth.AccessToken
+    AccessToken : state.Auth.AccessToken,
+    SkipLogin: state.Auth.SkipLogin
 });
 
 export default connect(mapsStateToProps)(ProductScreen)

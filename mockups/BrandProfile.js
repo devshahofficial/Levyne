@@ -111,7 +111,7 @@ class BrandProfile extends Component {
                 FabricsLoading : false
             })
         }).catch((err) => {
-            console.log(119, err);
+            console.log(err);
         });
 
     }
@@ -137,17 +137,23 @@ class BrandProfile extends Component {
         this.props.navigation.push('Fabric', {FabricID})
     }
 
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     ProductRenderItem = ({ item }) =>
         <ProductItemContainer
             Token={this.props.AccessToken}
             item={item} navigateProduct={this.navigateProduct}
             archivePressed={() => this.archivePressed({Type: 'Product', ID: item.ProductID})}
+            NavigateLogin={this.NavigateLogin}
         />
 
     FabricRenderItem = ({ item }) =>
         <FabricItemContainer
             Token={this.props.AccessToken}
             item={item}
+            NavigateLogin={this.NavigateLogin}
             navigateFabric={this.navigateFabric}
             archivePressed={() => this.archivePressed({Type: 'Fabric', ID: item.FabricID})}
         />
@@ -288,20 +294,25 @@ class BrandProfile extends Component {
     }
 
     Follow = () => {
-        if(this.state.DoIFollow) {
-            BrandFollowing.UnFollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
-                console.log(err);
-            })
-            this.setState({
-                DoIFollow : false
-            })
+
+        if(this.props.SkipLogin) {
+            this.NavigateLogin();
         } else {
-            BrandFollowing.FollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
-                console.log(err);
-            })
-            this.setState({
-                DoIFollow : true
-            })
+            if(this.state.DoIFollow) {
+                BrandFollowing.UnFollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
+                    console.log(err);
+                })
+                this.setState({
+                    DoIFollow : false
+                })
+            } else {
+                BrandFollowing.FollowTheBrand(this.props.route.params.BrandID, this.props.AccessToken).catch((err) => {
+                    console.log(err);
+                })
+                this.setState({
+                    DoIFollow : true
+                })
+            }
         }
     }
 
@@ -376,6 +387,7 @@ const styles = StyleSheet.create({
 const mapsStateToProps = state => ({
     AccessToken: state.Auth.AccessToken,
     BrandID: state.Auth.BrandID,
+    SkipLogin: state.Auth.SkipLogin
 });
 
 export default connect(mapsStateToProps)(BrandProfile)

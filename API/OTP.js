@@ -20,8 +20,10 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                     ['Timestamp', json.Timestamp],
                     ['Mobile', Mobile.toString()],
                     ['ProfileStatus', '1'],
-                    ['UserID', json.CustomerID.toString()]
+                    ['UserID', json.CustomerID.toString()],
+                    ['SkipLogin', '0']
                 ]);
+
 
                 setAuth({
                     AccessToken : json.AccessToken,
@@ -59,7 +61,8 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                     ['PinCode', json.PinCode.toString()],
                     ['Gender', json.Gender.toString()],
                     ['ProfileStatus', '2'],
-                    ['UserID', json.CustomerID.toString()]
+                    ['UserID', json.CustomerID.toString()],
+                    ['SkipLogin', '0']
                 ]);
 
                 setAuth({

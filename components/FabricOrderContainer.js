@@ -6,7 +6,7 @@ const deviceWidth = Dimensions.get("window").width;
 import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
 import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
 import CstmShadowView from "./CstmShadowView";
-import {BookMarkIcon} from '../Icons/BookMarkIcon';
+import BookMarkIcon from '../Icons/BookMarkIcon';
 
 export default class FabricOrderContainer extends React.Component {
 
@@ -20,26 +20,31 @@ export default class FabricOrderContainer extends React.Component {
     }
 
     onBookmarkPress = () => {
-        if(!this.state.addToWishlist)
-        {
-            try {
-                AddWishlistFabricByID(this.props.item.FabricID,this.props.Token)
-            }
-            catch(err) {
-                //console.log(err);
+
+        if(this.props.Token) {
+            if(!this.state.addToWishlist)
+            {
+                try {
+                    AddWishlistFabricByID(this.props.item.FabricID,this.props.Token)
+                }
+                catch(err) {
+                    //console.log(err);
+                    this.setState({addToWishlist: !this.state.addToWishlist});
+                }
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
-            this.setState({addToWishlist: !this.state.addToWishlist});
-        }
-        else
-        {
-            try {
-                RemoveWishlistFabricByID(this.props.item.FabricID,this.props.Token)
-            }
-            catch(err) {
+            else
+            {
+                try {
+                    RemoveWishlistFabricByID(this.props.item.FabricID,this.props.Token)
+                }
+                catch(err) {
+                    this.setState({addToWishlist: !this.state.addToWishlist});
+                }
                 this.setState({addToWishlist: !this.state.addToWishlist});
             }
-            this.setState({addToWishlist: !this.state.addToWishlist});
+        } else {
+            this.props.NavigateLogin();
         }
     }
 

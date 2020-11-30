@@ -2,7 +2,7 @@ import React from 'react';
 import {Dimensions, FlatList, StyleSheet} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {ShareIcon} from "../Icons/ShareIcon";
-import {BookMarkIcon} from "../Icons/BookMarkIcon";
+import BookMarkIcon from "../Icons/BookMarkIcon";
 import Colors from '../Style/Colors';
 import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
 import Stars from '../components/StarIconsComponent';
@@ -21,21 +21,25 @@ export default class FabricScreenPartOne extends React.Component {
     }
 
     onBookmarkPress = () => {
-        if(!this.state.FabricWishlist)
-        {
-            this.props.AddToWishlistFn(this.props.FabricID, this.props.Token);
-            this.setState({
-                FabricWishlist : !this.state.FabricWishlist
-            })
-        }
-        else
-        {
-            this.props.RemoveFromWishlistFn(this.props.FabricID, this.props.Token);
-            this.setState({
-                FabricWishlist : !this.state.FabricWishlist
-            })
-        }
 
+        if(this.props.Token) { 
+            if(!this.state.FabricWishlist)
+            {
+                this.props.AddToWishlistFn(this.props.FabricID, this.props.Token);
+                this.setState({
+                    FabricWishlist : !this.state.FabricWishlist
+                })
+            }
+            else
+            {
+                this.props.RemoveFromWishlistFn(this.props.FabricID, this.props.Token);
+                this.setState({
+                    FabricWishlist : !this.state.FabricWishlist
+                })
+            }
+        } else {
+            this.props.NavigateLogin();
+        }
     };
 
     NavigateStyle = ({Index, Label}) => {

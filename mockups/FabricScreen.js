@@ -66,6 +66,10 @@ class FabricScreen extends React.Component {
         RemoveWishlistFabricByID(FabricID, Token).catch(err => {console.log(err)});
     }
 
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
@@ -101,6 +105,7 @@ class FabricScreen extends React.Component {
                             ShortDescription={this.state.FabricObject.ShortDescription}
                             AddToWishlistFn={this.AddToWishlistFn}
                             RemoveFromWishlistFn={this.RemoveFromWishlistFn}
+                            NavigateLogin={this.NavigateLogin}
                             Token={this.props.AccessToken}
                             Dyeable={this.state.FabricObject.Dyeable}
                         />
