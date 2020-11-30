@@ -2,7 +2,7 @@ import config from '../assets/constants';
 
 const ProductSearchByFilter = (FilterObject, Page, OrderBy, Token, abortControllerSignal) => {
     return new Promise(async (resolve, reject) => {
-        var FetchUrl = config.BaseURL + `Products/FetchByFilter/?`;
+        var FetchUrl = global.BaseURL + `Products/FetchByFilter/?`;
         FilterObject.forEach(function(item) {
             FetchUrl = FetchUrl + item.key + '=' + item.value + '&'
         });
