@@ -1,13 +1,21 @@
 export default Models = {
-    Pants: {
+    Shirt: {
         ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
         items: [
-            'Formal',
-            'Side Waist',
-            'Ankle',
-            'Straight',
-            'Narrow',
-            'Tapered'
+            'Spread Eagle Collar',
+            'Double Collar',
+            'Prince Charlie Collar',
+            'Club Collar',
+            'Basic Shirt',
+            'Polo Collar',
+            'Concealed Polo Collar',
+            'Wing Collar',
+            'Madmen Collar',
+            'Prepster Collar',
+            'Hipster Collar',
+            'Bandgala Collar',
+            'Evil Pandit Collar',
+            'Ozwald Collar'
         ]
     },
     Choli: {
@@ -64,6 +72,17 @@ export default Models = {
             'Shawl'
         ]
     },
+    Pants: {
+        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
+        items: [
+            'Formal',
+            'Side Waist',
+            'Ankle',
+            'Straight',
+            'Narrow',
+            'Tapered'
+        ]
+    },
     Blazer: {
         ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
         items: [
@@ -92,25 +111,6 @@ export default Models = {
             'Three Button',
             'Double Breasted Notch',
             'U-Neck Peak'
-        ]
-    },
-    Shirt: {
-        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
-        items: [
-            'Spread Eagle Collar',
-            'Double Collar',
-            'Prince Charlie Collar',
-            'Club Collar',
-            'Basic Shirt',
-            'Polo Collar',
-            'Concealed Polo Collar',
-            'Wing Collar',
-            'Madmen Collar',
-            'Prepster Collar',
-            'Hipster Collar',
-            'Bandgala Collar',
-            'Evil Pandit Collar',
-            'Ozwald Collar'
         ]
     }
 }
