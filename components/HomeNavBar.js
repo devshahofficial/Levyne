@@ -2,7 +2,7 @@ import {StyleSheet} from "react-native";
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native-ui-lib';
 import Colors from '../Style/Colors';
-import {BookMarkIcon} from "../Icons/BookMarkIcon";
+import BookMarkIcon from "../Icons/BookMarkIcon";
 import {SearchIcon} from '../Icons/SearchIcon';
 import Logo from '../assets/images/Logo.svg';
 import {MenuIcon} from "../Icons/MenuIcon";

@@ -2,10 +2,9 @@ import React from 'react';
 import {Share, FlatList, StyleSheet, Dimensions} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {ShareIcon} from '../Icons/ShareIcon';
-import {BookMarkIcon} from '../Icons/BookMarkIcon';
+import BookMarkIcon from '../Icons/BookMarkIcon';
 import Colors from '../Style/Colors';
 import StarIconsComponent from "./StarIconsComponent";
-import {MachineWashIcon} from '../Icons/Secondary/MachineWashIcon';
 import {DeliveryIcon} from '../Icons/Secondary/DeliveryIcon';
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
@@ -20,16 +19,21 @@ export default class ProductScreenPartOne extends React.Component {
 	}
 
 	onBookmarkPress = () => {
-		if (!this.state.ProductWishlist) {
-			this.props.AddToWishlistFn(this.props.ProductID, this.props.Token);
-			this.setState({
-				ProductWishlist: !this.state.ProductWishlist,
-			});
+
+		if(this.props.Token) {
+			if (!this.state.ProductWishlist) {
+				this.props.AddToWishlistFn(this.props.ProductID, this.props.Token);
+				this.setState({
+					ProductWishlist: !this.state.ProductWishlist,
+				});
+			} else {
+				this.props.RemoveFromWishlistFn(this.props.ProductID, this.props.Token);
+				this.setState({
+					ProductWishlist: !this.state.ProductWishlist,
+				});
+			}
 		} else {
-			this.props.RemoveFromWishlistFn(this.props.ProductID, this.props.Token);
-			this.setState({
-				ProductWishlist: !this.state.ProductWishlist,
-			});
+			this.props.NavigateLogin();
 		}
 	};
 

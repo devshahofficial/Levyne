@@ -6,7 +6,7 @@ const deviceWidth = Dimensions.get("window").width;
 import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import CstmShadowView from "./CstmShadowView";
-import {BookMarkIcon} from '../Icons/BookMarkIcon';
+import BookMarkIcon from '../Icons/BookMarkIcon';
 
 export default class ProductItemContainer extends React.Component {
 
@@ -20,15 +20,20 @@ export default class ProductItemContainer extends React.Component {
     }
 
     onBookmarkPress = async () => {
-        if(!this.state.addToWishlist)
-        {
-            AddWishlistProductByID(this.props.item.ProductID,this.props.Token);
-            this.setState({addToWishlist: !this.state.addToWishlist});
-        }
-        else
-        {
-            RemoveWishlistProductByID(this.props.item.ProductID,this.props.Token)
-            this.setState({addToWishlist: !this.state.addToWishlist});
+
+        if(this.props.Token) {
+            if(!this.state.addToWishlist)
+            {
+                AddWishlistProductByID(this.props.item.ProductID,this.props.Token);
+                this.setState({addToWishlist: !this.state.addToWishlist});
+            }
+            else
+            {
+                RemoveWishlistProductByID(this.props.item.ProductID,this.props.Token)
+                this.setState({addToWishlist: !this.state.addToWishlist});
+            }
+        } else {
+            this.props.NavigateLogin();
         }
     }
 

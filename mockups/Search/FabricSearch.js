@@ -58,6 +58,10 @@ export default class FabricSearchScreen extends React.Component {
         })
     }
 
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
         return (
             <View flex>
@@ -97,6 +101,7 @@ export default class FabricSearchScreen extends React.Component {
                         ListHeaderComponent={<View marginV-25></View>}
                         renderItem={({ item }) =>
                             <FabricItemContainer
+                                NavigateLogin={this.NavigateLogin}
                                 Token={this.props.AccessToken}
                                 item={item}
                                 navigateFabric={this.props.navigateFabric}

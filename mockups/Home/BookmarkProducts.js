@@ -7,6 +7,7 @@ import {View} from 'react-native-ui-lib';
 import ProductItemContainer from '../../components/ProductItemContainer';
 import FabricItemContainer from "../../components/FabricItemContainer";
 import LikedSVG from "../../assets/images/AppImages/Liked.svg";
+import UnLoggedScreen from '../../components/UnLoggedScreen';
 
 
 class BookmarkProducts extends React.Component {
@@ -37,24 +38,27 @@ class BookmarkProducts extends React.Component {
 
     componentDidMount() {
         this._isMounted = true;
-        ListBookmarkProducts(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
-            if(this._isMounted) {
-                this.setState({
-                    Products : resp.Products,
-                    Loading: false
-                });
-                this.TotalProducts = resp.Total;
-                this.loadNewPage = true;
-            }
 
-        }).catch((err) => {
-            console.log(err);
-            if(this._isMounted) {
-                this.setState({
-                    Loading: false
-                });
-            }
-        })
+        if(!this.props.SkipLogin) {
+            ListBookmarkProducts(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
+                if(this._isMounted) {
+                    this.setState({
+                        Products : resp.Products,
+                        Loading: false
+                    });
+                    this.TotalProducts = resp.Total;
+                    this.loadNewPage = true;
+                }
+    
+            }).catch((err) => {
+                console.log(err);
+                if(this._isMounted) {
+                    this.setState({
+                        Loading: false
+                    });
+                }
+            })
+        }
     }
 
     FlatListRenderItem = ({ item }) => (
@@ -91,34 +95,42 @@ class BookmarkProducts extends React.Component {
         });
     }
 
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
+    }
+
     render() {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Wishlist'}/>
-                <View centerV flex>
-                    {this.state.Loading ?
-                        <View flex center>
-                            <ActivityIndicator />
-                        </View>
-                        :
-                        <FlatList
-                            data={this.state.Products}
-                            numColumns={2}
-                            renderItem={this.FlatListRenderItem}
-                            keyExtractor={(item) => item.ProductID || '0' + item.FabricID || '0'}
-                            showsVerticalScrollIndicator={false}
-                            ListEmptyComponent={
-                                <View centerH style={styles.Image}>
-                                    <LikedSVG width={'90%'}/>
-                                </View>
-                            }
-                            refreshing={this.state.Refreshing}
-                            onEndReached={this.FlatListOnEndReached}
-                            onEndReachedThreshold={0.75}
-                            onRefresh={this.onRefresh}
-                        />
-                    }
-                </View>
+                {this.props.SkipLogin ?
+                    <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
+                    :
+                    <View centerV flex>
+                        {this.state.Loading ?
+                            <View flex center>
+                                <ActivityIndicator />
+                            </View>
+                            :
+                            <FlatList
+                                data={this.state.Products}
+                                numColumns={2}
+                                renderItem={this.FlatListRenderItem}
+                                keyExtractor={(item) => item.ProductID || '0' + item.FabricID || '0'}
+                                showsVerticalScrollIndicator={false}
+                                ListEmptyComponent={
+                                    <View centerH style={styles.Image}>
+                                        <LikedSVG width={'90%'}/>
+                                    </View>
+                                }
+                                refreshing={this.state.Refreshing}
+                                onEndReached={this.FlatListOnEndReached}
+                                onEndReachedThreshold={0.75}
+                                onRefresh={this.onRefresh}
+                            />
+                        }
+                    </View>
+                }  
             </>
         )
     }
@@ -126,8 +138,8 @@ class BookmarkProducts extends React.Component {
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
-const styles = StyleSheet.create({
 
+const styles = StyleSheet.create({
     Image: {
         width: screenWidth,
         height: screenHeight-90,
@@ -135,7 +147,8 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = state => ({
-    AccessToken : state.Auth.AccessToken
+    AccessToken : state.Auth.AccessToken,
+    SkipLogin: state.Auth.SkipLogin
 });
 
 export default connect(mapsStateToProps)(BookmarkProducts)

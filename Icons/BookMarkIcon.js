@@ -1,7 +1,8 @@
 import React from 'react';
 import {Svg, G, Path} from 'react-native-svg';
 
-export const BookMarkIcon = (props) => {
+const BookMarkIcon = (props) => {
+
     if (props.Fill === false) {
         return (
             <Svg id="Iconly_Light-outline_Heart" data-name="Iconly/Light-outline/Heart" xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 80 80">
@@ -24,3 +25,5 @@ export const BookMarkIcon = (props) => {
     }
 
 };
+
+export default BookMarkIcon;
