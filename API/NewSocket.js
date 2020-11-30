@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import config from '../assets/constants';
 
 export default async (Token) => {
-    const socket = await io(config.URL + 'Customers', {
+    const socket = await io(global.URL + 'Customers', {
         auth: {
             authentication: Token
         },

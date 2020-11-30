@@ -1,15 +1,14 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {StatusBar, StyleSheet, View, Platform} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 import MainNavigator from './navigations/NavigatorMain';
 import {Provider} from 'react-redux';
+import constants from './assets/constants';
 import { NavigationContainer } from '@react-navigation/native';
 import './Style/Components';
 import './Style/Colors';
+import './assets/globals';
 import ReduxStore from './Redux/ReduxStore';
-import { LogBox } from 'react-native';
-
-LogBox.ignoreLogs(['Unrecognized WebSocket connection option(s) `localAddress`. Did you mean to put these under `headers`?']);
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
@@ -32,10 +31,8 @@ export default class App extends React.Component {
 	}
 };
 
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 45 : StatusBar.currentHeight;
-
 const styles = StyleSheet.create({
 	statusBar: {
-		height: STATUSBAR_HEIGHT,
+		height: constants.StatusBarHeight,
 	},
 });

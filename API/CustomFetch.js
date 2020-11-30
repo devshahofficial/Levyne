@@ -1,4 +1,3 @@
-import config from '../assets/constants';
 /**
  * 
  * @param {any} data 
@@ -28,7 +27,7 @@ const encodeQueryData = (data) => {
  */
 
 export const POST = async (URL, {ReturnResponse, Token, Body}, abortControllerSignal) => {
-    const resp = await fetch(config.BaseURL + URL, {
+    const resp = await fetch(global.BaseURL + URL, {
         method: 'POST',
         signal: abortControllerSignal,
         headers: {
@@ -58,7 +57,7 @@ export const POST = async (URL, {ReturnResponse, Token, Body}, abortControllerSi
 
 export const GET = async (URL, {ReturnResponse, Token, QueryData}, abortControllerSignal) => {
 
-    const resp = await fetch(config.BaseURL + URL + '?' + encodeQueryData(QueryData), {
+    const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(QueryData), {
         method: 'GET',
         signal: abortControllerSignal,
         headers: {

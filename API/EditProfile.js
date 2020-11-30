@@ -1,4 +1,3 @@
-import config from '../assets/constants';
 import AsyncStorage from '@react-native-community/async-storage';
 const validateEmail = (email) => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -32,7 +31,7 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
 
         try {
             var xhr = new XMLHttpRequest();
-            xhr.open("POST", config.BaseURL + 'Profile/EditProfile');
+            xhr.open("POST", global.BaseURL + 'Profile/EditProfile');
             xhr.setRequestHeader("Content-Type", Content);
             xhr.setRequestHeader("Authorization", Token);
             xhr.onreadystatechange = function() {
