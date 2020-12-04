@@ -11,6 +11,7 @@ import {RightIcon} from "../../Icons/RightIcon";
 import FetchFitsAndSizes from '../../API/FetchFitsAndSizes';
 import InsertFitsAndSizes from '../../API/InsertFitsAndSizes';
 
+
 class MyFits extends Component {
     constructor(props) {
         super(props);
@@ -65,7 +66,7 @@ class MyFits extends Component {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
-                {this.state.ProfileNotCompleted ? 
+                {this.state.ProfileNotCompleted ?
                     <View center>
                         <Text>Profile Incomplete</Text>
                     </View>
@@ -82,7 +83,10 @@ class MyFits extends Component {
                         <Carousel containerStyle={{ flex: 1 }}>
                             {Object.keys(this.Fits).map((PageName) => {
                                 return (
-                                    <ScrollView key={PageName}>
+                                    <ScrollView
+                                        key={PageName}
+                                        showsVerticalScrollIndicator={false}
+                                    >
                                         <CstmShadowView style={{ height: 375, borderRadius: 20, margin: 15, padding: 0 }}>
                                             <Image
                                                 source={{ uri: this.Fits[PageName].Image }}
@@ -90,22 +94,22 @@ class MyFits extends Component {
                                                 style={styles.ImageCSS}
                                             />
                                         </CstmShadowView>
-                                        <View style={styles.Outer}>
-                                            <Text style={styles.HeaderStyle}>
+                                        <View padding-20>
+                                            <Text hb1>
                                                 {PageName}
                                             </Text>
                                             <View style={styles.InnerElementsContainer}>
                                                 {this.Fits[PageName].items.map((FitName) => (
-                                                    <View row key={FitName}>
-                                                        <View style={styles.InnerText}>
-                                                            <Text style={styles.InnerElements}>{FitName}</Text>
+                                                    <View row marginV-5 centerV key={FitName}>
+                                                        <View flex-2 marginR-10>
+                                                            <Text h1 secondary>{FitName}</Text>
                                                         </View>
-                                                        <View style={styles.InputBox}>
+                                                        <View flex>
                                                             <Input
                                                                 placeholder={'Enter Size'}
                                                                 maxLength={5}
-                                                                textAlign={'center'} 
-                                                                style={{ width: "60%", paddingLeft: 'auto', paddingTop: 5 }}
+                                                                textAlign={'center'}
+                                                                style={{ paddingLeft: 0}}
                                                                 value={this.state[FitName]}
                                                                 onChangeText={value => {
                                                                     this.setState({[FitName]: value})
@@ -155,8 +159,7 @@ const styles = StyleSheet.create({
         fontSize: 15
     },
     InnerText:{
-        width: "40%",
-        marginRight:"10%"
+        backgroundColor: Colors.primary
     },
     InputBox: {
         width: "60%",
