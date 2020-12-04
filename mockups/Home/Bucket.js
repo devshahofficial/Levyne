@@ -116,14 +116,7 @@ class Bucket extends React.Component {
         this.setState({
             Buckets : this.state.Buckets.filter(item => !(item.CartID === CartID && item.ProductType === ProductType))
         })
-        RemoveProductFromCart(CartID, ProductType, this.props.AccessToken).catch(console.log);
-    }
-
-    RemoveFabricFromCart = async (FabricID) => {
-        this.setState({
-            Buckets : this.state.Buckets.filter(item => !(item.FabricID === FabricID && item.ProductType === 2))
-        })
-        RemoveFabricFromCart(FabricID, this.props.AccessToken).catch(console.log);
+        RemoveProductFromCart(this.props.route.params.BucketID, CartID, ProductType, this.props.AccessToken).catch(console.log);
     }
 
     render() {

@@ -4,61 +4,51 @@ import { View, TouchableOpacity, Text, Colors } from 'react-native-ui-lib';
 import { ArchiveIcon } from "../Icons/ArchiveIcon";
 import ShadowView from "react-native-simple-shadow-view";
 
+const windowWidth = Dimensions.get('window').width;
+
 export default class BucketProduct extends React.PureComponent {
 
     ProductWithFabric = () => {
         return (
             <View padding-15>
                 <ShadowView style={styles.View}>
-                    <View flex row centerH style={{ height: 150 }}>
+                    <View flex row centerH style={{ height: "auto" }}>
                         <TouchableOpacity
-                            flex
-                            paddingH-10
+                            flex-6 style={{borderTopLeftRadius:10}}
                             onPress={() => this.props.DisplayImageView(this.props.item.ProductImage)}
                         >
                             <Image
-                                style={{ flex: 1 }}
+                                style={styles.ImageContainer}
                                 source={{ uri: this.props.item.ProductImage }}
                             />
                         </TouchableOpacity>
-                        <View flex paddingH-10>
-                            <View>
-                                <Text hb1 secondary>Expected Cost</Text>
-                                <View row>
-                                    <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                                </View>
-                            </View>
-                            {
-                                this.props.item.DecidedPrice ?
-                                    <View marginT-10>
-                                        <Text hb1 secondary>Decided Cost</Text>
-                                        <View row>
-                                            <Text hb1 primary>₹{this.props.item.DecidedPrice}</Text>
-                                        </View>
-                                    </View>
-                                    :
-                                    <View marginT-10>
-                                        <Text hb1 secondary>Decided Cost</Text>
-                                        <View row>
-                                            <Text hb1 primary>Chat To decide</Text>
-                                        </View>
-                                    </View>
-                            }
+                        <TouchableOpacity
+                            flex-2 style={{borderTopRightRadius:10}}
+                            onPress={() => this.props.DisplayImageView(this.props.item.FabricImage)}
+                        >
+                            <Image
+                                style={styles.FabricContainer}
+                                source={{uri: this.props.item.FabricImage}}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View marginT-10>
+                        <Text h2 secondary>Average Cost</Text>
+                        <View row>
+                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
                         </View>
                     </View>
 
-                    <TouchableOpacity
-                        flex
-                        marginT-20
-                        padding-20
-                        center
-                        onPress={() => this.props.DisplayImageView(this.props.item.FabricImage)}
-                    >
-                        <Image
-                            style={{ height: 50, width: Dimensions.get('window').width - 40, borderRadius: 5 }}
-                            source={{ uri: this.props.item.FabricImage }}
-                        />
-                    </TouchableOpacity>
+                    <View marginV-10 paddingV-10>
+                        <Text h2 secondary>Final Budget</Text>
+                        <View row>
+                            {this.props.item.DecidedPrice ?
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}</Text> :
+                                <Text hb1 primary>Chat to Decide</Text>
+                            }
+                        </View>
+                    </View>
 
                     <View flex marginV-20>
                         <View row>
@@ -75,7 +65,7 @@ export default class BucketProduct extends React.PureComponent {
                         <Text h2 secondary flex-15>Visit the Fabric</Text>
                         <Text h2 secondary flex>{">"}</Text>
                     </TouchableOpacity>
-                    <View style={{ justifyContent: "flex-end" }}>
+                    <View flex style={{ alignItems: "flex-end" }}>
                         <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID, this.props.item.ProductType)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
                             <ArchiveIcon Size={20} Color={Colors.white} />
                         </TouchableOpacity>
@@ -89,46 +79,42 @@ export default class BucketProduct extends React.PureComponent {
         return (
             <View padding-15>
                 <ShadowView style={styles.View}>
-                    <View flex row centerH style={{ height: 150 }}>
+
+                    <View flex row centerH style={{ height: "auto" }}>
                         <TouchableOpacity
                             flex
-                            paddingH-10
+                            style={{borderRadius:10}}
                             onPress={() => this.props.DisplayImageView(this.props.item.ProductImage)}
                         >
                             <Image
-                                style={{ flex: 1 }}
+                                style={styles.ImageContainerOnlyProduct}
                                 source={{ uri: this.props.item.ProductImage }}
                             />
                         </TouchableOpacity>
-                        <View flex paddingH-10>
-                            <View>
-                                <Text hb1 secondary>Expected Cost</Text>
-                                <View row>
-                                    <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                                </View>
-                            </View>
-                            {
-                                this.props.item.DecidedPrice ?
-                                    <View marginT-10>
-                                        <Text hb1 secondary>Decided Cost</Text>
-                                        <View row>
-                                            <Text hb1 primary>₹{this.props.item.DecidedPrice}</Text>
-                                        </View>
-                                    </View>
-                                    :
-                                    <View marginT-10>
-                                        <Text hb1 secondary>Decided Cost</Text>
-                                        <View row>
-                                            <Text hb1 primary>Chat To decide</Text>
-                                        </View>
-                                    </View>
+                    </View>
+
+                    <View marginT-10>
+                        <Text h2 secondary>Average Cost</Text>
+                        <View row>
+                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
+                        </View>
+                    </View>
+
+                    <View marginV-10 paddingV-10>
+                        <Text h2 secondary>Final Budget</Text>
+                        <View row>
+                            {this.props.item.DecidedPrice ?
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}</Text> :
+                                <Text hb1 primary>Chat to Decide</Text>
                             }
                         </View>
                     </View>
 
-                    <View row marginV-20>
-                        <Text flex hb2 secondary>Quantity</Text>
-                        <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                    <View flex marginV-10>
+                        <View row>
+                            <Text flex hb2 secondary>Quantity</Text>
+                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                        </View>
                     </View>
 
                     <View row center>
@@ -189,5 +175,20 @@ const styles = StyleSheet.create({
         borderColor: Colors.shadow,
         flexDirection: "row",
         paddingHorizontal: 15
-    }
+    },
+    ImageContainer: {
+        height: windowWidth*0.8,
+        width: windowWidth*0.6,
+        borderTopLeftRadius:10
+    },
+    ImageContainerOnlyProduct: {
+        height: windowWidth*0.8,
+        width: '100%',
+        borderTopLeftRadius:10
+    },
+    FabricContainer:  {
+        height: windowWidth*0.8,
+        width: 'auto',
+        borderTopRightRadius:10
+    },
 });
