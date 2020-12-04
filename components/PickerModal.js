@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, TouchableOpacity as RNView } from 'react-native';
-import ActionSheet from './ActionSheet';
+import ActionSheet from './Modal/ActionSheet';
 
 
 export default class ImagePickerModal extends React.PureComponent {
