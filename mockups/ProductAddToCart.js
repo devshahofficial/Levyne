@@ -7,6 +7,7 @@ import FabricOrderContainer from "../components/FabricOrderContainer";
 import FetchFabricByBrandIDAndMaterials from '../API/FetchFabricByBrandIDAndMaterials';
 import AddProductToCartAPI from '../API/AddProductToCart';
 import {connect} from 'react-redux';
+import NavBarBack from "../components/NavBarBack";
 
 class AddToCartScreen extends React.PureComponent {
 
@@ -20,6 +21,8 @@ class AddToCartScreen extends React.PureComponent {
             showCustomToast: false,
             FabricQuantity: 1,
             CustomFabric: false,
+            CustomFabricOutsideList: false,
+            FabricOfProduct: true
         }
         this.FabricPage = 0;
         this.FabricLoaded = false;
@@ -104,36 +107,61 @@ class AddToCartScreen extends React.PureComponent {
 
     headerFlatList = () => {
         return(
-            <View marginH-10>
-                <View row marginB-20>
-                    <CstmShadowView style={styles.Group}>
-                        <Button h2 label={"Size Guide"}/>
-                    </CstmShadowView>
-                    <CstmShadowView style={styles.Group}>
-                        <Button h2 label={"My Sizes"}/>
-                    </CstmShadowView>
-                </View>
-
-                <View marginT-20>
-                    <View marginB-20>
-                        <View row spread>
-                            <Text hb1 secondary>Choose Custom Fabric</Text>
-                            <Checkbox
-                                value={this.state.CustomFabric}
-                                onValueChange={this.LoadFabric}
-                                borderRadius={10}
-                                size={25}
-                                color={Colors.primary}
-                            />
-                        </View>
+            <>
+                <View row padding-10>
+                    <View flex-8 marginR-5>
+                        <Text h1 secondary>Choose the product image</Text>
                     </View>
-                    {this.state.CustomFabric &&
-                        <View marginT-20>
-                            <Text h1 secondary>Choose the fabric</Text>
-                        </View>
-                    }
+                    <View flex marginL-5>
+                        <Checkbox
+                            value={this.state.FabricOfProduct}
+                            onValueChange={this.LoadFabric}
+                            borderRadius={10}
+                            size={25}
+                            color={Colors.primary}
+                        />
+                    </View>
                 </View>
-            </View>
+                <View row padding-10>
+                    <View flex-8 marginR-5>
+                        <Text h1 secondary>Choose a fabric from Designer's Collection</Text>
+                    </View>
+                    <View flex marginL-5>
+                        <Checkbox
+                            value={this.state.CustomFabric}
+                            onValueChange={this.LoadFabric}
+                            borderRadius={10}
+                            size={25}
+                            color={Colors.primary}
+                        />
+                    </View>
+                </View>
+            </>
+        )
+    }
+
+    footerFlatList = () => {
+        if(this.state.CustomFabric) {
+            return (
+                <View row padding-10>
+                    <View flex-8 marginR-5>
+                        <Text h1 secondary>Chat with the designer to select the fabric</Text>
+                    </View>
+                    <View flex marginL-5>
+                        <Checkbox
+                            value={this.state.CustomFabricOutsideList}
+                            onValueChange={this.LoadFabric}
+                            borderRadius={10}
+                            size={25}
+                            color={Colors.primary}
+                        />
+                    </View>
+                </View>
+            )
+        }
+
+        return (
+            <></>
         )
     }
 
@@ -164,12 +192,9 @@ class AddToCartScreen extends React.PureComponent {
 
     render() {
         return (
-            <SafeAreaView style={{flex:1}}>
-                <View row centerV left paddingL-10 style={{height:50}}>
-                    <TouchableOpacity onPress={this.props.navigation.goBack}><BackArrowIcon/></TouchableOpacity>
-                    <Text h1 marginL-20>Back to the product</Text>
-                </View>
-                <View paddingT-10 paddingH-5 flex>
+            <>
+                <NavBarBack Navigation={this.props.navigation.goBack} Title={"Choose the Fabric"}/>
+                <View flex>
                     <FlatList
                         ListHeaderComponent={this.headerFlatList}
                         data={this.state.CustomFabric ? this.state.Fabrics : []}
@@ -180,6 +205,7 @@ class AddToCartScreen extends React.PureComponent {
                         keyExtractor={item => item.FabricID}
                         onEndReached={this.LoadMoreFabrics}
                         onEndReachedThreshold={0.50}
+                        ListFooterComponent={this.footerFlatList}
                     />
                 </View>
                 <View>
@@ -194,7 +220,7 @@ class AddToCartScreen extends React.PureComponent {
                 >
                     {this.renderCustomContent()}
                 </Toast>
-            </SafeAreaView>
+            </>
         )
     }
 }

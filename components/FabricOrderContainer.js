@@ -81,7 +81,7 @@ export default class FabricOrderContainer extends React.Component {
 
                 <Button
                     label={this.props.SelectedFabric === this.props.item.FabricID ? "Your Choice" : "Choose"}
-                    h2
+                    h2 style={{height:"auto"}} center
                     onPress={() => {
                         this.props.SelectFabric(this.props.item.FabricID)
                     }}
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     Choose: {
         backgroundColor: Colors.primary,
         height: 30,
-        paddingTop: 2, 
+        paddingTop: 2,
         marginHorizontal: 20,
         marginVertical: 10,
         color: Colors.white
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     Chosen: {
         backgroundColor: Colors.white,
         height: 30,
-        paddingTop: 2, 
+        paddingTop: 2,
         borderColor: Colors.primary,
         borderWidth: 1,
         marginHorizontal: 20,
