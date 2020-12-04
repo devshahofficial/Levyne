@@ -10,6 +10,10 @@ import NavBarBack from '../../components/NavBarBack';
 import {RightIcon} from "../../Icons/RightIcon";
 import FetchFitsAndSizes from '../../API/FetchFitsAndSizes';
 import InsertFitsAndSizes from '../../API/InsertFitsAndSizes';
+import FitsFemale from '../../assets/FitsFemale';
+import FitsForSearchFemale from '../../assets/FitsFemaleArray';
+import FitsMale from '../../assets/FitsMale';
+import FitsForSearchMale from '../../assets/FitsMaleArray';
 
 
 class MyFits extends Component {
@@ -21,12 +25,12 @@ class MyFits extends Component {
 
         switch(this.props.Gender) {
             case 0 :
-                this.Fits = require('../../assets/FitsFemale').default;
-                this.FitsForSearch = require('../../assets/FitsFemaleArray').default;
+                this.Fits = FitsFemale;
+                this.FitsForSearch = FitsForSearchFemale
                 break;
             case 1 :
-                this.Fits = require('../../assets/FitsMale').default;
-                this.FitsForSearch = require('../../assets/FitsMaleArray').default;
+                this.Fits = FitsMale
+                this.FitsForSearch = FitsForSearchMale
                 break;
             default :
                 this.state.ProfileNotCompleted = true;
