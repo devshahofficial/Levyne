@@ -1,8 +1,7 @@
 import React from 'react';
-import { StyleSheet, FlatList, SafeAreaView, ActivityIndicator} from 'react-native';
+import { FlatList, ActivityIndicator} from 'react-native';
 import CstmShadowView from "../components/CstmShadowView";
-import {Text, View, TouchableOpacity, Colors, Button, Checkbox, Toast} from "react-native-ui-lib";
-import {BackArrowIcon} from "../Icons/BackArrowIcon";
+import {Text, View, Colors, Button, Checkbox, Toast} from "react-native-ui-lib";
 import FabricOrderContainer from "../components/FabricOrderContainer";
 import FetchFabricByBrandIDAndMaterials from '../API/FetchFabricByBrandIDAndMaterials';
 import AddProductToCartAPI from '../API/AddProductToCart';
@@ -14,7 +13,6 @@ class AddToCartScreen extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            SelectedSize: 0,
             Fabrics: [],
             LoadMoreFabrics: false,
             SelectedFabric: '',
@@ -27,23 +25,23 @@ class AddToCartScreen extends React.PureComponent {
         this.FabricPage = 0;
         this.FabricLoaded = false;
         this.FabricTotal = 0;
-        this._isMounted = true;
         this.abortController = new AbortController();
         this.Timeout = [];
     }
 
     LoadFabric = () => {
 
+        this.FabricPage = 0;
         if(!this.state.CustomFabric) {
             if(!this.FabricLoaded) {
                 FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
-                    this._isMounted && this.setState({
+                    this.setState({
                         Fabrics: resp.Fabrics,
                     });
                     this.FabricLoaded = true;
                     this.FabricTotal = resp.Total;
-                }).catch(err => {
-                    console.log(err);
+                }).catch(() => {
+                    //console.log(err);
                 })
             }
         } else {
@@ -51,19 +49,28 @@ class AddToCartScreen extends React.PureComponent {
         }
 
         this.setState({
-            CustomFabric: !this.state.CustomFabric
+            CustomFabric: !this.state.CustomFabric,
+            FabricOfProduct: !this.state.FabricOfProduct
         });
     }
 
     componentWillUnmount() {
         this.abortController.abort();
-        this.Timeout.forEach(item => {
-            clearTimeout(item);
+        this.Timeout.forEach(clearTimeout)
+    }
+
+    CustomFabricOutsideListCheckbox = () => {
+        this.setState({
+            SelectedFabric: '',
+            CustomFabricOutsideList: true
         })
     }
 
     SelectFabric = (SelectedFabric) => {
-        this.setState({SelectedFabric});
+        this.setState({
+            SelectedFabric,
+            CustomFabricOutsideList: false
+        });
     }
 
     navigateFabric = (FabricID) => {
@@ -71,12 +78,12 @@ class AddToCartScreen extends React.PureComponent {
     }
 
     AddProductToCart = () => {
-        if(this.state.CustomFabric && !this.state.SelectedFabric) {
-            this._isMounted && this.setState({
+        if(this.state.CustomFabric && !this.state.SelectedFabric && !this.state.CustomFabricOutsideList) {
+            this.setState({
                 showCustomToast: true
             });
             this.Timeout.push(setTimeout(() => {
-                this._isMounted && this.setState({
+                this.setState({
                     showCustomToast: false
                 });
             }, 3000));
@@ -95,12 +102,12 @@ class AddToCartScreen extends React.PureComponent {
 
     LoadMoreFabrics = () => {
         if(this.FabricTotal > this.state.Fabrics.length) {
-            FetchFabricByBrandID(this.state.ProductObject.BrandID, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
-                this._isMounted && this.setState({
+            FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
+                this.setState({
                     Fabrics: [...this.state.Fabrics, ...resp.Fabrics]
                 });
-            }).catch(err => {
-                console.log(err);
+            }).catch(() => {
+                //console.log(err);
             })
         }
     }
@@ -110,7 +117,7 @@ class AddToCartScreen extends React.PureComponent {
             <>
                 <View row padding-10>
                     <View flex-8 marginR-5>
-                        <Text h1 secondary>Choose the product image</Text>
+                        <Text h1 secondary>Choose the product fabric</Text>
                     </View>
                     <View flex marginL-5>
                         <Checkbox
@@ -150,7 +157,7 @@ class AddToCartScreen extends React.PureComponent {
                     <View flex marginL-5>
                         <Checkbox
                             value={this.state.CustomFabricOutsideList}
-                            onValueChange={this.LoadFabric}
+                            onValueChange={this.CustomFabricOutsideListCheckbox}
                             borderRadius={10}
                             size={25}
                             color={Colors.primary}
@@ -182,7 +189,7 @@ class AddToCartScreen extends React.PureComponent {
     };
 
     FlatListLoader = () => (
-        !this.state.CustomerFabric && this.state.CustomFabric ?
+        this.state.CustomFabric ?
             <View flex center>
                 <ActivityIndicator />
             </View>
@@ -224,51 +231,6 @@ class AddToCartScreen extends React.PureComponent {
         )
     }
 }
-
-const BOX_HEIGHT = 60
-const BORDER_RADIUS = 100
-
-const styles = StyleSheet.create({
-    avatarView:{
-        flex: 0.35,
-        justifyContent:'center',
-    },
-    threeBoxes: {
-        flex: 0.2,
-    },
-    box:{
-        borderRadius: BORDER_RADIUS,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: BOX_HEIGHT,
-        paddingHorizontal:25,
-        borderColor: Colors.white,
-        borderWidth:2,
-        borderStyle:'solid',
-    },
-    boxSelected:{
-        borderRadius: BORDER_RADIUS,
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: BOX_HEIGHT,
-        paddingHorizontal:25,
-        borderColor: Colors.primary,
-        borderWidth:2,
-        borderStyle:'solid',
-    },
-    shadow: {
-        height: BOX_HEIGHT,
-        margin: 10
-    },
-    Group: {
-        flex: 1,
-        marginHorizontal: 15
-    },
-    Stepper: {
-        borderRadius: 30,
-        backgroundColor: Colors.shadow
-    }
-});
 
 const mapsStateToProps = state => ({
 	AccessToken : state.Auth.AccessToken
