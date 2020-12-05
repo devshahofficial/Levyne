@@ -8,7 +8,6 @@ import Colors from "../../Style/Colors";
 import BucketProduct from "../../components/BucketProduct";
 import {TimerIcon} from "../../Icons/Secondary/TimerIcon";
 import FetchBucket from '../../API/FetchBucket';
-import RemoveFabricFromCart from '../../API/RemoveFabricFromCart';
 import RemoveProductFromCart from '../../API/RemoveProductFromCart';
 import {CheckoutIcon} from "../../Icons/CheckoutIcon";
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
@@ -34,31 +33,45 @@ class Bucket extends React.Component {
             Buckets: [],
             Loading: true,
             ImageViewVisible: false,
-            ImageViewImage: {}
+            ImageViewImage: {},
+            CheckoutActive: false,
         }
-        this.TotalActualPrice = 0;
-        this.TotalDiscountPrice = 0;
-        this.TotalProducts = 0;
         this.abortController = new AbortController();
     }
 
     componentDidMount() {
         FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
+            let CheckoutActive = true;
+            for(let i = 0;i<Buckets.length;i++) {
+                if(!Buckets[i].DecidedPrice) {
+                    CheckoutActive = false;
+                    break;
+                }
+            }
             this.setState({
                 Buckets,
-                Loading: false
+                Loading: false,
+                CheckoutActive
             });
-        }).catch(err => {console.log(err)});
+        }).catch(() => {});
 
         this.willFocusSubscription = this.props.navigation.addListener(
             'focus', () => {
                 this.setState({Loading: true});
                 FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
+                    let CheckoutActive = true;
+                    for(let i = 0;i<Buckets.length;i++) {
+                        if(!Buckets[i].DecidedPrice) {
+                            CheckoutActive = false;
+                            break;
+                        }
+                    }
                     this.setState({
                         Buckets,
-                        Loading: false
+                        Loading: false,
+                        CheckoutActive
                     });
-                }).catch(err => {console.log(err)});
+                }).catch(() => {});
             }
         );
     }
@@ -90,13 +103,10 @@ class Bucket extends React.Component {
     }
 
     navigateCheckout = () => {
-        if(this.TotalDiscountPrice > 0) {
+        if(this.state.CheckoutActive && !this.state.Loading) {
             this.props.navigation.navigate('CheckOut', {
-                TotalActualPrice: this.TotalActualPrice,
-                TotalDiscountPrice: this.TotalDiscountPrice,
-                TotalProducts: this.TotalProducts,
-                BrandName: this.props.route.params.BrandName,
-                BrandID: this.props.route.params.BrandID
+                BucketID: this.props.route.params.BucketID,
+                BrandName: this.props.route.params.BrandName
             });
         }
     }
@@ -132,7 +142,7 @@ class Bucket extends React.Component {
                             ListFooterComponent={
                                 <View marginV-20 paddingH-15 center row style={styles.View}>
                                     <DeliveryIcon size={30} Color={Colors.black} />
-                                    <DeliveryChargeComponent TotalPrice = {this.props.route.params.TotalDiscountPrice} />
+                                    <DeliveryChargeComponent TotalPrice = {this.props.route.params.DecidedPrice} />
                                 </View>
                             }
                             ListHeaderComponent={

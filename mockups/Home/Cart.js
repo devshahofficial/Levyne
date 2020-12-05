@@ -60,11 +60,11 @@ class Cart extends React.Component {
         this.props.navigation.navigate("Bucket", {BucketID, BrandID, BrandName, TotalProducts});
     }
 
-    navigateCheckout = (BucketID, Status) => {
+    navigateCheckout = (BucketID, BrandName, Status) => {
         if(Status === 0) {
             Alert.alert('Warning', 'Checkout is disabled')
         } else {
-            this.props.navigation.navigate("CheckOut", {BucketID});
+            this.props.navigation.navigate('CheckOut', { BucketID, BrandName });
         }
     }
 
