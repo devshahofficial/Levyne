@@ -74,7 +74,7 @@ export default class BucketComponent extends React.Component {
                         <Button
                             hb2 flex style={styles.ButtonRight}
                             label={'Checkout'} color={Colors.white}
-                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Status)}
+                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
                         />
                     </View>
                 </CstmShadowView>
