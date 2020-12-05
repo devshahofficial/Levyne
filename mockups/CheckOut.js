@@ -42,13 +42,11 @@ class CheckOut extends React.PureComponent {
         this.setState({
             Loading: true
         });
-
-        /*
         CheckoutAPI(
             this.props.Address,
             this.props.PinCode,
             this.state.Comment,
-            this.props.route.params.BrandID,
+            this.props.route.params.BucketID,
             this.props.AccessToken,
             this.abortController.signal
         ).then(OrderID => {
@@ -58,8 +56,7 @@ class CheckOut extends React.PureComponent {
                 Loading: false
             });
             console.log(err);
-        })
-        */
+        });
     }
 
     componentWillUnmount() {
