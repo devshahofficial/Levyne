@@ -28,7 +28,8 @@ class ChatScreen extends Component {
             ImagePickerModalVisible: false,
             TextInput: '',
             TextInputKey: Math.random(),
-            ImageSent: {}
+            ImageSent: {},
+            BucketInfo: {}
         }
         this.Page = 0;
         this.FlatListRef = React.createRef();
@@ -49,11 +50,13 @@ class ChatScreen extends Component {
     }
 
     componentDidMount = () => {
-        GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Messages => {
-            this.setState({Messages, LoadingMessages: false});
+        GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
+            this.setState({Messages: Resp.Messages, BucketInfo: Resp.BucketInfo, LoadingMessages: false});
+
+            console.log(Resp.BucketInfo);
         }).catch(err => {
             console.log(err);
-        })
+        });
     }
 
     componentWillUnmount = () => {
