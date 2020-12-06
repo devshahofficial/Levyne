@@ -61,7 +61,11 @@ class BottomTabNavigation extends React.PureComponent {
 				header='none'
 				tabBarOptions={{
 					activeTintColor: Colors.primary,
-					inactiveTintColor: Colors.grey40
+					inactiveTintColor: Colors.grey40,
+					labelStyle: {
+						fontFamily: 'Mulish-Regular',
+						fontSize: 12
+					}
 				}}
 			>
 				<Tab.Screen
@@ -90,7 +94,7 @@ class BottomTabNavigation extends React.PureComponent {
 					}}
 				/>
 				<Tab.Screen
-					name="My Wardrobe"
+					name="Wardrobe"
 					component={MyProfile}
 					options={{
 						tabBarIcon: ({ color}) => (
