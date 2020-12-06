@@ -13,16 +13,6 @@ import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from "react-native-image-viewing";
 import ConstBottomButton from "../../components/constBottomButton";
 
-/**
- *
- * Product Types
- *  1) Product
- *  2) Fabric
- *  3) Product With Customer Fabric
- *  4) Product + Fabric
- *  5) Customize + Fabric
- *
- */
 
 
 class Bucket extends React.Component {

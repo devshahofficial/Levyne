@@ -15,6 +15,23 @@ import {CameraIcon} from "../../Icons/CameraIcon";
 import UpdateReadTimestamp from '../../API/UpdateReadTimestamp';
 const windowHeight = Dimensions.get('window').height;
 
+/**
+ * Status
+ *      0: Added to cart, price not decided
+ *      1: Price Decided, but order not placed
+ *      2: Order Placed, Order Status available
+ *
+ * Order Status
+ *      0: Order just placed
+ *      1: Production started
+ *      2: Production Finished
+ *      3: Out for delivery
+ *      4: Order delivered
+ *      5: Order opted for alteration
+ *      6: Order fully completed
+ *
+ **/
+
 // The actual chat view itself- a ScrollView of BubbleMessages, with an InputBar at the bottom, which moves with the keyboard
 class ChatScreen extends Component {
 
@@ -54,7 +71,7 @@ class ChatScreen extends Component {
         GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
             this.setState({Messages: Resp.Messages, BucketInfo: Resp.BucketInfo, LoadingMessages: false});
 
-            console.log(Resp.BucketInfo);
+            console.log(this.state.BucketInfo);
         }).catch(err => {
             console.log(err);
         });
