@@ -9,9 +9,9 @@ import BucketProduct from "../../components/BucketProduct";
 import {TimerIcon} from "../../Icons/Secondary/TimerIcon";
 import FetchBucket from '../../API/FetchBucket';
 import RemoveProductFromCart from '../../API/RemoveProductFromCart';
-import {CheckoutIcon} from "../../Icons/CheckoutIcon";
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from "react-native-image-viewing";
+import ConstBottomButton from "../../components/constBottomButton";
 
 /**
  *
@@ -166,15 +166,11 @@ class Bucket extends React.Component {
                     onRequestClose={this.CloseImageView}
                     imageIndex={0}
                 />
-                <TouchableOpacity
-                    center row style={styles.Button} activeOpacity={0.8}
-                    onPress={this.navigateCheckout}
-                >
-                    <CheckoutIcon size={30} Color={Colors.white} />
-                    <Text marginL-20 hb1 white>
-                        Check out
-                    </Text>
-                </TouchableOpacity>
+                <ConstBottomButton
+                    ButtonA={"Chat"}
+                    ButtonB={"Checkout"}
+                    ButtonActionB={this.navigateCheckout}
+                />
             </>
         );
     }
@@ -193,7 +189,7 @@ const styles = StyleSheet.create({
     },
     Button: {
         height: 50,
-        width: Dimensions.get('window').width,
+        width: 'auto',
         backgroundColor: Colors.primary,
     }
 });
