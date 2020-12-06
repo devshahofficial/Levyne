@@ -59,7 +59,7 @@ const GetLastMessage = (Message) => {
     }
 }
 
-const GetChatLists = async (Token, Page) => {
+const GetChatLists = async (Token, Page, abortController) => {
 
     if(Token) {
         let ChatList = await GET('Chat/FetchChatBuckets', {
@@ -68,7 +68,7 @@ const GetChatLists = async (Token, Page) => {
             QueryData: {
                 Page
             }
-        })
+        }, abortController);
     
         const unreadBuckets = []; 
         ChatList = ChatList.map(item => {

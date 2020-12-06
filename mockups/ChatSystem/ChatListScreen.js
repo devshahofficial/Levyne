@@ -1,5 +1,5 @@
 import React, {Component, PureComponent} from 'react';
-import {StyleSheet, FlatList, Dimensions} from 'react-native';
+import {StyleSheet, FlatList, Dimensions, ActivityIndicator} from 'react-native';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View, LoaderScreen} from 'react-native-ui-lib'; //eslint-disable-line
 import {connect} from 'react-redux';
@@ -21,6 +21,9 @@ class ConversationListScreen extends Component {
         this.state = {
             refreshing: false
         }
+
+
+        this.abortController = new AbortController();
     }
 
     componentDidMount = () => {
@@ -33,11 +36,12 @@ class ConversationListScreen extends Component {
 
     componentWillUnmount = () => {
         this.props.Socket && this.props.Socket.off('ChatMessage', this.SocketListener);
+        this.abortController.abort();
     }
 
     onEndReached = () => {
         if(this.props.ChatList.length >= this.Page*20) {
-            FetchChatBuckets(this.props.AccessToken, ++this.Page).then(rows => {
+            FetchChatBuckets(this.props.AccessToken, ++this.Page, this.abortController.signal).then(rows => {
                 MarkBucketAsUnRead(rows[1]);
                 setChatList(rows[0]);
             }).catch(err => {
