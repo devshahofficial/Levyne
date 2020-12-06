@@ -38,7 +38,7 @@ class SearchText extends React.Component {
 
     navigateSearchWithStateSearchKey = () => {
         if(this.state.SearchKey) {
-            this.props.navigation.push('SearchScreen', {SearchKey: this.state.SearchKey});
+            this.props.navigation.push('SearchScreen', {SearchFilter: {Label: this.state.SearchKey, Type: 3}});
         }
     }
 
