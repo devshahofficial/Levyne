@@ -108,7 +108,7 @@ class HomeScreen extends React.Component {
                 item.Timestamp = timeAgo(item.Timestamp);
                 return item;
             })
-            this.setState({BlogPosts:[...BlogPosts,...BlogPosts,...BlogPosts]});
+            this.setState({BlogPosts});
         }).catch(err => {
             console.log(err);
         });

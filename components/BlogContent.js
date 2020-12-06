@@ -9,7 +9,7 @@ export default class BlogContent extends React.PureComponent {
 
     render() {
         return (
-            <CstmShadowView style={{height:'auto', width:'auto', borderRadius:10, padding:10, margin:10}}>
+            <CstmShadowView style={{height:'auto', width:'auto', borderRadius:10, padding:10, margin:10,shadowOffset: {width: 0,height: 2}}}>
                 <TouchableOpacity
                     activeOpacity={0.8}
                     onPress={() => this.props.Navigation(this.props.PostID, this.props.Headline, this.props.Image, this.props.Timestamp)}
