@@ -18,6 +18,9 @@ class ConversationListScreen extends Component {
             this.props.ChatList = [];
         };
         this.Page = 1;
+        this.state = {
+            refreshing: false
+        }
     }
 
     componentDidMount = () => {
@@ -41,6 +44,21 @@ class ConversationListScreen extends Component {
                 console.log(err);
             });
         }
+    }
+
+    onRefresh = () => {
+        this.Page = 0;
+        this.setState({refreshing: true})
+        FetchChatBuckets(this.props.AccessToken, ++this.Page, this.abortController.signal).then(rows => {
+            this.props.MarkBucketAsUnRead(rows[1], true);
+            this.props.setChatList(rows[0], true);
+            this.setState({
+                refreshing: false
+            })
+        }).catch((err) => {
+            console.log(err);
+        });
+        return <ActivityIndicator />
     }
 
     renderItem = ({item}) => {
@@ -103,6 +121,8 @@ class ConversationListScreen extends Component {
                                 renderItem={this.renderItem}
                                 keyExtractor={this.keyExtractor}
                                 onEndReached={this.onEndReached}
+                                refreshing={this.state.refreshing}
+                                onRefresh={this.onRefresh}
                             />
                         </View>
                 }
@@ -175,8 +195,8 @@ const mapsStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
 	return {
         MarkBucketAsRead: (BucketID, itemIndex) => dispatch({type: 'MarkBucketAsRead', value: BucketID, itemIndex}),
-        setChatList : (ChatList) => dispatch({type: 'setChatList', value: ChatList}),
-		MarkBucketAsUnRead: (Buckets) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets}),
+        setChatList : (ChatList, EmptyFirst) => dispatch({type: 'setChatList', value: ChatList, EmptyFirst}),
+		MarkBucketAsUnRead: (Buckets, EmptyFirst) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets, EmptyFirst}),
 	}
 }
 

@@ -81,10 +81,18 @@ const InitialChatStates = {
 const ChatReducer = (state = InitialChatStates, action) => {
 	switch (action.type) {
 		case 'setChatList':
-			//Removing any duplicates
-			return {...state, ChatList: _.unionBy(action.value, state.ChatList, 'BucketID'), ChatLoading: false};
+			//Removing any duplicates 
+			if(action.EmptyFirst) {
+				return {...state, ChatList: action.value};
+			} else {		
+				return {...state, ChatList: _.unionBy(action.value, state.ChatList, 'BucketID'), ChatLoading: false};
+			}
 		case 'MarkBucketAsUnRead':
-			state.UnreadBuckets.push(...action.value);
+			if(action.EmptyFirst) {
+				return {...state, UnreadBuckets: action.value};
+			} else {
+				state.UnreadBuckets.push(...action.value);
+			}
 			return {...state};
 		case 'MarkBucketAsRead':
 			const index = state.UnreadBuckets.indexOf(action.value);
