@@ -18,6 +18,7 @@ export default class ChatInputBar extends PureComponent {
                             <TextArea
                                 hideUnderline h1
                                 blurOnSubmit={true}
+                                placeholder={"Type message..."}
                                 placeholderTextColor={Colors.secondary}
                                 value={this.props.value}
                                 onChangeText={this.props.onChangeText}
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
     ShadowViewInput:{
         paddingRight: 10,
         flex:1,
-        flexDirection:"row", 
+        flexDirection:"row",
         alignItems:'flex-end'
     },
     ShadowViewButton:{
