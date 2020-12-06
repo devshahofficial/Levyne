@@ -77,27 +77,27 @@ class ChatScreen extends Component {
     }
 
     RightText = ({TextInput, Timestamp}) => (
-        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end'}}>
+        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end', paddingTop: 10}}>
             <Hyperlink linkDefault={ true }  linkStyle = {{ color: Colors.blue10 }}>
-                <Text>{TextInput}</Text>
+                <Text h1>{TextInput}</Text>
             </Hyperlink>
-            <Text secondary style={{alignSelf: 'flex-end'}}>{Timestamp}</Text>
+            <Text secondary h3 style={{alignSelf: 'flex-end'}}>{Timestamp}</Text>
         </CstmShadowView>
     )
 
     LeftText = ({TextInput, Timestamp}) => (
-        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-start'}}>
+        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-start', paddingTop: 10}}>
             <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
-                <Text>{TextInput}</Text>
+                <Text h1>{TextInput}</Text>
             </Hyperlink>
-            <Text secondary>{Timestamp}</Text>
+            <Text h3 secondary>{Timestamp}</Text>
         </CstmShadowView>
     )
 
     CenterText = ({TextInput}) => (
-        <View style={styles.CenterText}>
+        <View style={styles.CenterText} center>
             <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
-                <Text>{TextInput}</Text>
+                <Text center h3>{TextInput}</Text>
             </Hyperlink>
         </View>
     )
@@ -117,7 +117,7 @@ class ChatScreen extends Component {
                     source={Source}
                 />
             </TouchableOpacity>
-            <Text secondary>{Timestamp}</Text>
+            <Text h3 secondary>{Timestamp}</Text>
         </CstmShadowView>
     )
 
@@ -136,7 +136,7 @@ class ChatScreen extends Component {
                     source={Source}
                 />
             </TouchableOpacity>
-            <Text secondary style={{alignSelf: 'flex-end'}}>{Timestamp}</Text>
+            <Text h3 secondary style={{alignSelf: 'flex-end'}}>{Timestamp}</Text>
         </CstmShadowView>
     )
 
@@ -157,7 +157,7 @@ class ChatScreen extends Component {
         this.setState({
             ImageSent: this.state.ImageSent
         });
-        
+
         this.state.Messages.unshift({
             Message: {
                 Type: 2,
@@ -231,7 +231,7 @@ class ChatScreen extends Component {
                 CustomerID: this.props.UserID,
                 Type: 1,
                 Text: this.state.TextInput
-            }); 
+            });
 
             this.state.Messages.unshift({
                 Message: {
@@ -242,7 +242,7 @@ class ChatScreen extends Component {
                 BucketMessagesID: Math.random(),
                 Timestamp: 'now'
             });
-    
+
             this.setState({Messages: this.state.Messages});
 
             this.EmptyTextInput();
@@ -363,12 +363,11 @@ const styles = StyleSheet.create({
         margin: 10,
         padding: 10,
         height: 'auto',
-        minWidth: 200,
-        alignItems: 'center',
-        maxWidth: 300,
+        minWidth: 150,
+        maxWidth: 200,
         alignSelf: 'center',
         backgroundColor: Colors.shadow,
-        borderRadius: 100
+        borderRadius: 10
     },
     SafeAreaViewCenter: {
         flex: 1,
