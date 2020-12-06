@@ -108,7 +108,7 @@ class HomeScreen extends React.Component {
                 item.Timestamp = timeAgo(item.Timestamp);
                 return item;
             })
-            this.setState({BlogPosts});
+            this.setState({BlogPosts:[...BlogPosts,...BlogPosts,...BlogPosts]});
         }).catch(err => {
             console.log(err);
         });
@@ -261,10 +261,10 @@ class HomeScreen extends React.Component {
                         />
                     </View>
 
-                    <View marginT-30 paddingH-10>
-                        <View row>
+                    <View marginT-30>
+                        <View row paddingH-20>
                             <Text b1 secondary flex>Blogs</Text>
-                            <Text h3 primary marginR-10 flexS>Swipe {'->'}</Text>
+                            <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
                         </View>
                         <FlatList
                             data={this.state.BlogPosts}
