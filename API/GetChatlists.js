@@ -38,6 +38,8 @@ function timeAgo(prev, curr = new Date()) {
 const GetLastMessage = (Message) => {
     Message = JSON.parse(Message);
     switch(Message.Type) {
+        case 1 :
+            return Message.Text;
         case 2 :
             return '📷 Photo';
         case 3 :
@@ -48,6 +50,8 @@ const GetLastMessage = (Message) => {
             return 'You removed the product from the cart';
         case 6 :
             return 'Brand Removed the product from the cart';
+        case 7:
+            return 'You placed an order';
         default : 
             return Message.Text;
 
