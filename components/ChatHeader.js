@@ -12,7 +12,20 @@ export default class ChatHeader extends React.PureComponent {
             modalVisible: false
         }
     }
+
+    renderStatus(BucketStatus) {
+        switch(BucketStatus) {
+            case 0:
+                return 'Added to cart, price not decided';
+            case 1:
+                return 'Price Decided, but order not placed';
+            case 2:
+                return 'Order Placed, Order Status available';
+        }
+    }
+
     render() {
+        
         return (
             <>
                 <View row center style={styles.container}>
@@ -30,7 +43,7 @@ export default class ChatHeader extends React.PureComponent {
                     </TouchableOpacity>
                 </View>
                 <View center style={styles.Header}>
-                    <Text hb2>Under Confirmation</Text>
+                    <Text hb2>{this.renderStatus(this.props.Status)}</Text>
                 </View>
 
             </>

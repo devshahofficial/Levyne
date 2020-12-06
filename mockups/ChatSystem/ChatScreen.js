@@ -70,8 +70,6 @@ class ChatScreen extends Component {
     componentDidMount = () => {
         GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
             this.setState({Messages: Resp.Messages, BucketInfo: Resp.BucketInfo, LoadingMessages: false});
-
-            console.log(this.state.BucketInfo);
         }).catch(err => {
             console.log(err);
         });
@@ -333,6 +331,7 @@ class ChatScreen extends Component {
                 </Modal>
                 <ChatHeader
                     {...this.props.route.params}
+                    BucketInfo={this.state.BucketInfo}
                     NavigateBack={this.NavigateBack}
                     NavigateBrandProfile={this.NavigateBrandProfile}
                     NavigateBucket={this.NavigateBucket}
