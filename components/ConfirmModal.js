@@ -13,7 +13,7 @@ export default class ConfirmModal extends PureComponent {
                 <TouchableOpacity activeOpacity={0.6} row flex-85 marginR-5 marginL-10 center>
                     <CstmShadowView style={styles.modal}>
                         <View centerV style={{alignContent:"space-between"}} row>
-                            <Text h2 secondary style={styles.ConfirmOrder}>Confirm Order?</Text>
+                            <Text h1 secondary>Confirm Order?</Text>
                             <View center style={styles.YesButton}>
                                 <Text hb2 white>Yes</Text>
                             </View>
