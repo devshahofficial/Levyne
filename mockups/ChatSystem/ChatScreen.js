@@ -89,8 +89,10 @@ class ChatScreen extends Component {
         if(this.NewChatLoading) {
             this.NewChatLoading = false;
             GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
-                this.setState({Messages: [...this.state.Messages, ...Resp.Messages]});
-                this.NewChatLoading = true;
+                if(Resp.Messages.length) {
+                    this.setState({Messages: [...this.state.Messages, ...Resp.Messages]});
+                    this.NewChatLoading = true;
+                }
             }).catch(err => {
                 console.log(err);
             });
