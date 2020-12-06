@@ -35,6 +35,7 @@ class ChatScreen extends Component {
         this.FlatListRef = React.createRef();
         this.props.Socket.on('ChatMessage', this.SocketListener);
         this.TimeOutArray = [];
+        this.NewChatLoading = true;
 	}
 
     SocketListener = (Message) => {
@@ -65,6 +66,18 @@ class ChatScreen extends Component {
         this.TimeOutArray.forEach(item => {
             clearTimeout(item);
         })
+    }
+
+    ChatOnEndReached = () => {
+        if(this.NewChatLoading) {
+            this.NewChatLoading = false;
+            GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
+                this.setState({Messages: [...this.state.Messages, ...Resp.Messages]});
+                this.NewChatLoading = true;
+            }).catch(err => {
+                console.log(err);
+            });
+        }
     }
 
     NavigateBack = () => {
@@ -334,6 +347,7 @@ class ChatScreen extends Component {
                             }
                         }}
                         keyExtractor = {this.keyExtractor}
+                        onEndReached = {this.ChatOnEndReached}
                     />
                 }
                 <ConfirmModal/>
