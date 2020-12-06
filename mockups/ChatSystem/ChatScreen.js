@@ -326,6 +326,8 @@ class ChatScreen extends Component {
                                     return <this.CenterText TextInput={'You removed the product from the cart'}/>
                                 case 6 :
                                     return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
+                                case 7 :
+                                    return <this.CenterText TextInput={'You placed an order'}/>
                             }
                         }}
                         keyExtractor = {this.keyExtractor}
