@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
         marginLeft:80,
         borderRadius: 60,
         height: 35,
-        width:85    ,
-        },
+        width:85,
+    },
     modal: {
         paddingHorizontal: 20,
         flexDirection:'row',

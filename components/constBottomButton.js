@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 import {Button, Colors} from "react-native-ui-lib";
 import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
 
@@ -11,7 +11,7 @@ export default class ConstBottomButton extends React.PureComponent {
 
     render() {
         return (
-            <View style={styles.Main}>
+            <SafeAreaView style={styles.Main}>
                 {this.props.ButtonA && (
                     <ShadowView style={styles.ShadowView}>
                         <Button
@@ -21,13 +21,6 @@ export default class ConstBottomButton extends React.PureComponent {
                         />
                     </ShadowView>
                 )}
-                {/* <ShadowView style={styles.ShadowView}>
-                    <Button
-                        onPress={() => this.props.ButtonActionA(this.props.BrandID)}
-                        style={[styles.Button,{borderColor: Colors.white}]}
-                        h1 label={this.props.ButtonA}
-                    />
-                </ShadowView> */}
                 <ShadowView style={styles.ShadowView}>
                     <Button
                         onPress={this.props.ButtonActionB}
@@ -35,7 +28,7 @@ export default class ConstBottomButton extends React.PureComponent {
                         h1 label={this.props.ButtonB} color={Colors.white}
                     />
                 </ShadowView>
-            </View>
+            </SafeAreaView>
         );
     }
 }
