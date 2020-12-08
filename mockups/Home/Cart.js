@@ -1,12 +1,11 @@
-
 import React from 'react';
 import {View, Text, AvatarHelper} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
-import NavBarBack from '../../components/NavBarBack';
 import BucketComponent from "../../components/BucketComponent";
 import FetchCart from '../../API/FetchCart';
 import {ActivityIndicator, FlatList, Alert} from 'react-native';
 import UnLoggedScreen from '../../components/UnLoggedScreen';
+import TextNavBar from "../../components/TextNavBar";
 
 class Cart extends React.Component {
 
@@ -31,7 +30,7 @@ class Cart extends React.Component {
             }).catch(err => {
                 console.log(err);
             });
-    
+
             this.willFocusSubscription = this.props.navigation.addListener(
                 'focus', () => {
                     this.setState({Loading: true});
@@ -100,7 +99,7 @@ class Cart extends React.Component {
     render() {
         return (
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={'Your Wardrobe'}/>
+                <TextNavBar Title={'My Orders'}/>
                 {this.props.SkipLogin ?
                     <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
                     :

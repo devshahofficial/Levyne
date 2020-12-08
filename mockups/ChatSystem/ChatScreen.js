@@ -368,7 +368,6 @@ class ChatScreen extends Component {
                         onEndReached = {this.ChatOnEndReached}
                     />
                 }
-                {/*<ConfirmModal/>*/}
                 <ChatInputBar
                     DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
                     SendMessage = {this.SendMessage}
