@@ -12,7 +12,7 @@ import RemoveProductFromCart from '../../API/RemoveProductFromCart';
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from "react-native-image-viewing";
 import ConstBottomButton from "../../components/constBottomButton";
-
+import PickerModal from "../../components/PickerModal";
 
 
 class Bucket extends React.Component {
@@ -25,9 +25,22 @@ class Bucket extends React.Component {
             ImageViewVisible: false,
             ImageViewImage: {},
             CheckoutActive: false,
+            CartIDForDeletion: undefined,
+            ProductTypeForDeletion: undefined,
+            DeleteModalVisible: false
         }
         this.abortController = new AbortController();
     }
+
+    ActionSheetItems = [
+        {
+            id: 0,
+            label: 'Confirm',
+            onPress: () => {
+                this.RemoveProductFromCart()
+            }
+        }
+    ];
 
     componentDidMount() {
         FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
@@ -79,8 +92,7 @@ class Bucket extends React.Component {
             DisplayImageView={this.DisplayImageView}
             navigateProduct={this.navigateProduct}
             navigateFabric={this.navigateFabric}
-            RemoveProductFromCart={this.RemoveProductFromCart}
-            RemoveFabricFromCart={this.RemoveFabricFromCart}
+            RemoveProductFromCart={this.setStateForProductDelete}
         />
     )
 
@@ -112,11 +124,26 @@ class Bucket extends React.Component {
         this.setState({ImageViewVisible: false})
     }
 
-    RemoveProductFromCart = (CartID, ProductType) => {
+    RemoveProductFromCart = () => {
         this.setState({
-            Buckets : this.state.Buckets.filter(item => !(item.CartID === CartID && item.ProductType === ProductType))
+            Buckets : this.state.Buckets.filter(item => !(item.CartID === this.state.CartIDForDeletion && item.ProductType === this.state.ProductTypeForDeletion)),
+            DeleteModalVisible : !this.state.DeleteModalVisible
         })
-        RemoveProductFromCart(this.props.route.params.BucketID, CartID, ProductType, this.props.AccessToken).catch(console.log);
+        RemoveProductFromCart(this.props.route.params.BucketID, this.state.CartIDForDeletion, this.state.ProductTypeForDeletion, this.props.AccessToken).catch(console.log);
+    }
+
+    setDeleteModalVisible = () => {
+        this.setState({
+            DeleteModalVisible : !this.state.DeleteModalVisible
+        })
+    }
+
+    setStateForProductDelete = (CartID, ProductType) => {
+        this.setState({
+            DeleteModalVisible : !this.state.DeleteModalVisible,
+            CartIDForDeletion: CartID,
+            ProductTypeForDeletion: ProductType
+        })
     }
 
     render() {
@@ -155,6 +182,11 @@ class Bucket extends React.Component {
                     visible={this.state.ImageViewVisible}
                     onRequestClose={this.CloseImageView}
                     imageIndex={0}
+                />
+                <PickerModal
+                    ActionItems={this.ActionSheetItems}
+                    modalVisible={this.state.DeleteModalVisible}
+                    setModalVisible={this.setDeleteModalVisible}
                 />
                 <ConstBottomButton
                     ButtonA={"Chat"}
