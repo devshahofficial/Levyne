@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
-import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
+import {View, Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import {DeliveryIcon} from "../../Icons/Secondary/DeliveryIcon";
