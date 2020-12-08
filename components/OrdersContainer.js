@@ -2,76 +2,143 @@ import {Dimensions, ImageBackground, Platform, StyleSheet} from "react-native";
 import React from 'react';
 import {View, Text, Colors, TouchableOpacity, Avatar} from 'react-native-ui-lib';
 import StarIconsComponent from "./StarIconsComponent";
+import CstmShadowView from "./CstmShadowView";
+
+
+import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
+import {TailorIcon} from "../Icons/Secondary/TailorIcon";
+import {OrderReceivedIcon} from "../Icons/Secondary/OrderReceived";
+import {ProductionCompletedIcon} from "../Icons/Secondary/ProductionCompleted";
+
 
 const screenWidth = Dimensions.get('window').width;
 
 export default class OrdersContainer extends React.Component {
 
+    constructor() {
+        super();
+        console.log(this.props);
+    }
+
     Process(param) {
         switch(param) {
             case 0:
-                return <><Text hb3>Order Accepted</Text></>;
+                return <>
+                    <View row centerV marginV-15>
+                        <View flex>
+                            <OrderReceivedIcon size={35} Color={Colors.primary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 primary>Order placed</Text>
+                    </View>
+                    </>;
             case 1:
-                return <><Text hb3>Under production</Text></>;
+                return <>
+                    <View row centerV marginT-15>
+                        <View flex>
+                            <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
+                    </View>
+                    <View row centerV marginV-15>
+                        <View flex>
+                            <TailorIcon size={35} Color={Colors.primary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 primary>Production Started</Text>
+                    </View>
+                </>;
             case 2:
-                return <><Text hb3>Out for delivery</Text></>;
+                return <>
+                    <View row centerV marginT-15>
+                        <View flex>
+                            <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
+                    </View>
+                    <View row centerV marginT-15>
+                        <View flex>
+                            <TailorIcon size={35} Color={Colors.secondary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 secondary>Production Started</Text>
+                    </View>
+                    <View row centerV marginV-15>
+                        <View flex>
+                            <ProductionCompletedIcon size={35} Color={Colors.primary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 primary>Production Completed</Text>
+                    </View>
+                </>;
             case 3:
-                return <><Text hb3>Delivered</Text></>;
+                return <>
+                    <View row centerV marginT-15>
+                        <View flex>
+                            <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
+                    </View>
+                    <View row centerV marginT-15>
+                        <View flex>
+                            <TailorIcon size={35} Color={Colors.secondary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 secondary>Production Started</Text>
+                    </View>
+                    <View row centerV marginT-15>
+                        <View flex>
+                            <ProductionCompletedIcon size={35} Color={Colors.secondary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 secondary>Production Completed</Text>
+                    </View>
+                    <View row centerV marginV-15>
+                        <View flex>
+                            <DeliveryIcon size={35} Color={Colors.primary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 primary>Out for Delivery</Text>
+                    </View>
+                </>;
         }
     }
 
     render() {
         return (
-            <TouchableOpacity
-                style={styles.Container}
-                paddingH-20
-                marginB-20
-                onPress={() => this.props.NavigateMyOrdersDetailed(this.props.OrderID)}
-                activeOpacity={0.8} marginT-10
-            >
-                <View style={styles.OrderID} spread>
-                    <Text h2 secondary>Order ID</Text>
-                    <Text hb1>{this.props.OrderID}</Text>
-                </View>
-                <View row>
-                    <Avatar
-                        size={50}
-                        source={{uri : this.props.ProfileImage}}
-                    />
-                    <View marginL-25 centerV>
-                        <Text hb2>
-                            {this.props.Name}
-                        </Text>
-                        <View row>
-                            <StarIconsComponent BrandRating="0" />
+            <CstmShadowView style={styles.Main}>
+                <TouchableOpacity
+                    paddingH-20 activeOpacity={0.8}
+                    onPress={() => this.props.NavigateMyOrdersDetailed(this.props.OrderID)}
+                >
+                    <View row marginT-5 marginB-15 spread>
+                        <Text h2 secondary>Order ID</Text>
+                        <Text hb1>{this.props.OrderID}</Text>
+                    </View>
+                    <View row>
+                        <Avatar
+                            size={50}
+                            source={{uri : this.props.ProfileImage}}
+                        />
+                        <View marginL-25 centerV>
+                            <Text hb2>
+                                {this.props.Name}
+                            </Text>
+                            <View row>
+                                <StarIconsComponent BrandRating="5" />
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View row marginV-15>
-                    <View>
-                        <Text h2 secondary>Total</Text>
-                        <Text h2 secondary>Discount</Text>
-                    </View>
-                    <View marginL-10>
-                        <Text hb1>₹{this.props.TotalDiscountAmount}</Text>
-                        <Text h1 primary>{parseInt(((this.props.TotalAmount - this.props.TotalDiscountAmount)/this.props.TotalAmount)*100)}% off</Text>
-                    </View>
-                </View>
-                <Text h3 center secondary>Delivers for free within 15 days!</Text>
-                <View marginT-5 style={styles.COD} center>
-                    <Text hb1 secondary>Cash On Delivery</Text>
-                </View>
+                    <Text h3 center secondary>Delivers for free within 15 days!</Text>
 
-                <View style={styles.Process} center>
-                    <Text hb3 white>{this.Process(2)}</Text>
-                </View>
-            </TouchableOpacity>
+                    {this.Process(3)}
+                </TouchableOpacity>
+            </CstmShadowView>
         );
     }
 }
 
 
 const styles = StyleSheet.create({
+    Main: {
+        height: "auto",
+        borderRadius: 10,
+        paddingTop: 0,
+        width: '100%'
+    },
     OrderID:{
         flexDirection: 'row',
         marginBottom: 15,
@@ -84,22 +151,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center'
     },
-    View: {
-        height: 50,
-        margin: -20,
-        marginTop:10,
-        backgroundColor: Colors.shadow,
-    },
-    Container: {
-        width: screenWidth*0.9,
-        borderWidth: 1,
-        padding: 10,
-        borderColor: Colors.shadow
-    },
-    COD: {
-        height: 50,
-        backgroundColor: Colors.shadow
-    },
+
     Cancel: {
         borderWidth: 1,
         borderColor: Colors.shadow,

@@ -9,25 +9,20 @@ export default class ConfirmModal extends PureComponent {
 
     render() {
         return (
-            <View row paddingB-5>
-                <TouchableOpacity activeOpacity={0.6} row flex-85 marginR-5 marginL-10 center>
-                    <CstmShadowView style={styles.modal}>
-                        <View centerV style={{alignContent:"space-between"}} row>
-                            <Text h1 secondary>Confirm Order?</Text>
-                            <View center style={styles.YesButton}>
-                                <Text hb2 white>Yes</Text>
-                            </View>
-                        </View>
-                    </CstmShadowView>
-                </TouchableOpacity>
-                <TouchableOpacity marginR-10 marginL-5 flex-15 onPress={this.props.onSendPressed} center>
-                    <CstmShadowView style={{height:50, width:50, justifyContent:'center', alignContent:'center'}}>
-                        <View center style={{borderRadius: 50}}>
-                            <ShoppingBag size={25} Color={Colors.black}/>
-                        </View>
-                    </CstmShadowView>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+                paddingB-5 marginR-10 marginL-5 center
+                onPress={this.props.onSendPressed}
+                style={{
+                    backgroundColor: 'rgba(255,255,255,0)',
+
+                }}
+            >
+                <CstmShadowView style={{height:50, width:50, justifyContent:'center', alignContent:'center'}}>
+                    <View flex center style={{borderRadius: 50}}>
+                        <ShoppingBag size={25} Color={Colors.black}/>
+                    </View>
+                </CstmShadowView>
+            </TouchableOpacity>
         );
     }
 }

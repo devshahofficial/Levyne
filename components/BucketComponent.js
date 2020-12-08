@@ -1,5 +1,5 @@
 import React from 'react';
-import {ImageBackground, StyleSheet, Dimensions, Platform,} from 'react-native';
+import {ImageBackground, StyleSheet, Dimensions} from 'react-native';
 import {View, Text, TouchableOpacity, Button, Avatar,Colors} from 'react-native-ui-lib';
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';

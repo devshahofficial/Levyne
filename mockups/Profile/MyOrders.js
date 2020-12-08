@@ -11,8 +11,30 @@ class MyOrders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Orders : [],
-            Loading: true
+            Orders : [
+                {
+                    OrderID: 8917,
+                    ProfileImage: '',
+                    Name: "Hello",
+                    TotalDiscountAmount: 1987,
+                    TotalAmount: 2133,
+                },
+                {
+                    OrderID: 817,
+                    ProfileImage: '',
+                    Name: "Hllo",
+                    TotalDiscountAmount: 197,
+                    TotalAmount: 213,
+                },
+                {
+                    OrderID: 917,
+                    ProfileImage: '',
+                    Name: "Hel",
+                    TotalDiscountAmount: 187,
+                    TotalAmount: 213,
+                }
+            ],
+            Loading: false
         }
         this.abortController = new AbortController();
         this.LastOrderID = 0;
@@ -51,18 +73,15 @@ class MyOrders extends Component {
     render() {
         return(
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Orders'}/>
+                <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Wardrobe'}/>
                 {this.state.Loading ?
                     <View flex center>
                         <ActivityIndicator />
                     </View> :
                     <View paddingH-15 flex centerH>
-                        <FlatList
-                            ListHeaderComponent={this.Header}
-                            showsVerticalScrollIndicator={false}
-                            data={this.state.Orders}
-                            keyExtractor={(item) => `${item.OrderID}`}
-                            renderItem={this.FatListRenderItem}
+                        <OrdersContainer
+                            OrderID={2615}
+                            ProfileImage={"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"}
                         />
                     </View>
                 }

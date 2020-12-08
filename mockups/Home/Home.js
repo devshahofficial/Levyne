@@ -134,7 +134,7 @@ class HomeScreen extends React.Component {
     }
 
     navigateCart = () => {
-        this.props.navigation.navigate('Cart');
+        this.props.navigation.navigate('MyOrders');
     }
 
     navigateNotifications = () => {
