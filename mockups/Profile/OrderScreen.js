@@ -24,7 +24,7 @@ import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
  */
 
 
-class MyOrdersDetailed extends React.Component {
+class Order extends React.Component {
 
     constructor(props) {
         super(props);
@@ -136,4 +136,4 @@ const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken
 });
 
-export default connect(mapsStateToProps)(MyOrdersDetailed);
+export default connect(mapsStateToProps)(Order);

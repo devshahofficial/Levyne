@@ -35,7 +35,7 @@ import MyFits from "../mockups/Profile/MyFits";
 import FAQscreen from "../mockups/Profile/FAQscreen";
 import MyOrders from "../mockups/Profile/MyOrders";
 import BrandList from "../mockups/BrandList";
-import MyOrdersDetailed from "../mockups/Profile/MyOrdersDetailed";
+import OrderScreen from "../mockups/Profile/OrderScreen";
 import ChatIcon from '../Icons/ChatIcon';
 import {OrdersIcon} from "../Icons/OrdersIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
@@ -154,7 +154,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='MyOrders' component={MyOrders}/>
 				<HomeStack.Screen name='CheckOut' component={CheckOut}/>
 				<HomeStack.Screen name='BrandList' component={BrandList} />
-				<HomeStack.Screen name='MyOrdersDetailed' component={MyOrdersDetailed}/>
+				<HomeStack.Screen name='Order' component={OrderScreen}/>
 				<HomeStack.Screen name='ProductDetailsPage' component={ProductDetailsPage}/>
 				<HomeStack.Screen name='BlogPost' component={BlogPost}/>
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>

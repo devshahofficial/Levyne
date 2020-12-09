@@ -11,37 +11,16 @@ class MyOrders extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            Orders : [
-                {
-                    OrderID: 8917,
-                    ProfileImage: '',
-                    Name: "Hello",
-                    TotalDiscountAmount: 1987,
-                    TotalAmount: 2133,
-                },
-                {
-                    OrderID: 817,
-                    ProfileImage: '',
-                    Name: "Hllo",
-                    TotalDiscountAmount: 197,
-                    TotalAmount: 213,
-                },
-                {
-                    OrderID: 917,
-                    ProfileImage: '',
-                    Name: "Hel",
-                    TotalDiscountAmount: 187,
-                    TotalAmount: 213,
-                }
-            ],
-            Loading: false
+            Orders : [],
+            Loading: true
         }
         this.abortController = new AbortController();
-        this.LastOrderID = 0;
+        this.Page = 0;
+        this.LoadingNewOrders = false;
     }
 
     componentDidMount() {
-        FetchOrders(this.LastOrderID, this.props.AccessToken, this.abortController.signal).then(Orders => {
+        FetchOrders(this.props.AccessToken, ++this.Page, this.abortController.signal).then(Orders => {
             this.setState({
                 Orders,
                 Loading: false
@@ -54,11 +33,27 @@ class MyOrders extends Component {
     }
 
     FatListRenderItem = ({item}) => (
-        <OrdersContainer {...item} NavigateMyOrdersDetailed={this.NavigateMyOrdersDetailed} />
+        <OrdersContainer
+            {...item}
+            CompanyRating={5}
+            NavigateOrder={this.NavigateOrder}
+        />
     )
 
-    NavigateMyOrdersDetailed = (OrderID) => {
-        this.props.navigation.navigate('MyOrdersDetailed', {OrderID});
+    onEndReached = () => {
+        if(this.state.Orders.length === this.Page*20 && !this.LoadingNewOrders) {
+            this.LoadingNewOrders = true;
+            FetchOrders(this.props.AccessToken, ++this.Page, this.abortController.signal).then(Orders => {
+                this.LoadingNewOrders = false;
+                this.setState({
+                    Orders : this.state.Orders.push(...Orders)
+                });
+            }).catch(() => {})
+        }
+    }
+
+    NavigateOrder = (OrderID) => {
+        this.props.navigation.navigate('Order', {OrderID});
     }
 
     Header = () => {
@@ -78,12 +73,18 @@ class MyOrders extends Component {
                     <View flex center>
                         <ActivityIndicator />
                     </View> :
-                    <View paddingH-15 flex centerH>
-                        <OrdersContainer
-                            OrderID={2615}
-                            Name={"Vicky Tailors"}
-                            CompanyRating={4}
-                            ProfileImage={"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"}
+                    <View flex>
+                        <FlatList
+                            data={this.state.Orders}
+                            ListEmptyComponent={
+                                <View flex centerV centerH style={{height:655}} paddingH-40>
+                                    <Text center b1 grey40>No Orders Found.</Text>
+                                </View>
+                            }
+                            renderItem={this.FatListRenderItem}
+                            onEndReached = {this.onEndReached}
+                            onEndReachedThreshold={0.75}
+                            keyExtractor={(item) => item.OrderID.toString()}
                         />
                     </View>
                 }

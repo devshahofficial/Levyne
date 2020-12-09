@@ -1,11 +1,11 @@
 import {GET} from './CustomFetch';
 
-const FetchOrders = async (AfterOrderID, Token, abortControllerSignal) => {
+const FetchOrders = async (Token, Page, abortControllerSignal) => {
 
     return await GET('Orders/FetchOrders', {
         ReturnResponse: true,
         Token,
-        QueryData: {AfterOrderID}
+        QueryData: {Page}
     }, abortControllerSignal)
 
 }
