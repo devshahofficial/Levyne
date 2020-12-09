@@ -10,7 +10,7 @@ import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import { Colors, LoaderScreen, View } from "react-native-ui-lib";
-import ConstBottomButton from "../components/constBottomButton";
+import BottomButton from "../components/BottomButtons";
 import ImageView from "react-native-image-viewing";
 
 class ProductScreen extends React.Component {
@@ -150,7 +150,7 @@ class ProductScreen extends React.Component {
                                 EmbroideryImage = {this.state.ProductObject.EmbroideryImage}
                             />
                         </ScrollView>
-                        <ConstBottomButton
+                        <BottomButton
                             ButtonA={"Visit Brand"}
                             ButtonB={"Add to Cart"}
                             ButtonActionB={this.AddToCart}

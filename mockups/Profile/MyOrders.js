@@ -36,6 +36,7 @@ class MyOrders extends Component {
         <OrdersContainer
             {...item}
             CompanyRating={5}
+            NavigateBrand={this.NavigateBrand}
             NavigateOrder={this.NavigateOrder}
         />
     )
@@ -52,8 +53,17 @@ class MyOrders extends Component {
         }
     }
 
-    NavigateOrder = (OrderID) => {
-        this.props.navigation.navigate('Order', {OrderID});
+    NavigateOrder = (BucketID, BrandID, BrandName, ProfileImage) => {
+        this.props.navigation.navigate('Order', {
+            BucketID,
+            BrandID,
+            BrandName,
+            ProfileImage
+        });
+    }
+
+    NavigateBrand = (BrandID) => {
+        this.props.navigation.push('BrandProfile', {BrandID});
     }
 
     Header = () => {
