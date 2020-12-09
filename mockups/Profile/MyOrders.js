@@ -81,6 +81,8 @@ class MyOrders extends Component {
                     <View paddingH-15 flex centerH>
                         <OrdersContainer
                             OrderID={2615}
+                            Name={"Vicky Tailors"}
+                            CompanyRating={4}
                             ProfileImage={"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg"}
                         />
                     </View>
