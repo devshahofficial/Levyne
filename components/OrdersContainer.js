@@ -1,6 +1,6 @@
-import {Dimensions, ImageBackground, Platform, StyleSheet} from "react-native";
+import {Platform, StyleSheet} from "react-native";
 import React from 'react';
-import {View, Text, Colors, TouchableOpacity, Avatar} from 'react-native-ui-lib';
+import {View, Text, Colors, TouchableOpacity, Avatar, Image} from 'react-native-ui-lib';
 import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
 
@@ -10,8 +10,6 @@ import {TailorIcon} from "../Icons/Secondary/TailorIcon";
 import {OrderReceivedIcon} from "../Icons/Secondary/OrderReceived";
 import {ProductionCompletedIcon} from "../Icons/Secondary/ProductionCompleted";
 
-
-const screenWidth = Dimensions.get('window').width;
 
 export default class OrdersContainer extends React.Component {
 
@@ -24,7 +22,7 @@ export default class OrdersContainer extends React.Component {
         switch(param) {
             case 0:
                 return <>
-                    <View row centerV marginV-15>
+                    <View row centerV marginB-15 marginT-15>
                         <View flex>
                             <OrderReceivedIcon size={35} Color={Colors.primary}/>
                         </View>
@@ -101,30 +99,42 @@ export default class OrdersContainer extends React.Component {
         return (
             <CstmShadowView style={styles.Main}>
                 <TouchableOpacity
-                    paddingH-20 activeOpacity={0.8}
+                    paddingH-20 activeOpacity={0.8} style={{borderRadius: 10}}
                     onPress={() => this.props.NavigateMyOrdersDetailed(this.props.OrderID)}
                 >
-                    <View row marginT-5 marginB-15 spread>
+                    <View row marginT-10 marginB-15 spread>
                         <Text h2 secondary>Order ID</Text>
                         <Text hb1>{this.props.OrderID}</Text>
                     </View>
                     <View row>
-                        <Avatar
-                            size={50}
+                        <Image
+                            style={{
+                                width:75,
+                                height:75,
+                                borderRadius: 10
+                            }}
                             source={{uri : this.props.ProfileImage}}
                         />
-                        <View marginL-25 centerV>
+                        <View marginL-20>
                             <Text hb2>
                                 {this.props.Name}
                             </Text>
                             <View row>
-                                <StarIconsComponent BrandRating="5" />
+                                <StarIconsComponent BrandRating={this.props.CompanyRating}/>
                             </View>
                         </View>
                     </View>
-                    <Text h3 center secondary>Delivers for free within 15 days!</Text>
 
-                    {this.Process(3)}
+                    <View row marginV-20>
+                        <Text h2 secondary>Total Amount</Text>
+                        <Text hb1 marginL-20>₹1000</Text>
+                    </View>
+
+                    {this.Process(2)}
+
+                    <View style={styles.Discount}>
+
+                    </View>
                 </TouchableOpacity>
             </CstmShadowView>
         );
@@ -164,5 +174,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 10,
         height: 30
+    },
+    Discount: {
+        width: 'auto',
+        height:50,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        marginHorizontal: -20
     }
+
 });
