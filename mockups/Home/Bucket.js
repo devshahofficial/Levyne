@@ -11,7 +11,7 @@ import FetchBucket from '../../API/FetchBucket';
 import RemoveProductFromCart from '../../API/RemoveProductFromCart';
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from "react-native-image-viewing";
-import ConstBottomButton from "../../components/constBottomButton";
+import BottomButton from "../../components/BottomButtons";
 import PickerModal from "../../components/PickerModal";
 
 
@@ -188,7 +188,7 @@ class Bucket extends React.Component {
                     modalVisible={this.state.DeleteModalVisible}
                     setModalVisible={this.setDeleteModalVisible}
                 />
-                <ConstBottomButton
+                <BottomButton
                     ButtonA={"Chat"}
                     ButtonB={"Checkout"}
                     ButtonActionB={this.navigateCheckout}

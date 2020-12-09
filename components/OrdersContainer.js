@@ -102,21 +102,23 @@ export default class OrdersContainer extends React.Component {
                     activeOpacity={0.8}
                     flex
                     style={{borderRadius: 10}}
-                    onPress={() => this.props.NavigateOrder(this.props.OrderID)}
+                    onPress={() => this.props.NavigateOrder(this.props.BucketID, this.props.BrandID, this.props.Name, this.props.ProfileImage)}
                 >
                     <View row marginT-10 marginB-15 spread>
                         <Text h2 secondary>Order ID</Text>
                         <Text hb1>{this.props.OrderID}</Text>
                     </View>
                     <View row>
-                        <Image
-                            style={{
-                                width:75,
-                                height:75,
-                                borderRadius: 10
-                            }}
-                            source={{uri : this.props.ProfileImage}}
-                        />
+                        <TouchableOpacity onPress={() => this.props.NavigateBrand(this.props.BrandID)}>
+                            <Image
+                                style={{
+                                    width:75,
+                                    height:75,
+                                    borderRadius: 10
+                                }}
+                                source={{uri : this.props.ProfileImage}}
+                            />
+                        </TouchableOpacity>
                         <View marginL-20>
                             <Text hb2>
                                 {this.props.Name}
