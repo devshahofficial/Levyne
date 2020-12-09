@@ -1,6 +1,6 @@
-import {Platform, StyleSheet} from "react-native";
+import {StyleSheet} from "react-native";
 import React from 'react';
-import {View, Text, Colors, TouchableOpacity, Avatar, Image} from 'react-native-ui-lib';
+import {View, Text, Colors, TouchableOpacity, Image} from 'react-native-ui-lib';
 import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
 
@@ -13,9 +13,8 @@ import {ProductionCompletedIcon} from "../Icons/Secondary/ProductionCompleted";
 
 export default class OrdersContainer extends React.Component {
 
-    constructor() {
-        super();
-        console.log(this.props);
+    constructor(props) {
+        super(props);
     }
 
     Process(param) {
@@ -99,8 +98,11 @@ export default class OrdersContainer extends React.Component {
         return (
             <CstmShadowView style={styles.Main}>
                 <TouchableOpacity
-                    paddingH-20 activeOpacity={0.8} style={{borderRadius: 10}}
-                    onPress={() => this.props.NavigateMyOrdersDetailed(this.props.OrderID)}
+                    paddingH-20
+                    activeOpacity={0.8}
+                    flex
+                    style={{borderRadius: 10}}
+                    onPress={() => this.props.NavigateOrder(this.props.OrderID)}
                 >
                     <View row marginT-10 marginB-15 spread>
                         <Text h2 secondary>Order ID</Text>
@@ -127,14 +129,11 @@ export default class OrdersContainer extends React.Component {
 
                     <View row marginV-20>
                         <Text h2 secondary>Total Amount</Text>
-                        <Text hb1 marginL-20>₹1000</Text>
+                        <Text hb1 marginL-20>₹{this.props.FinalAmount}</Text>
                     </View>
 
-                    {this.Process(2)}
+                    {this.Process(this.props.OrderStatus)}
 
-                    <View style={styles.Discount}>
-
-                    </View>
                 </TouchableOpacity>
             </CstmShadowView>
         );
@@ -144,43 +143,9 @@ export default class OrdersContainer extends React.Component {
 
 const styles = StyleSheet.create({
     Main: {
-        height: "auto",
         borderRadius: 10,
-        paddingTop: 0,
-        width: '100%'
-    },
-    OrderID:{
-        flexDirection: 'row',
-        marginBottom: 15,
-        marginTop: 5
-    },
-    image: {
-        paddingTop: Platform.OS === 'ios' ? 5 : 0,
-        height: 150,
-        width: 150,
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-
-    Cancel: {
-        borderWidth: 1,
-        borderColor: Colors.shadow,
-        width: 70,
-        borderRadius: 5,
-        height: 30
-    },
-    Process: {
-        backgroundColor: Colors.primary,
-        borderRadius: 5,
-        marginVertical: 10,
-        height: 30
-    },
-    Discount: {
-        width: 'auto',
-        height:50,
-        borderBottomRightRadius: 10,
-        borderBottomLeftRadius: 10,
-        marginHorizontal: -20
+        flex: 1,
+        marginHorizontal: 15,
+        height:'auto'
     }
-
 });
