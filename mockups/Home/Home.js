@@ -29,7 +29,7 @@ class HomeScreen extends React.Component {
         }
         this.backPressed = 0;
         this.abortController = new AbortController();
-        this.props.Socket.on('ChatMessage', this.SocketListener);
+        this.props.Socket && this.props.Socket.on('ChatMessage', this.SocketListener);
         this.timeout = null;
     };
 
