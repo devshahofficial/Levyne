@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flex: 1,
         marginHorizontal: 15,
-        height:'auto'
+        height:'auto',
+        marginBottom: 10
     }
 });
