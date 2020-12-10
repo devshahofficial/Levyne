@@ -9,7 +9,6 @@ Colors.loadColors({
     white: '#FFFFFF'
 });
 
-
 Typography.loadTypographies({
     h1: {fontSize: 16, fontFamily: 'Mulish-Regular'},
     hb1: {fontSize: 16, fontFamily: 'Mulish-ExtraBold'},
@@ -23,7 +22,5 @@ Typography.loadTypographies({
     b2: {fontSize: 20, fontFamily: 'Mulish-Regular'},
     f1: {fontSize: 22, fontFamily: 'Mulish-ExtraBold'},
 });
-
-
 
 export default Colors;

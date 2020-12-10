@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, BackHandler} from 'react-native';
+import {StyleSheet, BackHandler, ScrollView} from 'react-native';
 import {Button, View, Text, Toast, Colors, TouchableOpacity} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
@@ -83,7 +83,7 @@ class LoginScreen extends React.Component {
 			this.setState({showContent:err.message});
 		});
     };
-    
+
     skipLogin = () => {
         SkipLogin(this.props.setAuth, this.props.setProfile, 0).then(() => {
             this.props.navigation.navigate('MainHomeStack');
@@ -96,40 +96,45 @@ class LoginScreen extends React.Component {
 	render() {
 		return (
             <KeyboardAwareView>
-                <View centerH paddingT-100 flex>
-                    <Toast
-                        visible={this.state.showCustomToast}
-                        position={'bottom'}
-                        backgroundColor={Colors.primary}
-                    >
-                        {this.renderCustomContent()}
-                    </Toast>
-                    <View centerV centerH style={styles.container}>
-                        <Logo width='60%' />
-                    </View>
-                    <View marginT-50>
-                        <Text h1 center marginL-60 marginR-60>Welcome to Levyne. {"\n"} We thank you for your service.</Text>
-                    </View>
-                    <View style={styles.inputLayout} marginT-50>
-                        <CstmInput
-                            placeholder='Mobile No.'
-                            value={this.state.Mobile}
-                            onChangeText={this.setMobileIntOnly}
-                            keyboardType='number-pad'
-                            maxLength={10}
-                        />
-                        <CstmShadowView style={{marginTop:30}}>
-                            <Button
-                                hb2 flex
-                                onPress={this.sendOTP}
-                                label="Send OTP"
-                            />
-                        </CstmShadowView>
-                    </View>
-                    <TouchableOpacity flex bottom marginV-20 onPress={this.skipLogin}>
-                        <Text primary text70>{"Skip Login >>"}</Text>
-                    </TouchableOpacity>
-                </View>
+                <ScrollView
+					contentContainerStyle={styles.ScrollView}
+				>
+					<Toast
+						visible={this.state.showCustomToast}
+						position={'bottom'}
+						backgroundColor={Colors.primary}
+					>
+						{this.renderCustomContent()}
+					</Toast>
+					<View centerV centerH style={styles.container}>
+						<Logo width='60%' />
+					</View>
+					<View marginT-50>
+						<Text h1 center marginL-60 marginR-60>Welcome to Levyne. {"\n"} We thank you for your service.</Text>
+					</View>
+					<View style={styles.inputLayout} marginT-50>
+						<CstmInput
+							placeholder='Mobile No.'
+							value={this.state.Mobile}
+							onChangeText={this.setMobileIntOnly}
+							keyboardType='number-pad'
+							maxLength={10}
+						/>
+						<CstmShadowView style={{marginTop:30}}>
+							<Button
+								hb2 flex
+								onPress={this.sendOTP}
+								label="Send OTP"
+							/>
+						</CstmShadowView>
+					</View>
+					<CstmShadowView style={styles.Skip}>
+						<Button
+							h2 onPress={this.skipLogin}
+							label="Skip Login" flex
+						/>
+					</CstmShadowView>
+				</ScrollView>
             </KeyboardAwareView>
 		);
 	}
@@ -146,6 +151,16 @@ const styles = StyleSheet.create({
 	inputLayout: {
 		width:'85%',
 	},
+	ScrollView: {
+		flex: 1,
+		alignItems: "center",
+		backgroundColor: Colors.white,
+		paddingTop: 100
+	},
+	Skip: {
+		marginBottom:50,
+		marginTop: 100
+	}
 });
 
 const mapDispatchToProps = dispatch => {
