@@ -10,45 +10,10 @@ import StoryModal from "../../components/StoryModal";
 import FetchStories from '../../API/FetchStories';
 import FetchBlogPosts from '../../API/FetchBlogPosts';
 import PutStoryAsRead from '../../API/PutStoryAsRead';
+import timeAgo from '../../API/timeAgo';
 
-const ms_Min = 60 * 1000; // milliseconds in Minute
-const ms_Hour = ms_Min * 60; // milliseconds in Hour
-const ms_Day = ms_Hour * 24; // milliseconds in day
-const ms_Mon = ms_Day * 30; // milliseconds in Month
-const ms_Yr = ms_Day * 365; // milliseconds in Year
 
-// --- Main function
-function timeAgo(prev, curr = new Date()) {
-
-    const diff = curr - (new Date(prev)); //difference between dates.
-
-    // If the diff is less then milliseconds in a minute
-    if (diff < ms_Min) {
-        return Math.round(diff / 1000) + ' seconds ago';
-
-    // If the diff is less then milliseconds in a Hour
-    } else if (diff < ms_Hour) {
-        return Math.round(diff / ms_Min) + ' minutes ago';
-
-    // If the diff is less then milliseconds in a day
-    } else if (diff < ms_Day) {
-        return Math.round(diff / ms_Hour) + ' hours ago';
-
-    // If the diff is less then milliseconds in a Month
-    } else if (diff < ms_Mon) {
-        return 'Around ' + Math.round(diff / ms_Day) + ' days ago';
-
-    // If the diff is less then milliseconds in a year
-    } else if (diff < ms_Yr) {
-        return 'Around ' + Math.round(diff / ms_Mon) + ' months ago';
-    } else {
-        return 'Around ' + Math.round(diff / ms_Yr) + ' years ago';
-    }
-}
-
-ConnectionStatusBar.registerGlobalOnConnectionLost(() => {
-
-});
+ConnectionStatusBar.registerGlobalOnConnectionLost(() => {});
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -64,8 +29,16 @@ class HomeScreen extends React.Component {
         }
         this.backPressed = 0;
         this.abortController = new AbortController();
+        this.props.Socket.on('ChatMessage', this.SocketListener);
         this.timeout = null;
     };
+
+    SocketListener = () => {
+        FetchChatBuckets(this.props.AccessToken, 1, this.abortController.signal).then(rows => {
+            this.props.MarkBucketAsUnRead(rows[1], true);
+            this.props.setChatList(rows[0], true);
+        }).catch(() => {});
+    }
 
     renderCustomContent = () => {
         const {selectedColor} = this.state;
@@ -289,9 +262,16 @@ class HomeScreen extends React.Component {
     };
 }
 
-
-const mapsStateToProps = state => ({
-	AccessToken : state.Auth.AccessToken
+const mapsStateToProps = (state) => ({
+	AccessToken: state.Auth.AccessToken,
+	Socket: state.Socket.Socket,
 });
 
-export default connect(mapsStateToProps)(HomeScreen)
+const mapDispatchToProps = dispatch => {
+	return {
+       	setChatList : (ChatList, EmptyFirst) => dispatch({type: 'setChatList', value: ChatList, EmptyFirst}),
+		MarkBucketAsUnRead: (Buckets, EmptyFirst) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets, EmptyFirst}),
+	}
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(HomeScreen);
