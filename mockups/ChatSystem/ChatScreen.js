@@ -4,7 +4,6 @@ import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal
 import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
-import ConfirmModal from "../../components/ConfirmModal";
 import GetChatMessage from '../../API/GetChatMessage';
 import CstmShadowView from '../../components/CstmShadowView';
 import ImagePicker from 'react-native-image-crop-picker';
