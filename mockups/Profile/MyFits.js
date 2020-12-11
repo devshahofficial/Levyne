@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Carousel, TouchableOpacity } from 'react-native-ui-lib';
-import { StyleSheet, FlatList } from "react-native";
+import { StyleSheet, FlatList, SafeAreaView } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
@@ -14,7 +14,6 @@ import FitsFemale from '../../assets/FitsFemale';
 import FitsForSearchFemale from '../../assets/FitsFemaleArray';
 import FitsMale from '../../assets/FitsMale';
 import FitsForSearchMale from '../../assets/FitsMaleArray';
-
 
 class MyFits extends Component {
     constructor(props) {
@@ -59,7 +58,6 @@ class MyFits extends Component {
             }
         })
 
-        console.log(FitsAndSizes);
         InsertFitsAndSizes(FitsAndSizes, this.props.AccessToken).then(item => {
             console.log(item);
         }).catch(err => {
@@ -86,31 +84,25 @@ class MyFits extends Component {
         )
     }
 
-    FlatListRenderItem = (PageName) => {
+    FlatListRenderItem = ({item: FitName}) => {
         return(
             <>
-                <View style={styles.InnerElementsContainer}>
-                    {this.Fits[PageName].items.map((FitName) => {
-                        return (
-                            <View row marginV-5 centerV key={FitName}>
-                                <View flex-2 marginR-10>
-                                    <Text h1 secondary>{FitName}</Text>
-                                </View>
-                                <View flex>
-                                    <Input
-                                        placeholder={'Enter Size'}
-                                        maxLength={5}
-                                        textAlign={'center'}
-                                        style={{ paddingLeft: 0}}
-                                        value={this.state[FitName]}
-                                        onChangeText={value => {
-                                            this.setState({[FitName]: value})
-                                        }}
-                                    />
-                                </View>
-                            </View>
-                        )
-                    })}
+                <View row margin-10 centerV key={FitName}>
+                    <View flex-2 marginR-10>
+                        <Text h1 secondary>{FitName}</Text>
+                    </View>
+                    <View flex>
+                        <Input
+                            placeholder={'Enter Size'}
+                            maxLength={5}
+                            textAlign={'center'}
+                            style={{ paddingLeft: 0}}
+                            value={this.state[FitName]}
+                            onChangeText={value => {
+                                this.setState({[FitName]: value})
+                            }}
+                        />
+                    </View>
                 </View>
             </>
         )
@@ -125,7 +117,7 @@ class MyFits extends Component {
                         <Text>Profile Incomplete</Text>
                     </View>
                     :
-                    <>
+                    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
                         <View row centerV paddingH-10>
                             <SearchBar flex={8}/>
                             <CstmShadowView style={styles.Submit}>
@@ -137,18 +129,20 @@ class MyFits extends Component {
                         <Carousel containerStyle={{ flex: 1 }}>
                             {Object.keys(this.Fits).map((PageName) => {
                                 return (
-                                    <View paddingH-20>
+                                    <View paddingH-20 marginB-25 flex>
                                         <FlatList
-                                            ListHeaderComponent={this.FlatlistHeader(PageName)}
+                                            ListHeaderComponent={() => this.FlatlistHeader(PageName)}
                                             key={PageName}
+                                            data={this.Fits[PageName].items}
+                                            keyExtractor={item => item}
                                             showsVerticalScrollIndicator={false}
-                                            renderItem={this.FlatListRenderItem(PageName)}
+                                            renderItem={this.FlatListRenderItem}
                                         />
                                     </View>
                                 )
                             })}
                         </Carousel>
-                    </>
+                    </SafeAreaView>
                 }
             </>
         );
