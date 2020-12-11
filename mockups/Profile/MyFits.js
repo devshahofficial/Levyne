@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Carousel, TouchableOpacity } from 'react-native-ui-lib';
-import { StyleSheet, ScrollView, FlatList } from "react-native";
+import { StyleSheet, FlatList } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
@@ -45,7 +45,7 @@ class MyFits extends Component {
 
     componentDidMount = () => {
         FetchFitsAndSizes(this.props.AccessToken).then(resp => {
-            console.log(resp);
+            //console.log(resp);
         }).catch(err => {
             console.log(err);
         })
@@ -90,25 +90,27 @@ class MyFits extends Component {
         return(
             <>
                 <View style={styles.InnerElementsContainer}>
-                    {this.Fits[PageName].items.map((FitName) => (
-                        <View row marginV-5 centerV key={FitName}>
-                            <View flex-2 marginR-10>
-                                <Text h1 secondary>{FitName}</Text>
+                    {this.Fits[PageName].items.map((FitName) => {
+                        return (
+                            <View row marginV-5 centerV key={FitName}>
+                                <View flex-2 marginR-10>
+                                    <Text h1 secondary>{FitName}</Text>
+                                </View>
+                                <View flex>
+                                    <Input
+                                        placeholder={'Enter Size'}
+                                        maxLength={5}
+                                        textAlign={'center'}
+                                        style={{ paddingLeft: 0}}
+                                        value={this.state[FitName]}
+                                        onChangeText={value => {
+                                            this.setState({[FitName]: value})
+                                        }}
+                                    />
+                                </View>
                             </View>
-                            <View flex>
-                                <Input
-                                    placeholder={'Enter Size'}
-                                    maxLength={5}
-                                    textAlign={'center'}
-                                    style={{ paddingLeft: 0}}
-                                    value={this.state[FitName]}
-                                    onChangeText={value => {
-                                        this.setState({[FitName]: value})
-                                    }}
-                                />
-                            </View>
-                        </View>
-                    ))}
+                        )
+                    })}
                 </View>
             </>
         )
