@@ -11,7 +11,7 @@ import FetchStories from '../../API/FetchStories';
 import FetchBlogPosts from '../../API/FetchBlogPosts';
 import PutStoryAsRead from '../../API/PutStoryAsRead';
 import timeAgo from '../../API/timeAgo';
-
+import FetchChatBuckets from '../../API/GetChatlists';
 
 ConnectionStatusBar.registerGlobalOnConnectionLost(() => {});
 
