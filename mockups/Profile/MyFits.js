@@ -43,8 +43,14 @@ class MyFits extends Component {
     }
 
     componentDidMount = () => {
-        FetchFitsAndSizes(this.props.AccessToken).then(resp => {
-            //console.log(resp);
+        FetchFitsAndSizes(this.props.AccessToken).then(Fits => {
+            
+            Fits.forEach(item => {
+                this.state[item[0]] = item[1];
+            });
+
+            this.setState(this.state);
+
         }).catch(err => {
             console.log(err);
         })
@@ -58,11 +64,15 @@ class MyFits extends Component {
             }
         })
 
+        console.log(FitsAndSizes);
+
+        /*
         InsertFitsAndSizes(FitsAndSizes, this.props.AccessToken).then(item => {
             console.log(item);
         }).catch(err => {
             console.log(err);
         })
+        */
     }
 
     FlatlistHeader = (PageName) => {
