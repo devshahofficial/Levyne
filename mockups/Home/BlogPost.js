@@ -6,7 +6,8 @@ const deviceHeight = Dimensions.get("window").height;
 import FetchBlogByID from '../../API/FetchBlogByID';
 import BlogBody from '../../components/BlogBody';
 
-export default class BlogPost extends React.Component {
+
+class BlogPost extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -84,3 +85,4 @@ const styles = StyleSheet.create({
 
 });
 
+export default BlogPost;

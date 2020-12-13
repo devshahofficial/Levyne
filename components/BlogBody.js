@@ -1,7 +1,8 @@
 import React from 'react';
 import { Text } from 'react-native-ui-lib';
+import PropTypes from 'prop-types';
 
-export default class BlogBody extends React.PureComponent {
+class BlogBody extends React.PureComponent {
 
     render() {
         return (
@@ -26,3 +27,12 @@ export default class BlogBody extends React.PureComponent {
     }
 
 };
+
+BlogBody.propTypes = {
+    /**
+     * The key of the language value to retrieve
+     */
+    RootChildrens: PropTypes.any.isRequired
+}
+
+export default BlogBody;
