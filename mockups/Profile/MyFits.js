@@ -35,7 +35,7 @@ class MyFits extends Component {
 
     componentDidMount = () => {
         FetchFitsAndSizes(this.props.AccessToken).then(Fits => {
-            
+
             /*
             Fits.forEach(item => {
                 this.state[item[0]] = item[1];
@@ -52,7 +52,7 @@ class MyFits extends Component {
     }
 
     SubmitForm = () => {
-        
+
     }
 
     SectionListHeader = ({section}) => (
@@ -112,7 +112,7 @@ class MyFits extends Component {
                                 </TouchableOpacity>
                             </CstmShadowView>
                         </View>
-                        {/*}
+                        {/*
                         <Carousel containerStyle={{ flex: 1 }}>
                             {Object.keys(this.Fits).map((PageName) => {
                                 return (

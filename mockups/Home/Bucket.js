@@ -86,7 +86,7 @@ class Bucket extends React.Component {
         this.abortController.abort();
     }
 
-    FatListRenderItem = ({item}) => (
+    FlatListRenderItem = ({item}) => (
         <BucketProduct
             item={item}
             DisplayImageView={this.DisplayImageView}
@@ -173,7 +173,7 @@ class Bucket extends React.Component {
                             showsVerticalScrollIndicator={false}
                             data={this.state.Buckets}
                             keyExtractor={(item) => `T${item.ProductType}C${item.CartID}`}
-                            renderItem={this.FatListRenderItem}
+                            renderItem={this.FlatListRenderItem}
                         />
                     </View>
                 }

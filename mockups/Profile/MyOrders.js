@@ -32,7 +32,7 @@ class MyOrders extends Component {
         this.abortController.abort();
     }
 
-    FatListRenderItem = ({item}) => (
+    FlatListRenderItem = ({item}) => (
         <OrdersContainer
             {...item}
             CompanyRating={5}
@@ -91,7 +91,7 @@ class MyOrders extends Component {
                                     <Text center b1 grey40>No Orders Found.</Text>
                                 </View>
                             }
-                            renderItem={this.FatListRenderItem}
+                            renderItem={this.FlatListRenderItem}
                             onEndReached = {this.onEndReached}
                             onEndReachedThreshold={0.75}
                             keyExtractor={(item) => item.OrderID.toString()}

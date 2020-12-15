@@ -24,7 +24,6 @@ import InternetConnection from "../mockups/InternetConnection";
 import AppTour from "../mockups/AppTour";
 import Cart from "../mockups/Home/Cart";
 import Notifications from "../mockups/Home/Notifications";
-import Menu from "../mockups/Home/Menu";
 import EditProfile from "../mockups/Profile/EditProfile";
 import Customize from "../mockups/Customize";
 import Bucket from "../mockups/Home/Bucket";
@@ -159,13 +158,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='BlogPost' component={BlogPost}/>
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
 				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
-				<HomeStack.Screen
-                    name='Menu'
-                    component={Menu}
-                    options={{
-						gestureDirection: "horizontal-inverted"
-                    }}
-                />
 			</HomeStack.Navigator>
 		)
 	}

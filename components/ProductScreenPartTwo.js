@@ -2,11 +2,11 @@ import React from 'react';
 import {StyleSheet, Dimensions, FlatList} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {DescriptionCard} from "./ReadMore";
-import Category from "./Category";
 import Colors from "../Style/Colors";
 import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
 import {HandWashIcon} from "../Icons/Secondary/HandWashIcon";
 import {TimerIcon} from "../Icons/Secondary/TimerIcon";
+import Fabric from "./Fabric";
 
 
 
@@ -88,7 +88,7 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                             extraData={this.props.navigation}
                             keyExtractor={(item) => item}
 						    renderItem={({item, index}) => (
-                                <Category   
+                                <Fabric
                                     Image={'https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/' + item + '.jpg'}
                                     title={item}
                                     NavigateSearch={() => this.NavigateSearch({Type: 2, Index: this.props.MaterialIDs[index], Label: item})}

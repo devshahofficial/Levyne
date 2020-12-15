@@ -1,8 +1,9 @@
 import React from 'react';
 import {Text} from 'react-native-ui-lib';
 
+let DeliveryChargeComponent;
 export default DeliveryChargeComponent = (props) => {
-    if(props.TotalPrice >= 1000) {
+    if(props.TotalPrice >= 2000) {
         return <>
             <Text marginL-10 h2>
                 Free Delivery!
@@ -11,7 +12,7 @@ export default DeliveryChargeComponent = (props) => {
     } else {
         return <>
             <Text marginL-10 h2>
-                Free Delivery on buckets over ₹1000{'/-'}
+                Free Delivery on buckets over ₹2000{'/-'}
             </Text>
         </>
     }

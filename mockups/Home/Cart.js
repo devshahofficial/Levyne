@@ -96,10 +96,16 @@ class Cart extends React.Component {
         this.props.navigation.navigate("Login");
     }
 
+    NavigateOrders = () => {
+        this.props.navigation.navigate("Cart");
+    }
+
     render() {
         return (
             <>
-                <TextNavBar Title={'My Orders'}/>
+                <TextNavBar
+                    Title={'My Orders'}
+                />
                 {this.props.SkipLogin ?
                     <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
                     :

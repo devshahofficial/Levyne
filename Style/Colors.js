@@ -6,7 +6,8 @@ Colors.loadColors({
     black: '#000000',
     textSecondary: '#A5B5C9',
     shadow: '#E7EAF0',
-    white: '#FFFFFF'
+    white: '#FFFFFF',
+    secondaryPink: '#ff99cc'
 });
 
 Typography.loadTypographies({

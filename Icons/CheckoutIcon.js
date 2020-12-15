@@ -3,11 +3,21 @@ import {Svg,Path,G} from 'react-native-svg';
 
 export const CheckoutIcon = (props) => {
     return (
-        <Svg id="Iconly_Light-outline_Buy" data-name="Iconly/Light-outline/Buy" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-            <G id="Buy" transform="translate(2 2.5)">
-                <Path id="Buy-2" data-name="Buy" d="M15.16,18.086A1.515,1.515,0,1,1,16.675,19.6,1.516,1.516,0,0,1,15.16,18.086Zm-11.251,0A1.514,1.514,0,1,1,5.423,19.6,1.515,1.515,0,0,1,3.909,18.086Zm1.681-3.1A2.568,2.568,0,0,1,3.065,12.81l-.019-.164-.914-10.9L.622,1.49A.752.752,0,0,1,0,.724l.01-.1A.749.749,0,0,1,.75,0H.777l.1.01,2.08.36a.749.749,0,0,1,.6.566l.018.111.235,2.8h14.1a2.07,2.07,0,0,1,1.531.666,2.1,2.1,0,0,1,.554,1.573l-.016.151L19.03,12.8a2.564,2.564,0,0,1-2.363,2.182l-.164.005ZM4.541,12.521a1.055,1.055,0,0,0,.933.959l.116.006H16.5a1.054,1.054,0,0,0,1.019-.787l.023-.117.95-6.558a.592.592,0,0,0-.5-.669l-.088-.007H3.938Zm7.585-3.476a.75.75,0,0,1-.1-1.493l.1-.007H14.9A.751.751,0,0,1,15,9.039l-.1.006Z" transform="translate(0 0)" fill={props.Color}/>
+        <Svg xmlns="http://www.w3.org/2000/svg" width={props.size} height={props.size} viewBox="0 0 17.003 18.222">
+            <G id="box" transform="translate(-17.126)">
+                <G id="Group_8" data-name="Group 8" transform="translate(17.126)">
+                    <G id="Group_7" data-name="Group 7">
+                        <Path id="Path_47" data-name="Path 47" d="M32.885,11.186V4.549L25.006,0l-7.88,4.549v9.1l7.88,4.549,2.1-1.21a4.1,4.1,0,1,0,5.784-5.8Zm-7.88-9.952,6.276,3.623-2.6,1.5L22.4,2.738Zm-.535,15.42L18.2,13.031V5.784l6.276,3.623ZM18.73,4.858l2.6-1.5,6.276,3.623-2.6,1.5Zm6.811,11.8V9.407l6.276-3.623v4.652a4.1,4.1,0,0,0-5.36,5.69Zm4.49.5a3.029,3.029,0,1,1,3.029-3.029A3.033,3.033,0,0,1,30.03,17.152Z" transform="translate(-17.126)" fill={props.Color}/>
+                    </G>
+                </G>
+                <G id="Group_10" data-name="Group 10" transform="translate(28.01 12.57)">
+                    <G id="Group_9" data-name="Group 9">
+                        <Path id="Path_48" data-name="Path 48" d="M326.227,353.212l-1.75,1.76-.784-.776-.752.76,1.542,1.527,2.5-2.516Z" transform="translate(-322.94 -353.212)" fill={props.Color}/>
+                    </G>
+                </G>
             </G>
         </Svg>
+
 
     )
 };
