@@ -6,7 +6,7 @@ export class DescriptionCard extends React.PureComponent {
 
     render() {
         return (
-            <View flex marginL-15 marginR-15>
+            <View flex>
                 <ReadMore
                     numberOfLines={3}
                     renderTruncatedFooter={this._renderTruncatedFooter}

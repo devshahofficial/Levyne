@@ -77,7 +77,7 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                     <Text marginL-10 h2>Approximate Delivery within {this.props.ApprxDaysForProduction} days.</Text>
                 </View>
 
-                <Text hb1 marginT-20>Fabric</Text>
+                <Text hb1 marginT-20>Fabric Description</Text>
                 <DescriptionCard CompleteDescription = {this.props.FabricDescription} />
                 <TouchableOpacity>
                     <View style={{marginHorizontal: -15}}>

@@ -2,36 +2,46 @@ import React from 'react';
 import {StyleSheet, ActivityIndicator} from 'react-native';
 import {View,Text, TouchableOpacity,Colors, AnimatedImage} from 'react-native-ui-lib';
 import StarIconsComponent from "./StarIconsComponent";
+import CstmShadowView from "./CstmShadowView";
 
 
 export default class BrandItemContainer extends React.Component {
     render() {
         return (
-            <TouchableOpacity
-                activeOpacity={0.6}
-                style={styles.Container}
-                onPress={() => {
-                    this.props.navigateBrand(this.props.item.BrandID)
-                }}
-            >
-                <View>
-                    <AnimatedImage
-                        style={styles.headerImage}
-                        source={{ uri: this.props.item.ProfileImage }}
-                        loader={<ActivityIndicator />}
-                        containerStyle={styles.AnimatedImageContainerStyle}
-                    />
-                </View>
-                <View flex>
-                    <Text hb1 style={styles.headerText}>
-                        {this.props.item.Name}
-                    </Text>
-                    <Text h2 grey40 marginH-10 left numberOfLines={3} ellipsizeMode='tail'>{this.props.item.About.replace(/(\r\n|\r|\n){2,}/g, '\n')}</Text>
-                    <View row flex marginT-10 paddingL-10>
-                        <StarIconsComponent BrandRating={Math.round(this.props.item.ratings)} />
+            <CstmShadowView style={styles.Shadow}>
+                <TouchableOpacity
+                    activeOpacity={0.6}
+                    style={styles.Container}
+                    onPress={() => {
+                        this.props.navigateBrand(this.props.item.BrandID)
+                    }}
+                >
+                    <View>
+                        <AnimatedImage
+                            style={styles.headerImage}
+                            source={{ uri: this.props.item.ProfileImage }}
+                            loader={<ActivityIndicator />}
+                            containerStyle={styles.AnimatedImageContainerStyle}
+                        />
                     </View>
-                </View>
-            </TouchableOpacity>
+                    <View flex>
+                        <Text
+                            hb1
+                            style={styles.headerText}
+                            numberOfLines={2} ellipsizeMode='tail'
+                        >
+                            {this.props.item.Name}
+                        </Text>
+                        <Text h2 grey40 marginH-10 left numberOfLines={3} ellipsizeMode='tail'>{this.props.item.About.replace(/(\r\n|\r|\n){2,}/g, '\n')}</Text>
+                        <View row flex marginT-10 paddingL-10>
+                            <StarIconsComponent
+                                BrandRating={4}
+                                //BrandRating={Math.round(this.props.item.ratings)}
+                            />
+                        </View>
+                    </View>
+                </TouchableOpacity>
+            </CstmShadowView>
         )
     }
 }
@@ -52,12 +62,15 @@ const styles = StyleSheet.create({
         height:150
     },
     Container: {
-        borderWidth: 1,
-        borderColor: Colors.shadow,
         borderRadius: 10,
-        padding: 10,
-        margin: 15,
         flexDirection: "row",
+        paddingTop: 10
+    },
+    Shadow: {
+        borderRadius: 10,
+        margin: 15,
+        padding: 10,
+        height: 'auto'
     }
 })
 

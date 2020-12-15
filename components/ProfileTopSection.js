@@ -10,7 +10,7 @@ export default class ProfileTopSection extends React.PureComponent {
     render() {
         return (
 
-            <View style={{ flexDirection: 'row' }}>
+            <View row marginT-15>
                 <View marginL-5 center style={styles.avatarView}>
                     <Avatar
                         size={100}
@@ -19,17 +19,17 @@ export default class ProfileTopSection extends React.PureComponent {
                 </View>
 
                 <View style={styles.threeBoxes} margin-4 center>
-                    <Text f1 paddingV-4 center>{this.props.TotalProducts}</Text>
+                    <Text f1 paddingV-4 center style={{lineHeight:22}}>{this.props.TotalProducts}</Text>
                     <Text h3 paddingV-4 center grey30>Products</Text>
                 </View>
 
                 <TouchableOpacity style={styles.threeBoxes} margin-4 center onPress={this.props.navigateFollowings}>
-                    <Text f1 paddingV-4 center>{this.props.Followings}</Text>
+                    <Text f1 paddingV-4 center style={{lineHeight:22}}>{this.props.Followings}</Text>
                     <Text h3 paddingV-4 center grey30>Following</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.threeBoxes} margin-4 center>
-                    <Text f1 paddingV-4 center>{this.props.Followers}</Text>
+                    <Text f1 paddingV-4 center style={{lineHeight:22}}>{this.props.Followers}</Text>
                     <Text h3 paddingV-4 center grey30>Followers</Text>
                 </TouchableOpacity>
             </View>

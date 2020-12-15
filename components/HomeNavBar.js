@@ -14,16 +14,16 @@ export default class HomeNavBar extends React.PureComponent {
     render() {
         return (
             <View row centerV style={styles.NavBar}>
-                <TouchableOpacity
+                {/*<TouchableOpacity
                     marginH-20 br100
                     onPress={() => {
                         this.props.navigateMenu();
                     }}
                 >
                     <MenuIcon size={28} Color={Colors.black}/>
-                </TouchableOpacity>
-                <View marginR-20 marginL-10 flex-1 row>
-                    <Logo width='70%'height={50} />
+                </TouchableOpacity> */}
+                <View marginH-20 row>
+                    <Logo width='55%' height='50'/>
                 </View>
                 <View flex row centerV right>
                     <TouchableOpacity
@@ -42,14 +42,14 @@ export default class HomeNavBar extends React.PureComponent {
                     >
                         <BookMarkIcon size={24} Fill={false} Color={Colors.black}/>
                     </TouchableOpacity>
-                    <TouchableOpacity
+                    {/*<TouchableOpacity
                         marginR-12 br100
                         onPress={() => {
                             this.props.navigateNotifications();
                         }}
                     >
                         <BellIcon size={22} Fill={false} Color={Colors.black}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                     <TouchableOpacity
                         marginR-16 br100
                         onPress={() => {
@@ -68,5 +68,6 @@ export default class HomeNavBar extends React.PureComponent {
 const styles = StyleSheet.create({
     NavBar:{
         height:50,
+        zIndex:100
     },
 });

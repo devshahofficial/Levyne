@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, BackHandler, ScrollView} from 'react-native';
-import {Button, View, Text, Toast, Colors, TouchableOpacity} from 'react-native-ui-lib';
+import {StyleSheet, BackHandler, KeyboardAvoidingView, ScrollView } from 'react-native';
+import {Button, View, Text, Toast, Colors, KeyboardAwareScrollView} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
 import generateOTP from '../API/Login';
@@ -8,7 +8,6 @@ import SkipLogin from '../API/SkipLogin';
 import CstmShadowView from "../components/CstmShadowView";
 import Constants from '../assets/constants';
 import {connect} from 'react-redux';
-import KeyboardAwareView from '../components/KeyBoardAwareView';
 
 class LoginScreen extends React.Component {
 
@@ -95,10 +94,11 @@ class LoginScreen extends React.Component {
 
 	render() {
 		return (
-            <KeyboardAwareView>
-                <ScrollView
-					contentContainerStyle={styles.ScrollView}
-				>
+            <ScrollView
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{flex:1}}
+			>
+                <View flex center>
 					<Toast
 						visible={this.state.showCustomToast}
 						position={'bottom'}
@@ -134,8 +134,9 @@ class LoginScreen extends React.Component {
 							label="Skip Login" flex
 						/>
 					</CstmShadowView>
-				</ScrollView>
-            </KeyboardAwareView>
+
+				</View>
+            </ScrollView>
 		);
 	}
 }
@@ -150,12 +151,6 @@ const styles = StyleSheet.create({
 	},
 	inputLayout: {
 		width:'85%',
-	},
-	ScrollView: {
-		flex: 1,
-		alignItems: "center",
-		backgroundColor: Colors.white,
-		paddingTop: 100
 	},
 	Skip: {
 		marginBottom:50,

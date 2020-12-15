@@ -185,16 +185,15 @@ class HomeScreen extends React.Component {
                     {this.renderCustomContent()}
                 </Toast>
                 <Animated.View style={{transform:[{translateY:this.headerY}], position:'absolute', zIndex:1 }}>
-                    <View>
-                        <ScrollView
-                            horizontal={true} style={{height:90, alignContent:"center"}}
-                            showsHorizontalScrollIndicator={false}
-                        >
-                            <Category title={'Men'} Image={"https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
-                            <Category title={'Women'} Image={"https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
-                            <Category title={'Accessories'} Image={"https://images.pexels.com/photos/2735970/pexels-photo-2735970.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"}/>
-                        </ScrollView>
-                    </View>
+                    <ScrollView
+                        horizontal={true} style={{height:90, alignContent:"center"}}
+                        showsHorizontalScrollIndicator={false}
+                    >
+                        <Category title={'Men'} Image={"https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                        <Category title={'Women'} Image={"https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                        <Category title={'Fusion'} Image={"https://images.pexels.com/photos/1078958/pexels-photo-1078958.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"}/>
+                        <Category title={'Ethnic'} Image={"https://images.pexels.com/photos/2293102/pexels-photo-2293102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                    </ScrollView>
                 </Animated.View>
 
                 <Animated.ScrollView
@@ -216,12 +215,15 @@ class HomeScreen extends React.Component {
                     }
 
                     <View marginT-100>
-                        <Text b1 secondary marginL-20 marginB-10>
-                            Sensations From Levyne
-                        </Text>
+
                         <FlatList
                             data={this.state.StoryData}
                             horizontal={true}
+                            ListHeaderComponent={
+                                <Text b1 secondary marginL-20 marginB-10>
+                                    Sensations From Levyne
+                                </Text>
+                            }
                             renderItem={({item, index}) => {
                                 return <Stories
                                     ProfileImage={{uri: item.BrandProfileImage}}
