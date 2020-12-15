@@ -8,7 +8,7 @@ import {
 export default class Category extends React.PureComponent {
     render() {
         return (
-            <TouchableOpacity >
+            <TouchableOpacity onPress={this.props.NavigateSearch}>
                 <ImageBackground
                     imageStyle={{ borderRadius: 10 }}
                     source={{ uri: this.props.Image }}

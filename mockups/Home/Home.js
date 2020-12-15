@@ -97,9 +97,14 @@ class HomeScreen extends React.Component {
         this.setModalVisible();
         this.props.navigation.navigate('Product', { ProductID : this.state.StoryData[this.state.CurrentStory].ProductID });
     }
+    
 
-    navigateSearch = () => {
+    navigateSearchText = () => {
         this.props.navigation.navigate('SearchText');
+    }
+
+    navigateSearch(SearchFilter) {
+        this.props.navigation.push('SearchScreen', {SearchFilter});
     }
 
     navigateBookMark = () => {
@@ -167,7 +172,7 @@ class HomeScreen extends React.Component {
         return (
             <>
                 <HomeNavBar
-                    navigateSearch={this.navigateSearch}
+                    navigateSearchText={this.navigateSearchText}
                     navigateBookMark={this.navigateBookMark}
                     navigateCart={this.navigateCart}
                     navigateNotifications={this.navigateNotifications}
@@ -189,10 +194,10 @@ class HomeScreen extends React.Component {
                         horizontal={true} style={{height:90, alignContent:"center"}}
                         showsHorizontalScrollIndicator={false}
                     >
-                        <Category title={'Men'} Image={"https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
-                        <Category title={'Women'} Image={"https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
-                        <Category title={'Fusion'} Image={"https://images.pexels.com/photos/1078958/pexels-photo-1078958.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"}/>
-                        <Category title={'Ethnic'} Image={"https://images.pexels.com/photos/2293102/pexels-photo-2293102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                        <Category title={'Men'} NavigateSearch={() => this.navigateSearch({Gender: 1, Type: 4, Label: 'Men'})} Image={"https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                        <Category title={'Women'} NavigateSearch={() => this.navigateSearch({Gender: 0, Type: 4, Label: 'Women'})} Image={"https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                        <Category title={'Fusion'} NavigateSearch={() => this.navigateSearch({Index: 14, Type: 1, Label: 'Fusion'})} Image={"https://images.pexels.com/photos/1078958/pexels-photo-1078958.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"}/>
+                        <Category title={'Ethnic'} NavigateSearch={() => this.navigateSearch({Index: 0, Type: 1, Label: 'Ethnic'})} Image={"https://images.pexels.com/photos/2293102/pexels-photo-2293102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
                     </ScrollView>
                 </Animated.View>
 

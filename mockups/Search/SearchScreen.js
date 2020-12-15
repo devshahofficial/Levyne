@@ -51,6 +51,10 @@ class Search extends React.Component {
                 break;
             case 3 :
                 this.Filter.SearchKey = this.props.route.params.SearchFilter.Label;
+                break;
+            case 4 :
+                this.Filter.Gender = this.props.route.params.SearchFilter.Gender;
+                break;
         }
 
         this.SearchProduct(this.state.ProductSort);
@@ -59,25 +63,23 @@ class Search extends React.Component {
 
     SearchProduct = (ProductSort) => {
         ProductBySearch(this.Filter, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
-            if(this._isMounted) {
-                this.setState({
-                    ProductsData: [...this.state.ProductsData, ...resp.Products],
-                    LoadingProduct: false
-                })
-                this.TotalProducts = resp.Total
-            }
-        }).catch(() => {});
+            this.setState({
+                ProductsData: [...this.state.ProductsData, ...resp.Products],
+                LoadingProduct: false
+            })
+            this.TotalProducts = resp.Total
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     SearchBrand = (BrandSort) => {
         BrandBySearch(this.props.route.params.SearchFilter.Label, ++this.BrandPage, BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
-            if(this._isMounted) {
-                this.setState({
-                    BrandData : [...this.state.BrandData, ...resp.Brands],
-                    LoadingBrands: false
-                })
-                this.TotalBrand = resp.Total
-            }
+            this.setState({
+                BrandData : [...this.state.BrandData, ...resp.Brands],
+                LoadingBrands: false
+            })
+            this.TotalBrand = resp.Total
         }).catch(err => {
             console.log(err);
         });
