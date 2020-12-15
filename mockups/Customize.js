@@ -1,39 +1,12 @@
 import React from 'react';
-import {StyleSheet, Dimensions, FlatList} from 'react-native';
-import {View, Text, TouchableOpacity, Image} from 'react-native-ui-lib';
+import {StyleSheet, Dimensions, FlatList, ScrollView} from 'react-native';
+import {View, Text, TouchableOpacity, Image, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import TextNavBar from '../components/TextNavBar';
 import Models from '../assets/3DModels';
+import LevyneDesignIllustration from '../assets/images/AppImages/LevyneDesign.svg';
 
 const windowWidth = Dimensions.get('window').width;
-
-const ProductsData = [
-    {
-        id: "dajwefvka",
-        Title: "Ethnic Wear",
-        Image: "https://d364lz1eqz350v.cloudfront.net/EthnicWear.png"
-    },
-    {
-        id: "guwiqugd",
-        Title: "Trousseau wear",
-        Image: "https://d364lz1eqz350v.cloudfront.net/TrousseauWear.png"
-    },
-    {
-        id: "oqhguwiqugd",
-        Title: "Men's Wear",
-        Image: "https://d364lz1eqz350v.cloudfront.net/MensWear.png"
-    },
-    {
-        id: "dajvka",
-        Title: "Fusion Wear",
-        Image: "https://d364lz1eqz350v.cloudfront.net/FusionWear.png"
-    },
-    {
-        id: "guwiquwkgduqgd",
-        Title: "Bridal Wear",
-        Image: "https://d364lz1eqz350v.cloudfront.net/BridalWear.png"
-    }
-];
 
 class Customize extends React.Component {
 
@@ -55,24 +28,6 @@ class Customize extends React.Component {
         </TouchableOpacity>
     )
 
-    headerContainer = () => {
-        return(
-            <View>
-                <Text marginL-15 marginV-10 secondary hb1>3D by Levyne</Text>
-                <View center>
-                    <FlatList
-                        data={this.ModelKeys}
-                        horizontal={true}
-                        showsHorizontalScrollIndicator={false}
-                        renderItem = {this.headerContainerRender}
-                        keyExtractor={(item) => item}
-                    />
-                </View>
-                <Text marginL-15 marginV-10 secondary hb1>Designs by Levyne</Text>
-            </View>
-        )
-    }
-
     renderItem = ({ item }) => (
         <TouchableOpacity center style={[styles.Container,{width: this.imgWidth+40, height: this.imgHeight}]}>
             <Image
@@ -87,15 +42,25 @@ class Customize extends React.Component {
         return (
             <>
                 <TextNavBar Title={'Customize on Levyne'}/>
-                <View flex>
-                    <FlatList
-                        data={ProductsData}
-                        ListHeaderComponent={this.headerContainer}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={this.renderItem}
-                        keyExtractor={(item) => item.id}
-                    />
-                </View>
+                <ScrollView
+                    style={{backgroundColor: Colors.white}}
+                    contentContainerStyle={{flex:1}}
+                >
+                    <Text marginL-15 marginV-10 secondary hb1>3D by Levyne</Text>
+                    <View center>
+                        <FlatList
+                            data={this.ModelKeys}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            renderItem = {this.headerContainerRender}
+                            keyExtractor={(item) => item}
+                        />
+                    </View>
+                    <Text marginL-15 marginT-50 secondary hb1>Designs by Levyne</Text>
+                    <View flex center>
+                        <LevyneDesignIllustration width={"50%"}/>
+                    </View>
+                </ScrollView>
             </>
         )
     }
