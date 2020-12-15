@@ -1,11 +1,13 @@
 import React from 'react';
-import {View, Text, AvatarHelper} from 'react-native-ui-lib';
+import {View, Text, AvatarHelper, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import BucketComponent from "../../components/BucketComponent";
 import FetchCart from '../../API/FetchCart';
 import {ActivityIndicator, FlatList, Alert} from 'react-native';
 import UnLoggedScreen from '../../components/UnLoggedScreen';
 import TextNavBar from "../../components/TextNavBar";
+import {EditIcon} from "../../Icons/EditIcon";
+import {CheckoutIcon} from "../../Icons/CheckoutIcon";
 
 class Cart extends React.Component {
 
@@ -103,9 +105,13 @@ class Cart extends React.Component {
     render() {
         return (
             <>
-                <TextNavBar
-                    Title={'My Orders'}
-                />
+                {
+                    !this.props.SkipLogin ?
+                        <TextNavBar Title={"My Orders"} Navigation={this.NavigateOrders}>
+                            <CheckoutIcon Color={Colors.black} size={24}/>
+                        </TextNavBar> :
+                        <TextNavBar Title={"My Orders"} />
+                }
                 {this.props.SkipLogin ?
                     <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
                     :
