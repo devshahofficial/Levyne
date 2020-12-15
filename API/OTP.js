@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { POST } from './CustomFetch';
 import NewSocket from './NewSocket';
-import FetchChatBuckets from './GetChatlists';
+import FetchChatBuckets from './FetchChatBuckets';
 
 const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead) => {
     if(OTP.length != 6)
