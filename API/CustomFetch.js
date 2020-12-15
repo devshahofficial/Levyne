@@ -67,6 +67,7 @@ export const GET = async (URL, {ReturnResponse, Token, QueryData}, abortControll
         },
     });
     if (resp.status != 200) {
+        console.log(await resp.text());
         throw resp.status;
     }
     else {
