@@ -6,6 +6,7 @@ import NavBarBack from '../components/NavBarBack';
 import {connect} from 'react-redux';
 import BrandFollowings from '../API/BrandFollowing';
 import Stars from '../components/StarIconsComponent';
+import CstmShadowView from "../components/CstmShadowView";
 
 const FetchBrandFollowings = BrandFollowings.FetchBrandFollowings;
 
@@ -48,7 +49,7 @@ class BrandList extends React.PureComponent {
             </View>
 		);
     };
-    
+
     onEndReached = () => {
         if(this.state.BrandList.length < this.state.Total) {
             FetchBrandFollowings(++this.Page, this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then(resp => {
@@ -58,34 +59,34 @@ class BrandList extends React.PureComponent {
                     });
                 }
             }).catch(() => {
-                
+
             })
         }
     }
 
     renderItem = ({ item }) => (
-        <TouchableOpacity
-            onPress={() => this.props.navigation.push("BrandProfile", {BrandID : item.BrandID})}
-            activeOpacity={0.6}
-            style={styles.Container}
-            row paddingL-10 marginB-20 flex
-        >
-            <View>
-                <Image
-                    style={styles.headerImage}
-                    source={{ uri: item.ProfileImage }}
-                />
-            </View>
-            <View marginL-10 marginT-5>
-                <Text hb1 style={styles.headerText}>
-                    {item.Name}
-                </Text>
-                <Text numberOfLines={4} h2 grey40 marginR-160 left>{item.About} </Text>
-                <View row flex marginT-10>
-                    <Stars BrandRating={Math.round(5)} />
-                </View>
-            </View>
-        </TouchableOpacity>
+        <CstmShadowView style={styles.Container}>
+			<TouchableOpacity
+				onPress={() => this.props.navigation.push("BrandProfile", {BrandID : item.BrandID})}
+				activeOpacity={0.6}
+				style={styles.Container}
+				row paddingL-10 marginB-20 flex
+			>
+				<Image
+					style={styles.headerImage}
+					source={{ uri: item.ProfileImage }}
+				/>
+				<View marginL-10 marginT-5>
+					<Text hb1 style={styles.headerText}>
+						{item.Name}
+					</Text>
+					<Text numberOfLines={4} h2 grey40 marginR-160 left>{item.About} </Text>
+					<View row flex marginT-10>
+						<Stars BrandRating={Math.round(5)} />
+					</View>
+				</View>
+			</TouchableOpacity>
+		</CstmShadowView>
     )
 
 

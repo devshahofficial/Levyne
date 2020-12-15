@@ -354,8 +354,8 @@ class BrandProfile extends Component {
 
 const styles = StyleSheet.create({
     button: {
-        borderRadius: 15,
-        height: 35,
+        borderRadius: 30,
+        height: 40,
         width: '100%',
         marginTop: 30,
         justifyContent: 'center',
@@ -378,10 +378,10 @@ const styles = StyleSheet.create({
         height:50,
     },
     IndicatorStyle: {
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.grey50,
         height:35,
         marginVertical:7.5,
-        borderRadius:50,
+        borderRadius:10,
     }
 })
 const mapsStateToProps = state => ({

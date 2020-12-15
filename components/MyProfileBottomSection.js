@@ -46,10 +46,10 @@ class ProfileBottomSection extends React.PureComponent {
         }
     }
 	render() {
-        const Genre = this.props.BrandGenre.map((item) => Type[0][parseInt(item)].title).join(', '); 
+        const Genre = this.props.BrandGenre.map((item) => Type[0][parseInt(item)].title).join(', ');
 		return (
-			<View paddingT-20>
-				<View paddingT-20>
+			<View>
+				<View paddingT-15>
 					<View marginH-15 marginT-10 centerV row>
 						<BadgeIcon size={20} Color={Colors.primary} />
 						<Text marginH-15 hb1>

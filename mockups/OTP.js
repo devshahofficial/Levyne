@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet} from 'react-native';
+import { StyleSheet, ScrollView} from 'react-native';
 import {Button,Text, View, Colors, LoaderScreen, Toast} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
@@ -7,7 +7,6 @@ import VerifyOTP from '../API/OTP';
 import {generateOTP} from '../API/Login';
 import {connect} from 'react-redux';
 import CstmShadowView from "../components/CstmShadowView";
-import KeyboardAwareView from '../components/KeyBoardAwareView';
 const PushNotification = require("react-native-push-notification");
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 
@@ -157,8 +156,11 @@ class OTPScreen extends React.Component {
     render() {
 
         return (
-            <KeyboardAwareView>
-                <View style={styles.containerMain} flex>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{flex:1}}
+            >
+                <View center flex>
                     <View style={styles.container} paddingT-100>
                         <Logo width='60%' />
                     </View>
@@ -190,7 +192,7 @@ class OTPScreen extends React.Component {
                         {this.renderCustomContent()}
                     </Toast>
                 </View>
-            </KeyboardAwareView>
+            </ScrollView>
         );
     }
 };
@@ -200,10 +202,6 @@ const styles = StyleSheet.create({
         width:'100%',
         alignItems: 'center',
         justifyContent:'center',
-    },
-    containerMain : {
-        width:'100%',
-        alignItems: 'center',
     },
     logo: {
         width: 313*0.55,
