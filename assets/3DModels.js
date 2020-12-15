@@ -1,6 +1,6 @@
 export default Models = {
     Shirt: {
-        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
+        ImageURL: 'https://images.unsplash.com/photo-1595067327029-420d3d58688b?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=334&q=80',
         items: [
             'Spread Eagle Collar',
             'Double Collar',
@@ -19,7 +19,7 @@ export default Models = {
         ]
     },
     Choli: {
-        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
+        ImageURL: 'https://s3.ap-southeast-1.amazonaws.com/meesho-static-ethinos/s3fs-public/inline-images/90696490_218574385879661_957517297020092862_n.jpg?oo.n5XQaitfcURPezxfJ0PNUQk6Px2Vj',
         items: [
             'Flounce Sleeve',
             'Pleated',
@@ -56,7 +56,7 @@ export default Models = {
         ]
     },
     Kurti: {
-        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
+        ImageURL: 'https://tiimg.tistatic.com/fp/1/005/725/stylish-kurtis-for-jeans-414.jpg',
         items: [
             'Scalloped',
             'Jacket Style',
@@ -73,7 +73,7 @@ export default Models = {
         ]
     },
     Pants: {
-        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
+        ImageURL: 'https://assets.superbalistcdn.co.za/300x432/filters:quality(75):format(jpg)/2002977/original.jpg',
         items: [
             'Formal',
             'Side Waist',
@@ -84,7 +84,7 @@ export default Models = {
         ]
     },
     Blazer: {
-        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
+        ImageURL: 'https://i.pinimg.com/originals/d8/54/d0/d854d0f488268faeb95eb438f4af475c.jpg',
         items: [
             'Peak',
             'Double Breasted Peak',
@@ -96,7 +96,7 @@ export default Models = {
         ]
     },
     Vest: {
-        ImageURL: 'https://tiimg.tistatic.com/fp/1/003/975/linen-classic-fit-black-shirt-361.jpg',
+        ImageURL: 'https://www.dhresource.com/0x0/f2/albu/g7/M00/AB/99/rBVaSlvjqg2AREVvAAEL02TQXTc733.jpg/2019-new-hot-sale-light-grey-formal-men-s.jpg',
         items: [
             'Double Breasted Shawl',
             'Four Button',
