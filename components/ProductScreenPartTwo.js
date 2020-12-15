@@ -88,7 +88,8 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                             extraData={this.props.navigation}
                             keyExtractor={(item) => item}
 						    renderItem={({item, index}) => (
-                                <Category
+                                <Category   
+                                    Image={'https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/' + item + '.jpg'}
                                     title={item}
                                     NavigateSearch={() => this.NavigateSearch({Type: 2, Index: this.props.MaterialIDs[index], Label: item})}
                                     ImageStyle={styles.Image}
