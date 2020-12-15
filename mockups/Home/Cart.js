@@ -107,10 +107,10 @@ class Cart extends React.Component {
             <>
                 {
                     !this.props.SkipLogin ?
-                        <TextNavBar Title={"My Orders"} Navigation={this.NavigateOrders}>
+                        <TextNavBar Title={"My Cart"} Navigation={this.NavigateOrders}>
                             <CheckoutIcon Color={Colors.black} size={24}/>
                         </TextNavBar> :
-                        <TextNavBar Title={"My Orders"} />
+                        <TextNavBar Title={"My Cart"} />
                 }
                 {this.props.SkipLogin ?
                     <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
