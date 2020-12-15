@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import config from '../assets/constants';
 import NewSocket from './NewSocket';
-import FetchChatBuckets from './GetChatlists';
+import FetchChatBuckets from './FetchChatBuckets';
 import { POST } from './CustomFetch';
 
 export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead) => {
