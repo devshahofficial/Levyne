@@ -29,7 +29,7 @@ export default class HomeNavBar extends React.PureComponent {
                     <TouchableOpacity
                         marginL-12 marginR-12 br100
                         onPress={() => {
-                            this.props.navigateSearch();
+                            this.props.navigateSearchText();
                         }}
                     >
                         <SearchIcon size={28} Color={Colors.black}/>
