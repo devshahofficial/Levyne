@@ -10,6 +10,13 @@ import './Style/Colors';
 import './assets/globals';
 import ReduxStore from './Redux/ReduxStore';
 
+if (!__DEV__) {
+	console.log = () => {};
+	console.error = () => {};
+	console.info = () => {};
+	console.warn = () => {};
+}
+
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
 		<StatusBar translucent backgroundColor={backgroundColor} {...props} />
