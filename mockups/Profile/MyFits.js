@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image, Carousel, TouchableOpacity } from 'react-native-ui-lib';
-import { StyleSheet, FlatList, SafeAreaView } from "react-native";
+import { View, Text, Image, TouchableOpacity } from 'react-native-ui-lib';
+import { StyleSheet, SectionList, SafeAreaView } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
@@ -9,11 +9,8 @@ import CstmShadowView from "../../components/CstmShadowView";
 import NavBarBack from '../../components/NavBarBack';
 import {RightIcon} from "../../Icons/RightIcon";
 import FetchFitsAndSizes from '../../API/FetchFitsAndSizes';
-import InsertFitsAndSizes from '../../API/InsertFitsAndSizes';
 import FitsFemale from '../../assets/FitsFemale';
-import FitsForSearchFemale from '../../assets/FitsFemaleArray';
 import FitsMale from '../../assets/FitsMale';
-import FitsForSearchMale from '../../assets/FitsMaleArray';
 
 class MyFits extends Component {
     constructor(props) {
@@ -25,31 +22,29 @@ class MyFits extends Component {
         switch(this.props.Gender) {
             case 0 :
                 this.Fits = FitsFemale;
-                this.FitsForSearch = FitsForSearchFemale
                 break;
             case 1 :
-                this.Fits = FitsMale
-                this.FitsForSearch = FitsForSearchMale
+                this.Fits = FitsMale;
                 break;
             default :
                 this.state.ProfileNotCompleted = true;
                 this.Fits = {}
         }
 
-        this.FitsForSearch.forEach(item => {
-            this.state[item[0]] = '';
-        })
-
     }
 
     componentDidMount = () => {
         FetchFitsAndSizes(this.props.AccessToken).then(Fits => {
             
+            /*
             Fits.forEach(item => {
                 this.state[item[0]] = item[1];
             });
 
             this.setState(this.state);
+            */
+
+            //console.log(Fits);
 
         }).catch(err => {
             console.log(err);
@@ -57,64 +52,45 @@ class MyFits extends Component {
     }
 
     SubmitForm = () => {
-        const FitsAndSizes = [];
-        Object.keys(this.state).forEach(item => {
-            if(this.state[item]) {
-                FitsAndSizes.push([item, this.state[item]])
-            }
-        })
-
-        console.log(FitsAndSizes);
-
-        /*
-        InsertFitsAndSizes(FitsAndSizes, this.props.AccessToken).then(item => {
-            console.log(item);
-        }).catch(err => {
-            console.log(err);
-        })
-        */
+        
     }
 
-    FlatlistHeader = (PageName) => {
+    SectionListHeader = ({section}) => (
+        <View flex>
+            <CstmShadowView style={{ height:375, borderRadius:20, margin:15, padding:0 }}>
+                <Image
+                    source={{ uri: section.Image }}
+                    height={350}
+                    style={styles.ImageCSS}
+                />
+            </CstmShadowView>
+            <View paddingH-20 paddingT-20>
+                <Text hb1>
+                    {section.Title}
+                </Text>
+            </View>
+        </View>
+    )
+
+    SectionListRenderItem = ({item}) => {
         return(
-            <>
-                <CstmShadowView style={{ height:375, borderRadius:20, margin:15, padding:0 }}>
-                    <Image
-                        source={{ uri: this.Fits[PageName].Image }}
-                        height={350}
-                        style={styles.ImageCSS}
+            <View row margin-10 centerV key={item}>
+                <View flex-2 marginR-10>
+                    <Text h1 secondary>{item}</Text>
+                </View>
+                <View flex>
+                    <Input
+                        placeholder={'Enter Size'}
+                        maxLength={5}
+                        textAlign={'center'}
+                        style={{ paddingLeft: 0}}
+                        value={this.state[item]}
+                        onChangeText={value => {
+                            this.setState({[item]: value})
+                        }}
                     />
-                </CstmShadowView>
-                <View paddingH-20 paddingT-20>
-                    <Text hb1>
-                        {PageName}
-                    </Text>
                 </View>
-            </>
-        )
-    }
-
-    FlatListRenderItem = ({item: FitName}) => {
-        return(
-            <>
-                <View row margin-10 centerV key={FitName}>
-                    <View flex-2 marginR-10>
-                        <Text h1 secondary>{FitName}</Text>
-                    </View>
-                    <View flex>
-                        <Input
-                            placeholder={'Enter Size'}
-                            maxLength={5}
-                            textAlign={'center'}
-                            style={{ paddingLeft: 0}}
-                            value={this.state[FitName]}
-                            onChangeText={value => {
-                                this.setState({[FitName]: value})
-                            }}
-                        />
-                    </View>
-                </View>
-            </>
+            </View>
         )
     }
 
@@ -136,6 +112,7 @@ class MyFits extends Component {
                                 </TouchableOpacity>
                             </CstmShadowView>
                         </View>
+                        {/*}
                         <Carousel containerStyle={{ flex: 1 }}>
                             {Object.keys(this.Fits).map((PageName) => {
                                 return (
@@ -152,6 +129,14 @@ class MyFits extends Component {
                                 )
                             })}
                         </Carousel>
+                        */}
+                        <SectionList
+                            sections={this.Fits}
+                            keyExtractor={(item) => item}
+                            renderItem={this.SectionListRenderItem}
+                            renderSectionHeader={this.SectionListHeader}
+                            initialNumToRender={5}
+                        />
                     </SafeAreaView>
                 }
             </>
