@@ -54,12 +54,13 @@ const styles = StyleSheet.create({
     headerImage: {
         height: 150,
         width: 150,
-        flex:1
+        flex:1,
+        borderRadius:10
     },
     AnimatedImageContainerStyle: {
-        backgroundColor: Colors.shadow,
+        backgroundColor: Colors.white,
         width:150,
-        height:150
+        height:150,
     },
     Container: {
         borderRadius: 10,

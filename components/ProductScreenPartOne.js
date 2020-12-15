@@ -81,13 +81,15 @@ export default class ProductScreenPartOne extends React.Component {
 	render() {
 		return (
 			<View flex primary>
-				<View row bottom>
-					<Text b1 black marginV-3 marginL-15>
+				<View row bottom marginT-5 marginB-10 centerV>
+					<Text b1 black marginL-15>
 						{this.props.Title}
 					</Text>
-					<Text marginL-10 h2 secondary marginV-3 onPress={this.navigateCategory}>
-						({this.props.Category})
-					</Text>
+					<View marginL-10 center style={styles.Product}>
+						<Text h2 secondary onPress={this.navigateCategory}>
+							{this.props.Category}
+						</Text>
+					</View>
 				</View>
 				<View row paddingH-15>
 					<View flex-7>
@@ -182,4 +184,11 @@ const styles = StyleSheet.create({
 		// marginLeft: -15,
 		backgroundColor: Colors.shadow,
 	},
+	Product: {
+		backgroundColor: Colors.shadow,
+		width:'auto',
+		paddingHorizontal: 10,
+		paddingVertical: 5,
+		borderRadius: 10
+	}
 });

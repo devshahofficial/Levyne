@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {Dimensions, StyleSheet} from "react-native";
 import React from 'react';
 import {View, Text, Colors, TouchableOpacity, Image} from 'react-native-ui-lib';
 import StarIconsComponent from "./StarIconsComponent";
@@ -9,6 +9,8 @@ import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import {TailorIcon} from "../Icons/Secondary/TailorIcon";
 import {OrderReceivedIcon} from "../Icons/Secondary/OrderReceived";
 import {ProductionCompletedIcon} from "../Icons/Secondary/ProductionCompleted";
+import DeliveryChargeComponent from "./DeliveryChargeComponent";
+import {CashIcon} from "../Icons/Secondary/CashIcon";
 
 
 export default class OrdersContainer extends React.Component {
@@ -129,12 +131,22 @@ export default class OrdersContainer extends React.Component {
                         </View>
                     </View>
 
+                    <View marginV-20 paddingH-15 center row style={styles.View}>
+                        <DeliveryIcon size={30} Color={Colors.black} />
+                        <DeliveryChargeComponent TotalPrice={this.props.FinalAmount} />
+                    </View>
+
                     <View row marginV-20>
                         <Text h2 secondary>Total Amount</Text>
                         <Text hb1 marginL-20>₹{this.props.FinalAmount}</Text>
                     </View>
 
                     {this.Process(this.props.OrderStatus)}
+
+                    <View marginV-20 paddingH-15 center row style={styles.View}>
+                        <CashIcon size={30} Color={Colors.black} />
+                        <Text marginL-20>Cash On Delivery</Text>
+                    </View>
 
                 </TouchableOpacity>
             </CstmShadowView>
@@ -150,5 +162,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         height:'auto',
         marginBottom: 10
-    }
+    },
+    View: {
+        height: 50,
+        width: 'auto',
+        backgroundColor: Colors.shadow
+    },
 });

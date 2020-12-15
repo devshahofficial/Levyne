@@ -6,6 +6,7 @@ import Logout from '../../API/Logout';
 import CstmShadowView from "../../components/CstmShadowView";
 import {connect} from 'react-redux';
 import { getVersion } from 'react-native-device-info';
+import {EditIcon} from "../../Icons/EditIcon";
 
 class ProfileTopSection extends React.PureComponent {
 
@@ -249,14 +250,20 @@ class ProfileTopSection extends React.PureComponent {
     render() {
         return (
             <>
-                <TextNavBar Title={"My Profile"}/>
+                {
+                    this.state.ProfileCompleted ?
+                        <TextNavBar Title={"My Profile"} Navigation={this.NavigateEditProfile}>
+                            <EditIcon Color={Colors.black} size={26}/>
+                        </TextNavBar> :
+                        <TextNavBar Title={"My Profile"} />
+                }
+
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     style={{flex:1, backgroundColor: Colors.white}}
                 >
-                    <View style={styles.View}>
+                    <View style={styles.View} />
 
-                    </View>
                     {
                         this.state.ProfileCompleted ? this.LoggedInScreen() : this.UnloggedScreen()
                     }
