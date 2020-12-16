@@ -1,10 +1,11 @@
 import React from 'react';
-import {Animated, ActivityIndicator} from 'react-native';
+import {Animated} from 'react-native';
 import {View, Text} from 'react-native-ui-lib';
 import BrandItemContainer from '../../components/BrandItemContainer';
 import NavBarBack from "../../components/NavBarBack";
 import BrandFollowings from '../../API/BrandFollowing';
 import {connect} from 'react-redux';
+import Loader from '../../components/Loader';
 
 class MyFashionDesigners extends React.Component {
 
@@ -54,9 +55,7 @@ class MyFashionDesigners extends React.Component {
                 <View flex>
                     {
                         this.state.LoadingBrands ?
-                            <View flex center>
-                                <ActivityIndicator />
-                            </View>
+                            <Loader />
                             :
                             <Animated.FlatList
                                 data={this.state.BrandData}

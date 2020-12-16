@@ -4,7 +4,8 @@ import NavBarBack from '../../components/NavBarBack';
 import OrdersContainer from "../../components/OrdersContainer";
 import {connect} from 'react-redux';
 import FetchOrders from '../../API/FetchOrders';
-import {ActivityIndicator, StyleSheet, FlatList} from 'react-native';
+import {StyleSheet, FlatList} from 'react-native';
+import Loader from '../../components/Loader';
 
 class MyOrders extends Component {
 
@@ -80,9 +81,7 @@ class MyOrders extends Component {
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Wardrobe'}/>
                 {this.state.Loading ?
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View> :
+                    <Loader /> :
                     <View flex>
                         <FlatList
                             data={this.state.Orders}

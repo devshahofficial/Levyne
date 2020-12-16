@@ -1,10 +1,11 @@
 import React from 'react';
-import {Dimensions, Animated, StyleSheet, ActivityIndicator} from 'react-native';
+import {Dimensions, Animated, StyleSheet } from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import FabricItemContainer from "../../components/FabricItemContainer";
 import colors from "../../assets/colors";
 import Colors from '../../Style/Colors';
 import PickerModal from "../../components/PickerModal";
+import Loader from '../../components/Loader';
 
 const screenHeight = Dimensions.get('window').height * 0.75;
 
@@ -91,9 +92,7 @@ export default class FabricSearchScreen extends React.Component {
                 </Animated.View>
                 {
                     this.props.LoadingFabrics ? 
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View>
+                    <Loader />
                     :
                     <Animated.FlatList
                         data={this.props.FabricsData}

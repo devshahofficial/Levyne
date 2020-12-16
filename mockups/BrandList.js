@@ -1,12 +1,13 @@
 import React from 'react';
-import { Image, StyleSheet, FlatList } from 'react-native'
-import {View, Text, TouchableOpacity, Toast, LoaderScreen} from 'react-native-ui-lib';
+import { Image, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
+import {View, Text, TouchableOpacity, Toast} from 'react-native-ui-lib';
 import Colors from "../Style/Colors";
 import NavBarBack from '../components/NavBarBack';
 import {connect} from 'react-redux';
 import BrandFollowings from '../API/BrandFollowing';
 import Stars from '../components/StarIconsComponent';
 import CstmShadowView from "../components/CstmShadowView";
+import Loader from '../components/Loader';
 
 const FetchBrandFollowings = BrandFollowings.FetchBrandFollowings;
 
@@ -102,12 +103,7 @@ class BrandList extends React.PureComponent {
                     {this.renderCustomContent()}
                 </Toast>
                 {this.state.Loading ?
-                    <View centerV centerH flex>
-                        <LoaderScreen
-                            backgroundColor={Colors.white}
-                            loaderColor={Colors.primary}
-                        />
-                    </View> :
+                    <Loader /> :
                     <View marginB-10 paddingT-10 flex>
                         <FlatList
                             data={this.state.BrandList}

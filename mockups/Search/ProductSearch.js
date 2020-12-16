@@ -1,5 +1,5 @@
 import React from 'react';
-import {Animated, StyleSheet, ActivityIndicator} from 'react-native';
+import {Animated, StyleSheet} from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import ProductItemContainer from "../../components/ProductItemContainer";
 import colors from "../../assets/colors";
@@ -7,6 +7,7 @@ import Colors from '../../Style/Colors';
 import PickerModal from "../../components/PickerModal";
 //import {FilterIcon} from "../../Icons/FilterIcon";
 import {SettingsIcon} from "../../Icons/SettingsIcon";
+import Loader from '../../components/Loader';
 
 
 export default class ProductSearchScreen extends React.Component {
@@ -110,9 +111,7 @@ export default class ProductSearchScreen extends React.Component {
                 </Animated.View>
                 {
                     this.props.LoadingProduct ? 
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View>
+                    <Loader />
                     :
                     <Animated.FlatList
                         data={this.props.ProductsData}

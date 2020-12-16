@@ -9,9 +9,10 @@ import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, LoaderScreen, View } from "react-native-ui-lib";
+import { Colors, } from "react-native-ui-lib";
 import BottomButton from "../components/BottomButtons";
 import ImageView from "react-native-image-viewing";
+import Loader from '../components/Loader';
 
 class ProductScreen extends React.Component {
 
@@ -158,9 +159,7 @@ class ProductScreen extends React.Component {
                             BrandID={this.state.ProductObject.BrandID}
                         />
                     </> :
-                    <View flex center>
-                        <LoaderScreen />
-                    </View>
+                    <Loader />
                 }
             </SafeAreaView>
         );

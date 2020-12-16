@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Toast } from 'react-native-ui-lib';
-import { StyleSheet, SectionList, SafeAreaView, ActivityIndicator } from "react-native";
+import { StyleSheet, SectionList, SafeAreaView } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
@@ -11,6 +11,7 @@ import FetchFitsAndSizes from '../../API/FetchFitsAndSizes';
 import FitsFemale from '../../assets/FitsFemale';
 import FitsMale from '../../assets/FitsMale';
 import InsertFitsAndSizes from '../../API/InsertFitsAndSizes';
+import Loader from '../../components/Loader';
 
 class MyFits extends Component {
     constructor(props) {
@@ -166,9 +167,7 @@ class MyFits extends Component {
             return (
                 <>
                     <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View>
+                    <Loader />
                 </>
             )
         } else {
