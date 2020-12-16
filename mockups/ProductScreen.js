@@ -9,7 +9,7 @@ import AddWishlistProductByID from '../API/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, } from "react-native-ui-lib";
+import { Colors } from "react-native-ui-lib";
 import BottomButton from "../components/BottomButtons";
 import ImageView from "react-native-image-viewing";
 import Loader from '../components/Loader';
@@ -35,12 +35,10 @@ class ProductScreen extends React.Component {
             return this.props.navigation.goBack();
         }
         ProductByID(this.props.route.params.ProductID, this.props.AccessToken, this.abortController.signal).then(resp => {
-            if(this._isMounted) {
-                this.setState({
-                    ProductObject : resp,
-                    loading : false
-                })
-            }
+            this.setState({
+                ProductObject : resp,
+                loading : false
+            })
         }).catch(() => {
             
         })
@@ -140,7 +138,7 @@ class ProductScreen extends React.Component {
                             <ProductScreenPartTwo
                                 LongDescription = {this.state.ProductObject.LongDescription}
                                 FabricDescription = {this.state.ProductObject.FabricDescription}
-                                ApprxDaysForProduction = {this.state.ProductObject.ApprxDaysForProduction}
+                                ApproxDaysForProduction = {this.state.ProductObject.ApproxDaysForProduction}
                                 Materials={this.state.ProductObject.Materials}
                                 MaterialIDs={this.state.ProductObject.MaterialIDs}
                                 FabricWashType={this.state.ProductObject.FabricWashType}
