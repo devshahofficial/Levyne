@@ -28,7 +28,7 @@ export default class ImageCarousel extends Component {
                     size : 7
                 }}
             >
-                {this.props.imageURL.map((item, index) => {
+                    {this.props.imageURL.map((item, index) => {
                     if (this.props.imageURL.length !== 5 && index === this.props.imageURL.length) {
                         // console.log(item);
                         return (
