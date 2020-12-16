@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, ActivityIndicator, StyleSheet, Dimensions} from 'react-native';
+import {FlatList, StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import ListBookmarkProducts from '../../API/ListBookmarkProducts';
@@ -8,6 +8,7 @@ import ProductItemContainer from '../../components/ProductItemContainer';
 import FabricItemContainer from "../../components/FabricItemContainer";
 import LikedSVG from "../../assets/images/AppImages/Liked.svg";
 import UnLoggedScreen from '../../components/UnLoggedScreen';
+import Loader from '../../components/Loader';
 
 
 class BookmarkProducts extends React.Component {
@@ -108,9 +109,7 @@ class BookmarkProducts extends React.Component {
                     :
                     <View centerV flex>
                         {this.state.Loading ?
-                            <View flex center>
-                                <ActivityIndicator />
-                            </View>
+                            <Loader />
                             :
                             <FlatList
                                 data={this.state.Products}

@@ -7,8 +7,9 @@ import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
 import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, View, AnimatedImage, TouchableOpacity } from "react-native-ui-lib";
+import { Colors, AnimatedImage, TouchableOpacity } from "react-native-ui-lib";
 import ImageView from "react-native-image-viewing";
+import Loader from "../components/Loader";
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -116,9 +117,7 @@ class FabricScreen extends React.Component {
                         />
                     </ScrollView>
                     :
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View>
+                    <Loader />
                 }
             </SafeAreaView>
         );

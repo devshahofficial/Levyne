@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, ScrollView, StyleSheet, ActivityIndicator} from 'react-native';
+import {Dimensions, ScrollView, StyleSheet} from 'react-native';
 import {View, Text, RadioButton, TouchableOpacity} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
@@ -10,6 +10,7 @@ import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 import CheckoutAPI from '../API/Checkout';
 import FetchPartialBucket from '../API/FetchPartialBucket';
+import Loader from '../components/Loader';
 
 
 
@@ -72,9 +73,7 @@ class CheckOut extends React.PureComponent {
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
 
                 {this.state.Loading ?
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View>
+                    <Loader />
                     :
                     <View flex>
                         <ScrollView

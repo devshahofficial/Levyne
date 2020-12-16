@@ -3,11 +3,11 @@ import {View, Text, AvatarHelper, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import BucketComponent from "../../components/BucketComponent";
 import FetchCart from '../../API/FetchCart';
-import {ActivityIndicator, FlatList, Alert} from 'react-native';
+import {FlatList, Alert} from 'react-native';
 import UnLoggedScreen from '../../components/UnLoggedScreen';
 import TextNavBar from "../../components/TextNavBar";
-import {EditIcon} from "../../Icons/EditIcon";
 import {CheckoutIcon} from "../../Icons/CheckoutIcon";
+import Loader from '../../components/Loader';
 
 class Cart extends React.Component {
 
@@ -116,9 +116,7 @@ class Cart extends React.Component {
                     <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
                     :
                     this.state.Loading ?
-                        <View flex center>
-                            <ActivityIndicator />
-                        </View>
+                        <Loader />
                         :
                         <View flex centerH>
                             <FlatList

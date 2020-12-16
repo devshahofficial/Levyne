@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, ActivityIndicator} from 'react-native';
+import { FlatList } from 'react-native';
 import CstmShadowView from "../components/CstmShadowView";
 import {Text, View, Colors, Button, Checkbox, Toast} from "react-native-ui-lib";
 import FabricOrderContainer from "../components/FabricOrderContainer";
@@ -7,6 +7,7 @@ import FetchFabricByBrandIDAndMaterials from '../API/FetchFabricByBrandIDAndMate
 import AddProductToCartAPI from '../API/AddProductToCart';
 import {connect} from 'react-redux';
 import NavBarBack from "../components/NavBarBack";
+import Loader from '../components/Loader';
 
 class AddToCartScreen extends React.PureComponent {
 
@@ -190,9 +191,7 @@ class AddToCartScreen extends React.PureComponent {
 
     FlatListLoader = () => (
         this.state.CustomFabric ?
-            <View flex center>
-                <ActivityIndicator />
-            </View>
+            <Loader />
             :
             <View></View>
     );

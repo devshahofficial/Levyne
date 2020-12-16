@@ -1,12 +1,13 @@
 import React, {Component, PureComponent} from 'react';
 import {StyleSheet, FlatList, Dimensions, ActivityIndicator} from 'react-native';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
-import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View, LoaderScreen} from 'react-native-ui-lib'; //eslint-disable-line
+import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View} from 'react-native-ui-lib'; //eslint-disable-line
 import {connect} from 'react-redux';
 import TextNavBar from '../../components/TextNavBar';
 import FetchChatBuckets from '../../API/FetchChatBuckets';
 import MessageSVG from '../../assets/images/AppImages/Messages.svg';
 import UnLoggedScreen from '../../components/UnLoggedScreen';
+import Loader from '../../components/Loader';
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -83,9 +84,7 @@ class ConversationListScreen extends Component {
                     <UnLoggedScreen NavigateLogin={this.NavigateLogin} />
                     :
                     this.props.ChatLoading ?
-                        <View flex center>
-                            <LoaderScreen />
-                        </View>
+                        <Loader />
                         :
                         <View flex>
                             <FlatList

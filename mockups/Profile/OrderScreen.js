@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, FlatList, StyleSheet, ActivityIndicator, SafeAreaView} from 'react-native';
+import {Dimensions, FlatList, StyleSheet, SafeAreaView} from 'react-native';
 import {View, Text, Button, AvatarHelper} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
@@ -11,6 +11,7 @@ import FetchBucket from '../../API/FetchBucket';
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from "react-native-image-viewing";
 import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
+import Loader from '../../components/Loader';
 
 
 class Bucket extends React.Component {
@@ -94,9 +95,7 @@ class Bucket extends React.Component {
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
                 {this.state.Loading ?
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View> :
+                    <Loader /> :
                     <View flex>
                         <FlatList
                             ListFooterComponent={

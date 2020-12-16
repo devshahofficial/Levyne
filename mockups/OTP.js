@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, ScrollView} from 'react-native';
-import {Button,Text, View, Colors, LoaderScreen, Toast} from 'react-native-ui-lib';
+import {Button,Text, View, Colors, Toast} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
 import VerifyOTP from '../API/OTP';
@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import CstmShadowView from "../components/CstmShadowView";
 const PushNotification = require("react-native-push-notification");
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import Loader from '../components/Loader';
 
 class OTPScreen extends React.Component {
 
@@ -160,38 +161,40 @@ class OTPScreen extends React.Component {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flex:1}}
             >
-                <View center flex>
-                    <View style={styles.container} paddingT-100>
-                        <Logo width='60%' />
-                    </View>
-                    <View style={styles.container} paddingT-100>
-                        <Text h1 marginB-15>You will receive OTP via sms.</Text>
-                        <View style={styles.inputLayout}>
-                            <CstmInput
-                                placeholder='OTP'
-                                value={this.state.OTP}
-                                onChangeText={this.setOTP}
-                                keyboardType='number-pad'
-                                maxLength={6}
-                            />
-                            {this.state.LoaderVisible && <LoaderScreen loaderColor={Colors.primary} />}
-                            <CstmShadowView>
-                                <Button onPress={this.ValidateOTP} hb2 label='Login' flex/>
-                            </CstmShadowView>
-                            <View style={styles.container} marginT-30>
-                                <Text style={styles.Text} marginB-20>Didn't receive it ?</Text>
-                                <Text onPress={this.ResendOTP} h1 style={[styles.Text, {fontSize:this.state.Size, color:this.state.Color, lineHeight:60}]}>{this.state.Time}</Text>
+                {this.state.LoaderVisible ?
+                    <Loader /> :
+                    <View center flex>
+                        <View style={styles.container} paddingT-100>
+                            <Logo width='60%' />
+                        </View>
+                        <View style={styles.container} paddingT-100>
+                            <Text h1 marginB-15>You will receive OTP via sms.</Text>
+                            <View style={styles.inputLayout}>
+                                <CstmInput
+                                    placeholder='OTP'
+                                    value={this.state.OTP}
+                                    onChangeText={this.setOTP}
+                                    keyboardType='number-pad'
+                                    maxLength={6}
+                                />
+                                <CstmShadowView>
+                                    <Button onPress={this.ValidateOTP} hb2 label='Login' flex/>
+                                </CstmShadowView>
+                                <View style={styles.container} marginT-30>
+                                    <Text style={styles.Text} marginB-20>Didn't receive it ?</Text>
+                                    <Text onPress={this.ResendOTP} h1 style={[styles.Text, {fontSize:this.state.Size, color:this.state.Color, lineHeight:60}]}>{this.state.Time}</Text>
+                                </View>
                             </View>
                         </View>
+                        <Toast
+                            visible={this.state.showCustomToast}
+                            position={'bottom'}
+                            backgroundColor={Colors.primary}
+                        >
+                            {this.renderCustomContent()}
+                        </Toast>
                     </View>
-                    <Toast
-                        visible={this.state.showCustomToast}
-                        position={'bottom'}
-                        backgroundColor={Colors.primary}
-                    >
-                        {this.renderCustomContent()}
-                    </Toast>
-                </View>
+                }
             </ScrollView>
         );
     }

@@ -1,12 +1,10 @@
 import React from 'react';
-import {View, Colors, LoaderScreen} from 'react-native-ui-lib';
+import {ActivityIndicator} from 'react-native';
+import {View} from 'react-native-ui-lib';
 export default Loader = () => {
     return (
-        <View centerV centerH flex>
-            <LoaderScreen
-                backgroundColor={Colors.white}
-                loaderColor={Colors.primary}
-            />
+        <View center flex>
+            <ActivityIndicator/>
         </View>
     );
 }

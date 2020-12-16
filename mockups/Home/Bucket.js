@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dimensions, FlatList, StyleSheet, ActivityIndicator} from 'react-native';
+import {Dimensions, FlatList, StyleSheet} from 'react-native';
 import {View, Text} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
@@ -13,6 +13,7 @@ import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from "react-native-image-viewing";
 import BottomButton from "../../components/BottomButtons";
 import PickerModal from "../../components/PickerModal";
+import Loader from '../../components/Loader';
 
 
 class Bucket extends React.Component {
@@ -151,9 +152,7 @@ class Bucket extends React.Component {
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
                 {this.state.Loading ?
-                    <View flex center>
-                        <ActivityIndicator />
-                    </View> :
+                    <Loader /> :
                     <View flex>
                         <FlatList
                             ListFooterComponent={
