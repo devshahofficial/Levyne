@@ -9,7 +9,5 @@ export const BackArrowIcon = () => {
                 <Path id="Stroke_3" data-name="Stroke 3" d="M12.049,0,6.025,6.05,0,0" transform="translate(0.75 9.7)" fill="none" stroke="#200e32" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="1.5"/>
             </G>
         </Svg>
-
-
     )
 };

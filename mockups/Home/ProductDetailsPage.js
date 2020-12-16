@@ -6,6 +6,7 @@ import NavbarBack from "../../components/NavBarBack"
 import ImageCarouselProduct from "../../components/ImageCarouselProduct"
 import LevyneProduct from "../../components/LevyneProduct";
 import BottomButton from "../../components/BottomButtons"
+import ImageCarouselLevyne from "../../components/ImageCarouselLevyne";
 
 const imgUrls = [
     "https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
@@ -19,9 +20,10 @@ export default class ProductDetailsPage extends Component {
             <>
                 <NavbarBack Title={"#RS00011"} Navigation={this.props.navigation.goBack}/>
                 <ScrollView>
-                    <ImageCarouselProduct ProductImages={imgUrls}></ImageCarouselProduct>
+                    <ImageCarouselLevyne ProductImages={imgUrls}></ImageCarouselLevyne>
                     <LevyneProduct
-                        Title={"Short Description"}
+                        Title={"#RS00011"}
+                        ShortDescription={"Short Description"}
                         Category={"Women"}
                         FreeDelivery={true}
                         ProductRating={0}
