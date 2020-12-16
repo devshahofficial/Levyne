@@ -121,7 +121,7 @@ class ProductScreen extends React.Component {
                                 MinPrice={this.state.ProductObject.MinPrice}
                                 MaxPrice={this.state.ProductObject.MaxPrice}
                                 BrandID={this.state.ProductObject.BrandID}
-                                ProductRating={4.1}
+                                ProductRating={0}
                                 Category={this.state.ProductObject.Category}
                                 CategoryID={this.state.ProductObject.CategoryID}
                                 Styles={this.state.ProductObject.Styles}

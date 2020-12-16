@@ -93,28 +93,24 @@ export default class ProductScreenPartOne extends React.Component {
 				</View>
 				<View row paddingH-15>
 					<View flex-7>
-						{this.props.ShortDescription && (
-							<Text marginV-3 h1 secondary>
-								{this.props.ShortDescription}
-							</Text>
-						)}
+						<Text marginV-3 h1 secondary>
+							{this.props.ShortDescription}
+						</Text>
 
-						{this.props.ProductRating && (
+						{typeof this.props.ProductRating !== 'undefined' ? (
 							<View row marginV-13>
 								<View row marginR-15>
 									<StarIconsComponent BrandRating={Math.round(this.props.ProductRating)} />
 								</View>
 								<Text h2>{this.props.ProductRating} Ratings</Text>
 							</View>
-						)}
+						) : <></>}
 
-						{this.props.MinPrice && this.props.MaxPrice && (
-							<View row bottom>
+							<View row bottom>		
 								<Text b1 primary>
 									₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
 								</Text>
 							</View>
-						)}
 					</View>
 
 					<View flex-end>
@@ -130,7 +126,7 @@ export default class ProductScreenPartOne extends React.Component {
 						</TouchableOpacity>
 					</View>
 				</View>
-				{this.props.Styles && (
+				{this.props.Styles ? (
 					<View marginT-20>
 						<FlatList
 							data={this.props.Styles}
@@ -149,7 +145,7 @@ export default class ProductScreenPartOne extends React.Component {
 							)}
 						/>
 					</View>
-				)}
+				) : <></>}
 				<View marginT-10 paddingH-15 center row style={styles.View}>
 					<DeliveryIcon size={30} Color={Colors.black} />
 					{this.props.MinPrice >= 1000 ? (
