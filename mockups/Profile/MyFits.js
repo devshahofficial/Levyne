@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native-ui-lib';
+import { View, Text, Image } from 'react-native-ui-lib';
 import { StyleSheet, SectionList, SafeAreaView } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
-import SearchBar from "../../components/SearchBar";
 import CstmShadowView from "../../components/CstmShadowView";
+import NavBarBackWithEdit from '../../components/NavBarBackWithEdit';
 import NavBarBack from '../../components/NavBarBack';
-import {RightIcon} from "../../Icons/RightIcon";
 import FetchFitsAndSizes from '../../API/FetchFitsAndSizes';
 import FitsFemale from '../../assets/FitsFemale';
 import FitsMale from '../../assets/FitsMale';
@@ -16,7 +15,8 @@ class MyFits extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ProfileNotCompleted : false
+            ProfileNotCompleted : false,
+            ...this.props.route?.params?.Fits
         }
 
         switch(this.props.Gender) {
@@ -36,15 +36,11 @@ class MyFits extends Component {
     componentDidMount = () => {
         FetchFitsAndSizes(this.props.AccessToken).then(Fits => {
 
-            /*
             Fits.forEach(item => {
-                this.state[item[0]] = item[1];
+                this.state.Fits[item[0]] = item[1];
             });
 
             this.setState(this.state);
-            */
-
-            //console.log(Fits);
 
         }).catch(err => {
             console.log(err);
@@ -52,7 +48,7 @@ class MyFits extends Component {
     }
 
     SubmitForm = () => {
-
+        console.log(1);
     }
 
     SectionListHeader = ({section}) => (
@@ -97,47 +93,39 @@ class MyFits extends Component {
     render() {
         return (
             <>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
                 {this.state.ProfileNotCompleted ?
-                    <View center>
-                        <Text>Profile Incomplete</Text>
-                    </View>
-                    :
-                    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                        <View row centerV paddingH-10>
-                            <SearchBar flex={8}/>
-                            <CstmShadowView style={styles.Submit}>
-                                <TouchableOpacity onPress={this.SubmitForm} flex center style={{borderRadius: 20}}>
-                                    <RightIcon size={20} Color={Colors.primary}/>
-                                </TouchableOpacity>
-                            </CstmShadowView>
+                    <>
+                        <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
+                        <View center>
+                            <Text>Profile Incomplete</Text>
                         </View>
-                        {/*
-                        <Carousel containerStyle={{ flex: 1 }}>
-                            {Object.keys(this.Fits).map((PageName) => {
-                                return (
-                                    <View paddingH-20 marginB-25 flex>
-                                        <FlatList
-                                            ListHeaderComponent={() => this.FlatlistHeader(PageName)}
-                                            key={PageName}
-                                            data={this.Fits[PageName].items}
-                                            keyExtractor={item => item}
-                                            showsVerticalScrollIndicator={false}
-                                            renderItem={this.FlatListRenderItem}
-                                        />
-                                    </View>
-                                )
-                            })}
-                        </Carousel>
-                        */}
-                        <SectionList
-                            sections={this.Fits}
-                            keyExtractor={(item) => item}
-                            renderItem={this.SectionListRenderItem}
-                            renderSectionHeader={this.SectionListHeader}
-                            initialNumToRender={5}
+                    </>
+                    :
+                    <>
+                        <NavBarBackWithEdit
+                            NavigateBack={this.props.navigation.goBack}
+                            Title={'My Fits and Sizes'}
+                            SubmitForm={this.SubmitForm}
                         />
-                    </SafeAreaView>
+                        <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+                            {/*
+                                <View row centerV paddingH-10>
+                                    <CstmShadowView style={styles.Submit}>
+                                        <TouchableOpacity onPress={this.SubmitForm} flex center style={{borderRadius: 20}}>
+                                            <RightIcon size={20} Color={Colors.primary}/>
+                                        </TouchableOpacity>
+                                    </CstmShadowView>
+                                </View>
+                            */}
+                            <SectionList
+                                sections={this.Fits}
+                                keyExtractor={(item) => item}
+                                renderItem={this.SectionListRenderItem}
+                                renderSectionHeader={this.SectionListHeader}
+                                initialNumToRender={5}
+                            />
+                        </SafeAreaView>
+                    </>
                 }
             </>
         );

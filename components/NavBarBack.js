@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import React from 'react';
-import {View, Text, Colors, TouchableOpacity} from 'react-native-ui-lib';
+import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {BackArrowIcon} from '../Icons/BackArrowIcon';
 
 export default class NavBarBack extends React.PureComponent {
