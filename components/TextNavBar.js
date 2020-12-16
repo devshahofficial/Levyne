@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import React from 'react';
-import {View, Text, TouchableOpacity,Colors} from 'react-native-ui-lib';
+import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 
 export default class TextNavBar extends React.PureComponent {
 
