@@ -14,10 +14,6 @@ import FitsMale from '../../assets/FitsMale';
 class MyFits extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            ProfileNotCompleted : false,
-            ...this.props.route?.params?.Fits
-        }
 
         switch(this.props.Gender) {
             case 0 :
@@ -31,6 +27,18 @@ class MyFits extends Component {
                 this.Fits = {}
         }
 
+        const LocalState = {}
+
+        this.Fits.forEach(item => {
+            item.data.forEach(item => {
+                LocalState[item] = '0'
+            })
+        })
+        this.state = {
+            ProfileNotCompleted : false,
+            ...LocalState,
+            ...this.props.route?.params?.Fits
+        }
     }
 
     componentDidMount = () => {
