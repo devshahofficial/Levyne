@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Image } from 'react-native-ui-lib';
-import { StyleSheet, SectionList, SafeAreaView } from "react-native";
+import { View, Text, Image, Toast } from 'react-native-ui-lib';
+import { StyleSheet, SectionList, SafeAreaView, ActivityIndicator } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
@@ -10,6 +10,7 @@ import NavBarBack from '../../components/NavBarBack';
 import FetchFitsAndSizes from '../../API/FetchFitsAndSizes';
 import FitsFemale from '../../assets/FitsFemale';
 import FitsMale from '../../assets/FitsMale';
+import InsertFitsAndSizes from '../../API/InsertFitsAndSizes';
 
 class MyFits extends Component {
     constructor(props) {
@@ -27,25 +28,31 @@ class MyFits extends Component {
                 this.Fits = {}
         }
 
-        const LocalState = {}
+        this.abortController = new AbortController();
+
+        this.state = {
+            Loading: true,
+            ShowToast: false,
+            ToastContent: '',
+        }
 
         this.Fits.forEach(item => {
             item.data.forEach(item => {
-                LocalState[item] = '0'
+                this.state[item] = '0'
             })
         })
-        this.state = {
-            ...LocalState,
-            ...this.props.route?.params?.Fits
-        }
+
+        this.Timeout = []
     }
 
     componentDidMount = () => {
         FetchFitsAndSizes(this.props.AccessToken).then(Fits => {
 
             Fits.forEach(item => {
-                this.state.Fits[item[0]] = item[1];
+                this.state[item.Key] = item.Value;
             });
+
+            this.state.Loading = false;
 
             this.setState(this.state);
 
@@ -54,8 +61,44 @@ class MyFits extends Component {
         })
     }
 
-    SubmitForm = () => {
-        console.log(this.state);
+    componentWillUnmount = () => {
+        this.abortController.abort();
+        this.Timeout.forEach(clearTimeout);
+    }
+
+    setToastTimeout = () => {
+        this.Timeout.push(setTimeout(() => {
+            this.setState({
+                ShowToast: false
+            })
+        }, 3000));
+    }
+
+    SubmitForm = async () => {
+        const {Loading, ShowToast, ToastContent, ...Fits} = this.state;
+        try {
+            const data = Object.keys(Fits).map(item => {
+                const value = parseFloat(Fits[item]);
+                if(isNaN(value)) throw new Error(item + " Must be a number");
+                return [item, value];
+            });
+
+            this.setState({ Loading: true });
+
+            try {
+                await InsertFitsAndSizes(data, this.props.AccessToken, this.abortController.signal);
+                this.setState({Loading: false})
+            } catch(err) {
+                throw new Error("Something went wrong !");
+            }
+        } catch(err) {
+            this.setState({
+                ToastContent: err.message,
+                ShowToast: true,
+                Loading: false,
+            })
+            this.setToastTimeout()
+        }
     }
 
     SectionListHeader = ({section}) => (
@@ -85,6 +128,7 @@ class MyFits extends Component {
                     <Input
                         placeholder={'Enter Size'}
                         maxLength={5}
+                        keyboardType="numeric"
                         textAlign={'center'}
                         style={{ paddingLeft: 0}}
                         value={this.state[item].toString()}
@@ -97,45 +141,72 @@ class MyFits extends Component {
         )
     }
 
+    renderCustomContent = () => {
+		const backgroundColor = undefined;
+
+		return (
+            <View flex padding-10 style={{backgroundColor}}>
+                <Text white h1>{this.state.ToastContent}</Text>
+            </View>
+		);
+    };
+
     render() {
-        return (
-            <>
-                {this.ProfileNotCompleted ?
-                    <>
-                        <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
-                        <View center>
-                            <Text>Profile Incomplete</Text>
-                        </View>
-                    </>
-                    :
-                    <>
-                        <NavBarBackWithEdit
-                            NavigateBack={this.props.navigation.goBack}
-                            Title={'My Fits and Sizes'}
-                            SubmitForm={this.SubmitForm}
+
+        if(this.ProfileNotCompleted) {
+            return (
+                <>
+                    <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
+                    <View center flex>
+                        <Text>Profile Incomplete</Text>
+                    </View>
+                </>
+            )
+        } else if(this.state.Loading) {
+            return (
+                <>
+                    <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
+                    <View flex center>
+                        <ActivityIndicator />
+                    </View>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <NavBarBackWithEdit
+                        NavigateBack={this.props.navigation.goBack}
+                        Title={'My Fits and Sizes'}
+                        SubmitForm={this.SubmitForm}
+                    />
+                    <Toast
+                        visible={this.state.ShowToast}
+                        position={'bottom'}
+                        backgroundColor={Colors.primary}
+                    >
+                        {this.renderCustomContent()}
+                    </Toast>
+                    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
+                        {/*
+                            <View row centerV paddingH-10>
+                                <CstmShadowView style={styles.Submit}>
+                                    <TouchableOpacity onPress={this.SubmitForm} flex center style={{borderRadius: 20}}>
+                                        <RightIcon size={20} Color={Colors.primary}/>
+                                    </TouchableOpacity>
+                                </CstmShadowView>
+                            </View>
+                        */}
+                        <SectionList
+                            sections={this.Fits}
+                            keyExtractor={(item) => item}
+                            renderItem={this.SectionListRenderItem}
+                            renderSectionHeader={this.SectionListHeader}
+                            initialNumToRender={5}
                         />
-                        <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                            {/*
-                                <View row centerV paddingH-10>
-                                    <CstmShadowView style={styles.Submit}>
-                                        <TouchableOpacity onPress={this.SubmitForm} flex center style={{borderRadius: 20}}>
-                                            <RightIcon size={20} Color={Colors.primary}/>
-                                        </TouchableOpacity>
-                                    </CstmShadowView>
-                                </View>
-                            */}
-                            <SectionList
-                                sections={this.Fits}
-                                keyExtractor={(item) => item}
-                                renderItem={this.SectionListRenderItem}
-                                renderSectionHeader={this.SectionListHeader}
-                                initialNumToRender={5}
-                            />
-                        </SafeAreaView>
-                    </>
-                }
-            </>
-        );
+                    </SafeAreaView>
+                </>
+            )
+        }
     }
 }
 

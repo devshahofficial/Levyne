@@ -38,7 +38,7 @@ export const POST = async (URL, {ReturnResponse, Token, Body}, abortControllerSi
         ...(Body) && {body: JSON.stringify(Body)}
     });
     if (resp.status != 200) {
-        //console.log(await resp.json());
+        console.log(await resp.text());
         throw resp.status;
     }
     else {
