@@ -96,7 +96,7 @@ class FabricScreen extends React.Component {
                             Title={this.state.FabricObject.Name}
                             FabricPrice={this.state.FabricObject.FabricPrice}
                             BrandID={this.state.FabricObject.BrandID}
-                            FabricRating={4.1}
+                            FabricRating={0}
                             navigation={this.props.navigation}
                             Styles={this.state.FabricObject.Styles || []}
                             StyleIDs={this.state.FabricObject.StyleIDs || []}

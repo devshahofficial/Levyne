@@ -24,7 +24,7 @@ export default class ProductDetailsPage extends Component {
                         Title={"Short Description"}
                         Category={"Women"}
                         FreeDelivery={true}
-                        ProductRating={4.7}
+                        ProductRating={0}
                         MinPrice={2000}
                         MaxPrice={2500}
                         Styles={["Casual","Gothic","Formal","Ethnic"]}
