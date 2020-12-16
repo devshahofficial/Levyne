@@ -23,7 +23,7 @@ class MyFits extends Component {
                 this.Fits = FitsMale;
                 break;
             default :
-                this.state.ProfileNotCompleted = true;
+                this.ProfileNotCompleted = true;
                 this.Fits = {}
         }
 
@@ -35,7 +35,6 @@ class MyFits extends Component {
             })
         })
         this.state = {
-            ProfileNotCompleted : false,
             ...LocalState,
             ...this.props.route?.params?.Fits
         }
@@ -56,7 +55,7 @@ class MyFits extends Component {
     }
 
     SubmitForm = () => {
-        console.log(1);
+        console.log(this.state);
     }
 
     SectionListHeader = ({section}) => (
@@ -88,7 +87,7 @@ class MyFits extends Component {
                         maxLength={5}
                         textAlign={'center'}
                         style={{ paddingLeft: 0}}
-                        value={this.state[item]}
+                        value={this.state[item].toString()}
                         onChangeText={value => {
                             this.setState({[item]: value})
                         }}
@@ -101,7 +100,7 @@ class MyFits extends Component {
     render() {
         return (
             <>
-                {this.state.ProfileNotCompleted ?
+                {this.ProfileNotCompleted ?
                     <>
                         <NavBarBack Navigation={this.props.navigation.goBack} Title={'My Fits and Sizes'} />
                         <View center>

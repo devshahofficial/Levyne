@@ -26,7 +26,12 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     NavigateFits = () => {
-        this.props.navigation.navigate("MyFits");
+        this.props.navigation.navigate("MyFits", {
+            Fits: {
+                "Neck Round": 2,
+                "Chest Round": 3
+            }
+        });
     }
 
     NavigateOrders = () => {
