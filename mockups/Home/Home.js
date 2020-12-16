@@ -1,6 +1,6 @@
 import React from 'react';
 import {BackHandler, Animated, ScrollView, FlatList} from 'react-native';
-import {View, Colors, Text, ConnectionStatusBar, Toast} from'react-native-ui-lib';
+import {View, Colors, Text, ConnectionStatusBar, Toast} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
 import Category from "../../components/Category";
@@ -8,12 +8,15 @@ import BlogContent from "../../components/BlogContent";
 import Stories from "../../components/Stories";
 import StoryModal from "../../components/StoryModal";
 import FetchStories from '../../API/FetchStories';
+import Recent15Products from '../../API/Recent15Products';
+import ProductItemContainer from "../../components/ProductItemContainer";
 import FetchBlogPosts from '../../API/FetchBlogPosts';
 import PutStoryAsRead from '../../API/PutStoryAsRead';
 import timeAgo from '../../API/timeAgo';
 import FetchChatBuckets from '../../API/FetchChatBuckets';
+import Recent15Brands from '../../API/Recent15Brands';
+import BrandItemContainer from '../../components/BrandItemContainer';
 
-ConnectionStatusBar.registerGlobalOnConnectionLost(() => {});
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -24,6 +27,8 @@ class HomeScreen extends React.Component {
             isConnected: true,
             StoryData: [],
             BlogPosts: [],
+            Recent15Products: [],
+            Recent15Brands: [],
             modalVisible: false,
             CurrentStory: null,
         }
@@ -69,7 +74,9 @@ class HomeScreen extends React.Component {
     }
 
     componentDidMount() {
+
         BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
+
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
             this.setState({StoryData})
         }).catch(err => {
@@ -85,15 +92,28 @@ class HomeScreen extends React.Component {
         }).catch(err => {
             console.log(err);
         });
+
+        Recent15Products(this.props.AccessToken, this.abortController.signal).then(Recent15Products => {
+            this.setState({Recent15Products});
+        }).catch(err => {
+            console.log(err);
+        });
+
+        Recent15Brands(this.abortController.signal).then(Recent15Brands => {
+            this.setState({Recent15Brands});
+        }).catch(err => {
+            console.log(err);
+        });
 	}
 
 	componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.backButtonHandler);
         clearTimeout(this.BackHandlerTimeOut);
         clearTimeout(this.timeout);
+        this.abortController.abort();
     }
 
-    navigateProduct = () => {
+    navigateProductStory = () => {
         this.setModalVisible();
         this.props.navigation.navigate('Product', { ProductID : this.state.StoryData[this.state.CurrentStory].ProductID });
     }
@@ -132,9 +152,21 @@ class HomeScreen extends React.Component {
         })
     }
 
-    navigateBrand = () => {
+    navigateBrandStory = () => {
         this.setModalVisible();
         this.props.navigation.push('BrandProfile', {BrandID : this.state.StoryData[this.state.CurrentStory].BrandID})
+    }
+
+    navigateBrand = (BrandID) => {
+        this.props.navigation.push('BrandProfile', {BrandID})
+    }
+
+    navigateProduct = (ProductID) => {
+        this.props.navigation.push('Product', {ProductID : ProductID})
+    }
+
+    NavigateLogin = () => {
+        this.props.navigation.navigate("Login");
     }
 
     scrollY = new Animated.Value(0);
@@ -211,24 +243,21 @@ class HomeScreen extends React.Component {
                         <StoryModal
                             modalVisible={this.state.modalVisible}
                             setModalVisible={this.setModalVisible}
-                            navigateProduct={this.navigateProduct}
+                            navigateProduct={this.navigateProductStory}
                             StoryItem={this.state.StoryData[this.state.CurrentStory]}
                             setDeleteModalVisible={this.setDeleteModalVisible}
-                            NavigateBrand={this.navigateBrand}
+                            NavigateBrand={this.navigateBrandStory}
                             ChangeStoryIndex={this.ChangeStoryIndex}
                         />
                     }
 
                     <View marginT-100>
-
+                        <Text b1 secondary marginL-20 marginB-10>
+                            Sensations From Levyne
+                        </Text>
                         <FlatList
                             data={this.state.StoryData}
                             horizontal={true}
-                            ListHeaderComponent={
-                                <Text b1 secondary marginL-20 marginB-10>
-                                    Sensations From Levyne
-                                </Text>
-                            }
                             renderItem={({item, index}) => {
                                 return <Stories
                                     ProfileImage={{uri: item.BrandProfileImage}}
@@ -260,6 +289,44 @@ class HomeScreen extends React.Component {
                                 />
                             }}
                             keyExtractor={(item, index) => index.toString()}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+
+                    <View marginT-30>
+                        <View row paddingH-20>
+                            <Text b1 secondary flex>Recent Products</Text>
+                            <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
+                        </View>
+                        <FlatList
+                            data={this.state.Recent15Products}
+                            horizontal={true}
+                            
+                            renderItem={({item}) => {
+                                return <ProductItemContainer
+                                    Token={this.props.AccessToken}
+                                    item={item}
+                                    navigateProduct={this.navigateProduct}
+                                    NavigateLogin={this.NavigateLogin}
+                                />
+                            }}
+                            keyExtractor={(item) => item.ProductID.toString()}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                    <View marginT-30>
+                        <View row paddingH-20>
+                            <Text b1 secondary flex>Recent Brands</Text>
+                        </View>
+                        <FlatList
+                            data={this.state.Recent15Brands}
+                            renderItem={({item}) => {
+                                return <BrandItemContainer
+                                    item={item}
+                                    navigateBrand={this.navigateBrand}
+                                />
+                            }}
+                            keyExtractor={(item) => item.BrandID.toString()}
                             showsHorizontalScrollIndicator={false}
                         />
                     </View>

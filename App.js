@@ -5,6 +5,8 @@ import MainNavigator from './navigations/NavigatorMain';
 import {Provider} from 'react-redux';
 import constants from './assets/constants';
 import { NavigationContainer } from '@react-navigation/native';
+import {ConnectionStatusBar} from 'react-native-ui-lib';
+
 import './Style/Components';
 import './Style/Colors';
 import './assets/globals';
@@ -16,6 +18,9 @@ if (!__DEV__) {
 	console.info = () => {};
 	console.warn = () => {};
 }
+
+
+ConnectionStatusBar.registerGlobalOnConnectionLost(() => {});
 
 const MyStatusBar = ({backgroundColor, ...props}) => (
 	<View style={[styles.statusBar, { backgroundColor }]}>
