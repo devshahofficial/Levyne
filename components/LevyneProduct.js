@@ -82,38 +82,29 @@ export default class ProductScreenPartOne extends React.Component {
     render() {
         return (
             <View flex primary>
-                <View row bottom>
-                    <Text b1 black marginV-3 marginL-15>
-                        {this.props.Title}
-                    </Text>
-                    <Text marginL-10 h2 secondary marginV-3 onPress={this.navigateCategory}>
-                        ({this.props.Category})
-                    </Text>
-                </View>
+
                 <View row paddingH-15>
                     <View flex-7>
-                        {this.props.ShortDescription ? (
-                            <Text marginV-3 h1 secondary>
-                                {this.props.ShortDescription}
+                        <View row bottom marginT-5 marginB-10 centerV>
+                            <Text b1 black>
+                                {this.props.Title}
                             </Text>
-                        ) : <></>}
-
-                        {this.props.ProductRating ? (
-                            <View row marginV-13>
-                                <View row marginR-15>
-                                    <StarIconsComponent BrandRating={Math.round(this.props.ProductRating)} />
-                                </View>
-                                <Text h2>{this.props.ProductRating} Ratings</Text>
-                            </View>
-                        ): <></>}
-
-                        {this.props.MinPrice && this.props.MaxPrice ? (
-                            <View row bottom>
-                                <Text b1 primary>
-                                    ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
+                            <View marginL-15 center style={styles.Product}>
+                                <Text h2 secondary onPress={this.navigateCategory}>
+                                    {this.props.Category}
                                 </Text>
                             </View>
-                        ) : <></>}
+                        </View>
+
+                        <Text marginV-3 h1 secondary>
+                            {this.props.ShortDescription}
+                        </Text>
+
+                        <View row bottom>
+                            <Text b1 primary>
+                                ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
+                            </Text>
+                        </View>
                     </View>
 
                     <View flex-end>
@@ -130,7 +121,7 @@ export default class ProductScreenPartOne extends React.Component {
                     </View>
                 </View>
                 {this.props.Styles ? (
-                    <View marginT-10>
+                    <View marginT-20>
                         <FlatList
                             data={this.props.Styles}
                             showsHorizontalScrollIndicator={false}
@@ -152,10 +143,10 @@ export default class ProductScreenPartOne extends React.Component {
 
                 <View marginT-30 marginB-20 marginH-15>
                     <Text hb1>Product Description</Text>
-                    <DescriptionCard CompleteDescription = {this.props.LongDescription} />
+                    <DescriptionCard CompleteDescription={this.props.LongDescription} />
 
                     <Text hb1 marginT-20>Fabric Description</Text>
-                    <DescriptionCard CompleteDescription = {this.props.FabricDescription} />
+                    <DescriptionCard CompleteDescription={this.props.FabricDescription} />
                     <TouchableOpacity>
                         <View style={{marginHorizontal: -15}}>
                             <FlatList
@@ -191,7 +182,13 @@ const styles = StyleSheet.create({
     View: {
         height: 50,
         width: Dimensions.get('window').width,
-        // marginLeft: -15,
         backgroundColor: Colors.shadow,
     },
+    Product: {
+        backgroundColor: Colors.shadow,
+        width:'auto',
+        paddingHorizontal: 10,
+        paddingVertical: 5,
+        borderRadius: 10
+    }
 });
