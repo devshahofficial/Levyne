@@ -5,9 +5,7 @@ import {ShareIcon} from '../Icons/ShareIcon';
 import BookMarkIcon from '../Icons/BookMarkIcon';
 import Colors from '../Style/Colors';
 import StarIconsComponent from "./StarIconsComponent";
-import {DeliveryIcon} from '../Icons/Secondary/DeliveryIcon';
 import {DescriptionCard} from "./ReadMore";
-import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 import Category from "./Category";
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
@@ -94,28 +92,28 @@ export default class ProductScreenPartOne extends React.Component {
                 </View>
                 <View row paddingH-15>
                     <View flex-7>
-                        {this.props.ShortDescription && (
+                        {this.props.ShortDescription ? (
                             <Text marginV-3 h1 secondary>
                                 {this.props.ShortDescription}
                             </Text>
-                        )}
+                        ) : <></>}
 
-                        {this.props.ProductRating && (
+                        {this.props.ProductRating ? (
                             <View row marginV-13>
                                 <View row marginR-15>
                                     <StarIconsComponent BrandRating={Math.round(this.props.ProductRating)} />
                                 </View>
                                 <Text h2>{this.props.ProductRating} Ratings</Text>
                             </View>
-                        )}
+                        ): <></>}
 
-                        {this.props.MinPrice && this.props.MaxPrice && (
+                        {this.props.MinPrice && this.props.MaxPrice ? (
                             <View row bottom>
                                 <Text b1 primary>
                                     ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
                                 </Text>
                             </View>
-                        )}
+                        ) : <></>}
                     </View>
 
                     <View flex-end>
@@ -131,7 +129,7 @@ export default class ProductScreenPartOne extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {this.props.Styles && (
+                {this.props.Styles ? (
                     <View marginT-10>
                         <FlatList
                             data={this.props.Styles}
@@ -150,7 +148,7 @@ export default class ProductScreenPartOne extends React.Component {
                             )}
                         />
                     </View>
-                )}
+                ) : <></>}
 
                 <View marginT-30 marginB-20 marginH-15>
                     <Text hb1>Product Description</Text>
