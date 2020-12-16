@@ -74,7 +74,7 @@ export default class ProductScreenPartTwo extends React.PureComponent {
 
                 <View marginT-20 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     <TimerIcon size={30} Color={Colors.black}/>
-                    <Text marginL-10 h2>Approximate Delivery within {this.props.ApprxDaysForProduction} days.</Text>
+                    <Text marginL-10 h2>Approximate Delivery within {this.props.ApproxDaysForProduction} days.</Text>
                 </View>
 
                 <Text hb1 marginT-20>Fabric Description</Text>
