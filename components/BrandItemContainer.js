@@ -35,7 +35,7 @@ export default class BrandItemContainer extends React.Component {
                         <Text h2 grey40 marginH-10 left numberOfLines={3} ellipsizeMode='tail'>{this.props.item.About.replace(/(\r\n|\r|\n){2,}/g, '\n')}</Text>
                         <View row flex marginT-10 paddingL-10>
                             <StarIconsComponent
-                                BrandRating={4}
+                                BrandRating={0}
                                 //BrandRating={Math.round(this.props.item.ratings)}
                             />
                         </View>
