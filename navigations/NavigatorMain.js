@@ -43,6 +43,7 @@ import {connect} from 'react-redux';
 import SearchText from "../mockups/Search/SearchText";
 import BlogPost from "../mockups/Home/BlogPost";
 import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
+import DesignedAtLevyne from "../mockups/Home/Designed at Levyne";
 
 
 const MainStack = createStackNavigator();
@@ -148,6 +149,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
 				<HomeStack.Screen name='InternetConnection' component={InternetConnection}/>
 				<HomeStack.Screen name='Cart' component={Cart}/>
+				<HomeStack.Screen name='DesignedAtLevyne' component={DesignedAtLevyne}/>
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
 				<HomeStack.Screen name='MyFits' component={MyFits}/>
 				<HomeStack.Screen name='MyOrders' component={MyOrders}/>

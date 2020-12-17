@@ -29,28 +29,28 @@ export default class Stories extends React.PureComponent {
 
 const styles = StyleSheet.create({
 	ViewBefore: {
-		height:75,
-		width:75,
+		height:100,
+		width:100,
 		marginHorizontal:10,
 		borderRadius:100,
-		borderWidth:2,
+		borderWidth:1,
 		backgroundColor: Colors.white,
 		borderColor: Colors.primary
 
 	},
 	ViewAfter: {
-		height:75,
-		width:75,
+		height:100,
+		width:100,
 		marginHorizontal:10,
 		borderRadius:100,
-		borderWidth:2,
+		borderWidth:1,
 		backgroundColor: Colors.white,
 		borderColor: Colors.shadow
 	},
 	image: {
         paddingTop: Platform.OS === 'ios' ? 5 : 0,
-        width: 60,
-        height: 60,
+        width: 90,
+        height: 90,
         borderRadius: 70
 
 	}
