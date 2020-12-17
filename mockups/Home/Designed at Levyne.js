@@ -28,7 +28,7 @@ export default class DesignedAtLevyne extends Component {
                     center padding-10
                     style={{height:"auto", backgroundColor: Colors.grey70}}
                 >
-                    <Text h1 secondary center>"Designs at Levyne" is currently under testing, you can still place an order by calling us.</Text>
+                    <Text h1 secondary center>"Designed at Levyne" is currently under testing, you can still place an order by calling us.</Text>
                 </View>
             </>
         )
