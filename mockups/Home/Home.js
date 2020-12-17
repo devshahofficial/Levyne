@@ -15,7 +15,7 @@ import PutStoryAsRead from '../../API/PutStoryAsRead';
 import timeAgo from '../../API/timeAgo';
 import FetchChatBuckets from '../../API/FetchChatBuckets';
 import Recent15Brands from '../../API/Recent15Brands';
-import BrandItemContainer from '../../components/BrandItemContainer';
+import PopularBrands from "../../components/PopularBrands";
 
 
 class HomeScreen extends React.Component {
@@ -117,7 +117,7 @@ class HomeScreen extends React.Component {
         this.setModalVisible();
         this.props.navigation.navigate('Product', { ProductID : this.state.StoryData[this.state.CurrentStory].ProductID });
     }
-    
+
 
     navigateSearchText = () => {
         this.props.navigation.navigate('SearchText');
@@ -140,7 +140,7 @@ class HomeScreen extends React.Component {
     }
 
     navigateMenu = () => {
-        this.props.navigation.navigate('ProductDetailsPage');
+        this.props.navigation.navigate('DesignedAtLevyne');
     }
 
     ChangeStoryIndex = () => {
@@ -301,7 +301,7 @@ class HomeScreen extends React.Component {
                         <FlatList
                             data={this.state.Recent15Products}
                             horizontal={true}
-                            
+
                             renderItem={({item}) => {
                                 return <ProductItemContainer
                                     Token={this.props.AccessToken}
@@ -319,9 +319,10 @@ class HomeScreen extends React.Component {
                             <Text b1 secondary flex>Recent Brands</Text>
                         </View>
                         <FlatList
+                            horizontal={true}
                             data={this.state.Recent15Brands}
                             renderItem={({item}) => {
-                                return <BrandItemContainer
+                                return <PopularBrands
                                     item={item}
                                     navigateBrand={this.navigateBrand}
                                 />

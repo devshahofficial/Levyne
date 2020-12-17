@@ -4,7 +4,6 @@ import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {ShareIcon} from '../Icons/ShareIcon';
 import BookMarkIcon from '../Icons/BookMarkIcon';
 import Colors from '../Style/Colors';
-import StarIconsComponent from "./StarIconsComponent";
 import {DescriptionCard} from "./ReadMore";
 import Category from "./Category";
 
@@ -100,21 +99,21 @@ export default class ProductScreenPartOne extends React.Component {
                             {this.props.ShortDescription}
                         </Text>
 
-                        <View row bottom>
+                        {/*<View row bottom>
                             <Text b1 primary>
                                 ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
                             </Text>
-                        </View>
+                        </View>*/}
                     </View>
 
                     <View flex-end>
-                        <TouchableOpacity marginV-5 onPress={this.onBookmarkPress}>
+                        {/*<TouchableOpacity marginV-5 onPress={this.onBookmarkPress}>
                             <BookMarkIcon
                                 Fill={this.state.ProductWishlist}
                                 size={28}
                                 Color={Colors.primary}
                             />
-                        </TouchableOpacity>
+                        </TouchableOpacity>*/}
                         <TouchableOpacity marginV-10 onPress={this.onShare}>
                             <ShareIcon size={28} Color={Colors.primary} />
                         </TouchableOpacity>
