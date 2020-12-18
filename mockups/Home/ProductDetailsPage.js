@@ -24,6 +24,7 @@ export default class ProductDetailsPage extends Component {
         Loading: true,
         ModalVisible: false,
         ImageIndex: 0,
+        ColorCode: []
     }
 
     abortController = new AbortController();
@@ -77,7 +78,8 @@ export default class ProductDetailsPage extends Component {
                                     Styles={this.state.Styles}
                                     StyleIDs={this.state.StyleIDs}
                                     LongDescription={this.state.LongDescription}
-                                    navigation = {this.props.navigation}
+                                    navigation={this.props.navigation}
+                                    ColorCode={this.state.ColorCode}
                                 />
                             </ScrollView>
                             <TouchableOpacity
