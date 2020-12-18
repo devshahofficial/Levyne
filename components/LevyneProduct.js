@@ -6,6 +6,7 @@ import BookMarkIcon from '../Icons/BookMarkIcon';
 import Colors from '../Style/Colors';
 import {DescriptionCard} from "./ReadMore";
 import Category from "./Category";
+import CstmShadowView from "./CstmShadowView";
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
 
@@ -59,7 +60,7 @@ export default class ProductScreenPartOne extends React.Component {
                     <View flex-7>
                         <View row bottom marginT-5 marginB-10 centerV>
                             <Text b1 black>
-                                {this.props.Title}
+                                #{this.props.Title}
                             </Text>
                             <View marginL-15 center style={styles.Product}>
                                 <Text h2 secondary onPress={this.navigateCategory}>
@@ -71,7 +72,6 @@ export default class ProductScreenPartOne extends React.Component {
                         <Text marginV-3 h1 secondary>
                             {this.props.ShortDescription}
                         </Text>
-
                         {/*<View row bottom>
                             <Text b1 primary>
                                 ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
@@ -92,6 +92,19 @@ export default class ProductScreenPartOne extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+
+                <View marginT-10>
+                    <FlatList
+                        data={this.props.Styles}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={({item, index}) => (
+                            <View style={{height: 50, width: 50, backgroundColor: this.props.Color[index], borderRadius: 50, marginHorizontal: 10}}/>
+                        )}
+                    />
+                </View>
+
                 {this.props.Styles ? (
                     <View marginT-20>
                         <FlatList
@@ -115,7 +128,7 @@ export default class ProductScreenPartOne extends React.Component {
 
                 <View marginT-30 marginB-20 marginH-15>
                     <Text hb1>Product Description</Text>
-                    <DescriptionCard CompleteDescription={this.props.LongDescription} />
+                    <Text h2>{this.props.LongDescription}</Text>
                 </View>
 
             </View>
