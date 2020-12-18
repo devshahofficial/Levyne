@@ -10,32 +10,6 @@ import Category from "./Category";
 const defaultColors = ['#ff99cc', '#7ac1ff'];
 
 export default class ProductScreenPartOne extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            ProductWishlist: this.props.ProductWishlist === 1 ? true : false,
-            Fabric: 1,
-        };
-    }
-
-    onBookmarkPress = () => {
-
-        if(this.props.Token) {
-            if (!this.state.ProductWishlist) {
-                this.props.AddToWishlistFn(this.props.ProductID, this.props.Token);
-                this.setState({
-                    ProductWishlist: !this.state.ProductWishlist,
-                });
-            } else {
-                this.props.RemoveFromWishlistFn(this.props.ProductID, this.props.Token);
-                this.setState({
-                    ProductWishlist: !this.state.ProductWishlist,
-                });
-            }
-        } else {
-            this.props.NavigateLogin();
-        }
-    };
 
     NavigateStyle = ({Index, Label}) => {
         this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 1, Index, Label}});
@@ -81,7 +55,6 @@ export default class ProductScreenPartOne extends React.Component {
     render() {
         return (
             <View flex primary>
-
                 <View row paddingH-15>
                     <View flex-7>
                         <View row bottom marginT-5 marginB-10 centerV>
@@ -143,27 +116,6 @@ export default class ProductScreenPartOne extends React.Component {
                 <View marginT-30 marginB-20 marginH-15>
                     <Text hb1>Product Description</Text>
                     <DescriptionCard CompleteDescription={this.props.LongDescription} />
-
-                    <Text hb1 marginT-20>Fabric Description</Text>
-                    <DescriptionCard CompleteDescription={this.props.FabricDescription} />
-                    <TouchableOpacity>
-                        <View style={{marginHorizontal: -15}}>
-                            <FlatList
-                                data={this.props.Materials}
-                                showsHorizontalScrollIndicator={false}
-                                horizontal={true}
-                                extraData={this.props.navigation}
-                                keyExtractor={(item) => item}
-                                renderItem={({item, index}) => (
-                                    <Category
-                                        title={item}
-                                        NavigateSearch={() => this.NavigateSearch({Type: 2, Index: this.props.MaterialIDs[index], Label: item})}
-                                        ImageStyle={styles.Image}
-                                    />
-                                )}
-                            />
-                        </View>
-                    </TouchableOpacity>
                 </View>
 
             </View>
