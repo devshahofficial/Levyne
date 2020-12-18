@@ -2,11 +2,7 @@ import React from 'react';
 import {Share, FlatList, StyleSheet, Dimensions} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {ShareIcon} from '../Icons/ShareIcon';
-import BookMarkIcon from '../Icons/BookMarkIcon';
 import Colors from '../Style/Colors';
-import {DescriptionCard} from "./ReadMore";
-import Category from "./Category";
-import CstmShadowView from "./CstmShadowView";
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
 
@@ -95,12 +91,12 @@ export default class ProductScreenPartOne extends React.Component {
 
                 <View marginT-10>
                     <FlatList
-                        data={this.props.Styles}
+                        data={this.props.ColorCode}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({item, index}) => (
-                            <View style={{height: 50, width: 50, backgroundColor: this.props.Color[index], borderRadius: 50, marginHorizontal: 10}}/>
+                        keyExtractor={(item, index) => item}
+                        renderItem={({item}) => (
+                            <View style={{height: 50, width: 50, backgroundColor: item, borderRadius: 50, marginHorizontal: 10}}/>
                         )}
                     />
                 </View>
