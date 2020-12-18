@@ -21,6 +21,7 @@ export default class ProductScreenPartOne extends React.Component {
                 <TouchableOpacity
                     style={styles.Container}
                     activeOpacity={0.7}
+                    onPress={() => this.props.NavigateDesign(this.props.DesignID)}
                 >
                     <AnimatedImage
                         source={{uri:this.props.Image}}
