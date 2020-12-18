@@ -30,7 +30,7 @@ export default class ImageCarouselLevyne extends Component{
                 {this.props.ProductImages.map((item, index) => (
                     <TouchableOpacity activeOpacity={0.8} onPress={() => this.props.DisplayModal(index)} key={index.toString()}>
                         <AnimatedImage
-                            containerStyle={{backgroundColor: Colors.blue60}}
+                            containerStyle={{backgroundColor: Colors.shadow}}
                             source={{uri: item}}
                             loader={<ActivityIndicator />}
                             style={{width:screenWidth,height:screenWidth}}
