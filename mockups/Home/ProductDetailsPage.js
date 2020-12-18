@@ -9,10 +9,6 @@ import {CallIcon} from "../../Icons/CallIcon";
 import FetchDesignByID from '../../API/FetchDesignByID';
 import Loader from '../../components/Loader';
 
-const imgUrls = [
-    "https://images.unsplash.com/photo-1566174053879-31528523f8ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-    "https://images.unsplash.com/photo-1566491888763-e71518bbe846?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60",
-]
 
 export default class ProductDetailsPage extends Component {
 
