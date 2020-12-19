@@ -7,13 +7,18 @@ import IsAnyProductInCart from './IsAnyProductInCart';
 
 export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart) => {
     try {
-        const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus']);
+        const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus', 'Testing']);
         if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
             setAuth({SkipLogin: true});
             if(SkipLogin[1][1]) {
                 setProfile({ProfileStatus: parseInt(SkipLogin[1][1])});
             }
             return 'MainHomeStack'
+        }
+
+        if (+SkipLogin[2][1]) {
+            global.BaseURL = 'https://apitesting603.levyne.com/v1/Users/';
+            global.URL = 'https://apitesting603.levyne.com/';
         }
 
         const Response = await AsyncStorage.multiGet(['AccessToken', 'RefreshToken', 'Timestamp', 'UserID', 'Mobile']);
