@@ -37,6 +37,7 @@ PushNotification.configure({
 		notification.finish(PushNotificationIOS.FetchResult.NoData);
 	},
 
+	requestPermissions: false,
 });
 
 export default class App extends React.Component {
