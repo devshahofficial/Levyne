@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, BackHandler, KeyboardAvoidingView, ScrollView } from 'react-native';
-import {Button, View, Text, Toast, Colors, KeyboardAwareScrollView} from 'react-native-ui-lib';
+import {StyleSheet, BackHandler, ScrollView } from 'react-native';
+import {Button, View, Text, Toast, Colors} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
 import generateOTP from '../API/Login';
