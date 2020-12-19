@@ -118,7 +118,7 @@ class Cart extends React.Component {
     }
 
     NavigateOrders = () => {
-        this.props.navigation.navigate("Cart");
+        this.props.navigation.navigate("MyOrders");
     }
 
     render() {
