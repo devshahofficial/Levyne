@@ -68,13 +68,13 @@ class LoginScreen extends React.Component {
 		this.setState({showCustomToast: !this.state.showCustomToast});
         this.setState({showContent:'You will receive an OTP!'});
 
-		generateOTP(this.state.Mobile).then((json) => {
-            console.log(json);
+		generateOTP(this.state.Mobile).then(({json, Mobile}) => {
             this.setState({showCustomToast: !this.state.showCustomToast});
 			this.props.navigation.navigate('OTP', {
 				OTPTokenHash : json.OTPTokenHash,
-                Mobile : this.state.Mobile,
-                UUID : this.state.UUID
+                Mobile : Mobile,
+				UUID : this.state.UUID,
+				OTP: json.OTP
 			});
 		}).catch(err => {
             console.log(err);
