@@ -22,7 +22,7 @@ class IndexScreen extends React.Component {
 			{
 				this.props.navigation.navigate(value);
 			}
-		}).catch(value => {
+		}).catch(() => {
 			this.props.navigation.navigate('Login');
         });
 	}
