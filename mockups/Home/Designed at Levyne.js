@@ -11,10 +11,14 @@ export default class DesignedAtLevyne extends Component {
         LevyneProducts: []
     }
 
+    Page = 0;
+    NewPageLoading = false;
+    NewProducts = true;
+
     abortController = new AbortController();
 
     componentDidMount = () => {
-        FetchDesignsByLevyne(1, this.abortController.signal).then(LevyneProducts => {
+        FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
             this.setState({LevyneProducts});
         }).catch(console.log);
     }
@@ -25,6 +29,21 @@ export default class DesignedAtLevyne extends Component {
 
     NavigateDesign = (DesignID) => {
         this.props.navigation.navigate('ProductDetailsPage', {DesignID})
+    }
+
+    FlatListonEndReached = () => {
+        if(!this.NewPageLoading && this.NewProducts) {
+            this.NewPageLoading = true;
+            FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
+                if(!LevyneProducts.length) {
+                    this.NewProducts = false;
+                } else {
+                    this.state.LevyneProducts.push(...LevyneProducts);
+                    this.setState({LevyneProducts: this.state.LevyneProducts});
+                    this.NewPageLoading = false;
+                }
+            }).catch(console.log);
+        }
     }
 
     render() {
@@ -44,6 +63,7 @@ export default class DesignedAtLevyne extends Component {
                         />}
                         keyExtractor={(item) => item.DesignCode}
                         showsHorizontalScrollIndicator={false}
+                        onEndReached={this.FlatListonEndReached}
                     />
                     <View
                         center padding-10
