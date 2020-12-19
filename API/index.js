@@ -3,8 +3,9 @@ import config from '../assets/constants';
 import NewSocket from './NewSocket';
 import FetchChatBuckets from './FetchChatBuckets';
 import { POST } from './CustomFetch';
+import IsAnyProductInCart from './IsAnyProductInCart';
 
-export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead) => {
+export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart) => {
     try {
         const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus']);
         if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
@@ -77,6 +78,10 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
             MarkBucketAsUnRead(rows[1]);
         }).catch(err => {
             console.log(err);
+        })
+
+        IsAnyProductInCart(AccessToken).then(resp => {
+            setIsAnyProductInCart(resp.IsAnyProductInCart);
         })
 
         switch (ProfileStatus) {

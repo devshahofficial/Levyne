@@ -94,6 +94,7 @@ class OTPScreen extends React.Component {
             this.props.setSocket,
             this.props.setChatList,
             this.props.MarkBucketAsUnRead,
+            this.props.setIsAnyProductInCart,
         ).then(NavigateTo => {
             clearInterval(this.state.intervalId);
             this.props.navigation.navigate(NavigateTo);
@@ -225,7 +226,8 @@ const mapDispatchToProps = dispatch => {
 		setSocket : (Socket) => dispatch({type: 'setSocket', value: Socket}),
 		setProfile : (ProfileObject) => dispatch({type: 'setProfile', value: ProfileObject}),
 		setChatList : (ChatList) => dispatch({type: 'setChatList', value: ChatList}),
-		MarkBucketAsUnRead: (Buckets) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets}),
+        MarkBucketAsUnRead: (Buckets) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets}),
+        setIsAnyProductInCart : (value) => dispatch({type: 'setIsAnyProductInCart', value}),
 	}
 }
 

@@ -1,19 +1,19 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Logo from '../assets/images/Logo.svg';
-import colors from '../assets/colors';
 import {AuthCheck} from '../API/index';
 import {connect} from 'react-redux';
+import { Colors } from 'react-native-ui-lib';
 
 
 class IndexScreen extends React.Component {
 
 	componentDidMount() {
 
-		const {setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead} = this.props;
+		const {setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart} = this.props;
 
 
-		AuthCheck(setAuth, setProfile, setSocket,  setChatList, MarkBucketAsUnRead).then( value => {
+		AuthCheck(setAuth, setProfile, setSocket,  setChatList, MarkBucketAsUnRead, setIsAnyProductInCart).then( value => {
 			if(value === 'Home')
 			{
 				this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
@@ -44,6 +44,7 @@ const mapDispatchToProps = dispatch => {
 		setSocket : (Socket) => dispatch({type: 'setSocket', value: Socket}),
 		setChatList : (ChatList) => dispatch({type: 'setChatList', value: ChatList}),
 		MarkBucketAsUnRead: (Buckets) => dispatch({type: 'MarkBucketAsUnRead', value: Buckets}),
+		setIsAnyProductInCart : (value) => dispatch({type: 'setIsAnyProductInCart', value}),
 	}
 }
 
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor:colors.trivisionWhite
+		backgroundColor:Colors.white
 	},
 	logo: {
 		width:'100%',
