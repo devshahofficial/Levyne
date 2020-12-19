@@ -87,7 +87,7 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
 
         IsAnyProductInCart(AccessToken).then(resp => {
             setIsAnyProductInCart(resp.IsAnyProductInCart);
-        })
+        }).catch(() => {});
 
         switch (ProfileStatus) {
             case 2:
@@ -118,7 +118,6 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
         }
     }
     catch(err) {
-        console.log(err);
         throw new Error('Login');
     }
 }
