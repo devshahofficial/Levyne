@@ -75,7 +75,8 @@ const SocketReducer = (state = InitialSocketState, action) => {
 const InitialChatStates = {
 	UnreadBuckets: [],
 	ChatList: [],
-	ChatLoading: true
+	ChatLoading: true,
+	IsAnyProductInCart: false,
 };
 
 const ChatReducer = (state = InitialChatStates, action) => {
@@ -103,6 +104,8 @@ const ChatReducer = (state = InitialChatStates, action) => {
 			return {ChatList: [...state.ChatList], UnreadBuckets: [...state.UnreadBuckets]};
 		case 'StopChatLoading':
 			return {...state, ChatLoading: false};
+		case 'setIsAnyProductInCart':
+			return {...state, IsAnyProductInCart: action.value};
 		case 'ResetChat':
 			return {};
 		default:

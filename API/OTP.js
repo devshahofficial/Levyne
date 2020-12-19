@@ -2,8 +2,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { POST } from './CustomFetch';
 import NewSocket from './NewSocket';
 import FetchChatBuckets from './FetchChatBuckets';
+import IsAnyProductInCart from './IsAnyProductInCart';
 
-const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead) => {
+const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart) => {
     if(OTP.length != 6)
     {
         throw new Error('Not a valid OTP');
@@ -45,6 +46,10 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                     setChatList(rows[0]);
                 }).catch(err => {
                     console.log(err);
+                });
+
+                IsAnyProductInCart(json.AccessToken).then(resp => {
+                    setIsAnyProductInCart(resp.IsAnyProductInCart);
                 })
 
                 return 'EditProfileAuth';
@@ -90,6 +95,10 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                     console.log(err);
                 })
         
+                IsAnyProductInCart(json.AccessToken).then(resp => {
+                    setIsAnyProductInCart(resp.IsAnyProductInCart);
+                })
+
                 FetchChatBuckets(json.AccessToken, 1).then(rows => {
                     MarkBucketAsUnRead(rows[1]);
                     setChatList(rows[0]);

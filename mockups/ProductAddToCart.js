@@ -97,6 +97,7 @@ class AddToCartScreen extends React.PureComponent {
             this.abortController.signal
         ).then(() => {
             this.SelectFabric('');
+            this.props.setIsAnyProductInCart(true);
             this.props.navigation.push('Cart');
         }).catch(console.log)
     }
@@ -235,4 +236,10 @@ const mapsStateToProps = state => ({
 	AccessToken : state.Auth.AccessToken
 });
 
-export default connect(mapsStateToProps)(AddToCartScreen);
+const mapDispatchToProps = dispatch => {
+	return {
+		setIsAnyProductInCart : (value) => dispatch({type: 'setIsAnyProductInCart', value}),
+	}
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(AddToCartScreen);

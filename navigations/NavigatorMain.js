@@ -98,7 +98,7 @@ class BottomTabNavigation extends React.PureComponent {
 					component={Cart}
 					options={{
 						tabBarIcon: ({ color}) => (
-							<OrdersIcon Color={color}/>
+							<OrdersIcon Color={color} IsAnyProductInCart={this.props.IsAnyProductInCart}/>
 						),
 					}}
 				/>
@@ -117,7 +117,8 @@ class BottomTabNavigation extends React.PureComponent {
 }
 
 const mapsStateToProps = state => ({
-    IsAnyUnreadMessage : state.Chat.UnreadBuckets.length,
+	IsAnyUnreadMessage : state.Chat.UnreadBuckets.length,
+	IsAnyProductInCart: state.Chat.IsAnyProductInCart
 });
 
 const BottomTabNavigationConnect = connect(mapsStateToProps)(BottomTabNavigation);
