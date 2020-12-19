@@ -8,7 +8,6 @@ import {generateOTP} from '../API/Login';
 import {connect} from 'react-redux';
 import CstmShadowView from "../components/CstmShadowView";
 const PushNotification = require("react-native-push-notification");
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import Loader from '../components/Loader';
 
 class OTPScreen extends React.Component {
@@ -29,13 +28,10 @@ class OTPScreen extends React.Component {
         this.FirebaseToken = '';
 
         PushNotification.configure({
-            // (optional) Called when Token is generated (iOS and Android)
+
+            //Called when Token is generated (iOS and Android)
             onRegister: (token) => {
                 this.FirebaseToken = token.token;
-            },
-            // (required) Called when a remote is received or opened, or local notification is opened
-            onNotification: (notification) => {
-                notification.finish(PushNotificationIOS.FetchResult.NoData);
             },
 
             requestPermissions: true,
@@ -44,7 +40,6 @@ class OTPScreen extends React.Component {
     }
 
     componentDidMount() {
-        this._isMounted = true;
         this.intervalId = setInterval(() => {
             if(isNaN(parseInt(this.state.Time)))
             {
@@ -58,22 +53,17 @@ class OTPScreen extends React.Component {
                 {
                     clearInterval(this.intervalId);
                     change = 'Resend it';
-                    if(this._isMounted) {
-                        this.setState({
-                            Color : '#E83F94',
-                            Size : 14,
-                            Time: change
-                        });
-                    }
-                }
-                if(this._isMounted) {
                     this.setState({
+                        Color : '#E83F94',
+                        Size : 14,
                         Time: change
-                    })
+                    });
                 }
+                this.setState({
+                    Time: change
+                })
             }
         }, 1000);
-        //this.setState({intervalId : intervalId});
     }
 
     componentWillUnmount() {
