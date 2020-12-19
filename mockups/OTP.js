@@ -108,9 +108,7 @@ class OTPScreen extends React.Component {
         ).then(NavigateTo => {
             clearInterval(this.state.intervalId);
             this.props.navigation.navigate(NavigateTo);
-            if(this._isMounted) {
-                this.setState({LoaderVisible : false})
-            }
+            this.setState({LoaderVisible : false})
 
         }).catch((err) => {
             console.log(err);
@@ -140,17 +138,28 @@ class OTPScreen extends React.Component {
     ResendOTP = () => {
         if(this.state.Time === 'Resend it')
         {
-            Toast.hide(); //Hide if any toast
-            Toast.showLoading();
+            this.setState({
+                showCustomToast : false,
+                LoaderVisible: true
+            });
             generateOTP(this.props.route.params.Mobile).then((OTPTokenHash) => {
-                Toast.hide();
+                this.setState({
+                    LoaderVisible: false
+                });
                 this.props.navigation.navigate('OTP', {
                     OTPTokenHash : OTPTokenHash,
                     Mobile : this.state.Mobile
                 });
             }).catch(() => {
-                Toast.hide();
-                Toast.show('Network error, Please try again later.', Toast.SHORT);
+                this.setState({
+                    showCustomToast : true,
+                    LoaderVisible: false,
+                    showContent: 'Network error, Please try again later.'
+                });
+                this.showToastTimeOut && clearTimeout(this.showToastTimeOut);
+                this.showToastTimeOut = setTimeout(() => {
+                    this.setState({showCustomToast : false, showContent: 'Please enter a valid OTP'});
+                }, 3000);
             });
         }
     }
