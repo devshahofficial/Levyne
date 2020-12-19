@@ -94,7 +94,7 @@ class BottomTabNavigation extends React.PureComponent {
 					}}
 				/>
 				<Tab.Screen
-					name="My Orders"
+					name="My Cart"
 					component={Cart}
 					options={{
 						tabBarIcon: ({ color}) => (

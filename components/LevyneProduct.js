@@ -1,8 +1,9 @@
 import React from 'react';
-import {Share, FlatList, StyleSheet, Dimensions} from 'react-native';
+import {Share, FlatList, StyleSheet, Dimensions, Platform} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import {ShareIcon} from '../Icons/ShareIcon';
 import Colors from '../Style/Colors';
+import CstmShadowView from "./CstmShadowView";
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
 
@@ -96,7 +97,11 @@ export default class ProductScreenPartOne extends React.Component {
                         horizontal={true}
                         keyExtractor={(item, index) => item}
                         renderItem={({item}) => (
-                            <View style={{height: 50, width: 50, backgroundColor: item, borderRadius: 50, marginHorizontal: 10}}/>
+                            <CstmShadowView
+                                style={styles.Shadow}
+                            >
+                                <View style={[styles.Color,{backgroundColor: item,}]}/>
+                            </CstmShadowView>
                         )}
                     />
                 </View>
@@ -150,5 +155,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius: 10
+    },
+    Color: {
+        height: 50,
+        width: 50,
+        borderRadius: 50,
+        alignSelf: 'center',
+    },
+    Shadow: {
+        marginTop:0,
+        paddingTop:0,
+        height: 60,
+        width: 60,
+        margin: 10,
+        justifyContent: 'center'
     }
 });
