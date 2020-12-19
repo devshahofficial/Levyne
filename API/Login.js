@@ -7,7 +7,7 @@ import {
     POST
 } from './CustomFetch';
 
-export const generateOTP = async (Mobile) => {
+export default generateOTP = async (Mobile) => {
     if (Mobile.length != 10) {
         throw new Error('Not a valid Mobile number');
     } else {
