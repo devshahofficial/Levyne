@@ -19,7 +19,8 @@ export default class BucketComponent extends React.Component {
                     this.props.item.BucketID,
                     this.props.item.BrandID,
                     this.props.item.Name,
-                    this.props.item.TotalProducts
+                    this.props.item.TotalProducts,
+                    {uri : this.props.item.ProfileImage}
                 )}
                 marginB-20 paddingH-10
                 activeOpacity={0.8} marginT-10
@@ -74,7 +75,7 @@ export default class BucketComponent extends React.Component {
                         <Button
                             hb2 flex style={styles.ButtonRight}
                             label={'Checkout'} color={Colors.white}
-                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
+                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.DecidedPrice)}
                         />
                     </View>
                 </CstmShadowView>

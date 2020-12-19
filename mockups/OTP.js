@@ -13,7 +13,6 @@ import Loader from '../components/Loader';
 class OTPScreen extends React.Component {
 
     constructor(props) {
-        _isMounted = false;
         super(props);
         this.state = {
             OTP: '',
