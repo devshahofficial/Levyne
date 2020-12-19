@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, FlatList, StyleSheet} from 'react-native';
-import {View, Text} from 'react-native-ui-lib';
+import {View, Text, Toast, AvatarHelper} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import {DeliveryIcon} from "../../Icons/Secondary/DeliveryIcon";
@@ -28,9 +28,11 @@ class Bucket extends React.Component {
             CheckoutActive: false,
             CartIDForDeletion: undefined,
             ProductTypeForDeletion: undefined,
-            DeleteModalVisible: false
+            DeleteModalVisible: false,
+            showToast: false,
         }
         this.abortController = new AbortController();
+        this.Timeout = null;
     }
 
     ActionSheetItems = [
@@ -85,6 +87,7 @@ class Bucket extends React.Component {
             this.willFocusSubscription();
         }
         this.abortController.abort();
+        this.Timeout && clearTimeout(this.Timeout);
     }
 
     FlatListRenderItem = ({item}) => (
@@ -107,10 +110,19 @@ class Bucket extends React.Component {
 
     navigateCheckout = () => {
         if(this.state.CheckoutActive && !this.state.Loading) {
-            this.props.navigation.navigate('CheckOut', {
-                BucketID: this.props.route.params.BucketID,
-                BrandName: this.props.route.params.BrandName
-            });
+            if(this.props.ProfileCompleted) {
+                this.props.navigation.navigate('CheckOut', {
+                    BucketID: this.props.route.params.BucketID,
+                    BrandName: this.props.route.params.BrandName
+                });
+            } else {
+                this.props.navigation.navigate('EditProfile');
+            }
+        } else {
+            this.setState({showToast: true});
+            this.Timeout = setTimeout(() => {
+                this.setState({showToast: false});
+            }, 3000);
         }
     }
 
@@ -139,11 +151,32 @@ class Bucket extends React.Component {
         })
     }
 
+    renderCustomContent = () => {
+
+        return (
+            <View flex padding-10 style={{backgroundColor: 'none'}}>
+                <Text white h1>Price not decided, Chat with brand to finalize the price</Text>
+            </View>
+        );
+    };
+
     setStateForProductDelete = (CartID, ProductType) => {
         this.setState({
             DeleteModalVisible : !this.state.DeleteModalVisible,
             CartIDForDeletion: CartID,
             ProductTypeForDeletion: ProductType
+        })
+    }
+
+    navigateChat = () => {
+        this.props.navigation.navigate('Chat', {
+            BucketID: this.props.route.params.BucketID,
+            Name:this.props.route.params.BrandName,
+            Status: 0,
+            BrandID: this.props.route.params.BrandID,
+            OrderID: 0,
+            imageSource: this.props.route.params.imageSource,
+            initials: AvatarHelper.getInitials(this.props.route.params.BrandName)
         })
     }
 
@@ -190,8 +223,16 @@ class Bucket extends React.Component {
                 <BottomButton
                     ButtonA={"Chat"}
                     ButtonB={"Checkout"}
+                    ButtonActionA={this.navigateChat}
                     ButtonActionB={this.navigateCheckout}
                 />
+                <Toast
+                    visible={this.state.showToast}
+                    position={'bottom'}
+                    backgroundColor={Colors.primary}
+                >
+                    {this.renderCustomContent()}
+                </Toast>
             </>
         );
     }
@@ -217,7 +258,8 @@ const styles = StyleSheet.create({
 
 
 const mapsStateToProps = state => ({
-    AccessToken : state.Auth.AccessToken
+    AccessToken : state.Auth.AccessToken,
+    ProfileCompleted: (state.Profile.ProfileStatus === 2)
 });
 
 export default connect(mapsStateToProps)(Bucket);

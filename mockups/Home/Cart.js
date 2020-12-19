@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, AvatarHelper, Colors} from 'react-native-ui-lib';
+import {View, Text, AvatarHelper, Colors, Toast} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import BucketComponent from "../../components/BucketComponent";
 import FetchCart from '../../API/FetchCart';
@@ -15,10 +15,12 @@ class Cart extends React.Component {
         super(props);
         this.state = {
             Buckets: [],
-            Loading: true
+            Loading: true,
+            showToast: false,
         }
         this.abortController = new AbortController();
         this.willFocusSubscription = null;
+        this.Timeout = null;
     }
 
     componentDidMount() {
@@ -55,23 +57,40 @@ class Cart extends React.Component {
         if(this.willFocusSubscription) {
             this.willFocusSubscription();
         }
+        this.Timeout && clearTimeout(this.Timeout);
     }
 
-    onBucketPress = (BucketID, BrandID, BrandName, TotalProducts) => {
-        this.props.navigation.navigate("Bucket", {BucketID, BrandID, BrandName, TotalProducts});
+    onBucketPress = (BucketID, BrandID, BrandName, TotalProducts, imageSource) => {
+        this.props.navigation.navigate("Bucket", {BucketID, BrandID, BrandName, TotalProducts, imageSource});
     }
 
     navigateCheckout = (BucketID, BrandName, Status) => {
         if(Status === 0) {
-            Alert.alert('Warning', 'Checkout is disabled')
+            this.setState({showToast: true});
+            this.Timeout = setTimeout(() => {
+                this.setState({showToast: false});
+            }, 3000);
         } else {
-            this.props.navigation.navigate('CheckOut', { BucketID, BrandName });
+            if(this.props.ProfileCompleted) {
+                this.props.navigation.navigate('CheckOut', { BucketID, BrandName });
+            } else {
+                this.props.navigation.navigate('EditProfile');
+            }
         }
     }
 
     navigateBrand = (BrandID) => {
         this.props.navigation.navigate("BrandProfile", {BrandID});
     }
+
+    renderCustomContent = () => {
+
+        return (
+            <View flex padding-10 style={{backgroundColor: 'none'}}>
+                <Text white h1>Price not decided, Chat with brand to finalize the price</Text>
+            </View>
+        );
+    };
 
     navigateChat = (BucketID, Name, BrandID, imageSource) => {
         this.props.navigation.navigate('Chat', {
@@ -130,7 +149,16 @@ class Cart extends React.Component {
                                     </View>
                                 }
                             />
+                            <Toast
+                                visible={this.state.showToast}
+                                position={'bottom'}
+                                backgroundColor={Colors.primary}
+                            >
+                                {this.renderCustomContent()}
+                            </Toast>
                         </View>
+                        
+
                 }
             </>
         );
@@ -140,7 +168,8 @@ class Cart extends React.Component {
 
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken,
-    SkipLogin: state.Auth.SkipLogin
+    SkipLogin: state.Auth.SkipLogin,
+    ProfileCompleted: (state.Profile.ProfileStatus === 2)
 });
 
 export default connect(mapsStateToProps)(Cart);

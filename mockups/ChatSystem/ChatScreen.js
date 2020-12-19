@@ -105,7 +105,12 @@ class ChatScreen extends Component {
     }
 
     NavigateBucket = () => {
-        this.props.navigation.push('Bucket', {BucketID: this.props.route.params.BucketID})
+        this.props.navigation.push('Bucket', {
+            BucketID: this.props.route.params.BucketID,
+            BrandID: this.props.route.params.BrandID,
+            BrandName: this.props.route.params.Name,
+            imageSource: this.props.route.params.imageSource
+        })
     }
 
     RightText = ({TextInput, Timestamp}) => (
