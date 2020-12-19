@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView,Modal, Dimensions} from 'react-native';
+import {StyleSheet, ScrollView,Modal,BackHandler, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import EditProfileAPI from '../../API/EditProfile';
@@ -68,7 +68,7 @@ class EditProfile extends React.Component {
     }
 
     componentDidMount() {
-        this._isMounted = true;
+        BackHandler.addEventListener("hardwareBackPress", () => {});
     }
 
     handleImagePicker = (response) => {
@@ -151,9 +151,7 @@ class EditProfile extends React.Component {
         }).catch(err => {
             this.setState({showLoading : false, ShowToast : true, ToastContent : err});
             setTimeout(() => {
-                if(this._isMounted) {
-                    this.setState({ShowToast : false});
-                }
+                this.setState({ShowToast : false});
             }, 3000);
         })
     }

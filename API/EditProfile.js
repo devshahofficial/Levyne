@@ -54,8 +54,7 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
                             AsyncStorage.multiSet(AsyncData).then(() => {
                                 resolve(JSON.parse(this.responseText));
                             }).catch(err => {
-                                console.log(err);
-                                reject('Error !')
+                                reject(err);
                             })
                         }
                         break;
@@ -64,13 +63,13 @@ const EditProfile = (Name, Email, ProfileImageChanged, ProfileImage, Address, Ge
                         return reject('Authentication Error');
                     case 400 :
                         console.log(this.responseText)
-                        return reject('Incorrect Paramters');
+                        return reject('Incorrect Parameters');
                     case 500 :
                         console.log(this.responseText)
                         return reject('Server Error');
                     case 409 :
                         console.log(this.responseText)
-                        return reject('File Upload Failed');
+                        return reject('Email ID Already Exists');
                     default : 
                         console.log(this.responseText)
                         return reject('Unknown Error');
