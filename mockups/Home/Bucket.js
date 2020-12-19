@@ -169,7 +169,7 @@ class Bucket extends React.Component {
     }
 
     navigateChat = () => {
-        this.props.navigation.navigate('Chat', {
+        this.props.navigation.push('Chat', {
             BucketID: this.props.route.params.BucketID,
             Name:this.props.route.params.BrandName,
             Status: 0,
