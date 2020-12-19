@@ -15,7 +15,7 @@ class OTPScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            OTP: '',
+            OTP: this.props.route.params.OTP ? this.props.route.params.OTP.toString() : '',
             Time: '180',
             Size: 50,
             Color: Colors.secondary,

@@ -212,6 +212,19 @@ class ProfileTopSection extends React.PureComponent {
                 </CstmShadowView>
 
                 <View marginT-50 paddingH-15>
+                    <TouchableOpacity
+                        marginT-5
+                        onPress={this.NavigateFashionDesigners}
+                    >
+                        <View centerV style={styles.Tab}>
+                            <Text secondary hb1>
+                                My fashion designers and tailors.
+                            </Text>
+                            <Text h2 grey40>
+                                Designers and tailors you follow.
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
                     <TouchableOpacity>
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
@@ -246,7 +259,13 @@ class ProfileTopSection extends React.PureComponent {
                         </View>
                     </TouchableOpacity>
                 </View>
-
+                <CstmShadowView style={{marginTop:40,marginBottom:20}}>
+                    <Button
+                        onPress={this.LogoutOnPress}
+                        hb1 flex
+                        label="Log Out"
+                    />
+                </CstmShadowView>
                 <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
             </View>
         )
