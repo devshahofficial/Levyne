@@ -8,16 +8,16 @@ export default class ChatHeader extends React.PureComponent {
     renderStatus(BucketStatus) {
         switch(BucketStatus) {
             case 0:
-                return 'Added to cart, price not decided';
+                return 'Bucket added, waiting for final budget.';
             case 1:
-                return 'Price Decided, but order not placed';
+                return 'Price Decided sucessfully, waiting for Check out.';
             case 2:
-                return 'Order Placed, Order Status available';
+                return 'Order placed successfully, Status available.';
         }
     }
 
     render() {
-        
+
         return (
             <>
                 <View row center style={styles.container}>

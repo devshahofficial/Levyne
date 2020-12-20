@@ -62,7 +62,7 @@ export default class DesignedAtLevyne extends Component {
                             DesignID={item.DesignID}
                         />}
                         keyExtractor={(item) => item.DesignCode}
-                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
                         onEndReached={this.FlatListonEndReached}
                     />
                     <View

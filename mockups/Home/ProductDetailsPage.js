@@ -35,6 +35,7 @@ export default class ProductDetailsPage extends Component {
 
     componentDidMount = () => {
         FetchDesignByID(this.props.route.params.DesignID, this.abortController.signal).then(item => {
+            console.log(item)
             item.Loading = false;
             this.setState(item);
         }).catch(err => {
@@ -45,7 +46,7 @@ export default class ProductDetailsPage extends Component {
     DisplayModal = (ImageIndex) => {
         this.setState({ModalVisible: true, ImageIndex})
     }
-    
+
     CloseModal = () => {
         this.setState({ModalVisible: false})
     }
