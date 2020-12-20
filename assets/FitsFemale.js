@@ -37,7 +37,6 @@ export default FitsFemale = [{
 	data: [
 		"Armhole Round",
 		"Cap Sleeves Round (Biceps)",
-		"3/4 Sleeves Round",
 		"Half Sleeves Round",
 		"Full Sleeves Round",
 		"1/2 Sleeve Length (Above Elbow)",
