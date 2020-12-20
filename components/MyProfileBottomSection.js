@@ -1,52 +1,85 @@
 import React from 'react';
-import {StyleSheet, Linking, Platform} from 'react-native';
-import {View, Text, Colors} from 'react-native-ui-lib';
-import {connect} from 'react-redux';
-import {MapIcon} from '../Icons/Secondary/MapIcon';
-import {AboutIcon} from '../Icons/Secondary/AboutIcon';
-import {BadgeIcon} from '../Icons/Secondary/BadgeIcon';
-import {CalendarIcon} from '../Icons/Secondary/CalendarIcon';
-import {TimerIcon} from '../Icons/Secondary/TimerIcon';
-import {ScrollView} from 'react-native-gesture-handler';
-import {ParkingIcon} from '../Icons/Secondary/ParkingIcon';
-import {SewingMachineIcon} from '../Icons/Secondary/SewingMachineIcon';
-import {MeasurementIcon} from '../Icons/Secondary/MeasurementIcon';
-import {DeliveryIcon} from '../Icons/Secondary/DeliveryIcon';
-import {TrialRoomIcon} from '../Icons/Secondary/TrialRoomIcon';
-import Type from '../assets/Type';
+import { StyleSheet, Linking, Platform } from 'react-native';
+import { View, Text, Colors } from 'react-native-ui-lib';
+import { connect } from 'react-redux';
+import { MapIcon } from '../Icons/Secondary/MapIcon';
+import { AboutIcon } from '../Icons/Secondary/AboutIcon';
+import { BadgeIcon } from '../Icons/Secondary/BadgeIcon';
+import { CalendarIcon } from '../Icons/Secondary/CalendarIcon';
+import { TimerIcon } from '../Icons/Secondary/TimerIcon';
+import { ScrollView } from 'react-native-gesture-handler';
+import { ParkingIcon } from '../Icons/Secondary/ParkingIcon';
+import { SewingMachineIcon } from '../Icons/Secondary/SewingMachineIcon';
+import { MeasurementIcon } from '../Icons/Secondary/MeasurementIcon';
+import { DeliveryIcon } from '../Icons/Secondary/DeliveryIcon';
+import { TrialRoomIcon } from '../Icons/Secondary/TrialRoomIcon';
+
+const Type = [
+	"Ethnic",
+	"Formal Wear",
+	"Business Casual",
+	"Everyday Casual",
+	"Festive",
+	"Social",
+	"Holiday Wear",
+	"Bridal Collection",
+	"Trousseau Collection",
+	"Cocktail Wear",
+	"Bespoke",
+	"Couture Wear",
+	"Sustainable Wear",
+	"Contemporary Wear",
+	"Fusion Wear",
+	"Pret Wear",
+	"Summer Collection",
+	"Winter Collection",
+	"Resort And Beach Wear",
+	"Celebrity Collection",
+	"Evening Black Tie",
+	"Kawaii",
+	"Gothic",
+	"Maternity",
+	"Preppy",
+	"Lagen look",
+	"Casual Chic",
+	"Retro",
+	"Flapper",
+	"Garconne",
+	"Elegant"
+]
 
 const ConvertToTime = (TimeString) => {
-    const H = +TimeString.substr(0, 2);
-    const h = H % 12 || 12;
-    const AmPm = (H < 12 || H === 24) ? "AM" : "PM";
-    return h + ":" + TimeString.substr(2, 2) + AmPm;
+	const H = +TimeString.substr(0, 2);
+	const h = H % 12 || 12;
+	const AmPm = (H < 12 || H === 24) ? "AM" : "PM";
+	return h + ":" + TimeString.substr(2, 2) + AmPm;
 }
 
 class ProfileBottomSection extends React.PureComponent {
 
-    constructor(props) {
-        super(props);
-        this.StudioStartTiming = ConvertToTime(this.props.StudioStartTiming);
-        this.StudioCloseTiming = ConvertToTime(this.props.StudioCloseTiming);
-    }
-    navigateMap = async () => {
+	constructor(props) {
+		super(props);
+		this.StudioStartTiming = ConvertToTime(this.props.StudioStartTiming);
+		this.StudioCloseTiming = ConvertToTime(this.props.StudioCloseTiming);
+	}
+	navigateMap = async () => {
 
-        const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
-        const latLng = `${this.props.Latitude},${this.props.Longitude}`;
-        const label = this.props.Name;
-        const url = Platform.select({
-            ios: `${scheme}${label}@${latLng}`,
-            android: `${scheme}${latLng}(${label})`
-        });
+		const scheme = Platform.select({ ios: 'maps:0,0?q=', android: 'geo:0,0?q=' });
+		const latLng = `${this.props.Latitude},${this.props.Longitude}`;
+		const label = this.props.Name;
+		const url = Platform.select({
+			ios: `${scheme}${label}@${latLng}`,
+			android: `${scheme}${latLng}(${label})`
+		});
 
-        const supported = await Linking.canOpenURL(url);
+		const supported = await Linking.canOpenURL(url);
 
-        if (supported) {
-            await Linking.openURL(url);
-        }
-    }
+		if (supported) {
+			await Linking.openURL(url);
+		}
+	}
 	render() {
-        const Genre = this.props.BrandGenre.map((item) => Type[0][parseInt(item)].title).join(', ');
+		const Genre = this.props.BrandGenre.map((item) => Type[parseInt(item)]).join(', ');
 		return (
 			<View>
 				<View paddingT-15>
