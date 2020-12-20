@@ -4,11 +4,13 @@ import {Text, Colors, View} from 'react-native-ui-lib';
 import NavbarBack from "../../components/NavBarBack";
 import LevyneProductContainer from "../../components/LevyneProductContainer";
 import FetchDesignsByLevyne from '../../API/FetchDesignsByLevyne';
+import Loader from '../../components/Loader';
 
 export default class DesignedAtLevyne extends Component {
 
     state = {
-        LevyneProducts: []
+        LevyneProducts: [],
+        Loading: true
     }
 
     Page = 0;
@@ -19,7 +21,10 @@ export default class DesignedAtLevyne extends Component {
 
     componentDidMount = () => {
         FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
-            this.setState({LevyneProducts});
+            this.setState({
+                LevyneProducts,
+                Loading: false
+            });
         }).catch(console.log);
     }
 
@@ -51,26 +56,31 @@ export default class DesignedAtLevyne extends Component {
             <>
                 <NavbarBack Title={"Designed At Levyne"} Navigation={this.props.navigation.goBack}/>
                 <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                    <FlatList
-                        data={this.state.LevyneProducts}
-                        contentContainerStyle={{backgroundColor: 'white'}}
-                        numColumns={2}
-                        renderItem={({item}) => <LevyneProductContainer
-                            Image={item.PrimaryImage}
-                            Name={"#" + item.DesignCode}
-                            NavigateDesign={this.NavigateDesign}
-                            DesignID={item.DesignID}
-                        />}
-                        keyExtractor={(item) => item.DesignCode}
-                        showsVerticalScrollIndicator={false}
-                        onEndReached={this.FlatListonEndReached}
-                    />
-                    <View
-                        center padding-10
-                        style={{height:"auto", backgroundColor: Colors.grey70}}
-                    >
-                        <Text h1 secondary center>"Designed at Levyne" is currently under maintenance, you can still place an order by calling us.</Text>
-                    </View>
+                    {this.state.Loading ? <Loader /> :
+                        <>
+                            <FlatList
+                                data={this.state.LevyneProducts}
+                                contentContainerStyle={{backgroundColor: 'white'}}
+                                numColumns={2}
+                                renderItem={({item}) => <LevyneProductContainer
+                                    Image={item.PrimaryImage}
+                                    Name={"#" + item.DesignCode}
+                                    NavigateDesign={this.NavigateDesign}
+                                    DesignID={item.DesignID}
+                                />}
+                                extraData={{NavigateDesign}}
+                                keyExtractor={(item) => item.DesignCode}
+                                showsHorizontalScrollIndicator={false}
+                                onEndReached={this.FlatListonEndReached}
+                            />
+                            <View
+                                center padding-10
+                                style={{height:"auto", backgroundColor: Colors.grey70}}
+                            >
+                                <Text h1 secondary center>"Designed at Levyne" is currently under maintenance, you can still place an order by calling us.</Text>
+                            </View>
+                        </>
+                    }
                 </SafeAreaView>
             </>
         )
