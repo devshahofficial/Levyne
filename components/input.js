@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextArea,Colors} from "react-native-ui-lib";
 import CstmShadowView from "./CstmShadowView";
+import {Platform} from 'react-native';
 
 export default class CstmInput extends React.PureComponent {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class CstmInput extends React.PureComponent {
     }
     render() {
         return (
-            <CstmShadowView style={{paddingLeft: 30,...this.props.style}}>
+            <CstmShadowView style={{paddingLeft: 30, paddingTop: Platform.OS === 'ios' ? 7 : 0,...this.props.style}}>
                 <TextArea
                     hideUnderline
                     blurOnSubmit = {true}
