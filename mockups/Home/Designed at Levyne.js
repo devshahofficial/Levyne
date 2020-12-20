@@ -6,7 +6,7 @@ import LevyneProductContainer from "../../components/LevyneProductContainer";
 import FetchDesignsByLevyne from '../../API/FetchDesignsByLevyne';
 
 export default class DesignedAtLevyne extends Component {
-    
+
     state = {
         LevyneProducts: []
     }
@@ -69,7 +69,7 @@ export default class DesignedAtLevyne extends Component {
                         center padding-10
                         style={{height:"auto", backgroundColor: Colors.grey70}}
                     >
-                        <Text h1 secondary center>"Designed at Levyne" is currently under testing, you can still place an order by calling us.</Text>
+                        <Text h1 secondary center>"Designed at Levyne" is currently under maintenance, you can still place an order by calling us.</Text>
                     </View>
                 </SafeAreaView>
             </>
