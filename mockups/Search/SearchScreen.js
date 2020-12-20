@@ -84,10 +84,6 @@ class Search extends React.Component {
         });
     }
 
-    componentDidMount() {
-        this._isMounted = true;
-    }
-
     componentWillUnmount() {
         this.abortController.abort();
     }

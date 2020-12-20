@@ -7,7 +7,6 @@ import {SearchIcon} from '../Icons/SearchIcon';
 import CstmShadowView from "./CstmShadowView";
 import SearchSuggestionsAPI from '../API/SearchSuggestions';
 import SearchSuggestionsLocal from '../API/SearchSuggestionsLocal';
-import SearchTextSVG from '../assets/images/AppImages/SearchText.svg';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -21,10 +20,6 @@ class SearchText extends React.Component {
             Loading: false,
         }
         this.abortController = new AbortController();
-    }
-
-    componentDidMount() {
-        this._isMounted = true;
     }
 
     componentWillUnmount() {

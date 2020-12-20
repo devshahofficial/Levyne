@@ -38,27 +38,15 @@ class BookmarkProducts extends React.Component {
     }
 
     componentDidMount() {
-        this._isMounted = true;
-
         if(!this.props.SkipLogin) {
             ListBookmarkProducts(++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
-                if(this._isMounted) {
-                    this.setState({
-                        Products : resp.Products,
-                        Loading: false
-                    });
-                    this.TotalProducts = resp.Total;
-                    this.loadNewPage = true;
-                }
-    
-            }).catch((err) => {
-                console.log(err);
-                if(this._isMounted) {
-                    this.setState({
-                        Loading: false
-                    });
-                }
-            })
+                this.setState({
+                    Products : resp.Products,
+                    Loading: false
+                });
+                this.TotalProducts = resp.Total;
+                this.loadNewPage = true;
+            }).catch(() => {})
         }
     }
 
@@ -76,8 +64,7 @@ class BookmarkProducts extends React.Component {
                 this.setState({
                     Products : [...this.state.Products, ...resp.Products]
                 })
-            }).catch(() => {
-            });
+            }).catch(() => {});
         }
     }
 
@@ -91,9 +78,7 @@ class BookmarkProducts extends React.Component {
                 Products : resp.Products,
                 Refreshing: false
             })
-        }).catch((err) => {
-            console.log(err);
-        });
+        }).catch((err) => {});
     }
 
     NavigateLogin = () => {

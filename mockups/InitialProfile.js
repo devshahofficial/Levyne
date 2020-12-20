@@ -64,10 +64,6 @@ class InitialProfile extends React.Component {
         this.setState({Address});
     }
 
-    componentDidMount() {
-        this._isMounted = true;
-    }
-
     handleImagePicker = (response) => {
         var Image = {
             uri: Platform.OS === 'ios' ? 'file:///' + response.path : response.path,
@@ -145,12 +141,14 @@ class InitialProfile extends React.Component {
             this.props.navigation.navigate('MainHomeStack');
         }).catch(err => {
             this.setState({showLoading : false, ShowToast : true, ToastContent : err});
-            setTimeout(() => {
-                if(this._isMounted) {
-                    this.setState({ShowToast : false});
-                }
+            this.timeout = setTimeout(() => {
+                this.setState({ShowToast : false});
             }, 3000);
         })
+    }
+
+    componentWillUnmount = () => {
+        this.timeout && clearTimeout(this.timeout);
     }
 
     setModalVisible = () => {
