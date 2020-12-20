@@ -21,11 +21,6 @@ class IndexScreen extends React.Component {
 			this.props.navigation.navigate('Login');
 		});
 
-		Linking.addEventListener('url', this.handleOpenURL);
-	}
-
-	componentWillUnmount = () => {
-		Linking.removeEventListener('url', this.handleOpenURL);
 	}
 
 	/**
