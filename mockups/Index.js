@@ -18,7 +18,7 @@ class IndexScreen extends React.Component {
 			if(global.NotificationObject) {
 				//Handle Notification Object and Navigate accordingly
 				delete global.NotificationObject;
-				return;
+				//return;
 			}
 
 			Linking.getInitialURL().then(url => this.HandleLinkingInitialURL(url, NavigateScreen)).catch(() => { });
