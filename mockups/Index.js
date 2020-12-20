@@ -27,7 +27,7 @@ class IndexScreen extends React.Component {
 		Linking.removeEventListener('url', this.handleOpenURL);
 	}
 
-	handleOpenURL = (url) => {
+	handleOpenURL = ({url}) => {
 		if(url) {
 			const Paths = (new URL(url)).pathname.split('/');
 			if(Paths.length === 3) {
@@ -52,7 +52,7 @@ class IndexScreen extends React.Component {
 
 	HandleLinkingInitialURL = (url, NavigateScreen) => {
 		
-		if(!this.handleOpenURL(url)) {
+		if(!this.handleOpenURL({url})) {
 			if(NavigateScreen === 'Home')
 			{
 				this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
@@ -62,7 +62,7 @@ class IndexScreen extends React.Component {
 				this.props.navigation.navigate(NavigateScreen);
 			}
 		}
-		
+
 	}
 
 	render() {
