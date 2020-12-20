@@ -27,7 +27,6 @@ class ProductScreen extends React.Component {
             EmbroideryModalVisible: false
         }
         this.abortController = new AbortController();
-        console.log(this.props.route.params);
     }
 
     componentDidMount() {
