@@ -4,7 +4,8 @@ export default FitsMale = [{
 		"Neck Round",
 		"Chest Round",
 		"Shoulder to Chest Length",
-		"Shoulder to Waist Length"
+		"Shoulder to Waist Length",
+		"Shoulder to Shoulder Length"
 	],
 	Image: "https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/Male%20UpperBody.png"
 }, {
@@ -36,7 +37,8 @@ export default FitsMale = [{
 	data: [
 		"Single Thigh Round",
 		"Above Knee Round",
-		"Ankle Round"
+		"Ankle Round",
+		"Fork Length"
 	],
 	Image: "https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/Male%20Bottom.png"
 }]

@@ -15,7 +15,8 @@ export default FitsFemale = [{
 		"Shoulder to Bust Length",
 		"Shoulder to Below Bust Length",
 		"Shoulder to Waist Length",
-		"Shoulder to Croch Length"
+		"Shoulder to Croch Length",
+		"Shoulder to Shoulder Length"
 	],
 	Image: "https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/Female%20Shoulder.png"
 }, {
@@ -36,7 +37,7 @@ export default FitsFemale = [{
 	data: [
 		"Armhole Round",
 		"Cap Sleeves Round (Biceps)",
-		"1/4 Sleeves Round",
+		"3/4 Sleeves Round",
 		"Half Sleeves Round",
 		"Full Sleeves Round",
 		"1/2 Sleeve Length (Above Elbow)",
