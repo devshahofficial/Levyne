@@ -4,7 +4,8 @@ export default FitsMale = [{
 		"Neck Round",
 		"Chest Round",
 		"Shoulder to Chest Length",
-		"Shoulder to Waist Length"
+		"Shoulder to Waist Length",
+		"Shoulder to Shoulder Length"
 	],
 	Image: "https://images.unsplash.com/photo-1562373353-7db88744f982?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fGRyZXNzfGVufDB8fDB8&auto=format&fit=crop&w=500&q=60"
 }, {
@@ -36,7 +37,8 @@ export default FitsMale = [{
 	data: [
 		"Single Thigh Round",
 		"Above Knee Round",
-		"Ankle Round"
+		"Ankle Round",
+		"Fork Length"
 	],
 	Image: "https://images.unsplash.com/photo-1562373353-7db88744f982?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTR8fGRyZXNzfGVufDB8fDB8&auto=format&fit=crop&w=500&q=60"
 }]

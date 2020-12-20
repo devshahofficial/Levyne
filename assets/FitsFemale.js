@@ -15,7 +15,8 @@ export default FitsFemale = [{
 		"Shoulder to Bust Length",
 		"Shoulder to Below Bust Length",
 		"Shoulder to Waist Length",
-		"Shoulder to Croch Length"
+		"Shoulder to Croch Length",
+		"Shoulder to Shoulder Length"
 	],
 	Image: "https://images.unsplash.com/photo-1530893608544-cd10fda1ac14?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8OHx8ZHJlc3N8ZW58MHx8MHw%3D&auto=format&fit=crop&w=500&q=60"
 }, {
@@ -36,7 +37,7 @@ export default FitsFemale = [{
 	data: [
 		"Armhole Round",
 		"Cap Sleeves Round (Biceps)",
-		"1/4 Sleeves Round",
+		"3/4 Sleeves Round",
 		"Half Sleeves Round",
 		"Full Sleeves Round",
 		"1/2 Sleeve Length (Above Elbow)",
