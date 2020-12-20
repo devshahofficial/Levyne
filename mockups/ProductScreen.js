@@ -26,7 +26,6 @@ class ProductScreen extends React.Component {
             ImageIndex: 0,
             EmbroideryModalVisible: false
         }
-        this._isMounted = true;
         this.abortController = new AbortController();
     }
 

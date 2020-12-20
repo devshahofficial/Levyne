@@ -60,7 +60,6 @@ class BrandProfile extends Component {
     }
 
     componentDidMount() {
-        this._isMounted = true;
         this.ProductPage = 1;
         this.FabricPage = 1;
         ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken, this.abortController.signal).then(ProfileObject => {
@@ -90,9 +89,7 @@ class BrandProfile extends Component {
                 TrialRoom: ProfileObject.TrialRoom,
                 Type: ProfileObject.Type
             });
-        }).catch((err) => {
-            console.log(err);
-        });
+        }).catch(() => {});
 
         FetchBrandProducts(this.props.route.params.BrandID, this.ProductPage, this.props.AccessToken, this.abortController.signal).then(rows => {
             this.TotalProducts = rows.Total;
@@ -100,9 +97,7 @@ class BrandProfile extends Component {
                 BrandProducts : rows.Products,
                 ProductsLoading : false
             })
-        }).catch((err) => {
-            console.log(107, err);
-        });
+        }).catch(() => {});
 
         FetchBrandFabrics(this.props.route.params.BrandID, this.FabricPage, this.props.AccessToken, this.abortController.signal).then(rows => {
             this.TotalFabrics = rows.Total;
@@ -110,9 +105,7 @@ class BrandProfile extends Component {
                 BrandFabrics : rows.Fabrics,
                 FabricsLoading : false
             })
-        }).catch((err) => {
-            console.log(err);
-        });
+        }).catch(() => {});
 
     }
 
@@ -166,9 +159,7 @@ class BrandProfile extends Component {
                     BrandProducts : [...this.state.BrandProducts, ...rows.Products]
                 })
                 this.ProductsLoading = false;
-            }).catch((err) => {
-                console.log(err);
-            });
+            }).catch((err) => {});
         }
     }
 
@@ -180,9 +171,7 @@ class BrandProfile extends Component {
                     BrandFabrics : [...this.state.BrandFabrics, ...rows.Fabrics]
                 })
                 this.FabricsLoading = false;
-            }).catch(err => {
-                //console.log(err);
-            })
+            }).catch(() => {})
         }
     }
 
@@ -203,30 +192,28 @@ class BrandProfile extends Component {
                     navigateFollowings={this.navigateFollowings}
                     Type={this.state.Type}
                 />
-                {this.BrandID === this.MyBrandID ? <></> :
-                    <View marginH-20>
-                        <TouchableOpacity
+                <View marginH-20>
+                    <TouchableOpacity
+                        style={[
+                            styles.button,
+                            {
+                                backgroundColor: this.state.DoIFollow ? Colors.primary : Colors.white,
+                                borderWidth: 1,
+                                borderColor: Colors.primary,
+                            },
+                        ]}
+                        onPress={this.Follow}
+                    >
+                        <Text
                             style={[
-                                styles.button,
-                                {
-                                    backgroundColor: this.state.DoIFollow ? Colors.primary : Colors.white,
-                                    borderWidth: 1,
-                                    borderColor: Colors.primary,
-                                },
+                                styles.buttonText,
+                                { color: this.state.DoIFollow ? Colors.white : Colors.primary },
                             ]}
-                            onPress={this.Follow}
                         >
-                            <Text
-                                style={[
-                                    styles.buttonText,
-                                    { color: this.state.DoIFollow ? Colors.white : Colors.primary },
-                                ]}
-                            >
-                                {this.state.DoIFollow ? "Following" : "Follow" }
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                }
+                            {this.state.DoIFollow ? "Following" : "Follow" }
+                        </Text>
+                    </TouchableOpacity>
+                </View>
                 <ProfileBottomSection
                     Address={this.state.Address}
                     Longitude={this.state.Longitude}

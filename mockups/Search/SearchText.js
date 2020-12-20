@@ -24,10 +24,6 @@ class SearchText extends React.Component {
         this.abortController = new AbortController();
     }
 
-    componentDidMount() {
-        this._isMounted = true;
-    }
-
     componentWillUnmount() {
         this.abortController.abort();
     }

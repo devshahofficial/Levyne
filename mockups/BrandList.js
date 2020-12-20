@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, FlatList, ActivityIndicator } from 'react-native'
+import { Image, StyleSheet, FlatList } from 'react-native'
 import {View, Text, TouchableOpacity, Toast} from 'react-native-ui-lib';
 import Colors from "../Style/Colors";
 import NavBarBack from '../components/NavBarBack';
@@ -26,18 +26,13 @@ class BrandList extends React.PureComponent {
         this.abortController = new AbortController();
 	}
 	componentDidMount() {
-        this._isMounted = true;
-		FetchBrandFollowings(++this.Page, this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then(rows => {
-			if(this._isMounted) {
-				this.setState({
-					BrandList : rows.Brands,
-					Total : rows.Total,
-					Loading : false
-				})
-			}
-		}).catch((err) => {
-            console.log(err);
-		});
+        FetchBrandFollowings(++this.Page, this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then(rows => {
+			this.setState({
+				BrandList : rows.Brands,
+				Total : rows.Total,
+				Loading : false
+			})
+		}).catch(() => {});
 	}
 
 	renderCustomContent = () => {
@@ -54,14 +49,10 @@ class BrandList extends React.PureComponent {
     onEndReached = () => {
         if(this.state.BrandList.length < this.state.Total) {
             FetchBrandFollowings(++this.Page, this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then(resp => {
-                if(this._isMounted) {
-                    this.setState({
-                        BrandList : [...this.state.BrandList, ...resp.Brands],
-                    });
-                }
-            }).catch(() => {
-
-            })
+                this.setState({
+					BrandList : [...this.state.BrandList, ...resp.Brands],
+				});
+            }).catch(() => {})
         }
     }
 
