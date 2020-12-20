@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, FlatList } from 'react-native';
-import {View} from "react-native-ui-lib";
+import {StyleSheet, FlatList, Linking} from 'react-native';
+import {Colors, Text, TouchableOpacity, View} from "react-native-ui-lib";
 import UpperComponent from '../Components/UpperComponent'
 import NavBarBack from "../../../components/NavBarBack";
 import WebView from "react-native-webview";
 import Models from '../../../assets/3DModels';
+import {CallIcon} from "../../../Icons/CallIcon";
 
 export default class NewScreen extends Component {
 
@@ -16,7 +17,7 @@ export default class NewScreen extends Component {
         }
 
         this.Category = this.props.route.params.Category
-    
+
         if(this.Category) {
             this.URL3DModelBase = `https://apitesting603.levyne.com/3D/${this.Category}/`;
             this.Model = Models[this.Category];
@@ -64,7 +65,13 @@ export default class NewScreen extends Component {
                 </View>
 
                 <WebView source={{ uri: this.URL3DModelBase + this.Model.items[this.state.upperSelected] }}/>
-
+                <TouchableOpacity
+                    style={{height:50, backgroundColor: Colors.primary}} center
+                    onPress={() => Linking.openURL('tel:+91 9819 077182')} row
+                >
+                    <CallIcon Size={18} Color={Colors.white}/>
+                    <Text h1 white marginL-20>Call us for product enquire</Text>
+                </TouchableOpacity>
             </>
         )
 

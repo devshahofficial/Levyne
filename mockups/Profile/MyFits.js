@@ -196,6 +196,7 @@ class MyFits extends Component {
                             </View>
                         */}
                         <SectionList
+                            showsVerticalScrollIndicator ={false}
                             sections={this.Fits}
                             keyExtractor={(item) => item}
                             renderItem={this.SectionListRenderItem}
