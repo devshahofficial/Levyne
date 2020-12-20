@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, FlatList, Linking} from 'react-native';
+import {StyleSheet, FlatList, Linking, SafeAreaView} from 'react-native';
 import {Colors, Text, TouchableOpacity, View} from "react-native-ui-lib";
 import UpperComponent from '../Components/UpperComponent'
 import NavBarBack from "../../../components/NavBarBack";
@@ -53,25 +53,27 @@ export default class NewScreen extends Component {
         return (
             <>
                 <NavBarBack Title={"Design 3D here!"} Navigation={this.goBack} />
-                <View>
-                    <FlatList
-                        showsHorizontalScrollIndicator={false}
-                        style={styles.FlatList}
-                        data={this.Model.items}
-                        horizontal={true}
-                        renderItem={this.renderItem}
-                        keyExtractor={item => item}
-                    />
-                </View>
+                <SafeAreaView style={{flex: 1}}>
+                    <View>
+                        <FlatList
+                            showsHorizontalScrollIndicator={false}
+                            style={styles.FlatList}
+                            data={this.Model.items}
+                            horizontal={true}
+                            renderItem={this.renderItem}
+                            keyExtractor={item => item}
+                        />
+                    </View>
 
-                <WebView source={{ uri: this.URL3DModelBase + this.Model.items[this.state.upperSelected] }}/>
-                <TouchableOpacity
-                    style={{height:50, backgroundColor: Colors.primary}} center
-                    onPress={() => Linking.openURL('tel:+91 9819 077182')} row
-                >
-                    <CallIcon Size={18} Color={Colors.white}/>
-                    <Text h1 white marginL-20>Call us for product enquire</Text>
-                </TouchableOpacity>
+                    <WebView source={{ uri: this.URL3DModelBase + this.Model.items[this.state.upperSelected] }}/>
+                    <TouchableOpacity
+                        style={{height:50, backgroundColor: Colors.primary}} center
+                        onPress={() => Linking.openURL('tel:+91 9819 077182')} row
+                    >
+                        <CallIcon Size={18} Color={Colors.white}/>
+                        <Text h1 white marginL-20>Call us for product enquire</Text>
+                    </TouchableOpacity>
+                </SafeAreaView>
             </>
         )
 

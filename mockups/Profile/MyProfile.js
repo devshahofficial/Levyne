@@ -26,12 +26,7 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     NavigateFits = () => {
-        this.props.navigation.navigate("MyFits", {
-            Fits: {
-                "Neck Round": 2,
-                "Chest Round": 3
-            }
-        });
+        this.props.navigation.navigate("MyFits");
     }
 
     NavigateOrders = () => {
@@ -42,7 +37,7 @@ class ProfileTopSection extends React.PureComponent {
         this.props.navigation.navigate("Help");
     }
 
-    NavigateTandC = () => {
+    NavigateTermsAndConditions = () => {
         this.props.navigation.navigate("TermsAndCondition");
     }
 
@@ -166,7 +161,7 @@ class ProfileTopSection extends React.PureComponent {
                     </TouchableOpacity>*/}
                     <TouchableOpacity
                         marginT-5
-                        onPress={this.NavigateTandC}
+                        onPress={this.NavigateTermsAndConditions}
                     >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
@@ -247,7 +242,7 @@ class ProfileTopSection extends React.PureComponent {
                     </TouchableOpacity>
                     <TouchableOpacity
                         marginT-5
-                        onPress={this.NavigateTandC}
+                        onPress={this.NavigateTermsAndConditions}
                     >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>

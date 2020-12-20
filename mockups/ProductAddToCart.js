@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, SafeAreaView } from 'react-native';
 import CstmShadowView from "../components/CstmShadowView";
 import {Text, View, Colors, Button, Checkbox, Toast} from "react-native-ui-lib";
 import FabricOrderContainer from "../components/FabricOrderContainer";
@@ -201,32 +201,34 @@ class AddToCartScreen extends React.PureComponent {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={"Choose the Fabric"}/>
-                <View flex>
-                    <FlatList
-                        ListHeaderComponent={this.headerFlatList}
-                        data={this.state.CustomFabric ? this.state.Fabrics : []}
-                        numColumns={2}
-                        ListEmptyComponent={this.FlatListLoader}
-                        showsVerticalScrollIndicator={false}
-                        renderItem={this.FlatListRenderItem}
-                        keyExtractor={item => item.FabricID}
-                        onEndReached={this.LoadMoreFabrics}
-                        onEndReachedThreshold={0.50}
-                        ListFooterComponent={this.footerFlatList}
-                    />
-                </View>
-                <View>
-                    <CstmShadowView style={{margin:15, marginBottom: 25}}>
-                        <Button onPress={this.AddProductToCart} label={"Add to Cart"}/>
-                    </CstmShadowView>
-                </View>
-                <Toast
-                    visible={this.state.showCustomToast}
-                    position={'bottom'}
-                    backgroundColor={Colors.primary}
-                >
-                    {this.renderCustomContent()}
-                </Toast>
+                <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
+                    <View flex>
+                        <FlatList
+                            ListHeaderComponent={this.headerFlatList}
+                            data={this.state.CustomFabric ? this.state.Fabrics : []}
+                            numColumns={2}
+                            ListEmptyComponent={this.FlatListLoader}
+                            showsVerticalScrollIndicator={false}
+                            renderItem={this.FlatListRenderItem}
+                            keyExtractor={item => item.FabricID}
+                            onEndReached={this.LoadMoreFabrics}
+                            onEndReachedThreshold={0.50}
+                            ListFooterComponent={this.footerFlatList}
+                        />
+                    </View>
+                    <View>
+                        <CstmShadowView style={{marginHorizontal:15}}>
+                            <Button flex onPress={this.AddProductToCart} label={"Add to Cart"}/>
+                        </CstmShadowView>
+                    </View>
+                    <Toast
+                        visible={this.state.showCustomToast}
+                        position={'bottom'}
+                        backgroundColor={Colors.primary}
+                    >
+                        {this.renderCustomContent()}
+                    </Toast>
+                </SafeAreaView>
             </>
         )
     }
