@@ -12,6 +12,7 @@ import PushNotification from "react-native-push-notification";
 
 import './Style/Components';
 import './Style/Colors';
+import './Style/LoadTypography';
 import './assets/globals';
 import ReduxStore from './Redux/ReduxStore';
 
