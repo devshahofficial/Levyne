@@ -11,9 +11,6 @@ export default FitsMale = [{
 }, {
 	Title: "Waist",
 	data: [
-		"Stomach Round",
-		"Waist Round",
-		"Hip Round",
 		"Waist to Hip Length",
 		"Waist to Below Croch Length",
 		"Waist to Above Knee",
@@ -33,12 +30,15 @@ export default FitsMale = [{
 	],
 	Image: "https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/Male%20Arms.png"
 }, {
-	Title: "Legs",
+	Title: "Bottom",
 	data: [
 		"Single Thigh Round",
 		"Above Knee Round",
 		"Ankle Round",
-		"Fork Length"
+		"Fork Length",
+		"Stomach Round",
+		"Waist Round",
+		"Hip Round",
 	],
 	Image: "https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/Male%20Bottom.png"
 }]
