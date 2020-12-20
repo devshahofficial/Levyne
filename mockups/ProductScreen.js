@@ -27,6 +27,7 @@ class ProductScreen extends React.Component {
             EmbroideryModalVisible: false
         }
         this.abortController = new AbortController();
+        console.log(this.props.route.params);
     }
 
     componentDidMount() {
@@ -38,9 +39,7 @@ class ProductScreen extends React.Component {
                 ProductObject : resp,
                 loading : false
             })
-        }).catch(() => {
-            
-        })
+        }).catch(() => {})
     }
 
     componentWillUnmount() {
@@ -93,10 +92,18 @@ class ProductScreen extends React.Component {
         this.props.navigation.navigate("Login");
     }
 
+    NavBarBackNavigation = () => {
+        if(this.props.route.params.onBackHome) {
+            this.props.navigation.navigate('Home');
+        } else {
+            this.props.navigation.goBack();
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
-                <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Product' : this.state.ProductObject.Name}/>
+                <NavBarBack Navigation={this.NavBarBackNavigation} Title={this.state.loading ? 'Product' : this.state.ProductObject.Name}/>
                 {!this.state.loading && this.state.success ?
                     <>
                         <ImageView
