@@ -7,7 +7,7 @@ import VerifyOTP from '../API/OTP';
 import {generateOTP} from '../API/Login';
 import {connect} from 'react-redux';
 import CstmShadowView from "../components/CstmShadowView";
-const PushNotification = require("react-native-push-notification");
+import PushNotification from "react-native-push-notification";
 import Loader from '../components/Loader';
 
 class OTPScreen extends React.Component {
