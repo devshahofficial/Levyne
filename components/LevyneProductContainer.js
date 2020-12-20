@@ -6,14 +6,7 @@ import CstmShadowView from "./CstmShadowView";
 
 const deviceWidth = Dimensions.get("window").width;
 
-export default class ProductScreenPartOne extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-
-        };
-    }
-
+export default class ProductScreenPartOne extends React.PureComponent {
 
     render() {
         return (

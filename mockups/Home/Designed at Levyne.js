@@ -68,6 +68,7 @@ export default class DesignedAtLevyne extends Component {
                                     NavigateDesign={this.NavigateDesign}
                                     DesignID={item.DesignID}
                                 />}
+                                extraData={{NavigateDesign}}
                                 keyExtractor={(item) => item.DesignCode}
                                 showsHorizontalScrollIndicator={false}
                                 onEndReached={this.FlatListonEndReached}
