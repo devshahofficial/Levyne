@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import {Button, Colors} from "react-native-ui-lib";
 import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
 

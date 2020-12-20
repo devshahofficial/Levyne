@@ -85,7 +85,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                     ProfileImage : json.ProfileImage,
                     Address : json.Address,
                     PinCode : json.PinCode,
-                    Gender : parseInt(json.Gender),
+                    Gender : json.Gender,
                     ProfileStatus: 2
                 });
 

@@ -17,7 +17,14 @@ class MyFits extends Component {
     constructor(props) {
         super(props);
 
-        switch(this.props.Gender) {
+        this.Fits = [{
+            data: [],
+            Title: '',
+            Image: ''
+        }];
+
+
+        switch(+this.props.Gender) {
             case 0 :
                 this.Fits = FitsFemale;
                 break;
@@ -26,7 +33,6 @@ class MyFits extends Component {
                 break;
             default :
                 this.ProfileNotCompleted = true;
-                this.Fits = {}
         }
 
         this.abortController = new AbortController();
@@ -47,7 +53,7 @@ class MyFits extends Component {
     }
 
     componentDidMount = () => {
-        FetchFitsAndSizes(this.props.AccessToken).then(Fits => {
+        FetchFitsAndSizes(this.props.AccessToken, this.abortController.signal).then(Fits => {
 
             Fits.forEach(item => {
                 this.state[item.Key] = item.Value;
@@ -186,15 +192,6 @@ class MyFits extends Component {
                         {this.renderCustomContent()}
                     </Toast>
                     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                        {/*
-                            <View row centerV paddingH-10>
-                                <CstmShadowView style={styles.Submit}>
-                                    <TouchableOpacity onPress={this.SubmitForm} flex center style={{borderRadius: 20}}>
-                                        <RightIcon size={20} Color={Colors.primary}/>
-                                    </TouchableOpacity>
-                                </CstmShadowView>
-                            </View>
-                        */}
                         <SectionList
                             showsVerticalScrollIndicator ={false}
                             sections={this.Fits}

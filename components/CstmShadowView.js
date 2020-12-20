@@ -21,7 +21,6 @@ export default class CstmShadowView extends React.PureComponent {
 const styles = StyleSheet.create({
     ShadowView: {
         borderRadius: 100,
-        paddingTop:Platform.OS === 'ios' ? 5:0,
         marginTop:15,
         height:50,
         shadowColor: Colors.shadow,
