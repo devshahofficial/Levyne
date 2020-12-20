@@ -4,7 +4,7 @@ import {View} from 'react-native-ui-lib';
 import ProductBySearch from '../../API/ProductsBySearch';
 import BrandBySearch from '../../API/BrandBySearch';
 import {connect} from 'react-redux';
-import {Colors} from 'react-native-ui-lib';
+import Colors from '../../Style/Colors';
 import { TabView, TabBar } from 'react-native-tab-view';
 import ProductSearch from './ProductSearch';
 import BrandSearch from './BrandSearch';

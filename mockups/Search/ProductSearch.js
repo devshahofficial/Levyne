@@ -2,7 +2,6 @@ import React from 'react';
 import {Animated, StyleSheet} from 'react-native';
 import {View,TouchableOpacity,Text} from 'react-native-ui-lib';
 import ProductItemContainer from "../../components/ProductItemContainer";
-import colors from "../../assets/colors";
 import Colors from '../../Style/Colors';
 import PickerModal from "../../components/PickerModal";
 //import {FilterIcon} from "../../Icons/FilterIcon";
@@ -152,12 +151,12 @@ const styles = StyleSheet.create({
     Search: {
         width: 370,
         borderRadius: 40,
-        borderColor: colors.trivisionWhite,
-        backgroundColor: colors.trivisionWhite
+        borderColor: Colors.white,
+        backgroundColor: Colors.white
     },
     searchRow: {
         flex:1,
-        backgroundColor: colors.trivisionWhite
+        backgroundColor: Colors.white
     },
     Input: {
         borderRadius: 30,
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
     },
     inputText: {
         fontSize: 12,
-        color: colors.trivisionBlack,
+        color: Colors.black,
         textAlign: 'center',
     },
     flatlist: {
