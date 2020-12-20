@@ -254,13 +254,6 @@ class ProfileTopSection extends React.PureComponent {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <CstmShadowView style={{marginTop:40,marginBottom:20}}>
-                    <Button
-                        onPress={this.LogoutOnPress}
-                        hb1 flex
-                        label="Log Out"
-                    />
-                </CstmShadowView>
                 <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
             </View>
         )
