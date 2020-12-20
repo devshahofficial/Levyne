@@ -1,10 +1,9 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
 import Logo from '../assets/images/Logo.svg';
 import {AuthCheck} from '../API/index';
 import {connect} from 'react-redux';
 import { Colors } from 'react-native-ui-lib';
-
 
 class IndexScreen extends React.Component {
 
@@ -13,19 +12,59 @@ class IndexScreen extends React.Component {
 		const {setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart} = this.props;
 
 
-		AuthCheck(setAuth, setProfile, setSocket,  setChatList, MarkBucketAsUnRead, setIsAnyProductInCart).then( value => {
-			if(value === 'Home')
+		AuthCheck(setAuth, setProfile, setSocket,  setChatList, MarkBucketAsUnRead, setIsAnyProductInCart).then( NavigateScreen => {
+
+			Linking.getInitialURL().then(url => this.HandleLinkingInitialURL(url, NavigateScreen)).catch(() => {});
+			
+		}).catch(() => {
+			this.props.navigation.navigate('Login');
+		});
+		
+		Linking.addEventListener('url', this.handleOpenURL);
+	}
+
+	componentWillUnmount = () => {
+		Linking.removeEventListener('url', this.handleOpenURL);
+	}
+
+	handleOpenURL = (url) => {
+		if(url) {
+			const Paths = (new URL(url)).pathname.split('/');
+			if(Paths.length === 3) {
+				switch(Paths[1]) {
+					case 'p', 'P' :
+						const ProductID = parseInt(Paths[2])
+						if(ProductID) {
+							this.props.navigation.push('Product', {ProductID})
+							return true;
+						}
+					case 'd', 'D' :
+						const DesignID = parseInt(Paths[2])
+						if(DesignID) {
+							this.props.navigation.push('ProductDetailsPage', {DesignID})
+							return true;
+						}
+				}
+			}
+		}
+		return false;
+	}
+
+	HandleLinkingInitialURL = (url, NavigateScreen) => {
+		
+		if(!this.handleOpenURL(url)) {
+			if(NavigateScreen === 'Home')
 			{
 				this.props.navigation.navigate('MainHomeStack', { screen: 'Home' });
 			}
 			else
 			{
-				this.props.navigation.navigate(value);
+				this.props.navigation.navigate(NavigateScreen);
 			}
-		}).catch(() => {
-			this.props.navigation.navigate('Login');
-        });
+		}
+		
 	}
+
 	render() {
 		return (
 			<>
