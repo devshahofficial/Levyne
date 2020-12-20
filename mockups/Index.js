@@ -15,6 +15,12 @@ class IndexScreen extends React.Component {
 
 		AuthCheck(setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart).then(NavigateScreen => {
 
+			if(global.NotificationObject) {
+				//Handle Notification Object and Navigate accordingly
+				delete global.NotificationObject;
+				return;
+			}
+
 			Linking.getInitialURL().then(url => this.HandleLinkingInitialURL(url, NavigateScreen)).catch(() => { });
 
 		}).catch(() => {

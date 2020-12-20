@@ -8,7 +8,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {ConnectionStatusBar} from 'react-native-ui-lib';
 
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
-const PushNotification = require("react-native-push-notification");
+import PushNotification from "react-native-push-notification";
 
 import './Style/Components';
 import './Style/Colors';
@@ -31,9 +31,13 @@ const MyStatusBar = ({backgroundColor, ...props}) => (
 	</View>
 );
 
+
 PushNotification.configure({
 
 	onNotification: (notification) => {
+
+		global.NotificationObject = notification.data;
+
 		notification.finish(PushNotificationIOS.FetchResult.NoData);
 	},
 
