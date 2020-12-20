@@ -1,5 +1,5 @@
 import React from 'react';
-import {BackHandler, Animated, ScrollView, FlatList} from 'react-native';
+import {BackHandler, Animated, ScrollView, FlatList, Linking} from 'react-native';
 import {View, Colors, Text, ConnectionStatusBar, Toast} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
@@ -16,6 +16,7 @@ import timeAgo from '../../API/timeAgo';
 import FetchChatBuckets from '../../API/FetchChatBuckets';
 import Recent15Brands from '../../API/Recent15Brands';
 import PopularBrands from "../../components/PopularBrands";
+import { CommonActions } from '@react-navigation/native';
 
 
 class HomeScreen extends React.Component {
@@ -73,9 +74,72 @@ class HomeScreen extends React.Component {
 		}
     }
 
+    /**
+	 * 
+	 * @param {{url: string}} param0 
+	 */
+	handleOpenURL = ({ url }) => {
+		if (url && url.includes('https://collections.levyne.com')) {
+
+			const Paths = url.replace('https://collections.levyne.com', '').split('/');
+			if (Paths.length === 3) {
+				switch (Paths[1]) {
+					case 'p':
+					case 'P':
+						const ProductID = parseInt(Paths[2]);
+						if (ProductID) {
+
+							this.props.navigation.dispatch(
+								CommonActions.reset({
+									index: 1,
+									routes: [
+										{
+											name: 'MainHomeStack',
+											state: {
+												routes: [
+													{ name: 'Home' },
+													{ name: 'Product', params: { ProductID } },
+												],
+												index: 1,
+											}
+										},
+									]
+								})
+							);
+						}
+					case 'd':
+					case 'D':
+						const DesignID = parseInt(Paths[2])
+						if (DesignID) {
+
+							this.props.navigation.dispatch(
+								CommonActions.reset({
+									index: 1,
+									routes: [
+										{
+											name: 'MainHomeStack',
+											state: {
+												routes: [
+													{ name: 'Home' },
+													{ name: 'ProductDetailsPage', params: { DesignID } },
+												],
+												index: 1,
+											}
+										},
+									]
+								})
+							);
+						}
+				}
+			}
+		}
+	}
+
     componentDidMount() {
 
         BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
+
+        Linking.addEventListener('url', this.handleOpenURL);
 
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
             this.setState({StoryData})
@@ -111,6 +175,7 @@ class HomeScreen extends React.Component {
         clearTimeout(this.BackHandlerTimeOut);
         clearTimeout(this.timeout);
         this.abortController.abort();
+        Linking.removeEventListener('url', this.handleOpenURL);
     }
 
     navigateProductStory = () => {
