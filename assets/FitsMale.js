@@ -32,13 +32,15 @@ export default FitsMale = [{
 }, {
 	Title: "Bottom",
 	data: [
+		"Stomach Round",
+		"Waist Round",
+		"Hip Round",
 		"Single Thigh Round",
 		"Above Knee Round",
 		"Ankle Round",
 		"Fork Length",
 		"Stomach Round",
-		"Waist Round",
-		"Hip Round",
+		"Waist Round"
 	],
 	Image: "https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/Male%20Bottom.png"
 }]
