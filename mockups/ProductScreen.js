@@ -88,7 +88,7 @@ class ProductScreen extends React.Component {
     }
 
     NavigateLogin = () => {
-        this.props.navigation.navigate("Login");
+        this.props.navigation.push("Auth", {screen: 'Login'});
     }
 
     NavBarBackNavigation = () => {

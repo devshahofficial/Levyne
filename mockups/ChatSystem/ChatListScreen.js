@@ -71,7 +71,7 @@ class ConversationListScreen extends Component {
     }
 
     NavigateLogin = () => {
-        this.props.navigation.navigate("Login");
+        this.props.navigation.push("Auth", {screen: 'Login'});
     }
 
     keyExtractor = (item) => item.BucketID.toString() + '-' + item.unread.toString();

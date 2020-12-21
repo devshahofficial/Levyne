@@ -50,7 +50,7 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     NavigateLogin = () => {
-        this.props.navigation.navigate("Login");
+        this.props.navigation.push("Auth", {screen: 'Login'});
     }
 
     LogoutOnPress = () => {
