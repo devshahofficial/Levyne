@@ -106,7 +106,8 @@ class HomeScreen extends React.Component {
 									]
 								})
 							);
-						}
+                        }
+                        break;
 					case 'd':
 					case 'D':
 						const DesignID = parseInt(Paths[2])
@@ -129,7 +130,8 @@ class HomeScreen extends React.Component {
 									]
 								})
 							);
-						}
+                        }
+                        break;
 				}
 			}
 		}
