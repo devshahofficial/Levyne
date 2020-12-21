@@ -32,11 +32,11 @@ const windowHeight = Dimensions.get('window').height;
  **/
 
 // The actual chat view itself- a ScrollView of BubbleMessages, with an InputBar at the bottom, which moves with the keyboard
-class ChatScreen extends Component {
+class ChatScreenIos extends Component {
 
-	constructor(props) {
-		super(props)
-		this.state = {
+    constructor(props) {
+        super(props)
+        this.state = {
             Messages: [],
             LoadingMessages: true,
             ImageToDisplay: [],
@@ -52,7 +52,7 @@ class ChatScreen extends Component {
         this.props.Socket.on('ChatMessage', this.SocketListener);
         this.TimeOutArray = [];
         this.NewChatLoading = true;
-	}
+    }
 
     SocketListener = (Message) => {
         if(Message.BucketID === this.props.route.params.BucketID) {
@@ -298,98 +298,87 @@ class ChatScreen extends Component {
         this.setState({TextInput: '', TextInputKey: Math.random()});
     }
 
-	render() {
-	    return (
+    render() {
+        return (
             <SafeAreaView style={styles.container}>
-                <KeyboardAvoidingView
-                    behavior={ Platform.OS === 'ios' ? 'padding' : 'height' }
-                    style={ { flex: 1 } }
-                    keyboardVerticalOffset={
-                        Platform.select({
-                           ios: () => 30,
-                           android: () => 200
-                        })()
-                    }
+                <ImageView
+                    images={[this.state.ImageToDisplay]}
+                    visible={this.state.ModalVisible}
+                    onRequestClose={this.CloseModal}
+                />
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.ImagePickerModalVisible}
                 >
-                    <ImageView
-                        images={[this.state.ImageToDisplay]}
-                        visible={this.state.ModalVisible}
-                        onRequestClose={this.CloseModal}
+                    <CstmShadowView style={styles.Modal}>
+                        <View flex row centerV marginT-10>
+                            <Text flex-9 h1 secondary center>Choose Medium to Upload:</Text>
+                            <TouchableOpacity
+                                flex
+                                onPress={this.ImagePickerModalSwitchVisibility}
+                            >
+                                <Text primary hb1>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View row flex-5 marginH-30>
+                            <TouchableOpacity flex center onPress={this.ShowGallery}>
+                                <GalleryIcon size={28} Color={Colors.primary}/>
+                                <Text h3 secondary marginT-10>Gallery</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity flex center onPress={this.ShowCamera}>
+                                <CameraIcon size={32} Color={Colors.primary}/>
+                                <Text h3 secondary marginT-10>Camera</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </CstmShadowView>
+                </Modal>
+                <ChatHeader
+                    {...this.props.route.params}
+                    BucketInfo={this.state.BucketInfo}
+                    NavigateBack={this.NavigateBack}
+                    NavigateBrandProfile={this.NavigateBrandProfile}
+                    NavigateBucket={this.NavigateBucket}
+                />
+                {this.state.LoadingMessages ? <LoaderScreen /> :
+                    <FlatList
+                        data = {this.state.Messages}
+                        inverted={true}
+                        renderItem = {({item}) => {
+                            switch(item.Message.Type) {
+                                case 1 :
+                                    return item.Message.Sender ?
+                                        <this.RightText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                        :
+                                        <this.LeftText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                case 2 :
+                                    return item.Message.Sender ?
+                                        <this.RightImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                        :
+                                        <this.LeftImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                case 3 :
+                                    return <this.CenterText TextInput={'Brand has decided the price'}/>
+                                case 4 :
+                                    return <this.CenterText TextInput={'You added the product in the cart'}/>
+                                case 5 :
+                                    return <this.CenterText TextInput={'You removed the product from the cart'}/>
+                                case 6 :
+                                    return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
+                                case 7 :
+                                    return <this.CenterText TextInput={'You placed an order'}/>
+                            }
+                        }}
+                        keyExtractor = {this.keyExtractor}
+                        onEndReached = {this.ChatOnEndReached}
                     />
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={this.state.ImagePickerModalVisible}
-                    >
-                        <CstmShadowView style={styles.Modal}>
-                            <View flex row centerV marginT-10>
-                                <Text flex-9 h1 secondary center>Choose Medium to Upload:</Text>
-                                <TouchableOpacity
-                                    flex
-                                    onPress={this.ImagePickerModalSwitchVisibility}
-                                >
-                                    <Text primary hb1>X</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View row flex-5 marginH-30>
-                                <TouchableOpacity flex center onPress={this.ShowGallery}>
-                                    <GalleryIcon size={28} Color={Colors.primary}/>
-                                    <Text h3 secondary marginT-10>Gallery</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity flex center onPress={this.ShowCamera}>
-                                    <CameraIcon size={32} Color={Colors.primary}/>
-                                    <Text h3 secondary marginT-10>Camera</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </CstmShadowView>
-                    </Modal>
-                    <ChatHeader
-                        {...this.props.route.params}
-                        BucketInfo={this.state.BucketInfo}
-                        NavigateBack={this.NavigateBack}
-                        NavigateBrandProfile={this.NavigateBrandProfile}
-                        NavigateBucket={this.NavigateBucket}
-                    />
-                    {this.state.LoadingMessages ? <LoaderScreen /> :
-                        <FlatList
-                            data = {this.state.Messages}
-                            inverted={true}
-                            renderItem = {({item}) => {
-                                switch(item.Message.Type) {
-                                    case 1 :
-                                        return item.Message.Sender ?
-                                            <this.RightText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
-                                            :
-                                            <this.LeftText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
-                                    case 2 :
-                                        return item.Message.Sender ?
-                                            <this.RightImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
-                                            :
-                                            <this.LeftImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
-                                    case 3 :
-                                        return <this.CenterText TextInput={'Brand has decided the price'}/>
-                                    case 4 :
-                                        return <this.CenterText TextInput={'You added the product in the cart'}/>
-                                    case 5 :
-                                        return <this.CenterText TextInput={'You removed the product from the cart'}/>
-                                    case 6 :
-                                        return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
-                                    case 7 :
-                                        return <this.CenterText TextInput={'You placed an order'}/>
-                                }
-                            }}
-                            keyExtractor = {this.keyExtractor}
-                            onEndReached = {this.ChatOnEndReached}
-                        />
-                    }
-                    <ChatInputBar
-                        DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
-                        SendMessage = {this.SendMessage}
-                        value = {this.state.InputText}
-                        onChangeText={this.onChangeTextInput}
-                        TextInputKey={this.state.TextInputKey}
-                    />
-                </KeyboardAvoidingView>
+                }
+                <ChatInputBar
+                    DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
+                    SendMessage = {this.SendMessage}
+                    value = {this.state.InputText}
+                    onChangeText={this.onChangeTextInput}
+                    TextInputKey={this.state.TextInputKey}
+                />
             </SafeAreaView>
         )
     }
@@ -438,4 +427,4 @@ const mapsStateToProps = state => ({
     UserID: state.Auth.UserID
 });
 
-export default connect(mapsStateToProps)(ChatScreen);
+export default connect(mapsStateToProps)(ChatScreenIos);
