@@ -220,7 +220,9 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={this.NavigateHelp}
+                    >
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 Help Center
@@ -230,7 +232,7 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity marginT-5 onPress={this.NavigateFAQs}>
+                    {/*<TouchableOpacity marginT-5 onPress={this.NavigateFAQs}>
                         <View centerV style={styles.Tab}>
                             <Text secondary hb1>
                                 FAQs
@@ -239,7 +241,7 @@ class ProfileTopSection extends React.PureComponent {
                                 Frequently asked questions.
                             </Text>
                         </View>
-                    </TouchableOpacity>
+                    </TouchableOpacity>*/}
                     <TouchableOpacity
                         marginT-5
                         onPress={this.NavigateTermsAndConditions}
