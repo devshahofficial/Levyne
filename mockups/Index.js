@@ -49,6 +49,15 @@ class IndexScreen extends React.Component {
 									index: 1,
 									routes: [
 										{
+											name: 'Auth',
+											state: {
+												routes: [
+													{ name: 'Login' }
+												],
+												index: 1,
+											}
+										},
+										{
 											name: 'MainHomeStack',
 											state: {
 												routes: [
@@ -74,6 +83,15 @@ class IndexScreen extends React.Component {
 									index: 1,
 									routes: [
 										{
+											name: 'Auth',
+											state: {
+												routes: [
+													{ name: 'Login' }
+												],
+												index: 1,
+											}
+										},
+										{
 											name: 'MainHomeStack',
 											state: {
 												routes: [
@@ -98,15 +116,24 @@ class IndexScreen extends React.Component {
 	HandleLinkingInitialURL = (url, NavigateScreen) => {
 
 		if (!this.handleOpenURL({ url })) {
-			if (NavigateScreen === 'Home') {
+			if (NavigateScreen === 'MainHomeStack') {
 
 				this.props.navigation.dispatch(
 					CommonActions.reset({
 						routes: [
 							{
+								name: 'Auth',
+								state: {
+									routes: [
+										{ name: 'Login' }
+									]
+								}
+							},
+							{
 								name: 'MainHomeStack',
 							},
-						]
+						],
+						index: 1
 					})
 				);
 			}
