@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
         paddingRight: 10,
         flex:1,
         flexDirection:"row",
-        alignItems:'flex-end'
+        alignItems:'flex-end',
+        paddingTop: Platform.OS === 'ios' ? 6 : undefined
     },
     ShadowViewButton:{
         height:50,
