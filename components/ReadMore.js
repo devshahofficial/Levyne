@@ -12,7 +12,7 @@ export class DescriptionCard extends React.PureComponent {
                     renderTruncatedFooter={this._renderTruncatedFooter}
                     renderRevealedFooter={this._renderRevealedFooter}
                 >
-                    <Text h2>
+                    <Text h1>
                         {this.props.CompleteDescription}
                     </Text>
                 </ReadMore>
@@ -22,7 +22,7 @@ export class DescriptionCard extends React.PureComponent {
 
     _renderTruncatedFooter = (handlePress) => {
         return (
-            <Text marginT-5 grey50 onPress={handlePress}>
+            <Text marginT-5 grey40 onPress={handlePress}>
                 Read more
             </Text>
         );
@@ -30,7 +30,7 @@ export class DescriptionCard extends React.PureComponent {
 
     _renderRevealedFooter = (handlePress) => {
         return (
-            <Text marginT-5 grey50 onPress={handlePress}>
+            <Text marginT-5 grey40 onPress={handlePress}>
                 Show less
             </Text>
         );
