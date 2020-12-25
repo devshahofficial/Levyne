@@ -7,9 +7,10 @@ import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
 import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
-import { Colors, AnimatedImage, TouchableOpacity } from "react-native-ui-lib";
+import { Colors, AnimatedImage, TouchableOpacity, Text, View} from "react-native-ui-lib";
 import ImageView from "react-native-image-viewing";
 import Loader from "../components/Loader";
+import {ShareIcon} from "../Icons/ShareIcon";
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -76,46 +77,55 @@ class FabricScreen extends React.Component {
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Fabric' : this.state.FabricObject.Name}/>
                 {!this.state.loading && this.state.success ?
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <ImageView
-                            images={[{uri: this.state.FabricObject.FabricImage}]}
-                            visible={this.state.ImageViewVisible}
-                            onRequestClose={this.ToggleImageView}
-                            imageIndex={0}
-                        />
-                        <TouchableOpacity onPress={this.ToggleImageView}>
-                            <AnimatedImage
-                                containerStyle={{backgroundColor: Colors.blue60, marginBottom: 20}}
-                                source={{uri: this.state.FabricObject.FabricImage}}
-                                loader={<ActivityIndicator />}
-                                style={{width:screenWidth,height:screenWidth}}
-                                animationDuration={300}
+                    <>
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <ImageView
+                                images={[{uri: this.state.FabricObject.FabricImage}]}
+                                visible={this.state.ImageViewVisible}
+                                onRequestClose={this.ToggleImageView}
+                                imageIndex={0}
                             />
+                            <TouchableOpacity onPress={this.ToggleImageView}>
+                                <AnimatedImage
+                                    containerStyle={{backgroundColor: Colors.blue60, marginBottom: 20}}
+                                    source={{uri: this.state.FabricObject.FabricImage}}
+                                    loader={<ActivityIndicator />}
+                                    style={{width:screenWidth,height:screenWidth}}
+                                    animationDuration={300}
+                                />
+                            </TouchableOpacity>
+                            <FabricScreenPartOne
+                                Title={this.state.FabricObject.Name}
+                                FabricPrice={this.state.FabricObject.FabricPrice}
+                                BrandID={this.state.FabricObject.BrandID}
+                                FabricRating={0}
+                                navigation={this.props.navigation}
+                                Styles={this.state.FabricObject.Styles || []}
+                                StyleIDs={this.state.FabricObject.StyleIDs || []}
+                                FabricID={this.state.FabricObject.FabricID}
+                                FabricWishlist={this.state.FabricObject.IsWishlist}
+                                BrandNavigation={this.BrandNavigation}
+                                ShortDescription={this.state.FabricObject.ShortDescription}
+                                AddToWishlistFn={this.AddToWishlistFn}
+                                RemoveFromWishlistFn={this.RemoveFromWishlistFn}
+                                NavigateLogin={this.NavigateLogin}
+                                Token={this.props.AccessToken}
+                                Dyeable={this.state.FabricObject.Dyeable}
+                            />
+                            <FabricScreenPartTwo
+                                LongDescription = {this.state.FabricObject.LongDescription}
+                                ColorFades = {this.state.FabricObject.ColorFades}
+                                shrinkable = {this.state.FabricObject.Shrinkable}
+                            />
+                        </ScrollView>
+                        <TouchableOpacity
+                            style={{height: 50, borderWidth: 1, borderColor:Colors.shadow}}
+                            center row
+                        >
+                            <Text h1 primary>Share</Text>
+                            <View marginL-10><ShareIcon size={25} Color={Colors.primary}/></View>
                         </TouchableOpacity>
-                        <FabricScreenPartOne
-                            Title={this.state.FabricObject.Name}
-                            FabricPrice={this.state.FabricObject.FabricPrice}
-                            BrandID={this.state.FabricObject.BrandID}
-                            FabricRating={0}
-                            navigation={this.props.navigation}
-                            Styles={this.state.FabricObject.Styles || []}
-                            StyleIDs={this.state.FabricObject.StyleIDs || []}
-                            FabricID={this.state.FabricObject.FabricID}
-                            FabricWishlist={this.state.FabricObject.IsWishlist}
-                            BrandNavigation={this.BrandNavigation}
-                            ShortDescription={this.state.FabricObject.ShortDescription}
-                            AddToWishlistFn={this.AddToWishlistFn}
-                            RemoveFromWishlistFn={this.RemoveFromWishlistFn}
-                            NavigateLogin={this.NavigateLogin}
-                            Token={this.props.AccessToken}
-                            Dyeable={this.state.FabricObject.Dyeable}
-                        />
-                        <FabricScreenPartTwo
-                            LongDescription = {this.state.FabricObject.LongDescription}
-                            ColorFades = {this.state.FabricObject.ColorFades}
-                            shrinkable = {this.state.FabricObject.Shrinkable}
-                        />
-                    </ScrollView>
+                    </>
                     :
                     <Loader />
                 }

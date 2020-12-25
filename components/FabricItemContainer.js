@@ -71,16 +71,6 @@ export default class FabricItemContainer extends React.Component {
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
                             <BookMarkIcon Fill={this.state.addToWishlist} Color={Colors.primary} size={25}/>
                         </TouchableOpacity>
-
-
-                    </View>
-                    <View row>
-                        <View marginL-10 flex>
-                            <View row>
-                                <Text marginT-2 h2 secondary>Price</Text>
-                                <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.FabricPrice}</Text>
-                            </View>
-                        </View>
                     </View>
                 </TouchableOpacity>
 
@@ -91,7 +81,7 @@ export default class FabricItemContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.40,
+        height: deviceHeight * 0.37,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,
