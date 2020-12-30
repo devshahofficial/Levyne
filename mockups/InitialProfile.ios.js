@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView,Modal, Dimensions, Platform, KeyboardAvoidingView} from 'react-native';
+import {StyleSheet, ScrollView,Modal, Dimensions, KeyboardAvoidingView} from 'react-native';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
 import EditProfileAPI from '../API/EditProfile';
@@ -66,7 +66,7 @@ class InitialProfile extends React.Component {
 
     handleImagePicker = (response) => {
         var Image = {
-            uri: Platform.OS === 'ios' ? 'file:///' + response.path : response.path,
+            uri: 'file:///' + response.path,
 			name: response.path.split('/').pop(),
             type: response.mime
         };
