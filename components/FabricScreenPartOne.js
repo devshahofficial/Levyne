@@ -22,7 +22,7 @@ export default class FabricScreenPartOne extends React.Component {
 
     onBookmarkPress = () => {
 
-        if(this.props.Token) { 
+        if(this.props.Token) {
             if(!this.state.FabricWishlist)
             {
                 this.props.AddToWishlistFn(this.props.FabricID, this.props.Token);
@@ -83,52 +83,24 @@ export default class FabricScreenPartOne extends React.Component {
     render() {
         return (
             <View flex primary marginL-15 marginR-15>
-                <Text b1 black marginV-3>
-                    {this.props.Title}
-                </Text>
-                {this.props.Dyeable ? <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
-                    <MachineWashIcon size={30} Color={Colors.black}/>
-                    <Text marginL-10 h2>Dry cleaning is recommended for the first wash!</Text>
-                </View> : <View></View>}
-                <View row>
-                    <View flex-7>
-                        <Text marginV-3 h1 secondary>
-                            {this.props.ShortDescription}
+                <View row marginV-5>
+                    <View flex-7 centerV>
+                        <Text b1 black>
+                            {this.props.Title}
                         </Text>
-                        <View row marginV-10>
-                            <View row marginR-15>
-                                <Stars BrandRating={Math.round(this.props.FabricRating)} />
-                            </View>
-                            <Text h2>
-                                {this.props.FabricRating} Ratings
-                            </Text>
-                        </View>
-                        <View row bottom>
-                            <Text b1 primary>₹{this.props.FabricPrice}</Text>    
-                        </View>
                     </View>
 
                     <View flex-end>
-                        <TouchableOpacity marginV-10 onPress={this.onBookmarkPress}>
+                        <TouchableOpacity flex centerV onPress={this.onBookmarkPress}>
                             <BookMarkIcon Fill={this.state.FabricWishlist} size={28} Color={Colors.primary}/>
-                        </TouchableOpacity>
-                        <TouchableOpacity marginV-10 onPress={this.onShare}>
-                            <ShareIcon size={24} Color={Colors.primary}/>
                         </TouchableOpacity>
                     </View>
                 </View>
 
-                {this.props.Styles && (
-					<View marginT-20>
-						<FlatList
-							data={this.props.Styles}
-							showsHorizontalScrollIndicator={false}
-							horizontal={true}
-							keyExtractor={(item, index) => item}
-							renderItem={this.StylesRenderItem}
-						/>
-					</View>
-				)}
+                <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
+                    <MachineWashIcon size={30} Color={Colors.black}/>
+                    <Text marginL-10 h2>Dry cleaning is recommended for the first wash!</Text>
+                </View>
             </View>
 
         );

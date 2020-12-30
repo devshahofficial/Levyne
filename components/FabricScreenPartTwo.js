@@ -66,41 +66,26 @@ export default class ProductScreenPartTwo extends React.PureComponent {
 
     render() {
         return (
-            <View marginT-30 marginH-15>
-                <View marginB-20 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
-                    <TimerIcon size={30} Color={Colors.black}/>
-                    <Text marginL-10 h2>Approximate Delivery within 5 days.</Text>
-                </View>
-
+            <View marginT-15 marginH-15>
                 <View>
                     <Text hb1>Fabric Description</Text>
                     <DescriptionCard CompleteDescription = {this.props.LongDescription}/>
-
-                    {
-                        this.props.shrinkable ?
-                            <View row marginV-10 bottom>
-                                <ShrinkIcon size={22} Color={Colors.secondary}/>
-                                <Text marginL-15>Fabric might shrink on first wash.</Text>
-                            </View> : <></>
-                    }
-
-                    {
-                        this.props.ColorFades ?
-                            <View row marginB-10 bottom>
-                                <HandWashIcon size={20} Color={Colors.secondary}/>
-                                <Text marginL-15>Fabric might lose colour on first wash.</Text>
-                            </View> : <></>
-                    }
                 </View>
 
-                <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
+                <View marginV-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     {
                         this.checkSwitch(1)
                     }
                 </View>
 
-                <View row marginT-20 bottom center style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
-                    <Text marginL-15>Terms and Conditions apply.</Text>
+                <View row marginT-10 marginB-10 bottom>
+                    <ShrinkIcon size={22} Color={Colors.secondary}/>
+                    <Text marginL-15>Fabric might shrink on first wash.</Text>
+                </View>
+
+                <View row marginB-20 bottom>
+                    <HandWashIcon size={20} Color={Colors.secondary}/>
+                    <Text marginL-15>Fabric might lose colour on first wash.</Text>
                 </View>
             </View>
 
