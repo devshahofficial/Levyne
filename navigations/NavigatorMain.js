@@ -15,7 +15,6 @@ import ProductScreen from '../mockups/ProductScreen';
 import {Colors} from "react-native-ui-lib";
 import {HomeIcon} from '../Icons/HomeIcon';
 import {ProfileIcon} from '../Icons/ProfileIcon';
-import SettingsScreen from '../mockups/SettingsScreen';
 import BookmarkProducts from '../mockups/Home/BookmarkProducts';
 import Help from '../mockups/Profile/Help';
 import FabricScreen from '../mockups/FabricScreen';
@@ -143,7 +142,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
 				<HomeStack.Screen name="SearchText" component={SearchText} />
-				<HomeStack.Screen name="Settings" component={SettingsScreen} />
 				<HomeStack.Screen name='Help' component={Help}/>
 				<HomeStack.Screen name='Bucket' component={Bucket}/>
 				<HomeStack.Screen name='MyFashionDesigners' component={MyFashionDesigners}/>
@@ -162,6 +160,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='BlogPost' component={BlogPost}/>
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
 				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
+				<HomeStack.Screen name='FabricInThreeD' component={FabricIn3D}/>
 			</HomeStack.Navigator>
 		)
 	}

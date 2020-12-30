@@ -15,7 +15,9 @@ class ProfileTopSection extends React.PureComponent {
         this.state = {
             ProfileCompleted: this.props.ProfileStatus === 2
         }
+        this.PressCount = 0;
     }
+    
 
     NavigateEditProfile = () => {
         this.props.navigation.navigate("EditProfile");
@@ -57,6 +59,14 @@ class ProfileTopSection extends React.PureComponent {
         Logout(this.props.AccessToken).then(() => {
             this.props.navigation.navigate('Login');
         }).catch(() => {})
+    }
+
+    NavigateFabricInThreeD = () => {
+        if(this.PressCount >= 5) {
+            this.props.navigation.navigate('FabricInThreeD')
+        } else {
+            this.PressCount++;
+        }
     }
 
     LoggedInScreen = () => {
@@ -179,7 +189,7 @@ class ProfileTopSection extends React.PureComponent {
                             label="Log Out"
                         />
                     </CstmShadowView>
-                    <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
+                    <Text onPress={this.NavigateFabricInThreeD} marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
                 </View>
             </View>
         )
@@ -256,7 +266,7 @@ class ProfileTopSection extends React.PureComponent {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <Text marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
+                <Text onPress={this.NavigateFabricInThreeD} marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
             </View>
         )
     }
