@@ -24,14 +24,10 @@ export default class NewScreen extends Component {
 
     TouchableOpacityOnPress = () => {
 
-        /*
-        
-        */
-
         ImagePicker.openPicker({
             writeTempFile: false,
-            width: 1024,
-            height: 1024,
+            width: 512,
+            height: 512,
             includeBase64: true,
             forceJpg: true
         }).then(resp => {
@@ -55,6 +51,9 @@ export default class NewScreen extends Component {
                         injectedJavaScriptBeforeContentLoaded={this.state.injectedJavaScript}
                         onMessage={console.log}
                         ref={this.RNWebview}
+                        originWhitelist={['*']}
+                        onError={console.log}
+                        renderError={console.log}
                     />
                     <TouchableOpacity
                         style={{height:50, backgroundColor: Colors.primary}} center
