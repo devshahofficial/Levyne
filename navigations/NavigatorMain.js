@@ -43,6 +43,7 @@ import {connect} from 'react-redux';
 import SearchText from "../mockups/Search/SearchText";
 import BlogPost from "../mockups/Home/BlogPost";
 import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
+import FabricIn3D from "../mockups/ThreeD/Mockups/FabricIn3DExp";
 import DesignedAtLevyne from "../mockups/Home/Designed at Levyne";
 
 
