@@ -1,24 +1,14 @@
 import React from 'react';
-import {StyleSheet, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 import {Colors, View, Text} from 'react-native-ui-lib';
 import {DescriptionCard} from "./ReadMore";
-import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
 import {HandWashIcon} from "../Icons/Secondary/HandWashIcon";
 import {ShrinkIcon} from "../Icons/Secondary/ShrinkIcon";
 
 export default class ProductScreenPartTwo extends React.PureComponent {
 
-    constructor(props){
-        super(props);
-        this.state = {
-            pressCounter: 0,
-            shrinkable: true,
-            dyeable: true,
-            colorfade: true
-        }
-    }
-
+    /*
     DryCleanWash = () => {
         return(
             <>
@@ -64,6 +54,8 @@ export default class ProductScreenPartTwo extends React.PureComponent {
         }
     }
 
+    */
+
     render() {
         return (
             <View marginT-15 marginH-15>
@@ -73,9 +65,8 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                 </View>
 
                 <View marginV-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
-                    {
-                        this.checkSwitch(1)
-                    }
+                    <MachineWashIcon size={30} Color={Colors.black}/>
+                    <Text marginL-10 h2>Machine wash is recommended!</Text>
                 </View>
 
                 <View row marginT-10 marginB-10 bottom>
@@ -93,11 +84,3 @@ export default class ProductScreenPartTwo extends React.PureComponent {
     }
 
 };
-
-const styles = StyleSheet.create({
-    Tags: {
-        height: 40,
-        borderRadius:50,
-        paddingVertical: 20
-    },
-})
