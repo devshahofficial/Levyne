@@ -37,23 +37,11 @@ class FabricScreen extends React.Component {
                 FabricObject : resp,
                 loading : false
             })
-        }).catch(err => {
-            console.log(err);
-            this.setState({
-                loading : false,
-                success : false
-            })
-        })
+        }).catch(() => {})
     }
 
     componentWillUnmount() {
         this.abortController.abort();
-    }
-
-    BrandNavigation = (OtherBrandID) => {
-        this.props.navigation.push('BrandProfile', {
-            BrandID : OtherBrandID,
-        });
     }
 
     ToggleImageView = () => {
@@ -96,27 +84,15 @@ class FabricScreen extends React.Component {
                             </TouchableOpacity>
                             <FabricScreenPartOne
                                 Title={this.state.FabricObject.Name}
-                                FabricPrice={this.state.FabricObject.FabricPrice}
-                                BrandID={this.state.FabricObject.BrandID}
-                                FabricRating={0}
-                                navigation={this.props.navigation}
-                                Styles={this.state.FabricObject.Styles || []}
-                                StyleIDs={this.state.FabricObject.StyleIDs || []}
                                 FabricID={this.state.FabricObject.FabricID}
                                 FabricWishlist={this.state.FabricObject.IsWishlist}
-                                BrandNavigation={this.BrandNavigation}
-                                ShortDescription={this.state.FabricObject.ShortDescription}
                                 AddToWishlistFn={this.AddToWishlistFn}
                                 RemoveFromWishlistFn={this.RemoveFromWishlistFn}
-                                NavigateLogin={this.NavigateLogin}
                                 Token={this.props.AccessToken}
                                 Dyeable={this.state.FabricObject.Dyeable}
+                                NavigateLogin={this.NavigateLogin}
                             />
-                            <FabricScreenPartTwo
-                                LongDescription = {this.state.FabricObject.LongDescription}
-                                ColorFades = {this.state.FabricObject.ColorFades}
-                                shrinkable = {this.state.FabricObject.Shrinkable}
-                            />
+                            <FabricScreenPartTwo LongDescription = {this.state.FabricObject.LongDescription}/>
                         </ScrollView>
                         <TouchableOpacity
                             style={{height: 50, borderWidth: 1, borderColor:Colors.shadow}}

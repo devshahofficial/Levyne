@@ -1,14 +1,10 @@
 import React from 'react';
-import {Dimensions, FlatList, StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
-import {ShareIcon} from "../Icons/ShareIcon";
 import BookMarkIcon from "../Icons/BookMarkIcon";
 import Colors from '../Style/Colors';
 import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
-import Stars from '../components/StarIconsComponent';
 
-
-const defaultColors = ["#ff99cc","#7ac1ff"];
 
 
 export default class FabricScreenPartOne extends React.Component {
@@ -42,21 +38,6 @@ export default class FabricScreenPartOne extends React.Component {
         }
     };
 
-    NavigateStyle = ({Index, Label}) => {
-		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 1, Index, Label}});
-	}
-
-    StylesRenderItem = ({item, index}) => (
-		<TouchableOpacity
-			centerV
-			style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}
-			onPress={() => this.NavigateStyle({Label: item, Index: this.props.StyleIDs[index]})}
-		>
-			<Text hb2 white>
-				{item}
-			</Text>
-		</TouchableOpacity>
-	);
 
     onShare = async () => {
         /*try {
@@ -106,12 +87,3 @@ export default class FabricScreenPartOne extends React.Component {
         );
     }
 };
-
-const styles = StyleSheet.create({
-    Tags: {
-        height: 40,
-        borderRadius:50,
-        paddingHorizontal: 20,
-        marginHorizontal: 6
-    },
-})

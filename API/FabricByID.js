@@ -1,6 +1,6 @@
 import {GET} from './CustomFetch';
 
-const FabricbyID = async (FabricID, Token, abortControllerSignal) => {
+const FabricByID = async (FabricID, Token, abortControllerSignal) => {
 
     return await GET('Fabrics/FetchByFabricID', {
         ReturnResponse: true,
@@ -10,4 +10,4 @@ const FabricbyID = async (FabricID, Token, abortControllerSignal) => {
 
 }
 
-export default FabricbyID; 
+export default FabricByID; 
