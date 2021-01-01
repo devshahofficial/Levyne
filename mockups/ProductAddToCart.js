@@ -3,7 +3,7 @@ import { FlatList, SafeAreaView } from 'react-native';
 import CstmShadowView from "../components/CstmShadowView";
 import {Text, View, Colors, Button, Checkbox, Toast} from "react-native-ui-lib";
 import FabricOrderContainer from "../components/FabricOrderContainer";
-import FetchFabricByBrandIDAndMaterials from '../API/FetchFabricByBrandIDAndMaterials';
+import FetchFabricByBrandID from '../API/FetchFabricByBrandID';
 import AddProductToCartAPI from '../API/AddProductToCart';
 import {connect} from 'react-redux';
 import NavBarBack from "../components/NavBarBack";
@@ -21,10 +21,10 @@ class AddToCartScreen extends React.PureComponent {
             FabricQuantity: 1,
             CustomFabric: false,
             CustomFabricOutsideList: false,
-            FabricOfProduct: true
+            FabricOfProduct: true,
+            FabricLoaded: false
         }
         this.FabricPage = 0;
-        this.FabricLoaded = false;
         this.FabricTotal = 0;
         this.abortController = new AbortController();
         this.Timeout = [];
@@ -34,15 +34,15 @@ class AddToCartScreen extends React.PureComponent {
 
         this.FabricPage = 0;
         if(!this.state.CustomFabric) {
-            if(!this.FabricLoaded) {
-                FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
+            if(!this.state.FabricLoaded) {
+                FetchFabricByBrandID(this.props.route.params.BrandID, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
                     this.setState({
                         Fabrics: resp.Fabrics,
+                        FabricLoaded: true
                     });
-                    this.FabricLoaded = true;
                     this.FabricTotal = resp.Total;
-                }).catch(() => {
-                    //console.log(err);
+                }).catch((err) => {
+                    console.log(err);
                 })
             }
         } else {
@@ -104,7 +104,7 @@ class AddToCartScreen extends React.PureComponent {
 
     LoadMoreFabrics = () => {
         if(this.FabricTotal > this.state.Fabrics.length) {
-            FetchFabricByBrandIDAndMaterials(this.props.route.params.BrandID, this.props.route.params.MaterialIDs, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
+            FetchFabricByBrandID(this.props.route.params.BrandID, ++this.FabricPage, this.props.AccessToken, this.abortController.signal).then(resp => {
                 this.setState({
                     Fabrics: [...this.state.Fabrics, ...resp.Fabrics]
                 });
@@ -190,12 +190,17 @@ class AddToCartScreen extends React.PureComponent {
         );
     };
 
-    FlatListLoader = () => (
-        this.state.CustomFabric ?
-            <Loader />
-            :
-            <View></View>
-    );
+    FlatListLoader = () => {
+        if(this.state.CustomFabric) {
+            if(this.state.FabricLoaded) {
+                return <View><Text secondary h1 marginH-10>Brand Don't have any Fabric in Collection.</Text></View>
+            } else {
+                return <Loader />
+            }
+        } else {
+            return <View></View>
+        }
+    };
 
     render() {
         return (
