@@ -4,9 +4,6 @@ import {View, Colors, Text, ConnectionStatusBar, Toast} from 'react-native-ui-li
 import {connect} from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
 import Category from "../../components/Category";
-import BlogContent from "../../components/BlogContent";
-import Stories from "../../components/Stories";
-import StoryModal from "../../components/StoryModal";
 import FetchStories from '../../API/FetchStories';
 import Recent15Products from '../../API/Recent15Products';
 import ProductItemContainer from "../../components/ProductItemContainer";
@@ -17,6 +14,8 @@ import FetchChatBuckets from '../../API/FetchChatBuckets';
 import Recent15Brands from '../../API/Recent15Brands';
 import PopularBrands from "../../components/PopularBrands";
 import { CommonActions } from '@react-navigation/native';
+import LevyneProductContainer from "../../components/LevyneProductContainer";
+import FetchDesignsByLevyne from "../../API/FetchDesignsByLevyne";
 
 
 class HomeScreen extends React.Component {
@@ -32,11 +31,16 @@ class HomeScreen extends React.Component {
             Recent15Brands: [],
             modalVisible: false,
             CurrentStory: null,
+            LevyneProducts: [],
+            Loading: true
         }
         this.backPressed = 0;
         this.abortController = new AbortController();
         this.props.Socket && this.props.Socket.on('ChatMessage', this.SocketListener);
         this.timeout = null;
+        this.Page = 0;
+        this.NewPageLoading = false;
+        this.NewProducts = true;
     };
 
     SocketListener = () => {
@@ -75,8 +79,8 @@ class HomeScreen extends React.Component {
     }
 
     /**
-	 * 
-	 * @param {{url: string}} param0 
+	 *
+	 * @param {{url: string}} param0
 	 */
 	handleOpenURL = ({ url }) => {
 		if (url && url.includes('https://collections.levyne.com')) {
@@ -170,6 +174,13 @@ class HomeScreen extends React.Component {
         }).catch(err => {
             console.log(err);
         });
+
+        FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
+            this.setState({
+                LevyneProducts,
+                Loading: false
+            });
+        }).catch(console.log);
 	}
 
 	componentWillUnmount() {
@@ -267,6 +278,25 @@ class HomeScreen extends React.Component {
         PutStoryAsRead(this.state.StoryData[index].ProductID, this.props.AccessToken).catch(() => {})
     }
 
+    NavigateDesign = (DesignID) => {
+        this.props.navigation.navigate('ProductDetailsPage', {DesignID})
+    }
+
+    FlatListonEndReached = () => {
+        if(!this.NewPageLoading && this.NewProducts) {
+            this.NewPageLoading = true;
+            FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
+                if(!LevyneProducts.length) {
+                    this.NewProducts = false;
+                } else {
+                    this.state.LevyneProducts.push(...LevyneProducts);
+                    this.setState({LevyneProducts: this.state.LevyneProducts});
+                    this.NewPageLoading = false;
+                }
+            }).catch(console.log);
+        }
+    }
+
     render() {
         return (
             <>
@@ -275,7 +305,7 @@ class HomeScreen extends React.Component {
                     navigateBookMark={this.navigateBookMark}
                     navigateCart={this.navigateCart}
                     navigateNotifications={this.navigateNotifications}
-                    navigateMenu={this.navigateMenu}
+                    // navigateMenu={this.navigateMenu}
                 />
                 <ConnectionStatusBar
                     useAbsolutePosition
@@ -293,10 +323,11 @@ class HomeScreen extends React.Component {
                         horizontal={true} style={{height:90, alignContent:"center"}}
                         showsHorizontalScrollIndicator={false}
                     >
-                        <Category title={'Men'} NavigateSearch={() => this.navigateSearch({Gender: 1, Type: 4, Label: 'Men'})} Image={"https://images.pexels.com/photos/1342609/pexels-photo-1342609.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
-                        <Category title={'Women'} NavigateSearch={() => this.navigateSearch({Gender: 0, Type: 4, Label: 'Women'})} Image={"https://images.pexels.com/photos/291762/pexels-photo-291762.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
-                        <Category title={'Fusion'} NavigateSearch={() => this.navigateSearch({Index: 14, Type: 1, Label: 'Fusion'})} Image={"https://images.pexels.com/photos/1078958/pexels-photo-1078958.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260"}/>
-                        <Category title={'Ethnic'} NavigateSearch={() => this.navigateSearch({Index: 0, Type: 1, Label: 'Ethnic'})} Image={"https://images.pexels.com/photos/2293102/pexels-photo-2293102.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"}/>
+                        <Category title={'Levyne'} NavigateSearch={() => this.props.navigation.navigate('DesignedAtLevyne')} Image={"https://d1g0sqy9wcgheg.cloudfront.net/NB0003%20(3).jpg"}/>
+                        <Category title={'Men'} NavigateSearch={() => this.navigateSearch({Gender: 1, Type: 4, Label: 'Men'})} Image={"https://d1g0sqy9wcgheg.cloudfront.net/SJ0001%20(1).jpg"}/>
+                        <Category title={'Women'} NavigateSearch={() => this.navigateSearch({Gender: 0, Type: 4, Label: 'Women'})} Image={"https://d1g0sqy9wcgheg.cloudfront.net/NP0010%20(2).jpg"}/>
+                        <Category title={'Fusion'} NavigateSearch={() => this.navigateSearch({Index: 14, Type: 1, Label: 'Fusion'})} Image={"https://d1g0sqy9wcgheg.cloudfront.net/HA0003%20(1).jpg"}/>
+                        <Category title={'Ethnic'} NavigateSearch={() => this.navigateSearch({Index: 0, Type: 1, Label: 'Ethnic'})} Image={"https://d1g0sqy9wcgheg.cloudfront.net/RS0017%20(1).jpg"}/>
                     </ScrollView>
                 </Animated.View>
 
@@ -306,57 +337,45 @@ class HomeScreen extends React.Component {
                     bounces={false}
                     onScroll={Animated.event([{nativeEvent:{contentOffset:{y:this.scrollY}}}], {useNativeDriver: true})}
                 >
-                    {Number.isFinite(this.state.CurrentStory) &&
-                        <StoryModal
-                            modalVisible={this.state.modalVisible}
-                            setModalVisible={this.setModalVisible}
-                            navigateProduct={this.navigateProductStory}
-                            StoryItem={this.state.StoryData[this.state.CurrentStory]}
-                            setDeleteModalVisible={this.setDeleteModalVisible}
-                            NavigateBrand={this.navigateBrandStory}
-                            ChangeStoryIndex={this.ChangeStoryIndex}
-                        />
-                    }
-
-                    <View marginT-100>
-                        <Text b1 secondary marginL-20 marginB-10>
-                            Sensations From Levyne
-                        </Text>
+                    <View marginT-120>
+                        <View row paddingH-20>
+                            <Text b1 secondary flex>Fresh in Men</Text>
+                        </View>
                         <FlatList
-                            data={this.state.StoryData}
                             horizontal={true}
-                            renderItem={({item, index}) => {
-                                return <Stories
-                                    ProfileImage={{uri: item.BrandProfileImage}}
-                                    ReadStory={() => this.ReadStory(index)}
-                                    UnRead={item.UnRead}
-                                />
-                            }}
-                            keyExtractor={(item) => item.ProductID.toString()}
+                            data={this.state.LevyneProducts}
+                            contentContainerStyle={{backgroundColor: 'white'}}
+                            renderItem={({item}) => <LevyneProductContainer
+                                Image={item.PrimaryImage}
+                                Name={"#" + item.DesignCode}
+                                NavigateDesign={this.NavigateDesign}
+                                DesignID={item.DesignID}
+                            />}
+                            extraData={{NavigateDesign: this.NavigateDesign}}
+                            keyExtractor={(item) => item.DesignCode}
                             showsHorizontalScrollIndicator={false}
+                            onEndReached={this.FlatListonEndReached}
                         />
                     </View>
 
                     <View marginT-30>
                         <View row paddingH-20>
-                            <Text b1 secondary flex>Blogs</Text>
-                            <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
+                            <Text b1 secondary flex>Fresh in Women</Text>
                         </View>
                         <FlatList
-                            data={this.state.BlogPosts}
                             horizontal={true}
-                            renderItem={({ item }) => {
-                                return <BlogContent
-                                    Navigation={this.navigateBlog}
-                                    Headline={item.Title}
-                                    Image={item.Image}
-                                    Timestamp={item.Timestamp}
-                                    ImageBig={item.ImageBig}
-                                    PostID={item.BlogID}
-                                />
-                            }}
-                            keyExtractor={(item, index) => index.toString()}
+                            data={this.state.LevyneProducts}
+                            contentContainerStyle={{backgroundColor: 'white'}}
+                            renderItem={({item}) => <LevyneProductContainer
+                                Image={item.PrimaryImage}
+                                Name={"#" + item.DesignCode}
+                                NavigateDesign={this.NavigateDesign}
+                                DesignID={item.DesignID}
+                            />}
+                            extraData={{NavigateDesign: this.NavigateDesign}}
+                            keyExtractor={(item) => item.DesignCode}
                             showsHorizontalScrollIndicator={false}
+                            onEndReached={this.FlatListonEndReached}
                         />
                     </View>
 
@@ -381,9 +400,10 @@ class HomeScreen extends React.Component {
                             showsHorizontalScrollIndicator={false}
                         />
                     </View>
+
                     <View marginT-30>
                         <View row paddingH-20>
-                            <Text b1 secondary flex>Recent Brands</Text>
+                            <Text b1 secondary flex>Brands</Text>
                         </View>
                         <FlatList
                             horizontal={true}

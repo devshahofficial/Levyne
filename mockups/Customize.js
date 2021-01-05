@@ -4,11 +4,56 @@ import {View, Text, TouchableOpacity, Image, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import TextNavBar from '../components/TextNavBar';
 import Models from '../assets/3DModels';
-import LevyneDesignIllustration from '../assets/images/AppImages/LevyneDesign.svg';
+import FetchDesignsByLevyne from "../API/FetchDesignsByLevyne";
+import Loader from "../components/Loader";
+import LevyneProductContainer from "../components/LevyneProductContainer";
 
 const windowWidth = Dimensions.get('window').width;
 
 class Customize extends React.Component {
+
+    state = {
+        LevyneProducts: [],
+        Loading: true
+    }
+
+    Page = 0;
+    NewPageLoading = false;
+    NewProducts = true;
+
+    abortController = new AbortController();
+
+    componentDidMount = () => {
+        FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
+            this.setState({
+                LevyneProducts,
+                Loading: false
+            });
+        }).catch(console.log);
+    }
+
+    componentWillUnmount = () => {
+        this.abortController.abort();
+    }
+
+    NavigateDesign = (DesignID) => {
+        this.props.navigation.navigate('ProductDetailsPage', {DesignID})
+    }
+
+    FlatListonEndReached = () => {
+        if(!this.NewPageLoading && this.NewProducts) {
+            this.NewPageLoading = true;
+            FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
+                if(!LevyneProducts.length) {
+                    this.NewProducts = false;
+                } else {
+                    this.state.LevyneProducts.push(...LevyneProducts);
+                    this.setState({LevyneProducts: this.state.LevyneProducts});
+                    this.NewPageLoading = false;
+                }
+            }).catch(console.log);
+        }
+    }
 
     imgWidth = Dimensions.get('window').width - 40;
     imgHeight = 80*(Dimensions.get('window').width - 40)/335;
@@ -37,30 +82,47 @@ class Customize extends React.Component {
         </TouchableOpacity>
     )
 
+    renderHeader = () => (
+        <>
+            <Text marginL-15 marginV-10 secondary hb1>3D by Levyne</Text>
+            <View center>
+                <FlatList
+                    data={this.ModelKeys}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    renderItem = {this.headerContainerRender}
+                    keyExtractor={(item) => item}
+                />
+            </View>
+            <Text marginL-15 marginT-30 secondary hb1>Designs by Levyne</Text>
+        </>
+    )
 
     render() {
         return (
             <>
                 <TextNavBar Title={'Customize on Levyne'}/>
-                <ScrollView
-                    style={{backgroundColor: Colors.white}}
-                    contentContainerStyle={{flex:1}}
-                >
-                    <Text marginL-15 marginV-10 secondary hb1>3D by Levyne</Text>
-                    <View center>
+                {this.state.Loading ? <Loader /> :
+                    <>
                         <FlatList
-                            data={this.ModelKeys}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            renderItem = {this.headerContainerRender}
-                            keyExtractor={(item) => item}
+                            ListHeaderComponent={this.renderHeader}
+                            data={this.state.LevyneProducts}
+                            contentContainerStyle={{backgroundColor: 'white'}}
+                            numColumns={2}
+                            renderItem={({item}) => <LevyneProductContainer
+                                Image={item.PrimaryImage}
+                                Name={"#" + item.DesignCode}
+                                NavigateDesign={this.NavigateDesign}
+                                DesignID={item.DesignID}
+                            />}
+                            extraData={{NavigateDesign: this.NavigateDesign}}
+                            keyExtractor={(item) => item.DesignCode}
+                            showsVerticalScrollIndicator={false}
+                            onEndReached={this.FlatListonEndReached}
                         />
-                    </View>
-                    <Text marginL-15 marginT-50 secondary hb1>Designs by Levyne</Text>
-                    <View flex center>
-                        <LevyneDesignIllustration width={"50%"}/>
-                    </View>
-                </ScrollView>
+                    </>
+                }
+
                 <View
                     center padding-10
                     style={{height:"auto", backgroundColor: Colors.grey70}}
