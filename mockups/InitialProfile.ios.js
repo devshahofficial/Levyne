@@ -169,33 +169,6 @@ class InitialProfile extends React.Component {
         return (
             <>
                 <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"}/>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={modalVisible}
-                >
-                    <CstmShadowView style={styles.Modal}>
-                        <View flex row centerV marginT-10>
-                            <Text flex-9 h1 secondary center>Choose Medium to Upload:</Text>
-                            <TouchableOpacity
-                                flex
-                                onPress={this.setModalVisible}
-                            >
-                                <Text primary hb1>X</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View row flex-5 marginH-30>
-                            <TouchableOpacity flex center onPress={this.ShowGallery}>
-                                <GalleryIcon size={28} Color={Colors.primary}/>
-                                <Text h3 secondary marginT-10>Gallery</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity flex center onPress={this.ShowCamera}>
-                                <CameraIcon size={32} Color={Colors.primary}/>
-                                <Text h3 secondary marginT-10>Camera</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </CstmShadowView>
-                </Modal>
                 <KeyboardAvoidingView
                         behavior={ 'padding' }
                         style={styles.container}
@@ -205,16 +178,9 @@ class InitialProfile extends React.Component {
                         style={ { flex: 1 } }
                         showsVerticalScrollIndicator={false}
                     >
-                        <View paddingH-15 marginB-20>
-                            <TouchableOpacity style={styles.avatarView} onPress={() => this.setState({modalVisible : true})}>
-                                <Image
-                                    style={styles.avatar}
-                                    source={this.state.ProfileImage}
-                                    fill={Colors.shadow}
-                                />
-                            </TouchableOpacity>
+                        <View paddingH-20 marginB-20>
 
-                            <Text h1 marginT-30>Name</Text>
+                            <Text h1 marginT-10>Name</Text>
                             <CstmInput
                                 placeholder='Name'
                                 value={this.state.Name}

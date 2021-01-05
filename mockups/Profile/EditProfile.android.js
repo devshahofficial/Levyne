@@ -206,15 +206,8 @@ class EditProfile extends React.Component {
                     showsVerticalScrollIndicator={false}
                 >
                     <View paddingH-15 marginB-20>
-                        <TouchableOpacity style={styles.avatarView} onPress={() => this.setState({modalVisible : true})}>
-                            <Image
-                                style={styles.avatar}
-                                source={this.state.ProfileImage}
-                                fill={Colors.shadow}
-                            />
-                        </TouchableOpacity>
 
-                        <Text h1 marginT-30>Name</Text>
+                        <Text h1 marginT-10>Name</Text>
                         <CstmInput
                             placeholder='Name'
                             value={this.state.Name}
