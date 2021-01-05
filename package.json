@@ -3,12 +3,13 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"android": "adb reverse tcp:8081 tcp:8081 && react-native run-android",
-		"ios": "react-native run-ios",
-		"ios-device": "react-native run-ios --device",
-		"start": "react-native start",
+		"android": "npx react-native run-android",
+		"ios": "npx react-native run-ios",
+		"ios-device": "npx react-native run-ios --device",
+		"start": "npx react-native start",
 		"pod": "cd ios && pod install && cd ..",
-		"postinstall": "react-native link"
+		"postinstall": "npx react-native link",
+		"adb": "adb kill-server && adb tcpip 5555 && sleep 5 && adb shell ip route | awk '{print $9}' | xargs adb connect"
 	},
 	"dependencies": {
 		"@react-native-community/async-storage": "^1.12.0",
