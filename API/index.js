@@ -94,7 +94,6 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
                 const ResponseCase2 = await AsyncStorage.multiGet([
                     'Name',
                     'Email',
-                    'ProfileImage',
                     'Address',
                     'Gender',
                     'PinCode'
@@ -102,22 +101,20 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
                 setProfile({
                     Name : ResponseCase2[0][1],
                     Email : ResponseCase2[1][1],
-                    ProfileImage : ResponseCase2[2][1],
-                    Address : ResponseCase2[3][1],
+                    Address : ResponseCase2[2][1],
                     ProfileStatus: 2,
-                    Gender: parseInt(ResponseCase2[4][1]),
-                    PinCode: ResponseCase2[5][1]
+                    Gender: parseInt(ResponseCase2[3][1]),
+                    PinCode: ResponseCase2[4][1]
                 })
                 return 'MainHomeStack';
             case 1:
-                setProfile({
-                    ProfileStatus: 1
-                })
+                setProfile({ ProfileStatus: 1 })
             default:
                 return 'MainHomeStack';
         }
     }
     catch(err) {
+        console.log(err);
         throw new Error('Login');
     }
 }
