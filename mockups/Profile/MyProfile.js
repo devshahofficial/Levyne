@@ -17,7 +17,7 @@ class ProfileTopSection extends React.PureComponent {
         }
         this.PressCount = 0;
     }
-    
+
 
     NavigateEditProfile = () => {
         this.props.navigation.navigate("EditProfile");
@@ -71,9 +71,6 @@ class ProfileTopSection extends React.PureComponent {
     LoggedInScreen = () => {
         return (
             <View>
-                <View style={styles.ImageView}>
-                    <Image source={{uri:this.props.ProfileImage}} style={{width:120,height:120, borderRadius: 80}}/>
-                </View>
                 <Text marginH-15 marginT-20 b1 black>Welcome, {this.props.Name}</Text>
 
                 <View marginT-30 paddingH-15>
@@ -197,8 +194,6 @@ class ProfileTopSection extends React.PureComponent {
     UnloggedScreen = () => {
         return (
             <View>
-                <View style={styles.ImageView}>
-                </View>
 
                 <CstmShadowView style={{marginTop:40, marginHorizontal:40}}>
                     {
@@ -285,8 +280,6 @@ class ProfileTopSection extends React.PureComponent {
                     showsVerticalScrollIndicator={false}
                     style={{flex:1, backgroundColor: Colors.white}}
                 >
-                    <View style={styles.View} />
-
                     {
                         this.state.ProfileCompleted ? this.LoggedInScreen() : this.UnloggedScreen()
                     }
