@@ -56,9 +56,8 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     LogoutOnPress = () => {
-        Logout(this.props.AccessToken).then(() => {
-            this.props.navigation.navigate('Login');
-        }).catch(() => {})
+        Logout(this.props.AccessToken);
+        this.props.navigation.navigate('Login');
     }
 
     NavigateFabricInThreeD = () => {
@@ -324,7 +323,8 @@ const mapsStateToProps = state => ({
     SkipLogin: state.Auth.SkipLogin,
     ProfileStatus: state.Profile.ProfileStatus,
     Name: state.Profile.Name,
-    ProfileImage: state.Profile.ProfileImage
+    ProfileImage: state.Profile.ProfileImage,
+    AccessToken: state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(ProfileTopSection);
