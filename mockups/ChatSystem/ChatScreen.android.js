@@ -52,6 +52,7 @@ class ChatScreenIos extends Component {
         this.props.Socket.on('ChatMessage', this.SocketListener);
         this.TimeOutArray = [];
         this.NewChatLoading = true;
+
     }
 
     SocketListener = (Message) => {
@@ -214,7 +215,6 @@ class ChatScreenIos extends Component {
             Type: 2,
             Base64Image: `data:${response.mime};base64,${response.data}`
         }, () => {
-            console.log(BucketMessagesID, 'Image Sent');
             if(this.state && this.state.Messages) {
                 this.state.ImageSent[BucketMessagesID] = true;
                 this.setState({
