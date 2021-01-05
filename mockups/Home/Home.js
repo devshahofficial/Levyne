@@ -74,7 +74,10 @@ class HomeScreen extends React.Component {
 				this.backPressed++;
                 this.setState({showCustomToast: !this.state.showCustomToast});
                 this.setState({showContent:'Press Again To Exit'});
-                this.BackHandlerTimeOut = setTimeout( () => { this.backPressed = 0}, 2000);
+                this.BackHandlerTimeOut = setTimeout( () => {
+                    this.backPressed = 0,
+                    this.setState({showCustomToast: false});
+                }, 2000);
 				return true;
 			}
 		}
@@ -215,15 +218,27 @@ class HomeScreen extends React.Component {
     }
 
     navigateBookMark = () => {
-        this.props.navigation.navigate('BookMark');
+        if(this.props.AccessToken) {
+            this.props.navigation.navigate('BookMark');
+        } else {
+            this.props.navigation.push('Auth', {screen: 'Login'});
+        }
     }
 
-    navigateCart = () => {
-        this.props.navigation.navigate('MyOrders');
+    navigateOrders = () => {
+        if(this.props.AccessToken) {
+            this.props.navigation.navigate('MyOrders');
+        } else {
+            this.props.navigation.push('Auth', {screen: 'Login'});
+        }
     }
 
     navigateNotifications = () => {
-        this.props.navigation.navigate('Notifications');
+        if(this.props.AccessToken) {
+            this.props.navigation.navigate('Notifications');
+        } else {
+            this.props.navigation.push('Auth', {screen: 'Login'});
+        }
     }
 
     navigateMenu = () => {
@@ -297,7 +312,7 @@ class HomeScreen extends React.Component {
                 <HomeNavBar
                     navigateSearchText={this.navigateSearchText}
                     navigateBookMark={this.navigateBookMark}
-                    navigateCart={this.navigateCart}
+                    navigateOrders={this.navigateOrders}
                     navigateNotifications={this.navigateNotifications}
                     // navigateMenu={this.navigateMenu}
                 />

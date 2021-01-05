@@ -49,7 +49,7 @@ export default class BucketComponent extends React.Component {
                             </View>
                             <View marginH-10>
                                 <Text hb1>₹{this.props.item.AveragePrice}</Text>
-                                <Text h3 primary>{this.props.item.DecidedPrice ? '₹' + this.props.item.DecidedPrice : 'Chat to finalize!'}</Text>
+                                <Text h3 primary>{this.props.item.Status ? '₹' + this.props.item.DecidedPrice : 'Chat to finalize!'}</Text>
                             </View>
                         </View>
                         <View flex center marginL-30>
@@ -64,7 +64,7 @@ export default class BucketComponent extends React.Component {
                     </View>
                     <View center marginT-20 row style={styles.View}>
                         <DeliveryIcon size={30} Color={Colors.black} />
-                        <DeliveryChargeComponent TotalPrice={this.props.item.TotalDiscountPrice} />
+                        <DeliveryChargeComponent TotalPrice={this.props.item.DecidedPrice} />
                     </View>
                     <View row marginT-20 style={{marginHorizontal:-15,borderBottomLeftRadius: 10,borderBottomRightRadius: 10}}>
                         <Button
@@ -75,7 +75,7 @@ export default class BucketComponent extends React.Component {
                         <Button
                             hb2 flex style={styles.ButtonRight}
                             label={'Checkout'} color={Colors.white}
-                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.DecidedPrice)}
+                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
                         />
                     </View>
                 </CstmShadowView>

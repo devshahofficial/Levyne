@@ -48,7 +48,9 @@ class ProfileTopSection extends React.PureComponent {
     }
 
     NavigateEditProfileAuth = () => {
-        this.props.navigation.navigate("EditProfileAuth");
+        this.props.navigation.push('Auth', {
+            screen: "EditProfileAuth",
+        });
     }
 
     NavigateLogin = () => {
@@ -259,13 +261,16 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <CstmShadowView style={{marginTop:40,marginBottom:20}}>
-                        <Button
-                            onPress={this.LogoutOnPress}
-                            hb1 flex
-                            label="Log Out"
-                        />
-                    </CstmShadowView>
+                    {this.props.SkipLogin ?
+                        <></> :
+                        <CstmShadowView style={{marginTop:40,marginBottom:20}}>
+                            <Button
+                                onPress={this.LogoutOnPress}
+                                hb1 flex
+                                label="Log Out"
+                            />
+                        </CstmShadowView>
+                    }
                 </View>
                 <Text onPress={this.NavigateFabricInThreeD} marginT-20 marginB-40 grey40 h3 center>APP VERSION {getVersion()}</Text>
             </View>
