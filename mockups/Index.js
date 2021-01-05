@@ -3,7 +3,7 @@ import { StyleSheet, View, Linking } from 'react-native';
 import Logo from '../assets/images/Logo.svg';
 import { AuthCheck } from '../API/index';
 import { connect } from 'react-redux';
-import { Colors } from 'react-native-ui-lib';
+import { Colors, AvatarHelper } from 'react-native-ui-lib';
 import { CommonActions } from '@react-navigation/native';
 
 class IndexScreen extends React.Component {
@@ -16,14 +16,51 @@ class IndexScreen extends React.Component {
 		AuthCheck(setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart).then(NavigateScreen => {
 
 			if(global.NotificationObject) {
-				//Handle Notification Object and Navigate accordingly
+				
+				if(global.NotificationObject.BucketID) {
+					this.props.navigation.dispatch(
+						CommonActions.reset({
+							index: 1,
+							routes: [
+								{
+									name: 'Auth',
+									state: {
+										routes: [
+											{ name: 'Login' }
+										],
+										index: 1,
+									}
+								},
+								{
+									name: 'MainHomeStack',
+									state: {
+										routes: [
+											{ name: 'Home' },
+											{ name: 'Chat', params: {
+                                                BucketID : global.NotificationObject.BucketID,
+                                                Name : global.NotificationObject.Name,
+                                                Status: global.NotificationObject.Status,
+                                                BrandID: global.NotificationObject.BrandID,
+                                                imageSource: null,
+                                                initials: AvatarHelper.getInitials(global.NotificationObject.Name)
+                                            } },
+										],
+										index: 1,
+									}
+								},
+							]
+						})
+					);
+				}
+
 				delete global.NotificationObject;
 				//return;
+			} else {
+				Linking.getInitialURL().then(url => this.HandleLinkingInitialURL(url, NavigateScreen)).catch(() => { });
 			}
 
-			Linking.getInitialURL().then(url => this.HandleLinkingInitialURL(url, NavigateScreen)).catch(() => { });
-
-		}).catch(() => {
+		}).catch((err) => {
+			console.log(err);
 			this.props.navigation.navigate('Login');
 		});
 

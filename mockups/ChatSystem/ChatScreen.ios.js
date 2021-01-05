@@ -214,7 +214,6 @@ class ChatScreenIos extends Component {
             Type: 2,
             Base64Image: `data:${response.mime};base64,${response.data}`
         }, () => {
-            console.log(BucketMessagesID, 'Image Sent');
             if(this.state && this.state.Messages) {
                 this.state.ImageSent[BucketMessagesID] = true;
                 this.setState({
