@@ -221,8 +221,8 @@ class AddToCartScreen extends React.PureComponent {
                             ListFooterComponent={this.footerFlatList}
                         />
                     </View>
-                    <View>
-                        <CstmShadowView style={{marginHorizontal:15}}>
+                    <View centerV>
+                        <CstmShadowView style={{marginHorizontal:15,marginTop:0``}}>
                             <Button flex onPress={this.AddProductToCart} label={"Add to Cart"}/>
                         </CstmShadowView>
                     </View>
