@@ -25,15 +25,7 @@ class LoginScreen extends React.Component {
 	backButtonHandler = () => {
 		if(this.props.navigation.isFocused())
 		{
-			if(this.state.backPressed > 0){
-				BackHandler.exitApp();
-			} else {
-				this.setState({backPressed : this.state.backPressed + 1});
-				this.setState({showContent:'Press again to exit!'});
-				this.setState({showCustomToast: !this.state.showCustomToast});
-				this.BackHandlerTimeOut = setTimeout( () => { this.setState({backPressed : 0})}, 2000);
-				return true;
-			}
+			this.skipLogin();
 		}
 	}
 

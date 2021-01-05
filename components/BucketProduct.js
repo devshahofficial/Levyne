@@ -44,7 +44,7 @@ export default class BucketProduct extends React.PureComponent {
                         <Text h2 secondary>Final Budget</Text>
                         <View row>
                             {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}</Text> :
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
                                 <Text hb1 primary>Chat to Decide</Text>
                             }
                         </View>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, BackHandler, ScrollView, KeyboardAvoidingView } from 'react-native';
+import {StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 import {Button, View, Text, Toast, Colors} from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
@@ -22,21 +22,6 @@ class LoginScreen extends React.Component {
         }
 	}
 
-	backButtonHandler = () => {
-		if(this.props.navigation.isFocused())
-		{
-			if(this.state.backPressed > 0){
-				BackHandler.exitApp();
-			} else {
-				this.setState({backPressed : this.state.backPressed + 1});
-				this.setState({showContent:'Press again to exit!'});
-				this.setState({showCustomToast: !this.state.showCustomToast});
-				this.BackHandlerTimeOut = setTimeout( () => { this.setState({backPressed : 0})}, 2000);
-				return true;
-			}
-		}
-	}
-
 	renderCustomContent = () => {
 		const {selectedColor} = this.state;
 		const backgroundColor = selectedColor === 'none' ? undefined : selectedColor;
@@ -50,18 +35,8 @@ class LoginScreen extends React.Component {
 		);
 	};
 
-	componentDidMount() {
-		BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
-	}
-
-	componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.backButtonHandler);
-        this.BackHandlerTimeOut && clearTimeout(this.BackHandlerTimeOut);
-	}
-
 	setMobileIntOnly = (Mobile) => {
-        if(Mobile != this.state.Mobile)
-		    this.setState({Mobile : Mobile.replace(/[^0-9]+/g, "")});
+        if(Mobile != this.state.Mobile) this.setState({Mobile : Mobile.replace(/[^0-9]+/g, "")});
 	}
 
 	sendOTP = () => {
