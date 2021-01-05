@@ -74,9 +74,6 @@ export default class FabricOrderContainer extends React.Component {
                         </TouchableOpacity>
 
                     </View>
-                    <View row>
-                        <Text paddingR-10 marginL-5 marginT-2 hb2 primary>₹{this.props.item.FabricPrice}</Text>
-                        </View>
                 </TouchableOpacity>
 
                 <Button
@@ -95,7 +92,7 @@ export default class FabricOrderContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.45,
+        height: deviceHeight * 0.42,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,
