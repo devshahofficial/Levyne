@@ -15,7 +15,7 @@ import Recent15Brands from '../../API/Recent15Brands';
 import PopularBrands from "../../components/PopularBrands";
 import { CommonActions } from '@react-navigation/native';
 import LevyneProductContainer from "../../components/LevyneProductContainer";
-import FetchDesignsByLevyne from "../../API/FetchDesignsByLevyne";
+import FetchDesignsByLevyneGender from "../../API/FetchDesignsByLevyneGender";
 
 
 class HomeScreen extends React.Component {
@@ -32,6 +32,8 @@ class HomeScreen extends React.Component {
             modalVisible: false,
             CurrentStory: null,
             LevyneProducts: [],
+            LevyneProductsMale: [],
+            LevyneProductsFemale: [],
             Loading: true
         }
         this.backPressed = 0;
@@ -175,9 +177,16 @@ class HomeScreen extends React.Component {
             console.log(err);
         });
 
-        FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
+        FetchDesignsByLevyneGender(0, this.abortController.signal).then(LevyneProducts => {
             this.setState({
-                LevyneProducts,
+                LevyneProductsFemale: LevyneProducts,
+                Loading: false
+            });
+        }).catch(console.log);
+
+        FetchDesignsByLevyneGender(1, this.abortController.signal).then(LevyneProducts => {
+            this.setState({
+                LevyneProductsMale: LevyneProducts,
                 Loading: false
             });
         }).catch(console.log);
@@ -282,21 +291,6 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('ProductDetailsPage', {DesignID})
     }
 
-    FlatListonEndReached = () => {
-        if(!this.NewPageLoading && this.NewProducts) {
-            this.NewPageLoading = true;
-            FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
-                if(!LevyneProducts.length) {
-                    this.NewProducts = false;
-                } else {
-                    this.state.LevyneProducts.push(...LevyneProducts);
-                    this.setState({LevyneProducts: this.state.LevyneProducts});
-                    this.NewPageLoading = false;
-                }
-            }).catch(console.log);
-        }
-    }
-
     render() {
         return (
             <>
@@ -343,7 +337,7 @@ class HomeScreen extends React.Component {
                         </View>
                         <FlatList
                             horizontal={true}
-                            data={this.state.LevyneProducts}
+                            data={this.state.LevyneProductsMale}
                             contentContainerStyle={{backgroundColor: 'white'}}
                             renderItem={({item}) => <LevyneProductContainer
                                 Image={item.PrimaryImage}
@@ -354,7 +348,6 @@ class HomeScreen extends React.Component {
                             extraData={{NavigateDesign: this.NavigateDesign}}
                             keyExtractor={(item) => item.DesignCode}
                             showsHorizontalScrollIndicator={false}
-                            onEndReached={this.FlatListonEndReached}
                         />
                     </View>
 
@@ -364,7 +357,7 @@ class HomeScreen extends React.Component {
                         </View>
                         <FlatList
                             horizontal={true}
-                            data={this.state.LevyneProducts}
+                            data={this.state.LevyneProductsFemale}
                             contentContainerStyle={{backgroundColor: 'white'}}
                             renderItem={({item}) => <LevyneProductContainer
                                 Image={item.PrimaryImage}
@@ -375,7 +368,6 @@ class HomeScreen extends React.Component {
                             extraData={{NavigateDesign: this.NavigateDesign}}
                             keyExtractor={(item) => item.DesignCode}
                             showsHorizontalScrollIndicator={false}
-                            onEndReached={this.FlatListonEndReached}
                         />
                     </View>
 
