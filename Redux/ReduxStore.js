@@ -45,8 +45,6 @@ const ProfileReducer = (state = InitialProfileStates, action) => {
 			return {...state, Name : action.value}
 		case 'setEmail' :
 			return {...state, Email : action.value}
-		case 'setProfileImage' :
-			return {...state, ProfileImage : action.value}
         case 'setAddress' :
             return {...state, Address : action.value}
         case 'setProfile' :

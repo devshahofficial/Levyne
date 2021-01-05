@@ -23,10 +23,10 @@ const encodeQueryData = (data) => {
 /**
  * 
  * @param {String} URL 
- * @param {{ReturnResponse: boolean, Token: String, Body: any}} param1 
+ * @param {{ReturnResponse: boolean, ThrowError: boolean, Token: String, Body: any}} param1 
  */
 
-export const POST = async (URL, {ReturnResponse, Token, Body}, abortControllerSignal) => {
+export const POST = async (URL, {ReturnResponse, ThrowError, Token, Body}, abortControllerSignal) => {
     const resp = await fetch(global.BaseURL + URL, {
         method: 'POST',
         signal: abortControllerSignal,
@@ -38,7 +38,9 @@ export const POST = async (URL, {ReturnResponse, Token, Body}, abortControllerSi
         ...(Body) && {body: JSON.stringify(Body)}
     });
     if (resp.status != 200) {
-        console.log(await resp.text());
+        if(ThrowError) {
+            throw await resp.text();
+        }
         throw resp.status;
     }
     else {
