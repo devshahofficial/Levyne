@@ -245,6 +245,10 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('DesignedAtLevyne');
     }
 
+    navigateCall = () => {
+        this.props.navigation.navigate('Call');
+    }
+
     ChangeStoryIndex = () => {
         this.setModalVisible();
         setImmediate(() => {
@@ -269,7 +273,8 @@ class HomeScreen extends React.Component {
 
     NavigateLogin = () => {
         this.props.navigation.push("Auth", {screen: 'Login'});
-    }
+	}
+
 
     scrollY = new Animated.Value(0);
     diffClampScrollY = Animated.diffClamp(this.scrollY,0,95);
@@ -314,6 +319,7 @@ class HomeScreen extends React.Component {
                     navigateBookMark={this.navigateBookMark}
                     navigateOrders={this.navigateOrders}
                     navigateNotifications={this.navigateNotifications}
+                    navigateCall={this.navigateCall}
                     // navigateMenu={this.navigateMenu}
                 />
                 <ConnectionStatusBar
@@ -347,8 +353,32 @@ class HomeScreen extends React.Component {
                     onScroll={Animated.event([{nativeEvent:{contentOffset:{y:this.scrollY}}}], {useNativeDriver: true})}
                 >
                     <View marginT-120>
-                        <View row paddingH-20>
-                            <Text b1 secondary flex>Fresh in Men</Text>
+
+                        <View>
+                            <View row paddingH-20>
+                                <Text b1 secondary flex>Recent Products</Text>
+                                <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
+                            </View>
+                            <FlatList
+                                data={this.state.Recent15Products}
+                                horizontal={true}
+
+                                renderItem={({item}) => {
+                                    return <ProductItemContainer
+                                        Token={this.props.AccessToken}
+                                        item={item}
+                                        navigateProduct={this.navigateProduct}
+                                        NavigateLogin={this.NavigateLogin}
+                                    />
+                                }}
+                                keyExtractor={(item) => item.ProductID.toString()}
+                                showsHorizontalScrollIndicator={false}
+                            />
+                        </View>
+
+
+                        <View row paddingH-20 marginT-30>
+                            <Text b1 secondary flex>Fresh in Levyne's Men</Text>
                         </View>
                         <FlatList
                             horizontal={true}
@@ -368,7 +398,7 @@ class HomeScreen extends React.Component {
 
                     <View marginT-30>
                         <View row paddingH-20>
-                            <Text b1 secondary flex>Fresh in Women</Text>
+                            <Text b1 secondary flex>Fresh in Levyne's Women</Text>
                         </View>
                         <FlatList
                             horizontal={true}
@@ -382,28 +412,6 @@ class HomeScreen extends React.Component {
                             />}
                             extraData={{NavigateDesign: this.NavigateDesign}}
                             keyExtractor={(item) => item.DesignCode}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
-
-                    <View marginT-30>
-                        <View row paddingH-20>
-                            <Text b1 secondary flex>Recent Products</Text>
-                            <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
-                        </View>
-                        <FlatList
-                            data={this.state.Recent15Products}
-                            horizontal={true}
-
-                            renderItem={({item}) => {
-                                return <ProductItemContainer
-                                    Token={this.props.AccessToken}
-                                    item={item}
-                                    navigateProduct={this.navigateProduct}
-                                    NavigateLogin={this.NavigateLogin}
-                                />
-                            }}
-                            keyExtractor={(item) => item.ProductID.toString()}
                             showsHorizontalScrollIndicator={false}
                         />
                     </View>
