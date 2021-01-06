@@ -222,7 +222,7 @@ class AddToCartScreen extends React.PureComponent {
                         />
                     </View>
                     <View centerV>
-                        <CstmShadowView style={{marginHorizontal:15,marginTop:0``}}>
+                        <CstmShadowView style={{marginHorizontal:15, marginBottom: 15}}>
                             <Button flex onPress={this.AddProductToCart} label={"Add to Cart"}/>
                         </CstmShadowView>
                     </View>
