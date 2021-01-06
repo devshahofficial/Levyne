@@ -50,7 +50,9 @@ const ProfileReducer = (state = InitialProfileStates, action) => {
         case 'setProfile' :
             return {...state, ...action.value}
         case 'ResetProfile' :
-            return {}
+            return {
+				ProfileStatus: 0
+			}
         default :
 			return state;
     }
@@ -105,7 +107,12 @@ const ChatReducer = (state = InitialChatStates, action) => {
 		case 'setIsAnyProductInCart':
 			return {...state, IsAnyProductInCart: action.value};
 		case 'ResetChat':
-			return {};
+			return {
+				UnreadBuckets: [],
+				ChatList: [],
+				ChatLoading: true,
+				IsAnyProductInCart: false,
+			};
 		default:
 			return state;
 	}
