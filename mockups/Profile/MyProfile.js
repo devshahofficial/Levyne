@@ -1,20 +1,17 @@
 import React from 'react';
-import { StyleSheet, ScrollView, Dimensions} from 'react-native';
-import {View, Text, TouchableOpacity, Colors, Button, Image} from 'react-native-ui-lib';
+import { StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Colors, Button, Image } from 'react-native-ui-lib';
 import TextNavBar from "../../components/TextNavBar";
 import Logout from '../../API/Logout';
 import CstmShadowView from "../../components/CstmShadowView";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { getVersion } from 'react-native-device-info';
-import {EditIcon} from "../../Icons/EditIcon";
+import { EditIcon } from "../../Icons/EditIcon";
 
-class ProfileTopSection extends React.PureComponent {
+class ProfileTopSection extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state = {
-            ProfileCompleted: this.props.ProfileStatus === 2
-        }
         this.PressCount = 0;
     }
 
@@ -50,20 +47,27 @@ class ProfileTopSection extends React.PureComponent {
     NavigateEditProfileAuth = () => {
         this.props.navigation.push('Auth', {
             screen: "EditProfileAuth",
+            params: {
+                NavigateMyProfile: true
+            }
         });
     }
 
     NavigateLogin = () => {
-        this.props.navigation.push("Auth", {screen: 'Login'});
+        this.props.navigation.push("Auth", { screen: 'Login' });
     }
 
     LogoutOnPress = () => {
         Logout(this.props.AccessToken);
+        this.props.ResetProfile();
+        this.props.ResetChat();
+        this.props.ResetSocket();
+        this.props.ResetAuth();
         this.props.navigation.navigate('Login');
     }
 
     NavigateFabricInThreeD = () => {
-        if(this.PressCount >= 5) {
+        if (this.PressCount >= 5) {
             this.props.navigation.navigate('FabricInThreeD')
         } else {
             this.PressCount++;
@@ -180,7 +184,7 @@ class ProfileTopSection extends React.PureComponent {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                    <CstmShadowView style={{marginTop:40,marginBottom:20}}>
+                    <CstmShadowView style={{ marginTop: 40, marginBottom: 20 }}>
                         <Button
                             onPress={this.LogoutOnPress}
                             hb1 flex
@@ -197,18 +201,18 @@ class ProfileTopSection extends React.PureComponent {
         return (
             <View>
 
-                <CstmShadowView style={{marginTop:40, marginHorizontal:40}}>
+                <CstmShadowView style={{ marginTop: 40, marginHorizontal: 40 }}>
                     {
                         this.props.SkipLogin ? <Button
                             onPress={this.NavigateLogin}
                             hb1 flex
                             label="Log In"
                         /> :
-                        <Button
-                            onPress={this.NavigateEditProfileAuth}
-                            hb1 flex
-                            label="Complete Profile"
-                        />
+                            <Button
+                                onPress={this.NavigateEditProfileAuth}
+                                hb1 flex
+                                label="Complete Profile"
+                            />
                     }
                 </CstmShadowView>
 
@@ -263,7 +267,7 @@ class ProfileTopSection extends React.PureComponent {
                     </TouchableOpacity>
                     {this.props.SkipLogin ?
                         <></> :
-                        <CstmShadowView style={{marginTop:40,marginBottom:20}}>
+                        <CstmShadowView style={{ marginTop: 40, marginBottom: 20 }}>
                             <Button
                                 onPress={this.LogoutOnPress}
                                 hb1 flex
@@ -281,19 +285,19 @@ class ProfileTopSection extends React.PureComponent {
         return (
             <>
                 {
-                    this.state.ProfileCompleted ?
+                    (this.props.ProfileStatus === 2) ?
                         <TextNavBar Title={"My Profile"} Navigation={this.NavigateEditProfile}>
-                            <EditIcon Color={Colors.black} size={26}/>
+                            <EditIcon Color={Colors.black} size={26} />
                         </TextNavBar> :
                         <TextNavBar Title={"My Profile"} />
                 }
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    style={{flex:1, backgroundColor: Colors.white}}
+                    style={{ flex: 1, backgroundColor: Colors.white }}
                 >
                     {
-                        this.state.ProfileCompleted ? this.LoggedInScreen() : this.UnloggedScreen()
+                        (this.props.ProfileStatus === 2) ? this.LoggedInScreen() : this.UnloggedScreen()
                     }
                 </ScrollView>
             </>
@@ -305,8 +309,8 @@ class ProfileTopSection extends React.PureComponent {
 const styles = StyleSheet.create({
     View: {
         backgroundColor: Colors.shadow,
-        width:Dimensions.get('window').width,
-        height:120
+        width: Dimensions.get('window').width,
+        height: 120
     },
     ImageView: {
         backgroundColor: Colors.secondary,
@@ -314,12 +318,12 @@ const styles = StyleSheet.create({
         width: 120,
         borderRadius: 80,
         marginLeft: 20,
-        marginTop:-60
+        marginTop: -60
     },
-    Tab :{
-        height:80,
-        borderBottomWidth:0.5,
-        borderBottomColor:Colors.grey50
+    Tab: {
+        height: 80,
+        borderBottomWidth: 0.5,
+        borderBottomColor: Colors.grey50
     }
 
 })
@@ -332,4 +336,13 @@ const mapsStateToProps = state => ({
     AccessToken: state.Auth.AccessToken
 });
 
-export default connect(mapsStateToProps)(ProfileTopSection);
+const mapDispatchToProps = dispatch => {
+    return {
+        ResetProfile: () => dispatch({ type: 'ResetProfile' }),
+        ResetSocket: () => dispatch({ type: 'ResetSocket' }),
+        ResetChat: () => dispatch({ type: 'ResetChat' }),
+        ResetAuth: () => dispatch({ type: 'ResetAuth' }),
+    }
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(ProfileTopSection);
