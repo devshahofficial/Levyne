@@ -8,6 +8,7 @@ import Logo from '../assets/images/Logo.svg';
 import {MenuIcon} from "../Icons/MenuIcon";
 import BellIcon from "../Icons/BellIcon";
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
+import {CallIcon} from "../Icons/CallIcon";
 
 export default class HomeNavBar extends React.PureComponent {
 
@@ -28,6 +29,12 @@ export default class HomeNavBar extends React.PureComponent {
                 <View flex row centerV right>
                     <TouchableOpacity
                         marginL-12 marginR-12 br100
+                        onPress={this.props.navigateCall}
+                    >
+                        <CallIcon Size={22} Fill={false} Color={Colors.black}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        marginR-12 br100
                         onPress={this.props.navigateSearchText}
                     >
                         <SearchIcon size={28} Color={Colors.black}/>
@@ -38,14 +45,6 @@ export default class HomeNavBar extends React.PureComponent {
                     >
                         <BookMarkIcon size={24} Fill={false} Color={Colors.black}/>
                     </TouchableOpacity>
-                    {/*<TouchableOpacity
-                        marginR-12 br100
-                        onPress={() => {
-                            this.props.navigateNotifications();
-                        }}
-                    >
-                        <BellIcon size={22} Fill={false} Color={Colors.black}/>
-                    </TouchableOpacity>*/}
                     <TouchableOpacity
                         marginR-16 br100
                         onPress={this.props.navigateOrders}

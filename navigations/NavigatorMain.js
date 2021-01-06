@@ -44,6 +44,7 @@ import BlogPost from "../mockups/Home/BlogPost";
 import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
 import FabricIn3D from "../mockups/ThreeD/Mockups/FabricIn3DExp";
 import DesignedAtLevyne from "../mockups/Home/Designed at Levyne";
+import CallToOrder from "../mockups/Home/CallToOrder";
 
 
 const MainStack = createStackNavigator();
@@ -161,6 +162,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
 				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
 				<HomeStack.Screen name='FabricInThreeD' component={FabricIn3D}/>
+				<HomeStack.Screen name='Call' component={CallToOrder}/>
 			</HomeStack.Navigator>
 		)
 	}
