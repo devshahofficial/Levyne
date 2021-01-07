@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { POST } from './CustomFetch';
 import NewSocket from './NewSocket';
 import FetchChatBuckets from './FetchChatBuckets';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackHandler, Animated, ScrollView, FlatList, Linking } from 'react-native';
+import { BackHandler, Animated, ScrollView, FlatList, Linking, Platform } from 'react-native';
 import { View, Colors, Text, ConnectionStatusBar, Toast } from 'react-native-ui-lib';
 import { connect } from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
@@ -45,17 +45,19 @@ class HomeScreen extends React.Component {
         this.NewPageLoading = false;
         this.NewProducts = true;
 
-        PushNotification.configure({
+        if(Platform.OS === 'android') {
+            PushNotification.configure({
 
-            onNotification: (notification) => {
-
-                PushNotification.localNotification({ ...notification.data, onlyAlertOnce: true, visibility: 'private', channelId: 'chatmessages' })
-
-                notification.finish(PushNotificationIOS.FetchResult.NoData);
-            },
-
-            requestPermissions: false,
-        });
+                onNotification: (notification) => {
+    
+                    PushNotification.localNotification({ ...notification.data, onlyAlertOnce: true, visibility: 'private', channelId: 'chatmessages' })
+    
+                    notification.finish(PushNotificationIOS.FetchResult.NoData);
+                },
+    
+                requestPermissions: false,
+            });
+        }
     };
 
     SocketListener = () => {

@@ -20,7 +20,6 @@ import Help from '../mockups/Profile/Help';
 import FabricScreen from '../mockups/FabricScreen';
 import TermsConditionsScreen from '../mockups/Profile/TermsConditionsScreen';
 import InternetConnection from "../mockups/InternetConnection";
-import AppTour from "../mockups/AppTour";
 import Cart from "../mockups/Home/Cart";
 import Notifications from "../mockups/Home/Notifications";
 import EditProfile from "../mockups/Profile/EditProfile";
@@ -182,7 +181,6 @@ class NavigationAuth extends React.PureComponent {
 				<AuthStack.Screen name="Login" component={LoginScreen} />
 				<AuthStack.Screen name="OTP" component={OTPScreen} />
 				<AuthStack.Screen name="EditProfileAuth" component={InitialProfile} />
-                <AuthStack.Screen name="AppTour" component={AppTour} />
 			</AuthStack.Navigator>
 		)
 	}

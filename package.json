@@ -12,7 +12,7 @@
 		"adb": "adb kill-server && adb tcpip 5555 && sleep 5 && adb shell ip route | awk '{print $9}' | xargs adb connect"
 	},
 	"dependencies": {
-		"@react-native-community/async-storage": "^1.12.0",
+		"@react-native-async-storage/async-storage": "^1.13.2",
 		"@react-native-community/blur": "^3.6.0",
 		"@react-native-community/datetimepicker": "^3.0.9",
 		"@react-native-community/image-editor": "^2.3.0",
