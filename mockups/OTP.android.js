@@ -96,10 +96,20 @@ class OTPScreen extends React.Component {
             this.props.MarkBucketAsUnRead,
             this.props.setIsAnyProductInCart,
         ).then(NavigateTo => {
+
+            PushNotification.channelExists("chatmessages", function (exists) {
+                if(!exists) {
+                    PushNotification.createChannel({
+                        channelId: 'chatmessages',
+                        channelName: 'Chat Messages',
+                        channelDescription: 'To Receive Chat Messages'
+                    })
+                }
+            });
+
             clearInterval(this.state.intervalId);
             this.props.navigation.navigate(NavigateTo);
             this.setState({LoaderVisible : false})
-
         }).catch((err) => {
             console.log(err);
             this.setState({
