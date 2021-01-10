@@ -38,6 +38,10 @@ export default class FabricScreenPartOne extends React.Component {
 
     navigateCategory = () => {
 		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 0, Index: this.props.CategoryID, Label: this.props.Category}});
+    }
+    
+    navigateMaterial = (MaterialID, Material) => {
+		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 2, Index: MaterialID, Label: Material}});
 	}
 
     render() {
@@ -71,15 +75,16 @@ export default class FabricScreenPartOne extends React.Component {
                         data={this.props.Materials}
                         showsHorizontalScrollIndicator={false}
                         horizontal={true}
-                        keyExtractor={(item, index) => item}
+                        keyExtractor={(item) => item}
                         renderItem={({item, index}) => (
-                            <View
+                            <TouchableOpacity
                                 centerV
+                                onPress = {() => this.navigateMaterial(this.props.MaterialIDs[index], item)}
                                 style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}>
                                 <Text hb2 white>
                                     {item}
                                 </Text>
-                            </View>
+                            </TouchableOpacity>
                         )}
                     />
                 </View>
