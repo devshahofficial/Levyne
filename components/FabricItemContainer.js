@@ -17,6 +17,7 @@ export default class FabricItemContainer extends React.Component {
         this.state={
             addToWishlist: this.props.item.IsWishlist === 1 ? true : false
         }
+        console.log(this.props);
     }
 
     onBookmarkPress = () => {
@@ -65,7 +66,14 @@ export default class FabricItemContainer extends React.Component {
                     <View row marginL-10 marginT-15>
                         <View style={{flex: 0.8}}>
                             <Text hb1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
-                            <Text h3 numberOfLines={2} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription}</Text>
+
+                            <View padding-5 marginV-10 center style={{backgroundColor:Colors.shadow, borderRadius:5}}>
+                                <Text h2 black>
+                                    {this.props.Category}
+                                </Text>
+                            </View>
+
+                            <Text primary hb1>₹1000</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
@@ -81,7 +89,7 @@ export default class FabricItemContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.37,
+        height: deviceHeight * 0.40,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,

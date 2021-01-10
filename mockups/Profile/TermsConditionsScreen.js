@@ -8,14 +8,17 @@ export default class TermsConditionsScreen extends Component {
         return(
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Terms and Conditions'}/>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView
+                    contentContainerStyle={{flex:1}}
+                    showsVerticalScrollIndicator={false}
+                >
                     <View flex paddingH-20 paddingV-10>
                         <Text hb1>Return Policy</Text>
 
                         <View paddingL-10 marginT-20>
                             <Text hb2>1) Size issues</Text>
                             <Text h2 secondary>
-                                Customer should provide accurate information about size concerns so that we can assure a final product in the least amount of time. Customer will be charged for packing if the product packing is damaged while returning the product. Customer can only seek for Size alterations in the 72 hours of product delivery.
+                                Customer should provide accurate information about size concerns so that we can assure a final product in the least amount of time. Levyne shall not provide alterations on any orders under ₹12,000. Customer can only seek for Size alterations in the 72 hours of product delivery.
                             </Text>
                         </View>
 
@@ -34,35 +37,18 @@ export default class TermsConditionsScreen extends Component {
                         </View>
 
                         <View paddingL-10 marginT-10>
-                            <Text hb2>4) Low-quality fabric received from the Customer</Text>
-                            <Text h2 secondary>
-                                If the fabric gets rejected from the Brand, the customer shall be held liable for paying for the delivery services provided by Levyne.
-                                If the fabric is accepted then the customer will have to wait for the final delivery. In a case where the Brand damages the customer’s fabric, the Brand shall use a similar quality fabric to re-manufacture your product. Here, the customer must understand that there shall be some variations in fabric patterns, colours, design and properties.
-                                Under no circumstance will the Brand be held liable to pay for the customer’s fabric.
-                            </Text>
-                        </View>
-
-                        <View paddingL-10 marginT-10>
-                            <Text hb2>5) Damaged Packaging</Text>
+                            <Text hb2>4) Damaged Packaging</Text>
                             <Text h2 secondary>
                                 Order cannot be returned in this case.
                             </Text>
                         </View>
 
                         <View paddingL-10 marginT-10>
-                            <Text hb2>6) The product shows a defect after first wash</Text>
+                            <Text hb2>5) The product shows a defect after first wash</Text>
                             <Text h2 secondary>
                                 The customer can return the product if it gets damaged after the first wash. The final return acceptance shall lie in the hands of Levyne.
                             </Text>
                         </View>
-
-                        <View paddingL-10 marginT-10>
-                            <Text hb2>7) Sizes fed by the Customer are not accurate</Text>
-                            <Text h2 secondary>
-                                The Customer is expected to make very minimal or no mistakes in recording sizes. If at all, mistakes are made, Levyne shall provide free alterations for the first time whose delivery charges shall be charged. All later alterations shall be charged.
-                            </Text>
-                        </View>
-
 
                     </View>
                 </ScrollView>

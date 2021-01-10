@@ -14,6 +14,7 @@ export default class FabricScreenPartOne extends React.Component {
         this.state = {
             FabricWishlist : this.props.FabricWishlist === 1 ? true : false
         }
+        console.log(this.props);
     }
 
     onBookmarkPress = () => {
@@ -44,10 +45,16 @@ export default class FabricScreenPartOne extends React.Component {
         return (
             <View flex primary marginL-15 marginR-15>
                 <View row marginV-5>
-                    <View flex-7 centerV>
+                    <View flex-7 centerV row>
                         <Text b1 black>
                             {this.props.Title}
                         </Text>
+
+                        <View padding-5 centerV marginL-10 style={{backgroundColor:Colors.shadow, borderRadius:5}}>
+                            <Text h2 black>
+                                {this.props.Title}
+                            </Text>
+                        </View>
                     </View>
 
                     <View flex-end>

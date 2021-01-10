@@ -200,6 +200,12 @@ class MyFits extends Component {
                             renderSectionHeader={this.SectionListHeader}
                             initialNumToRender={5}
                         />
+                        <View
+                            center padding-10
+                            style={{height:"auto", backgroundColor: Colors.grey70}}
+                        >
+                            <Text h1 secondary center>Customers are requested to share exact measurements measured by a local tailor.</Text>
+                        </View>
                     </SafeAreaView>
                 </>
             )

@@ -207,6 +207,12 @@ class MyFits extends Component {
                                 initialNumToRender={5}
                                 stickySectionHeadersEnabled={false}
                             />
+                            <View
+                                center padding-10
+                                style={{height:"auto", backgroundColor: Colors.grey70}}
+                            >
+                                <Text h1 secondary center>Customers are requested to share exact measurements measured by a local tailor.</Text>
+                            </View>
                         </KeyboardAvoidingView>
                     </SafeAreaView>
                 </>
