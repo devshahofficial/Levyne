@@ -17,7 +17,6 @@ export default class FabricItemContainer extends React.Component {
         this.state={
             addToWishlist: this.props.item.IsWishlist === 1 ? true : false
         }
-        console.log(this.props);
     }
 
     onBookmarkPress = () => {
