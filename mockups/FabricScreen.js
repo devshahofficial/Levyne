@@ -92,6 +92,7 @@ class FabricScreen extends React.Component {
                                 Title={this.state.FabricObject.Name}
                                 navigation={this.props.navigation}
                                 Category={this.state.FabricObject.Category}
+                                FabricPrice={this.state.FabricObject.FabricPrice}
                                 CategoryID={this.state.FabricObject.CategoryID}
                                 FabricID={this.state.FabricObject.FabricID}
                                 FabricWishlist={this.state.FabricObject.IsWishlist}
