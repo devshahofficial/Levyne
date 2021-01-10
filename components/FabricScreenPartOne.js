@@ -5,8 +5,6 @@ import BookMarkIcon from "../Icons/BookMarkIcon";
 import Colors from '../Style/Colors';
 import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
 
-
-
 export default class FabricScreenPartOne extends React.Component {
 
     constructor(props){
@@ -14,7 +12,6 @@ export default class FabricScreenPartOne extends React.Component {
         this.state = {
             FabricWishlist : this.props.FabricWishlist === 1 ? true : false
         }
-        console.log(this.props);
     }
 
     onBookmarkPress = () => {
