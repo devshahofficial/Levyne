@@ -260,23 +260,28 @@ class BrandProfile extends Component {
 
     FabricScreen = (props) => {
         return (
-            <View center flex>
-                <FlatList
-                    data={props.BrandFabrics}
-                    numColumns={2}
-                    scrollEventThrottle={10}
-                    renderItem={this.FabricRenderItem}
-                    keyExtractor={item => item.FabricID}
-                    showsVerticalScrollIndicator={false}
-                    ListEmptyComponent={
-                        <View flex center>
-                            <Text center marginT-250 paddingH-50 h1 grey40>No fabrics found.</Text>
-                        </View>
-                    }
-                    onEndReached = {this.FabricScreenOnEndReached}
-                    onEndReachedThreshold={0.75}
-                />
-            </View>
+            <>
+                <View center padding-10 style={{backgroundColor:Colors.shadow, height: 'auto'}}>
+                    <Text>Fabric price is per product.</Text>
+                </View>
+                <View center flex>
+                    <FlatList
+                        data={props.BrandFabrics}
+                        numColumns={2}
+                        scrollEventThrottle={10}
+                        renderItem={this.FabricRenderItem}
+                        keyExtractor={item => item.FabricID}
+                        showsVerticalScrollIndicator={false}
+                        ListEmptyComponent={
+                            <View flex center>
+                                <Text center marginT-250 paddingH-50 h1 grey40>No fabrics found.</Text>
+                            </View>
+                        }
+                        onEndReached = {this.FabricScreenOnEndReached}
+                        onEndReachedThreshold={0.75}
+                    />
+                </View>
+            </>
         );
     }
 
