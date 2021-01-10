@@ -75,6 +75,7 @@ export default class ProductDetailsPage extends Component {
                                     ShortDescription={this.state.ShortDescription}
                                     CategoryID={this.state.CategoryID}
                                     Category={this.state.Category}
+                                    DesignID={this.props.route.params.DesignID}
                                     Styles={this.state.Styles}
                                     StyleIDs={this.state.StyleIDs}
                                     LongDescription={this.state.LongDescription}

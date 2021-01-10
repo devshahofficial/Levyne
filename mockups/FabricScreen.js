@@ -1,4 +1,4 @@
-import {SafeAreaView, ScrollView, ActivityIndicator, Dimensions} from "react-native";
+import {SafeAreaView, ScrollView, ActivityIndicator, Dimensions, Share} from "react-native";
 import React from 'react';
 import FabricScreenPartOne from '../components/FabricScreenPartOne';
 import FabricScreenPartTwo from '../components/FabricScreenPartTwo';
@@ -60,6 +60,12 @@ class FabricScreen extends React.Component {
         this.props.navigation.push("Auth", {screen: 'Login'});
     }
 
+    onShare = () => {
+        Share.share({
+            message: "Hey, I thought you would like this pattern. Wanna order some?.\n\nVisit here: https://collections.levyne.com/f/" + this.props.route.params.FabricID
+        }).catch(() => {});
+    }
+
     render() {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
@@ -99,7 +105,7 @@ class FabricScreen extends React.Component {
                             center row
                         >
                             <Text h1 primary>Share</Text>
-                            <View marginL-10><ShareIcon size={25} Color={Colors.primary}/></View>
+                            <TouchableOpacity marginL-10 onPress={this.onShare}><ShareIcon size={25} Color={Colors.primary}/></TouchableOpacity>
                         </TouchableOpacity>
                     </>
                     :
