@@ -72,7 +72,7 @@ export default class FabricItemContainer extends React.Component {
                                 </Text>
                             </View>
 
-                            <Text primary hb1 marginB-5>₹1000</Text>
+                            <Text primary hb1 marginB-5>₹{this.props.item.FabricPrice}</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
