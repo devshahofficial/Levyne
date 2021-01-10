@@ -72,7 +72,7 @@ export default class FabricItemContainer extends React.Component {
                                 </Text>
                             </View>
 
-                            <Text primary hb1>₹1000</Text>
+                            <Text primary hb1 marginB-5>₹1000</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
@@ -88,7 +88,7 @@ export default class FabricItemContainer extends React.Component {
 }
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.40,
+        height: deviceHeight * 0.41,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius:10,

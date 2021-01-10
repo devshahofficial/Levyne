@@ -10,7 +10,7 @@ export default class PopularBrands extends React.Component {
         return (
             <CstmShadowView style={styles.Shadow}>
                 <TouchableOpacity
-                    activeOpacity={0.6}
+                    activeOpacity={0.6} centerH
                     style={styles.Container}
                     onPress={() => {
                         this.props.navigateBrand(this.props.item.BrandID)
