@@ -144,6 +144,40 @@ class IndexScreen extends React.Component {
 
 							return true;
 						}
+					case 'f':
+					case 'F':
+						const FabricID = parseInt(Paths[2])
+						if (FabricID) {
+
+							this.props.navigation.dispatch(
+								CommonActions.reset({
+									index: 1,
+									routes: [
+										{
+											name: 'Auth',
+											state: {
+												routes: [
+													{ name: 'Login' }
+												],
+												index: 1,
+											}
+										},
+										{
+											name: 'MainHomeStack',
+											state: {
+												routes: [
+													{ name: 'Home' },
+													{ name: 'Fabric', params: { FabricID } },
+												],
+												index: 1,
+											}
+										},
+									]
+								})
+							);
+
+							return true;
+						}
 				}
 			}
 		}

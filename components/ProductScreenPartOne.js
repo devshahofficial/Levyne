@@ -57,26 +57,11 @@ export default class ProductScreenPartOne extends React.Component {
 		</TouchableOpacity>
 	);
 
-	onShare = async () => {
-		try {
-			const result = await Share.share({
-				message:
-					'React Native | A framework for building native apps using React',
-			});
-
-			if (result.action === Share.sharedAction) {
-				if (result.activityType) {
-					//console.log(result.activityType);
-				} else {
-					//console.log(result.activityType);
-				}
-			} else if (result.action === Share.dismissedAction) {
-				//console.log(result.action);
-			}
-		} catch (error) {
-			//console.log(error.message);
-		}
-	};
+	onShare = () => {
+        Share.share({
+            message: "Hey, I'm sharing an amazing outfit from " + this.props.Title + "'s collection.\n\nCheck out the outfit here: https://collections.levyne.com/p/" + this.props.ProductID
+        }).catch(() => {});
+    };
 
 	render() {
 		return (

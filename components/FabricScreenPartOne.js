@@ -39,27 +39,6 @@ export default class FabricScreenPartOne extends React.Component {
     };
 
 
-    onShare = async () => {
-        /*try {
-            const result = await Share.share({
-                message:
-                    'React Native | A framework for building native apps using React',
-            });
-
-            if (result.action === Share.sharedAction) {
-                if (result.activityType) {
-                    ////console.log(result.activityType);
-                } else {
-                    ////console.log(result.activityType);
-                }
-            } else if (result.action === Share.dismissedAction) {
-                ////console.log(result.action);
-            }
-        } catch (error) {
-            ////console.log(error.message);
-        }
-        */
-    }
 
     render() {
         return (
