@@ -36,7 +36,9 @@ export default class FabricScreenPartOne extends React.Component {
         }
     };
 
-
+    navigateCategory = () => {
+		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 0, Index: this.props.CategoryID, Label: this.props.Category}});
+	}
 
     render() {
         return (
@@ -46,10 +48,9 @@ export default class FabricScreenPartOne extends React.Component {
                         <Text b1 black>
                             {this.props.Title}
                         </Text>
-
-                        <View padding-5 centerV marginL-10 style={{backgroundColor:Colors.shadow, borderRadius:5}}>
-                            <Text h2 black>
-                                {this.props.Title}
+                        <View marginL-10 center style={{backgroundColor: Colors.shadow, width:'auto', paddingHorizontal: 10, paddingVertical: 5, borderRadius: 10}}>
+                            <Text h2 secondary onPress={this.navigateCategory}>
+                                {this.props.Category}
                             </Text>
                         </View>
                     </View>

@@ -68,7 +68,7 @@ export default class FabricItemContainer extends React.Component {
 
                             <View padding-5 marginV-10 center style={{backgroundColor:Colors.shadow, borderRadius:5}}>
                                 <Text h2 black>
-                                    {this.props.Category}
+                                    {this.props.item.Category}
                                 </Text>
                             </View>
 

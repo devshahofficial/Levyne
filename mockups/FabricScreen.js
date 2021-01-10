@@ -90,6 +90,9 @@ class FabricScreen extends React.Component {
                             </TouchableOpacity>
                             <FabricScreenPartOne
                                 Title={this.state.FabricObject.Name}
+                                navigation={this.props.navigation}
+                                Category={this.state.FabricObject.Category}
+                                CategoryID={this.state.FabricObject.CategoryID}
                                 FabricID={this.state.FabricObject.FabricID}
                                 FabricWishlist={this.state.FabricObject.IsWishlist}
                                 AddToWishlistFn={this.AddToWishlistFn}
@@ -98,14 +101,15 @@ class FabricScreen extends React.Component {
                                 Dyeable={this.state.FabricObject.Dyeable}
                                 NavigateLogin={this.NavigateLogin}
                             />
-                            <FabricScreenPartTwo LongDescription = {this.state.FabricObject.LongDescription}/>
+                            <FabricScreenPartTwo/>
                         </ScrollView>
                         <TouchableOpacity
                             style={{height: 50, borderWidth: 1, borderColor:Colors.shadow}}
                             center row
+                            onPress={this.onShare}
                         >
                             <Text h1 primary>Share</Text>
-                            <TouchableOpacity marginL-10 onPress={this.onShare}><ShareIcon size={25} Color={Colors.primary}/></TouchableOpacity>
+                            <View marginL-10><ShareIcon size={25} Color={Colors.primary}/></View>
                         </TouchableOpacity>
                     </>
                     :

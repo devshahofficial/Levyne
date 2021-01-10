@@ -59,10 +59,6 @@ export default class ProductScreenPartTwo extends React.PureComponent {
     render() {
         return (
             <View marginT-15 marginH-15>
-                <View>
-                    <Text hb1>Fabric Description</Text>
-                    <DescriptionCard CompleteDescription = {this.props.LongDescription}/>
-                </View>
 
                 <View marginV-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     <MachineWashIcon size={30} Color={Colors.black}/>
