@@ -64,6 +64,9 @@ export default class FabricScreenPartOne extends React.Component {
                     </View>
                 </View>
 
+                <View centerV marginT-10>
+                    <Text b1 primary>₹1200</Text>
+                </View>
                 <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     <MachineWashIcon size={30} Color={Colors.black}/>
                     <Text marginL-10 h2>Dry cleaning is recommended for the first wash!</Text>
