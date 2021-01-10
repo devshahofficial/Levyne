@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
-import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions, KeyboardAvoidingView} from "react-native";
+import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
 import GetChatMessage from '../../API/GetChatMessage';
@@ -34,11 +34,11 @@ const windowHeight = Dimensions.get('window').height;
 // The actual chat view itself- a ScrollView of BubbleMessages, with an InputBar at the bottom, which moves with the keyboard
 class ChatScreenIos extends Component {
 
-	constructor(props) {
-		super(props)
-		this.state = {
+    constructor(props) {
+        super(props)
+        this.state = {
             Messages: [],
-            LoadingMessages: true,
+            LoadingMessages: false,
             ImageToDisplay: [],
             ModalVisible: false,
             ImagePickerModalVisible: false,
@@ -51,10 +51,12 @@ class ChatScreenIos extends Component {
         this.FlatListRef = React.createRef();
         this.props.Socket.on('ChatMessage', this.SocketListener);
         this.TimeOutArray = [];
-        this.NewChatLoading = true;
-	}
+        this.NewChatLoading = false;
+
+    }
 
     SocketListener = (Message) => {
+        console.log(Message);
         if(Message.BucketID === this.props.route.params.BucketID) {
             this.state.Messages.unshift({
                 Message,
@@ -66,17 +68,13 @@ class ChatScreenIos extends Component {
         }
     }
 
-    componentDidMount = () => {
-        GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
-            this.setState({Messages: Resp.Messages, BucketInfo: Resp.BucketInfo, LoadingMessages: false});
-        }).catch(err => {
-            console.log(err);
-        });
-    }
-
     componentWillUnmount = () => {
         this.props.Socket.off('ChatMessage', this.SocketListener);
-        UpdateReadTimestamp(this.props.route.params.BucketID, this.props.AccessToken).catch(err => console.log(err));
+
+        if(this.props.route.params.BucketID) {
+            UpdateReadTimestamp(this.props.route.params.BucketID, this.props.AccessToken).catch(err => console.log(err));
+        }
+
         this.TimeOutArray.forEach(item => {
             clearTimeout(item);
         })
@@ -86,9 +84,16 @@ class ChatScreenIos extends Component {
         if(this.NewChatLoading) {
             this.NewChatLoading = false;
             GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
-                if(Resp.Messages.length) {
-                    this.setState({Messages: [...this.state.Messages, ...Resp.Messages]});
-                    this.NewChatLoading = true;
+                if(this.Page === 1) {
+                    if(Resp.Messages.length) {
+                        this.setState({Messages: Resp.Messages});
+                        this.NewChatLoading = true;
+                    }
+                } else {
+                    if(Resp.Messages.length) {
+                        this.setState({Messages: [...this.state.Messages, ...Resp.Messages]});
+                        this.NewChatLoading = true;
+                    }
                 }
             }).catch(err => {
                 console.log(err);
@@ -105,12 +110,15 @@ class ChatScreenIos extends Component {
     }
 
     NavigateBucket = () => {
-        this.props.navigation.push('Bucket', {
-            BucketID: this.props.route.params.BucketID,
-            BrandID: this.props.route.params.BrandID,
-            BrandName: this.props.route.params.Name,
-            imageSource: this.props.route.params.imageSource
-        })
+
+        if(this.props.route.params.BucketID) {
+            this.props.navigation.push('Bucket', {
+                BucketID: this.props.route.params.BucketID,
+                BrandID: this.props.route.params.BrandID,
+                BrandName: this.props.route.params.Name,
+                imageSource: this.props.route.params.imageSource
+            })
+        }
     }
 
     RightText = ({TextInput, Timestamp}) => (
@@ -207,20 +215,39 @@ class ChatScreenIos extends Component {
 
         this.setState({Messages: this.state.Messages});
 
-        this.props.Socket.emit('SendMessage', {
-            BucketID: this.props.route.params.BucketID,
-            BrandID: this.props.route.params.BrandID,
-            CustomerID: this.props.UserID,
-            Type: 2,
-            Base64Image: `data:${response.mime};base64,${response.data}`
-        }, () => {
-            if(this.state && this.state.Messages) {
-                this.state.ImageSent[BucketMessagesID] = true;
-                this.setState({
-                    ImageSent: this.state.ImageSent
-                });
-            }
-        })
+        if(this.props.route.params.BucketID) {
+            this.props.Socket.emit('SendMessage', {
+                BucketID: this.props.route.params.BucketID,
+                BrandID: this.props.route.params.BrandID,
+                CustomerID: this.props.UserID,
+                Type: 2,
+                Base64Image: `data:${response.mime};base64,${response.data}`
+            }, () => {
+                if(this.state && this.state.Messages) {
+                    this.state.ImageSent[BucketMessagesID] = true;
+                    this.setState({
+                        ImageSent: this.state.ImageSent
+                    });
+                }
+            })
+        } else {
+            this.props.Socket.emit('SendMessageWithBrandID', {
+                BrandID: this.props.route.params.BrandID,
+                CustomerID: this.props.UserID,
+                Type: 2,
+                Base64Image: `data:${response.mime};base64,${response.data}`
+            }, (BucketID) => {
+                if(this.state && this.state.Messages) {
+                    this.state.ImageSent[BucketMessagesID] = true;
+                    this.setState({
+                        ImageSent: this.state.ImageSent
+                    });
+                }
+                this.props.route.params.BucketID = BucketID;
+                this.NewChatLoading = true;
+                this.ChatOnEndReached();
+            })
+        }
 
         this.ImageSendVerify(BucketMessagesID);
     }
@@ -244,7 +271,7 @@ class ChatScreenIos extends Component {
             includeBase64: true,
             writeTempFile: false,
             forceJpg: true
-        }).then(this.handleImagePicker).catch(err => {})
+        }).then(this.handleImagePicker).catch(() => {})
     }
 
     ShowCamera = async() => {
@@ -256,18 +283,32 @@ class ChatScreenIos extends Component {
             includeBase64: true,
             writeTempFile: false,
             forceJpg: true
-        }).then(this.handleImagePicker).catch(err => {})
+        }).then(this.handleImagePicker).catch(() => {})
     }
 
     SendMessage = () => {
         if(this.state.TextInput) {
-            this.props.Socket.emit('SendMessage', {
-                BucketID: this.props.route.params.BucketID,
-                BrandID: this.props.route.params.BrandID,
-                CustomerID: this.props.UserID,
-                Type: 1,
-                Text: this.state.TextInput
-            });
+
+            if(this.props.route.params.BucketID) {
+                this.props.Socket.emit('SendMessage', {
+                    BucketID: this.props.route.params.BucketID,
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 1,
+                    Text: this.state.TextInput
+                });
+            } else {
+                this.props.Socket.emit('SendMessageWithBrandID', {
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 1,
+                    Text: this.state.TextInput
+                }, (BucketID) => {
+                    this.props.route.params.BucketID = BucketID;
+                    this.NewChatLoading = true;
+                    this.ChatOnEndReached();
+                });
+            }
 
             this.state.Messages.unshift({
                 Message: {
@@ -297,93 +338,87 @@ class ChatScreenIos extends Component {
         this.setState({TextInput: '', TextInputKey: Math.random()});
     }
 
-	render() {
-	    return (
+    render() {
+        return (
             <SafeAreaView style={styles.container}>
-                <KeyboardAvoidingView
-                    behavior={ 'padding' }
-                    style={ { flex: 1 } }
-                    keyboardVerticalOffset={35}
+                <ImageView
+                    images={[this.state.ImageToDisplay]}
+                    visible={this.state.ModalVisible}
+                    onRequestClose={this.CloseModal}
+                />
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={this.state.ImagePickerModalVisible}
                 >
-                    <ImageView
-                        images={[this.state.ImageToDisplay]}
-                        visible={this.state.ModalVisible}
-                        onRequestClose={this.CloseModal}
+                    <CstmShadowView style={styles.Modal}>
+                        <View flex row centerV marginT-10>
+                            <Text flex-9 h1 secondary center>Choose Medium to Upload:</Text>
+                            <TouchableOpacity
+                                flex
+                                onPress={this.ImagePickerModalSwitchVisibility}
+                            >
+                                <Text primary hb1>X</Text>
+                            </TouchableOpacity>
+                        </View>
+                        <View row flex-5 marginH-30>
+                            <TouchableOpacity flex center onPress={this.ShowGallery}>
+                                <GalleryIcon size={28} Color={Colors.primary}/>
+                                <Text h3 secondary marginT-10>Gallery</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity flex center onPress={this.ShowCamera}>
+                                <CameraIcon size={32} Color={Colors.primary}/>
+                                <Text h3 secondary marginT-10>Camera</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </CstmShadowView>
+                </Modal>
+                <ChatHeader
+                    {...this.props.route.params}
+                    BucketInfo={this.state.BucketInfo}
+                    NavigateBack={this.NavigateBack}
+                    NavigateBrandProfile={this.NavigateBrandProfile}
+                    NavigateBucket={this.NavigateBucket}
+                />
+                {this.state.LoadingMessages ? <LoaderScreen /> :
+                    <FlatList
+                        data = {this.state.Messages}
+                        inverted={true}
+                        renderItem = {({item}) => {
+                            switch(item.Message.Type) {
+                                case 1 :
+                                    return item.Message.Sender ?
+                                        <this.RightText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                        :
+                                        <this.LeftText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                case 2 :
+                                    return item.Message.Sender ?
+                                        <this.RightImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                        :
+                                        <this.LeftImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                case 3 :
+                                    return <this.CenterText TextInput={'Brand has decided the price'}/>
+                                case 4 :
+                                    return <this.CenterText TextInput={'You added the product in the cart'}/>
+                                case 5 :
+                                    return <this.CenterText TextInput={'You removed the product from the cart'}/>
+                                case 6 :
+                                    return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
+                                case 7 :
+                                    return <this.CenterText TextInput={'You placed an order'}/>
+                            }
+                        }}
+                        keyExtractor = {this.keyExtractor}
+                        onEndReached = {this.ChatOnEndReached}
                     />
-                    <Modal
-                        animationType="slide"
-                        transparent={true}
-                        visible={this.state.ImagePickerModalVisible}
-                    >
-                        <CstmShadowView style={styles.Modal}>
-                            <View flex row centerV marginT-10>
-                                <Text flex-9 h1 secondary center>Choose Medium to Upload:</Text>
-                                <TouchableOpacity
-                                    flex
-                                    onPress={this.ImagePickerModalSwitchVisibility}
-                                >
-                                    <Text primary hb1>X</Text>
-                                </TouchableOpacity>
-                            </View>
-                            <View row flex-5 marginH-30>
-                                <TouchableOpacity flex center onPress={this.ShowGallery}>
-                                    <GalleryIcon size={28} Color={Colors.primary}/>
-                                    <Text h3 secondary marginT-10>Gallery</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity flex center onPress={this.ShowCamera}>
-                                    <CameraIcon size={32} Color={Colors.primary}/>
-                                    <Text h3 secondary marginT-10>Camera</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </CstmShadowView>
-                    </Modal>
-                    <ChatHeader
-                        {...this.props.route.params}
-                        BucketInfo={this.state.BucketInfo}
-                        NavigateBack={this.NavigateBack}
-                        NavigateBrandProfile={this.NavigateBrandProfile}
-                        NavigateBucket={this.NavigateBucket}
-                    />
-                    {this.state.LoadingMessages ? <LoaderScreen /> :
-                        <FlatList
-                            data = {this.state.Messages}
-                            inverted={true}
-                            renderItem = {({item}) => {
-                                switch(item.Message.Type) {
-                                    case 1 :
-                                        return item.Message.Sender ?
-                                            <this.RightText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
-                                            :
-                                            <this.LeftText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
-                                    case 2 :
-                                        return item.Message.Sender ?
-                                            <this.RightImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
-                                            :
-                                            <this.LeftImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
-                                    case 3 :
-                                        return <this.CenterText TextInput={'Brand has decided the price'}/>
-                                    case 4 :
-                                        return <this.CenterText TextInput={'You added the product in the cart'}/>
-                                    case 5 :
-                                        return <this.CenterText TextInput={'You removed the product from the cart'}/>
-                                    case 6 :
-                                        return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
-                                    case 7 :
-                                        return <this.CenterText TextInput={'You placed an order'}/>
-                                }
-                            }}
-                            keyExtractor = {this.keyExtractor}
-                            onEndReached = {this.ChatOnEndReached}
-                        />
-                    }
-                    <ChatInputBar
-                        DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
-                        SendMessage = {this.SendMessage}
-                        value = {this.state.InputText}
-                        onChangeText={this.onChangeTextInput}
-                        TextInputKey={this.state.TextInputKey}
-                    />
-                </KeyboardAvoidingView>
+                }
+                <ChatInputBar
+                    DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
+                    SendMessage = {this.SendMessage}
+                    value = {this.state.InputText}
+                    onChangeText={this.onChangeTextInput}
+                    TextInputKey={this.state.TextInputKey}
+                />
             </SafeAreaView>
         )
     }

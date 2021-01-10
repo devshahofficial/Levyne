@@ -51,7 +51,7 @@ class ChatScreenIos extends Component {
         this.FlatListRef = React.createRef();
         this.props.Socket.on('ChatMessage', this.SocketListener);
         this.TimeOutArray = [];
-        this.NewChatLoading = true;
+        this.NewChatLoading = false;
 	}
 
     SocketListener = (Message) => {
@@ -66,17 +66,13 @@ class ChatScreenIos extends Component {
         }
     }
 
-    componentDidMount = () => {
-        GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
-            this.setState({Messages: Resp.Messages, BucketInfo: Resp.BucketInfo, LoadingMessages: false});
-        }).catch(err => {
-            console.log(err);
-        });
-    }
-
     componentWillUnmount = () => {
         this.props.Socket.off('ChatMessage', this.SocketListener);
-        UpdateReadTimestamp(this.props.route.params.BucketID, this.props.AccessToken).catch(err => console.log(err));
+        
+        if(this.props.route.params.BucketID) {
+            UpdateReadTimestamp(this.props.route.params.BucketID, this.props.AccessToken).catch(err => console.log(err));
+        }
+        
         this.TimeOutArray.forEach(item => {
             clearTimeout(item);
         })
@@ -105,12 +101,15 @@ class ChatScreenIos extends Component {
     }
 
     NavigateBucket = () => {
-        this.props.navigation.push('Bucket', {
-            BucketID: this.props.route.params.BucketID,
-            BrandID: this.props.route.params.BrandID,
-            BrandName: this.props.route.params.Name,
-            imageSource: this.props.route.params.imageSource
-        })
+
+        if(this.props.route.params.BucketID) {
+            this.props.navigation.push('Bucket', {
+                BucketID: this.props.route.params.BucketID,
+                BrandID: this.props.route.params.BrandID,
+                BrandName: this.props.route.params.Name,
+                imageSource: this.props.route.params.imageSource
+            })
+        }
     }
 
     RightText = ({TextInput, Timestamp}) => (
@@ -207,20 +206,39 @@ class ChatScreenIos extends Component {
 
         this.setState({Messages: this.state.Messages});
 
-        this.props.Socket.emit('SendMessage', {
-            BucketID: this.props.route.params.BucketID,
-            BrandID: this.props.route.params.BrandID,
-            CustomerID: this.props.UserID,
-            Type: 2,
-            Base64Image: `data:${response.mime};base64,${response.data}`
-        }, () => {
-            if(this.state && this.state.Messages) {
-                this.state.ImageSent[BucketMessagesID] = true;
-                this.setState({
-                    ImageSent: this.state.ImageSent
-                });
-            }
-        })
+        if(this.props.route.params.BucketID) {
+            this.props.Socket.emit('SendMessage', {
+                BucketID: this.props.route.params.BucketID,
+                BrandID: this.props.route.params.BrandID,
+                CustomerID: this.props.UserID,
+                Type: 2,
+                Base64Image: `data:${response.mime};base64,${response.data}`
+            }, () => {
+                if(this.state && this.state.Messages) {
+                    this.state.ImageSent[BucketMessagesID] = true;
+                    this.setState({
+                        ImageSent: this.state.ImageSent
+                    });
+                }
+            })
+        } else {
+            this.props.Socket.emit('SendMessageWithBrandID', {
+                BrandID: this.props.route.params.BrandID,
+                CustomerID: this.props.UserID,
+                Type: 2,
+                Base64Image: `data:${response.mime};base64,${response.data}`
+            }, (BucketID) => {
+                if(this.state && this.state.Messages) {
+                    this.state.ImageSent[BucketMessagesID] = true;
+                    this.setState({
+                        ImageSent: this.state.ImageSent
+                    });
+                }
+                this.props.route.params.BucketID = BucketID;
+                this.NewChatLoading = true;
+                this.ChatOnEndReached();
+            })
+        }
 
         this.ImageSendVerify(BucketMessagesID);
     }
@@ -261,13 +279,27 @@ class ChatScreenIos extends Component {
 
     SendMessage = () => {
         if(this.state.TextInput) {
-            this.props.Socket.emit('SendMessage', {
-                BucketID: this.props.route.params.BucketID,
-                BrandID: this.props.route.params.BrandID,
-                CustomerID: this.props.UserID,
-                Type: 1,
-                Text: this.state.TextInput
-            });
+            
+            if(this.props.route.params.BucketID) {
+                this.props.Socket.emit('SendMessage', {
+                    BucketID: this.props.route.params.BucketID,
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 1,
+                    Text: this.state.TextInput
+                });
+            } else {
+                this.props.Socket.emit('SendMessageWithBrandID', {
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 1,
+                    Text: this.state.TextInput
+                }, (BucketID) => {
+                    this.props.route.params.BucketID = BucketID;
+                    this.NewChatLoading = true;
+                    this.ChatOnEndReached();
+                });
+            }
 
             this.state.Messages.unshift({
                 Message: {

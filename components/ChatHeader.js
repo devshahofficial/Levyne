@@ -10,7 +10,7 @@ export default class ChatHeader extends React.PureComponent {
             case 0:
                 return 'Bucket added, waiting for final budget.';
             case 1:
-                return 'Price Decided sucessfully, waiting for Check out.';
+                return 'Price Decided successfully, waiting for Check out.';
             case 2:
                 return 'Order placed successfully, Status available.';
         }
@@ -31,7 +31,7 @@ export default class ChatHeader extends React.PureComponent {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.textView} onPress={this.props.NavigateBucket}>
                         <Text hb1>{this.props.Name}</Text>
-                        <Text secondary h3>Bucket ID: {this.props.BucketID}</Text>
+                        <Text secondary h3>Bucket ID: {this.props.BucketID || "Fetching..."}</Text>
                     </TouchableOpacity>
                 </View>
                 <View center style={styles.Header}>
