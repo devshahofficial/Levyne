@@ -1,9 +1,9 @@
 import React from 'react';
-import {Dimensions} from 'react-native';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import BookMarkIcon from "../Icons/BookMarkIcon";
 import Colors from '../Style/Colors';
-import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
+import {FlatList,StyleSheet} from "react-native";
+const defaultColors = ["#ff99cc","#7ac1ff"];
 
 export default class FabricScreenPartOne extends React.Component {
 
@@ -62,15 +62,38 @@ export default class FabricScreenPartOne extends React.Component {
                     </View>
                 </View>
 
-                <View centerV marginT-10>
+                <View centerV>
                     <Text b1 primary>₹{this.props.FabricPrice}</Text>
                 </View>
-                <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
-                    <MachineWashIcon size={30} Color={Colors.black}/>
-                    <Text marginL-10 h2>Dry cleaning is recommended for the first wash!</Text>
+
+                <View marginT-10 marginB-10 style={{marginHorizontal: -15}}>
+                    <FlatList
+                        data={this.props.Materials}
+                        showsHorizontalScrollIndicator={false}
+                        horizontal={true}
+                        keyExtractor={(item, index) => item}
+                        renderItem={({item, index}) => (
+                            <View
+                                centerV
+                                style={[{backgroundColor: defaultColors[index%2]}, styles.Tags]}>
+                                <Text hb2 white>
+                                    {item}
+                                </Text>
+                            </View>
+                        )}
+                    />
                 </View>
             </View>
 
         );
     }
 };
+
+const styles = StyleSheet.create({
+    Tags: {
+        height: 40,
+        borderRadius:50,
+        paddingHorizontal: 20,
+        marginHorizontal: 6
+    },
+})

@@ -11,6 +11,7 @@ import { Colors, AnimatedImage, TouchableOpacity, Text, View} from "react-native
 import ImageView from "react-native-image-viewing";
 import Loader from "../components/Loader";
 import {ShareIcon} from "../Icons/ShareIcon";
+import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -72,6 +73,10 @@ class FabricScreen extends React.Component {
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.state.loading ? 'Fabric' : this.state.FabricObject.Name}/>
                 {!this.state.loading && this.state.success ?
                     <>
+                        <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,backgroundColor:Colors.shadow}}>
+                            <MachineWashIcon size={30} Color={Colors.black}/>
+                            <Text marginL-10 h2>Dry cleaning is recommended for the first wash!</Text>
+                        </View>
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <ImageView
                                 images={[{uri: this.state.FabricObject.FabricImage}]}
