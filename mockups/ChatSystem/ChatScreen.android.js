@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
-import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions, KeyboardAvoidingView, Platform} from "react-native";
+import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
 import GetChatMessage from '../../API/GetChatMessage';
@@ -245,7 +245,7 @@ class ChatScreenIos extends Component {
             includeBase64: true,
             writeTempFile: false,
             forceJpg: true
-        }).then(this.handleImagePicker).catch(err => {})
+        }).then(this.handleImagePicker).catch(() => {})
     }
 
     ShowCamera = async() => {
@@ -257,7 +257,7 @@ class ChatScreenIos extends Component {
             includeBase64: true,
             writeTempFile: false,
             forceJpg: true
-        }).then(this.handleImagePicker).catch(err => {})
+        }).then(this.handleImagePicker).catch(() => {})
     }
 
     SendMessage = () => {

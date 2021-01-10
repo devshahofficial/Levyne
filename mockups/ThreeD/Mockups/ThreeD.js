@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {StyleSheet, FlatList, Linking, SafeAreaView} from 'react-native';
-import {Colors, Text, TouchableOpacity, View} from "react-native-ui-lib";
+import {StyleSheet, FlatList, SafeAreaView} from 'react-native';
+import {Colors, Text, TouchableOpacity, View, AvatarHelper} from "react-native-ui-lib";
 import UpperComponent from '../Components/UpperComponent'
 import NavBarBack from "../../../components/NavBarBack";
 import WebView from "react-native-webview";
@@ -48,6 +48,16 @@ export default class NewScreen extends Component {
         />
     )
 
+    NavigateChat = () => {
+        this.props.navigation.push('ChatWhenNoBucketID', {
+            Name: 'Levyne',
+            Status: 0,
+            BrandID: 331,
+            OrderID: 0,
+            imageSource: {uri: "https://d9n1pxcc9f1lk.cloudfront.net/2020-08-27-8644b95539d387260384ca234650829d12e87501a602b16a37a2f7d7258a2af0.webp"},
+            initials: AvatarHelper.getInitials('Levyne')
+        })
+    }
 
     render() {
         return (
@@ -68,7 +78,7 @@ export default class NewScreen extends Component {
                     <WebView source={{ uri: this.URL3DModelBase + this.Model.items[this.state.upperSelected] }}/>
                     <TouchableOpacity
                         style={{height:50, backgroundColor: Colors.primary}} center
-                        onPress={() => Linking.openURL('tel:+91 9819 077182')} row
+                        onPress={this.NavigateChat} row
                     >
                         <CallIcon Size={18} Color={Colors.white}/>
                         <Text h1 white marginL-20>Call us for product enquire</Text>

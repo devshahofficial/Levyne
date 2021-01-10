@@ -3,9 +3,9 @@ import io from "socket.io-client";
 export default async (Token) => {
     const socket = await io(global.URL + 'Customers', {
         auth: {
-            authentication: Token
-        },
-        localAddress: null,
+            authentication: Token,
+            reconnectionDelay: 3000
+        }
     });
 
     socket.on('connect', function () {
@@ -13,10 +13,11 @@ export default async (Token) => {
     });
 
     socket.on('connect_error', function (data) {
+        console.log(data);
         console.log(data || 'connect_failed');
     });
 
-    socket.on('Error', (err) => {
+    socket.on('error', (err) => {
         console.log('Socket Error', err);
     });
 

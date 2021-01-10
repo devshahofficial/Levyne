@@ -44,6 +44,7 @@ import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
 import FabricIn3D from "../mockups/ThreeD/Mockups/FabricIn3DExp";
 import DesignedAtLevyne from "../mockups/Home/Designed at Levyne";
 import CallToOrder from "../mockups/Home/CallToOrder";
+import ChatScreenWhenNoBucketID from "../mockups/ChatSystem/ChatScreenWhenNoBucketID";
 
 
 const MainStack = createStackNavigator();
@@ -140,6 +141,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="BrandProfile" component={BrandProfile}/>
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
+				<HomeStack.Screen name="ChatWhenNoBucketID" component={ChatScreenWhenNoBucketID} />
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
 				<HomeStack.Screen name="SearchText" component={SearchText} />
 				<HomeStack.Screen name='Help' component={Help}/>
