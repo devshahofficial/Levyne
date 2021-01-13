@@ -51,6 +51,8 @@ class IndexScreen extends React.Component {
 							]
 						})
 					);
+				} else {
+					Linking.getInitialURL().then(url => this.HandleLinkingInitialURL(url, NavigateScreen)).catch(() => { });
 				}
 
 				delete global.NotificationObject;
@@ -219,6 +221,16 @@ class IndexScreen extends React.Component {
 					})
 				);
 			}
+		} else {
+			this.props.navigation.dispatch(
+				CommonActions.reset({
+					routes: [
+						{
+							name: NavigateScreen,
+						},
+					]
+				})
+			);
 		}
 
 	}
