@@ -47,7 +47,6 @@ class Bucket extends React.Component {
 
     componentDidMount() {
         FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
-            console.log(Buckets);
             let CheckoutActive = false;
             if(Buckets[0].Status === 1) {
                 CheckoutActive = true;

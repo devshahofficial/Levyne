@@ -11,7 +11,8 @@ import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 import CheckoutAPI from '../API/Checkout';
 import FetchPartialBucket from '../API/FetchPartialBucket';
 import Loader from '../components/Loader';
-
+import { CommonActions } from '@react-navigation/native';
+import IsAnyProductInCartAPI from '../API/IsAnyProductInCart';
 
 
 class CheckOut extends React.PureComponent {
@@ -50,8 +51,34 @@ class CheckOut extends React.PureComponent {
             this.props.route.params.BucketID,
             this.props.AccessToken,
             this.abortController.signal
-        ).then(OrderID => {
-            console.log(OrderID);
+        ).then(async () => {
+            let {IsAnyProductInCart} = await IsAnyProductInCartAPI(this.props.AccessToken).catch(() => {});
+            this.props.setIsAnyProductInCart(IsAnyProductInCart);
+            this.props.navigation.dispatch(
+                CommonActions.reset({
+                    routes: [
+                        {
+                            name: 'Auth',
+                            state: {
+                                routes: [
+                                    { name: 'Login' }
+                                ]
+                            }
+                        },
+                        {
+                            name: 'MainHomeStack',
+                            state: {
+                                routes: [
+                                    { name: 'Home' },
+                                    { name: 'MyOrders'}
+                                ],
+                                index: 1
+                            }
+                        },
+                    ],
+                    index: 1
+                })
+            );
         }).catch(err => {
             this.setState({
                 Loading: false
@@ -182,4 +209,10 @@ const mapsStateToProps = state => ({
     PinCode: state.Profile.PinCode,
 });
 
-export default connect(mapsStateToProps)(CheckOut);
+const mapDispatchToProps = dispatch => {
+	return {
+		setIsAnyProductInCart: (value) => dispatch({ type: 'setIsAnyProductInCart', value }),
+	}
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(CheckOut);
