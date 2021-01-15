@@ -47,8 +47,9 @@ class Bucket extends React.Component {
 
     componentDidMount() {
         FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
+            console.log(Buckets);
             let CheckoutActive = false;
-            if(Buckets[0].Status > 0) {
+            if(Buckets[0].Status === 1) {
                 CheckoutActive = true;
             }
             this.setState({
@@ -217,12 +218,19 @@ class Bucket extends React.Component {
                     modalVisible={this.state.DeleteModalVisible}
                     setModalVisible={this.setDeleteModalVisible}
                 />
-                <BottomButton
-                    ButtonA={"Chat"}
-                    ButtonB={"Checkout"}
-                    ButtonActionA={this.navigateChat}
-                    ButtonActionB={this.navigateCheckout}
-                />
+                {!this.state.Loading && this.state.Buckets[0].Status < 2 ?
+                    <BottomButton
+                        ButtonA={"Chat"}
+                        ButtonB={"Checkout"}
+                        ButtonActionA={this.navigateChat}
+                        ButtonActionB={this.navigateCheckout}
+                    />
+                    :
+                    <BottomButton
+                        ButtonB={"Chat"}
+                        ButtonActionB={this.navigateChat}
+                    />
+                }
                 <Toast
                     visible={this.state.showToast}
                     position={'bottom'}

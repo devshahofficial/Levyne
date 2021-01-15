@@ -31,7 +31,11 @@ export default class ChatHeader extends React.PureComponent {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.textView} onPress={this.props.NavigateBucket}>
                         <Text hb1>{this.props.Name}</Text>
-                        <Text secondary h3>Bucket ID: {this.props.BucketID || "Fetching..."}</Text>
+                        {this.props.Status < 2 ?
+                            <Text secondary h3>Bucket ID: {this.props.BucketID || "Fetching..."}</Text>
+                            :
+                            <Text secondary h3>Order ID: {this.props.BucketInfo.OrderID || "Fetching..."}</Text>
+                        }
                     </TouchableOpacity>
                 </View>
                 <View center style={styles.Header}>
