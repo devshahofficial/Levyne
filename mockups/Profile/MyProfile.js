@@ -7,6 +7,7 @@ import CstmShadowView from "../../components/CstmShadowView";
 import { connect } from 'react-redux';
 import { getVersion } from 'react-native-device-info';
 import { EditIcon } from "../../Icons/EditIcon";
+import { CommonActions } from '@react-navigation/native';
 
 class ProfileTopSection extends React.Component {
 
@@ -25,7 +26,7 @@ class ProfileTopSection extends React.Component {
     }
 
     NavigateFits = () => {
-        this.props.navigation.navigate("MyFits");
+        //this.props.navigation.navigate("MyFits");
     }
 
     NavigateOrders = () => {
