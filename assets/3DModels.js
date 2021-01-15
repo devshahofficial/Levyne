@@ -13,7 +13,7 @@ export default Models = {
             'Madmen Collar',
             'Prepster Collar',
             'Hipster Collar',
-            'Bandgala Collar',
+            'Bandhgala Collar',
             'Evil Pandit Collar',
             'Ozwald Collar'
         ]
