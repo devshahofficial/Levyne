@@ -45,7 +45,14 @@ export default class FashionDesignerList extends React.PureComponent {
 		}).catch(console.log)
 	}
 
+	NavigateBrandProfile = (BrandID) => {
+        this.props.navigation.push('BrandProfile', {BrandID})
+	}
 	
+	AddDesignToCart = (BrandID) => {
+		//this.props.navigation.push('BrandProfile', {BrandID})
+		console.log('Add 3D in Cart');
+    }
 
 	render() {
 		return (
@@ -55,13 +62,13 @@ export default class FashionDesignerList extends React.PureComponent {
 				<FlatList
 					data={this.state.Brands}
 					renderItem={({ item }) =>
-						<TouchableOpacity activeOpacity={0.6} row paddingL-10 marginB-10 flex>
-							<View>
+						<TouchableOpacity onPress={() => this.AddDesignToCart(item.BrandID)} activeOpacity={0.6} row paddingL-10 marginB-10 flex>
+							<TouchableOpacity onPress={() => this.NavigateBrandProfile(item.BrandID)}>
 								<Image
 									style={styles.headerImage}
 									source={{ uri: item.ProfileImage }}
 								/>
-							</View>
+							</TouchableOpacity>
 							<View flex>
 								<Text hb1 style={styles.headerText}>
 									{item.Name}
