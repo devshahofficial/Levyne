@@ -4,7 +4,7 @@ export default ListBookmarkProducts = async (Page, Token, abortControllerSignal,
 
     const QueryData = {Page}
     if(RefreshContent) {
-        QueryData.RefreshToken = Math.random.toString()
+        QueryData.Random = Math.random()
     }
     return await GET('Products/ListWishlistProducts', {
         ReturnResponse: true,
