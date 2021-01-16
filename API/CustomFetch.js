@@ -11,7 +11,8 @@ const encodeQueryData = (data) => {
                 ret.push(`${encodeURIComponent(d)}[]=${encodeURIComponent(data[d][arrD])}`)
             }
         } else if (typeof data[d] === 'null' || typeof data[d] === 'undefined') {
-            ret.push(encodeURIComponent(d))
+            //ret.push(encodeURIComponent(d))
+            //Ignore if not defined
         } else {
             ret.push(`${encodeURIComponent(d)}=${encodeURIComponent(data[d])}`)
         }

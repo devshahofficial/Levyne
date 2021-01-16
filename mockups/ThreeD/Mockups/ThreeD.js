@@ -57,18 +57,9 @@ export default class NewScreen extends Component {
 
     NavigateChat = () => {
 
-        Linking.openURL('tel:+91 9819 077182').catch(err => {});
+        //Linking.openURL('tel:+91 9819 077182').catch(err => {});
 
-        /*
-        this.props.navigation.push('ChatWhenNoBucketID', {
-            Name: 'Levyne',
-            Status: 0,
-            BrandID: 331,
-            OrderID: 0,
-            imageSource: {uri: "https://d9n1pxcc9f1lk.cloudfront.net/2020-08-27-8644b95539d387260384ca234650829d12e87501a602b16a37a2f7d7258a2af0.webp"},
-            initials: AvatarHelper.getInitials('Levyne')
-        })
-        */
+        this.props.navigation.push('FashionDesignerList')
     }
 
     render() {

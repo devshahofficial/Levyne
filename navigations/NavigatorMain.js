@@ -38,6 +38,7 @@ import {OrdersIcon} from "../Icons/OrdersIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
 import {connect} from 'react-redux';
+import FashionDesignerList from '../mockups/CompaniesList';
 import SearchText from "../mockups/Search/SearchText";
 import BlogPost from "../mockups/Home/BlogPost";
 import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
@@ -164,6 +165,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
 				<HomeStack.Screen name='FabricInThreeD' component={FabricIn3D}/>
 				<HomeStack.Screen name='Call' component={CallToOrder}/>
+				<HomeStack.Screen name='FashionDesignerList' component={FashionDesignerList}/>
 			</HomeStack.Navigator>
 		)
 	}
