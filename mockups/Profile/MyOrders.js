@@ -3,7 +3,7 @@ import {Text, View, Colors} from 'react-native-ui-lib';
 import NavBarBack from '../../components/NavBarBack';
 import OrdersContainer from "../../components/OrdersContainer";
 import {connect} from 'react-redux';
-import FetchOrders from '../../API/FetchOrders';
+import FetchOrders from '../../API/Orders/FetchOrders';
 import {StyleSheet, FlatList} from 'react-native';
 import Loader from '../../components/Loader';
 

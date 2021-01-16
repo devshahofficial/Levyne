@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, AvatarHelper, Colors, Toast} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import BucketComponent from "../../components/BucketComponent";
-import FetchCart from '../../API/FetchCart';
+import FetchCart from '../../API/Cart/FetchCart';
 import {FlatList, Alert} from 'react-native';
 import UnLoggedScreen from '../../components/UnLoggedScreen';
 import TextNavBar from "../../components/TextNavBar";

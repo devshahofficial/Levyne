@@ -5,8 +5,8 @@ import CstmInput from "./input";
 import {connect} from 'react-redux';
 import {SearchIcon} from '../Icons/SearchIcon';
 import CstmShadowView from "./CstmShadowView";
-import SearchSuggestionsAPI from '../API/SearchSuggestions';
-import SearchSuggestionsLocal from '../API/SearchSuggestionsLocal';
+import SearchSuggestionsAPI from '../API/SearchSuggestions/SearchSuggestions';
+import SearchSuggestionsLocal from '../API/SearchSuggestions/SearchSuggestionsLocal';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;

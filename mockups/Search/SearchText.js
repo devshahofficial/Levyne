@@ -6,8 +6,8 @@ import {connect} from 'react-redux';
 import {SearchIcon} from '../../Icons/SearchIcon';
 import {BackArrowIcon} from '../../Icons/BackArrowIcon';
 import CstmShadowView from "../../components/CstmShadowView";
-import SearchSuggestionsAPI from '../../API/SearchSuggestions';
-import SearchSuggestionsLocal from '../../API/SearchSuggestionsLocal';
+import SearchSuggestionsAPI from '../../API/SearchSuggestions/SearchSuggestions';
+import SearchSuggestionsLocal from '../../API/SearchSuggestions/SearchSuggestionsLocal';
 import SearchTextSVG from '../../assets/images/AppImages/SearchText.svg';
 
 const screenWidth = Dimensions.get('window').width;

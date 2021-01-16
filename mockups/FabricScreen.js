@@ -2,9 +2,9 @@ import {SafeAreaView, ScrollView, ActivityIndicator, Dimensions, Share} from "re
 import React from 'react';
 import FabricScreenPartOne from '../components/FabricScreenPartOne';
 import FabricScreenPartTwo from '../components/FabricScreenPartTwo';
-import FabricByID from '../API/FabricByID';
-import AddWishlistFabricByID from '../API/AddWishlistFabricByID';
-import RemoveWishlistFabricByID from '../API/RemoveWishlistFabricByID';
+import FabricByID from '../API/Fabrics/FabricByID';
+import AddWishlistFabricByID from '../API/Fabrics/AddWishlistFabricByID';
+import RemoveWishlistFabricByID from '../API/Fabrics/RemoveWishlistFabricByID';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import { Colors, AnimatedImage, TouchableOpacity, Text, View} from "react-native-ui-lib";

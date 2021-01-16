@@ -3,7 +3,7 @@ import {FlatList, SafeAreaView} from "react-native";
 import {Text, Colors, View} from 'react-native-ui-lib';
 import NavbarBack from "../../components/NavBarBack";
 import LevyneProductContainer from "../../components/LevyneProductContainer";
-import FetchDesignsByLevyne from '../../API/FetchDesignsByLevyne';
+import FetchDesignsByLevyne from '../../API/DesignByLevyne/FetchDesignsByLevyne';
 import Loader from '../../components/Loader';
 
 export default class DesignedAtLevyne extends Component {

@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList, StyleSheet, Dimensions} from 'react-native';
 import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
-import ListBookmarkProducts from '../../API/ListBookmarkProducts';
+import ListBookmarkProducts from '../../API/Products/ListBookmarkProducts';
 import {View} from 'react-native-ui-lib';
 import ProductItemContainer from '../../components/ProductItemContainer';
 import FabricItemContainer from "../../components/FabricItemContainer";

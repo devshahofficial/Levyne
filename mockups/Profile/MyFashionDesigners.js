@@ -3,7 +3,7 @@ import {Animated} from 'react-native';
 import {View, Text} from 'react-native-ui-lib';
 import BrandItemContainer from '../../components/BrandItemContainer';
 import NavBarBack from "../../components/NavBarBack";
-import BrandFollowings from '../../API/BrandFollowing';
+import BrandFollowings from '../../API/Brand/BrandFollowing';
 import {connect} from 'react-redux';
 import Loader from '../../components/Loader';
 

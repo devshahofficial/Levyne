@@ -7,7 +7,7 @@ import {DeliveryIcon} from "../../Icons/Secondary/DeliveryIcon";
 import Colors from "../../Style/Colors";
 import BucketProduct from "../../components/BucketProductOrder";
 import {TimerIcon} from "../../Icons/Secondary/TimerIcon";
-import FetchBucket from '../../API/FetchBucket';
+import FetchBucket from '../../API/Cart/FetchBucket';
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from "react-native-image-viewing";
 import ShadowView from "react-native-simple-shadow-view/src/ShadowView";

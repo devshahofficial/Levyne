@@ -1,8 +1,8 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {View} from 'react-native-ui-lib';
-import ProductBySearch from '../../API/ProductsBySearch';
-import BrandBySearch from '../../API/BrandBySearch';
+import ProductBySearch from '../../API/Products/ProductsBySearch';
+import BrandBySearch from '../../API/Brand/BrandBySearch';
 import {connect} from 'react-redux';
 import Colors from '../../Style/Colors';
 import { TabView, TabBar } from 'react-native-tab-view';

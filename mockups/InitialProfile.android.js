@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
-import EditProfileAPI from '../API/EditProfile';
+import EditProfileAPI from '../API/Profile/EditProfile';
 import CstmInput from "../components/input";
 import {Text, TouchableOpacity, Button, Colors, View, Toast} from 'react-native-ui-lib';
 import CstmShadowView from '../components/CstmShadowView';

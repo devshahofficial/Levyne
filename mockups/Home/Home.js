@@ -4,18 +4,18 @@ import { View, Colors, Text, ConnectionStatusBar, Toast } from 'react-native-ui-
 import { connect } from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
 import Category from "../../components/Category";
-import FetchStories from '../../API/FetchStories';
-import Recent15Products from '../../API/Recent15Products';
+import FetchStories from '../../API/Home/FetchStories';
+import Recent15Products from '../../API/Products/Recent15Products';
 import ProductItemContainer from "../../components/ProductItemContainer";
-import FetchBlogPosts from '../../API/FetchBlogPosts';
-import PutStoryAsRead from '../../API/PutStoryAsRead';
-import timeAgo from '../../API/timeAgo';
-import FetchChatBuckets from '../../API/FetchChatBuckets';
-import Recent15Brands from '../../API/Recent15Brands';
+import FetchBlogPosts from '../../API/Blogs/FetchBlogPosts';
+import PutStoryAsRead from '../../API/Home/PutStoryAsRead';
+import timeAgo from '../../API/Chats/timeAgo';
+import FetchChatBuckets from '../../API/Chats/FetchChatBuckets';
+import Recent15Brands from '../../API/Brand/Recent15Brands';
 import PopularBrands from "../../components/PopularBrands";
 import { CommonActions } from '@react-navigation/native';
 import LevyneProductContainer from "../../components/LevyneProductContainer";
-import FetchDesignsByLevyneGender from "../../API/FetchDesignsByLevyneGender";
+import FetchDesignsByLevyneGender from "../../API/DesignByLevyne/FetchDesignsByLevyneGender";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 

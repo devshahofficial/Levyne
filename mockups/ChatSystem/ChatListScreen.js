@@ -4,7 +4,7 @@ import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View} from 'react-native-ui-lib'; //eslint-disable-line
 import {connect} from 'react-redux';
 import TextNavBar from '../../components/TextNavBar';
-import FetchChatBuckets from '../../API/FetchChatBuckets';
+import FetchChatBuckets from '../../API/Chats/FetchChatBuckets';
 import MessageSVG from '../../assets/images/AppImages/Messages.svg';
 import UnLoggedScreen from '../../components/UnLoggedScreen';
 import Loader from '../../components/Loader';

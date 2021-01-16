@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, ScrollView, Dimensions } from 'react-native';
 import { View, Text, TouchableOpacity, Colors, Button, Image } from 'react-native-ui-lib';
 import TextNavBar from "../../components/TextNavBar";
-import Logout from '../../API/Logout';
+import Logout from '../../API/Auth/Logout';
 import CstmShadowView from "../../components/CstmShadowView";
 import { connect } from 'react-redux';
 import { getVersion } from 'react-native-device-info';

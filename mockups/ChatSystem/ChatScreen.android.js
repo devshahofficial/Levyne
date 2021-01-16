@@ -4,14 +4,14 @@ import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal
 import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
-import GetChatMessage from '../../API/GetChatMessage';
+import GetChatMessage from '../../API/Chats/GetChatMessage';
 import CstmShadowView from '../../components/CstmShadowView';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageView from "react-native-image-viewing";
 import Hyperlink from 'react-native-hyperlink';
 import {GalleryIcon} from "../../Icons/GalleryIcon";
 import {CameraIcon} from "../../Icons/CameraIcon";
-import UpdateReadTimestamp from '../../API/UpdateReadTimestamp';
+import UpdateReadTimestamp from '../../API/Chats/UpdateReadTimestamp';
 const windowHeight = Dimensions.get('window').height;
 
 /**
