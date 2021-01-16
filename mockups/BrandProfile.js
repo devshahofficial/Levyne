@@ -3,15 +3,15 @@ import {FlatList, StyleSheet, ScrollView} from 'react-native';
 import {View, Text, Colors, TouchableOpacity} from 'react-native-ui-lib';
 import ProductItemContainer from '../components/ProductItemContainer';
 import ProfileTopSection from '../components/ProfileTopSection';
-import ViewBrandProfile from '../API/ViewBrandProfile';
-import FetchBrandProducts from '../API/FetchBrandProducts';
+import ViewBrandProfile from '../API/Brand/ViewBrandProfile';
+import FetchBrandProducts from '../API/Products/FetchBrandProducts';
 import {connect} from 'react-redux';
-import BrandFollowing from '../API/BrandFollowing'
+import BrandFollowing from '../API/Brand/BrandFollowing'
 import NavBarBack from '../components/NavBarBack';
 import {TabBar, TabView} from "react-native-tab-view";
 import Loader from "../components/Loader";
 import FabricItemContainer from "../components/FabricItemContainer";
-import FetchBrandFabrics from "../API/FetchFabricByBrandID";
+import FetchBrandFabrics from "../API/Fabrics/FetchFabricByBrandID";
 import ProfileBottomSection from "../components/MyProfileBottomSection";
 
 

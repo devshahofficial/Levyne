@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Linking } from 'react-native';
 import Logo from '../assets/images/Logo.svg';
-import { AuthCheck } from '../API/index';
+import { AuthCheck } from '../API/Auth/index';
 import { connect } from 'react-redux';
 import { Colors, AvatarHelper } from 'react-native-ui-lib';
 import { CommonActions } from '@react-navigation/native';

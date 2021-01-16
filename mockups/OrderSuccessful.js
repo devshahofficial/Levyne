@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import colors from '../assets/colors';
 import {connect} from 'react-redux';
 import ImagePicker from 'react-native-image-crop-picker';
-import EditProfileAPI from '../API/EditProfile';
+import EditProfileAPI from '../API/Profile/EditProfile';
 import CstmInput from "../components/input";
 import {ActionSheet, View, Text, TouchableOpacity, Button, Avatar} from 'react-native-ui-lib';
 import CstmShadowView from '../components/CstmShadowView';

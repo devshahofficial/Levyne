@@ -3,8 +3,8 @@ import { StyleSheet, Dimensions,ActivityIndicator } from 'react-native';
 import {View,Text, AnimatedImage,TouchableOpacity,Colors} from 'react-native-ui-lib';
 const deviceHeight = Dimensions.get("window").height;
 const deviceWidth = Dimensions.get("window").width;
-import AddWishlistProductByID from '../API/AddWishlistProductByID';
-import RemoveWishlistProductByID from '../API/RemoveWishlistProductByID';
+import AddWishlistProductByID from '../API/Products/AddWishlistProductByID';
+import RemoveWishlistProductByID from '../API/Products/RemoveWishlistProductByID';
 import CstmShadowView from "./CstmShadowView";
 import BookMarkIcon from '../Icons/BookMarkIcon';
 

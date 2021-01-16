@@ -4,7 +4,7 @@ import {View, Text, TouchableOpacity, Toast} from 'react-native-ui-lib';
 import Colors from "../Style/Colors";
 import NavBarBack from '../components/NavBarBack';
 import {connect} from 'react-redux';
-import BrandFollowings from '../API/BrandFollowing';
+import BrandFollowings from '../API/Brand/BrandFollowing';
 import Stars from '../components/StarIconsComponent';
 import CstmShadowView from "../components/CstmShadowView";
 import Loader from '../components/Loader';

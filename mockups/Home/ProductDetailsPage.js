@@ -6,7 +6,7 @@ import NavbarBack from "../../components/NavBarBack"
 import LevyneProduct from "../../components/LevyneProduct";
 import ImageCarouselLevyne from "../../components/ImageCarouselLevyne";
 import {CallIcon} from "../../Icons/CallIcon";
-import FetchDesignByID from '../../API/FetchDesignByID';
+import FetchDesignByID from '../../API/DesignByLevyne/FetchDesignByID';
 import Loader from '../../components/Loader';
 
 

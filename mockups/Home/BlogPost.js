@@ -3,7 +3,7 @@ import {Text, View, AnimatedImage, Colors} from 'react-native-ui-lib';
 import { StyleSheet, Dimensions, ScrollView} from 'react-native';
 import NavBarBack from "../../components/NavBarBack";
 const deviceHeight = Dimensions.get("window").height;
-import FetchBlogByID from '../../API/FetchBlogByID';
+import FetchBlogByID from '../../API/Blogs/FetchBlogByID';
 import BlogBody from '../../components/BlogBody';
 
 

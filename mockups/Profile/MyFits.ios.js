@@ -7,10 +7,10 @@ import Colors from '../../Style/Colors';
 import CstmShadowView from "../../components/CstmShadowView";
 import NavBarBackWithEdit from '../../components/NavBarBackWithEdit';
 import NavBarBack from '../../components/NavBarBack';
-import FetchFitsAndSizes from '../../API/FetchFitsAndSizes';
+import FetchFitsAndSizes from '../../API/Profile/FetchFitsAndSizes';
 import FitsFemale from '../../assets/FitsFemale';
 import FitsMale from '../../assets/FitsMale';
-import InsertFitsAndSizes from '../../API/InsertFitsAndSizes';
+import InsertFitsAndSizes from '../../API/Profile/InsertFitsAndSizes';
 import Loader from '../../components/Loader';
 
 

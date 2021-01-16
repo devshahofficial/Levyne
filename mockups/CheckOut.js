@@ -8,11 +8,11 @@ import CstmInput from "../components/input";
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
-import CheckoutAPI from '../API/Checkout';
-import FetchPartialBucket from '../API/FetchPartialBucket';
+import CheckoutAPI from '../API/Cart/Checkout';
+import FetchPartialBucket from '../API/Chats/FetchPartialBucket';
 import Loader from '../components/Loader';
 import { CommonActions } from '@react-navigation/native';
-import IsAnyProductInCartAPI from '../API/IsAnyProductInCart';
+import IsAnyProductInCartAPI from '../API/Profile/IsAnyProductInCart';
 
 
 class CheckOut extends React.PureComponent {

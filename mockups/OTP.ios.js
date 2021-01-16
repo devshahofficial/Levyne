@@ -3,8 +3,8 @@ import { StyleSheet, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'reac
 import { Button, Text, View, Colors, Toast } from 'react-native-ui-lib';
 import CstmInput from '../components/input';
 import Logo from '../assets/images/Logo.svg';
-import VerifyOTP from '../API/OTP';
-import { generateOTP } from '../API/Login';
+import VerifyOTP from '../API/Auth/OTP';
+import { generateOTP } from '../API/Auth/Login';
 import { connect } from 'react-redux';
 import CstmShadowView from "../components/CstmShadowView";
 import PushNotification from "react-native-push-notification";

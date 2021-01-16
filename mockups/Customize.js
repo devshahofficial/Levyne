@@ -4,7 +4,7 @@ import {View, Text, TouchableOpacity, Image, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import TextNavBar from '../components/TextNavBar';
 import Models from '../assets/3DModels';
-import FetchDesignsByLevyne from "../API/FetchDesignsByLevyne";
+import FetchDesignsByLevyne from "../API/DesignByLevyne/FetchDesignsByLevyne";
 import Loader from "../components/Loader";
 import LevyneProductContainer from "../components/LevyneProductContainer";
 
