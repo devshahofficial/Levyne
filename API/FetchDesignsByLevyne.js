@@ -1,14 +1,15 @@
 import {GET} from './CustomFetch';
 
-const FetchPosts = async (Page, abortControllerSignal) => {
+const FetchDesignsByLevyne = async (Page, Seed, abortControllerSignal) => {
 
-    return await GET('Products/FetchDesignsByLevyne', {
+    return await GET('Products/FetchDesignsByLevyneWithRandomness', {
         QueryData: {
-            Page
+            Page,
+            ...(Seed ? {Seed} : {})
         },
         ReturnResponse: true,
     }, abortControllerSignal)
 
 }
 
-export default FetchPosts; 
+export default FetchDesignsByLevyne; 
