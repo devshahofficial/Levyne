@@ -26,7 +26,7 @@ class ProfileTopSection extends React.Component {
     }
 
     NavigateFits = () => {
-        //this.props.navigation.navigate("MyFits");
+        this.props.navigation.navigate("MyFits");
     }
 
     NavigateOrders = () => {
