@@ -1,69 +1,94 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, StyleSheet, FlatList } from 'react-native'
-import {View,Text,TouchableOpacity} from'react-native-ui-lib';
-import StarIconsComponent from "./StarIconsComponent";
+import { View, Text, TouchableOpacity } from 'react-native-ui-lib';
+import StarIconsComponent from "../components/StarIconsComponent";
+import NavBarBack from "../components/NavBarBack";
+import FetchBrandsWith3DPricing from '../API/Brand/FetchBrandsWith3DPricing';
 
-export const FashionDesignerlist = () => {
-  const [data] = useState([{
-    image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
-    des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
-    prodname: 'Shoes',
-    Heart:true
-  },
-  {
-    image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
-    des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
-    prodname: 'Shoes',
-    Heart:true
-  },
-  {
-    image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
-    des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
-    prodname: 'Shoes',
-    Heart:true
-  }])
+const Designs = [{
+	image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
+	des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
+	prodname: 'Shoes',
+	Heart: true
+},
+{
+	image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
+	des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
+	prodname: 'Shoes',
+	Heart: true
+},
+{
+	image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
+	des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
+	prodname: 'Shoes',
+	Heart: true
+}]
 
-  return (
+export default class FashionDesignerList extends React.PureComponent {
+	goBack = () => {
+		this.props.navigation.goBack();
+	}
 
-    <View marginB-10 flex>
-      <FlatList
-        data={data}
-        renderItem={({ item }) =>
-        <TouchableOpacity activeOpacity={0.6} row paddingL-10 marginB-10 flex>
-            <View>
-              <Image
-                style={styles.headerImage}
-                source={{ uri: item.image }}
-              />
-            </View>
-            <View>
-              <Text hb1 style={styles.headerText}>
-                {item.prodname}
-              </Text>
-              <Text h2 grey40 marginL-10 marginR-200 left>{item.des}</Text>
-              <View row flex marginT-10 paddingL-10>
-                <StarIconsComponent BrandRating={Math.round(item.ratings)} />
-              </View>
-            </View>
-        </TouchableOpacity>
-        }
-        keyExtractor={(item, index) => index.toString()}
-      />
-    </View>
-  );
+	state = {
+		Brands: []
+	}
+
+	Page = 0;
+
+	Total = 0;
+
+	componentDidMount() {
+		FetchBrandsWith3DPricing('ShirtPrice', undefined, ++this.Page).then(resp => {
+			this.setState({
+				Brands: resp.Brands
+			})
+		}).catch(console.log)
+	}
+
+	
+
+	render() {
+		return (
+
+			<View useSafeAre marginB-10 flex>
+				<NavBarBack Title={"Design 3D here!"} Navigation={this.goBack} />
+				<FlatList
+					data={this.state.Brands}
+					renderItem={({ item }) =>
+						<TouchableOpacity activeOpacity={0.6} row paddingL-10 marginB-10 flex>
+							<View>
+								<Image
+									style={styles.headerImage}
+									source={{ uri: item.ProfileImage }}
+								/>
+							</View>
+							<View flex>
+								<Text hb1 style={styles.headerText}>
+									{item.Name}
+								</Text>
+								<Text h2 grey40 marginL-10 marginR-20 numberOfLines={1} ellipsizeMode={'tail'}>{item.About}</Text>
+								<View row marginT-10 paddingL-10>
+									<StarIconsComponent BrandRating={Math.round(1)} />
+								</View>
+								<Text h2 grey40 marginT-10 marginL-10 marginR-20 numberOfLines={1} ellipsizeMode={'tail'}>₹{item.ShirtPrice}</Text>
+							</View>
+						</TouchableOpacity>
+					}
+					keyExtractor={(item, index) => index.toString()}
+				/>
+			</View>
+		);
+	}
 }
-
 const styles = StyleSheet.create({
-  headerText: {
-    paddingTop: 20,
-    marginLeft: 10,
-    marginRight: 100,
-  },
-  headerImage: {
-    height: 150,
-    width: 150,
-    flex:1
-  },
+	headerText: {
+		marginLeft: 10,
+	},
+	headerImage: {
+		height: 100,
+		width: 100,
+		flex: 1
+	},
 
 });
 
