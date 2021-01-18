@@ -67,6 +67,7 @@ export default class DesignedAtLevyne extends Component {
                                 renderItem={({item}) => <LevyneProductContainer
                                     Image={item.PrimaryImage}
                                     Name={"#" + item.DesignCode}
+                                    NewDesign={item.NewDesign}
                                     NavigateDesign={this.NavigateDesign}
                                     DesignID={item.DesignID}
                                 />}

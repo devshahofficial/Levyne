@@ -114,6 +114,7 @@ class Customize extends React.Component {
                             numColumns={2}
                             renderItem={({item}) => <LevyneProductContainer
                                 Image={item.PrimaryImage}
+                                NewDesign={item.NewDesign}
                                 Name={"#" + item.DesignCode}
                                 NavigateDesign={this.NavigateDesign}
                                 DesignID={item.DesignID}

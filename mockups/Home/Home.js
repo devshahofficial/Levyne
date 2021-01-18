@@ -202,6 +202,7 @@ class HomeScreen extends React.Component {
         }).catch(console.log);
 
         FetchDesignsByLevyneGender(1, this.abortController.signal).then(LevyneProducts => {
+            console.log(LevyneProducts);
             this.setState({
                 LevyneProductsMale: LevyneProducts,
                 Loading: false
@@ -418,12 +419,15 @@ class HomeScreen extends React.Component {
                             horizontal={true}
                             data={this.state.LevyneProductsFemale}
                             contentContainerStyle={{ backgroundColor: 'white' }}
-                            renderItem={({ item }) => <LevyneProductContainer
+                            renderItem={({ item }) => {
+                                return <LevyneProductContainer
                                 Image={item.PrimaryImage}
+                                NewDesign={item.NewDesign}
                                 Name={"#" + item.DesignCode}
                                 NavigateDesign={this.NavigateDesign}
                                 DesignID={item.DesignID}
-                            />}
+                            />
+                            }}
                             extraData={{ NavigateDesign: this.NavigateDesign }}
                             keyExtractor={(item) => item.DesignCode}
                             showsHorizontalScrollIndicator={false}

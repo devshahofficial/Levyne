@@ -16,9 +16,11 @@ export default class ProductScreenPartOne extends React.PureComponent {
                     activeOpacity={0.7}
                     onPress={() => this.props.NavigateDesign(this.props.DesignID)}
                 >
-                    <View center absR flex style={styles.New}>
-                        <Text h4 white>New</Text>
-                    </View>
+                    {this.props.NewDesign ? (
+                        <View center absR flex style={styles.New}>
+                            <Text h4 white>New</Text>
+                        </View>
+                    ) : <></>}
                     <AnimatedImage
                         source={{uri:this.props.Image}}
                         style={styles.drawerCover}
