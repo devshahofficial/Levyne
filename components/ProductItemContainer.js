@@ -53,8 +53,8 @@ export default class ProductItemContainer extends React.Component {
 
                     <View row marginL-10 marginT-15>
                         <View style={{flex: 0.8}}>
-                            <Text hb1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
-                            <Text h3 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
+                            <Text h1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
+                            <Text hb2 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
