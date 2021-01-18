@@ -402,6 +402,7 @@ class HomeScreen extends React.Component {
                             renderItem={({ item }) => <LevyneProductContainer
                                 Image={item.PrimaryImage}
                                 Name={"#" + item.DesignCode}
+                                NewDesign={item.NewDesign}
                                 NavigateDesign={this.NavigateDesign}
                                 DesignID={item.DesignID}
                             />}
@@ -419,15 +420,13 @@ class HomeScreen extends React.Component {
                             horizontal={true}
                             data={this.state.LevyneProductsFemale}
                             contentContainerStyle={{ backgroundColor: 'white' }}
-                            renderItem={({ item }) => {
-                                return <LevyneProductContainer
+                            renderItem={({ item }) => <LevyneProductContainer
                                 Image={item.PrimaryImage}
                                 NewDesign={item.NewDesign}
                                 Name={"#" + item.DesignCode}
                                 NavigateDesign={this.NavigateDesign}
                                 DesignID={item.DesignID}
-                            />
-                            }}
+                            />}
                             extraData={{ NavigateDesign: this.NavigateDesign }}
                             keyExtractor={(item) => item.DesignCode}
                             showsHorizontalScrollIndicator={false}
