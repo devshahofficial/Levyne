@@ -38,6 +38,7 @@ export default class FashionDesignerList extends React.PureComponent {
 	Total = 0;
 
 	componentDidMount() {
+		console.log(this.props.route.params);
 		FetchBrandsWith3DPricing('ShirtPrice', undefined, ++this.Page).then(resp => {
 			this.setState({
 				Brands: resp.Brands
@@ -75,9 +76,9 @@ export default class FashionDesignerList extends React.PureComponent {
 								</Text>
 								<Text h2 grey40 marginL-10 marginR-20 numberOfLines={1} ellipsizeMode={'tail'}>{item.About}</Text>
 								<View row marginT-10 paddingL-10>
-									<StarIconsComponent BrandRating={Math.round(1)} />
+									<StarIconsComponent BrandRating={Math.round(0)} />
 								</View>
-								<Text h2 grey40 marginT-10 marginL-10 marginR-20 numberOfLines={1} ellipsizeMode={'tail'}>₹{item.ShirtPrice}</Text>
+								<Text h2 grey40 marginT-10 marginL-10 marginR-20 numberOfLines={1} ellipsizeMode={'tail'}> Starting from ₹{item.ShirtPrice}</Text>
 							</View>
 						</TouchableOpacity>
 					}
