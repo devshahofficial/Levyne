@@ -38,13 +38,14 @@ import {OrdersIcon} from "../Icons/OrdersIcon";
 import {CustomizeIcon} from "../Icons/CustomizeIcon";
 import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
 import {connect} from 'react-redux';
-import FashionDesignerList from '../mockups/CompaniesList';
+import BrandsFor3DCart from '../mockups/BrandsFor3DCart';
 import SearchText from "../mockups/Search/SearchText";
 import BlogPost from "../mockups/Home/BlogPost";
 import ThreeD from "../mockups/ThreeD/Mockups/ThreeD";
 import FabricIn3D from "../mockups/ThreeD/Mockups/FabricIn3DExp";
 import DesignedAtLevyne from "../mockups/Home/Designed at Levyne";
 import CallToOrder from "../mockups/Home/CallToOrder";
+import FabricsFor3DCart from '../mockups/FabricsFor3DCart';
 import ChatScreenWhenNoBucketID from "../mockups/ChatSystem/ChatScreenWhenNoBucketID";
 
 
@@ -165,7 +166,8 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
 				<HomeStack.Screen name='FabricInThreeD' component={FabricIn3D}/>
 				<HomeStack.Screen name='Call' component={CallToOrder}/>
-				<HomeStack.Screen name='FashionDesignerList' component={FashionDesignerList}/>
+				<HomeStack.Screen name='BrandsFor3DCart' component={BrandsFor3DCart}/>
+				<HomeStack.Screen name='FabricsFor3DCart' component={FabricsFor3DCart}/>
 			</HomeStack.Navigator>
 		)
 	}

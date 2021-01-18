@@ -55,11 +55,34 @@ export default class NewScreen extends Component {
         />
     )
 
-    NavigateChat = () => {
+    Navigate3DCart = () => {
 
         //Linking.openURL('tel:+91 9819 077182').catch(err => {});
 
-        this.props.navigation.push('FashionDesignerList')
+        switch(this.Category) {
+            case 'Shirt': 
+                return this.props.navigation.push('FabricsFor3DCart', {
+                    CategoryID: 0,
+                    ThreeDModel: this.Model[this.state.upperSelected]
+                })
+            case 'Pants':
+                return this.props.navigation.push('FabricsFor3DCart', {
+                    CategoryID: 1,
+                    ThreeDModel: this.Model[this.state.upperSelected]
+                })
+            case 'Vest':
+                return this.props.navigation.push('FabricsFor3DCart', {
+                    CategoryID: 2,
+                    ThreeDModel: this.Model[this.state.upperSelected]
+                })
+            case 'Blazer':
+                return this.props.navigation.push('FabricsFor3DCart', {
+                    CategoryID: 5,
+                    ThreeDModel: this.Model[this.state.upperSelected]
+                })
+            default:
+                console.log(this.Category);
+        }
     }
 
     render() {
@@ -86,10 +109,10 @@ export default class NewScreen extends Component {
                         <WebView source={{ uri: this.URL3DModelBase + this.Model[this.state.upperSelected] }}/>
                         <TouchableOpacity
                             style={{height:50, backgroundColor: Colors.primary}} center
-                            onPress={this.NavigateChat} row
+                            onPress={this.Navigate3DCart} row
                         >
                             <CallIcon Size={18} Color={Colors.white}/>
-                            <Text h1 white marginL-20>Call us for product enquire</Text>
+                            <Text h1 white marginL-20>Add to Cart</Text>
                         </TouchableOpacity>
                     </SafeAreaView>
                 }

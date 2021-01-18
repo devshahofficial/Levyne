@@ -1,25 +1,26 @@
+import _ from 'lodash';
+
 /**
  * 
  * @param {any} data 
  */
 
-const encodeQueryData = (data) => {
-    const ret = [];
-    for (let d in data) {
-        if (typeof data[d] === 'object' || typeof data[d] === 'array') {
-            for (let arrD in data[d]) {
-                ret.push(`${encodeURIComponent(d)}[]=${encodeURIComponent(data[d][arrD])}`)
-            }
-        } else if (typeof data[d] === 'null' || typeof data[d] === 'undefined') {
-            //ret.push(encodeURIComponent(d))
-            //Ignore if not defined
-        } else {
-            ret.push(`${encodeURIComponent(d)}=${encodeURIComponent(data[d])}`)
+var encodeQueryData = function (obj, prefix) {
+    let str = [],
+        p;
+    for (p in obj) {
+        if (obj.hasOwnProperty(p)) {
+            let k = prefix ? prefix + "[" + p + "]" : p,
+                v = obj[p];
+            str.push(
+                v !== null && typeof v === "object"
+                    ? encodeQueryData(v, k)
+                    : encodeURIComponent(k) + "=" + encodeURIComponent(v)
+            );
         }
-
     }
-    return ret.join('&');
-}
+    return str.join("&");
+};
 
 /**
  * 
@@ -27,25 +28,25 @@ const encodeQueryData = (data) => {
  * @param {{ReturnResponse: boolean, ThrowError: boolean, Token: String, Body: any}} param1 
  */
 
-export const POST = async (URL, {ReturnResponse, ThrowError, Token, Body}, abortControllerSignal) => {
+export const POST = async (URL, { ReturnResponse, ThrowError, Token, Body }, abortControllerSignal) => {
     const resp = await fetch(global.BaseURL + URL, {
         method: 'POST',
         signal: abortControllerSignal,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            ...(Token) && {'Authorization': Token}
+            ...(Token) && { 'Authorization': Token }
         },
-        ...(Body) && {body: JSON.stringify(Body)}
+        ...(Body) && { body: JSON.stringify(Body) }
     });
     if (resp.status != 200) {
-        if(ThrowError) {
+        if (ThrowError) {
             throw await resp.text();
         }
         throw resp.status;
     }
     else {
-        if(ReturnResponse) {
+        if (ReturnResponse) {
             return await resp.json();
         }
         return;
@@ -58,7 +59,7 @@ export const POST = async (URL, {ReturnResponse, ThrowError, Token, Body}, abort
  * @param {{ReturnResponse: boolean, Token: String, QueryData: any}} param1 
  */
 
-export const GET = async (URL, {ReturnResponse, Token, QueryData}, abortControllerSignal) => {
+export const GET = async (URL, { ReturnResponse, Token, QueryData }, abortControllerSignal) => {
 
     const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(QueryData), {
         method: 'GET',
@@ -66,16 +67,16 @@ export const GET = async (URL, {ReturnResponse, Token, QueryData}, abortControll
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            ...(Token) && {'Authorization': Token}
+            ...(Token) && { 'Authorization': Token }
         },
     });
     if (resp.status != 200) {
-        console.log(URL);
+        console.log(global.BaseURL + URL + '?' + encodeQueryData(QueryData));
         console.log(await resp.text());
         throw resp.status;
     }
     else {
-        if(ReturnResponse) {
+        if (ReturnResponse) {
             return await resp.json();
         }
         return;
