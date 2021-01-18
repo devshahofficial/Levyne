@@ -39,7 +39,7 @@ export default class FabricScreenPartOne extends React.Component {
     navigateCategory = () => {
 		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 0, Index: this.props.CategoryID, Label: this.props.Category}});
     }
-    
+
     navigateMaterial = (MaterialID, Material) => {
 		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 2, Index: MaterialID, Label: Material}});
 	}
@@ -89,7 +89,6 @@ export default class FabricScreenPartOne extends React.Component {
                     />
                 </View>
             </View>
-
         );
     }
 };

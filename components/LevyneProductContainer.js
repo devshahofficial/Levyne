@@ -16,6 +16,9 @@ export default class ProductScreenPartOne extends React.PureComponent {
                     activeOpacity={0.7}
                     onPress={() => this.props.NavigateDesign(this.props.DesignID)}
                 >
+                    <View center absR flex style={styles.New}>
+                        <Text h4 white>New</Text>
+                    </View>
                     <AnimatedImage
                         source={{uri:this.props.Image}}
                         style={styles.drawerCover}
@@ -48,5 +51,13 @@ const styles = StyleSheet.create({
     },
     Container: {
         borderRadius: 10
+    },
+    New: {
+        transform: [{ rotate: '45deg' }],
+        backgroundColor: Colors.red40,
+        zIndex:99,
+        width:100,
+        marginTop:10,
+        marginRight:-30
     }
 });
