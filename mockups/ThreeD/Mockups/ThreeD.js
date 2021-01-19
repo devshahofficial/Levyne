@@ -5,6 +5,7 @@ import UpperComponent from '../Components/UpperComponent'
 import NavBarBack from "../../../components/NavBarBack";
 import WebView from "react-native-webview";
 import {CallIcon} from "../../../Icons/CallIcon";
+import Fetch3DModel from "../../../API/ThreeD/Fetch3DModel";
 
 export default class NewScreen extends Component {
 
@@ -13,24 +14,28 @@ export default class NewScreen extends Component {
         this.state = {
             upperSelected: 0,
             lowerSelected: 0,
-            LoadingList: true
+            LoadingList: true,
+            Models: []
         }
 
-        this.Category = this.props.route.params.Category
+        this.CategoryID = this.props.route.params.CategoryID;
+        this.Category = this.props.route.params.Category;
 
-        if(this.Category) {
-            this.URL3DModelBase = `https://3d.levyne.com/${this.Category}/`;
-            //this.Model = Models[this.Category];
-        } else {
+        this.URL3DModelBase = `https://3d.levyne.com/${this.Category}/`
+
+        if(typeof this.CategoryID !== 'number') {
             this.goBack();
         }
     }
 
     componentDidMount() {
-        fetch(`https://d32kprqn8e36ns.cloudfront.net/3DModelList/${this.Category}.json`).then(resp => resp.json()).then(Model => {
-            this.Model = Model;
-            this.setState({ LoadingList: false })
-        }).catch(() => {});
+
+        Fetch3DModel(this.CategoryID).then(Models => {
+            this.setState({
+                Models,
+                LoadingList: false
+            });
+        }).catch(console.log)
     }
 
 
@@ -58,31 +63,11 @@ export default class NewScreen extends Component {
     Navigate3DCart = () => {
 
         //Linking.openURL('tel:+91 9819 077182').catch(err => {});
-
-        switch(this.Category) {
-            case 'Shirt': 
-                return this.props.navigation.push('FabricsFor3DCart', {
-                    CategoryID: 0,
-                    ThreeDModel: this.Model[this.state.upperSelected]
-                })
-            case 'Pants':
-                return this.props.navigation.push('FabricsFor3DCart', {
-                    CategoryID: 1,
-                    ThreeDModel: this.Model[this.state.upperSelected]
-                })
-            case 'Vest':
-                return this.props.navigation.push('FabricsFor3DCart', {
-                    CategoryID: 2,
-                    ThreeDModel: this.Model[this.state.upperSelected]
-                })
-            case 'Blazer':
-                return this.props.navigation.push('FabricsFor3DCart', {
-                    CategoryID: 5,
-                    ThreeDModel: this.Model[this.state.upperSelected]
-                })
-            default:
-                console.log(this.Category);
-        }
+        this.props.navigation.push('FabricsFor3DCart', {
+            CategoryID: this.CategoryID,
+            Category: this.Category,
+            ThreeDModel: this.state.Models[this.state.upperSelected].ID
+        })
     }
 
     render() {
@@ -99,14 +84,14 @@ export default class NewScreen extends Component {
                             <FlatList
                                 showsHorizontalScrollIndicator={false}
                                 style={styles.FlatList}
-                                data={this.Model}
+                                data={this.state.Models}
                                 horizontal={true}
                                 renderItem={this.renderItem}
-                                keyExtractor={item => item}
+                                keyExtractor={item => item.Model}
                             />
                         </View>
 
-                        <WebView source={{ uri: this.URL3DModelBase + this.Model[this.state.upperSelected] }}/>
+                        <WebView source={{ uri: this.URL3DModelBase + this.state.Models[this.state.upperSelected].Model }}/>
                         <TouchableOpacity
                             style={{height:50, backgroundColor: Colors.primary}} center
                             onPress={this.Navigate3DCart} row

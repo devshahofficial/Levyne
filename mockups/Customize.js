@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, Dimensions, FlatList, ScrollView} from 'react-native';
+import {StyleSheet, Dimensions, FlatList} from 'react-native';
 import {View, Text, TouchableOpacity, Image, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import TextNavBar from '../components/TextNavBar';
-import Models from '../assets/3DModels';
 import FetchDesignsByLevyne from "../API/DesignByLevyne/FetchDesignsByLevyne";
+import Fetch3DCategories from "../API/ThreeD/Fetch3DCategories";
 import Loader from "../components/Loader";
 import LevyneProductContainer from "../components/LevyneProductContainer";
 
@@ -14,7 +14,8 @@ class Customize extends React.Component {
 
     state = {
         LevyneProducts: [],
-        Loading: true
+        Loading: true,
+        ModelCategories: []
     }
 
     Page = 0;
@@ -33,6 +34,10 @@ class Customize extends React.Component {
             });
             this.Seed = Seed;
         }).catch(console.log);
+
+        Fetch3DCategories(this.abortController.signal).then(ModelCategories => {
+            this.setState({ModelCategories});
+        }).catch(console.log)
     }
 
     componentWillUnmount = () => {
@@ -61,18 +66,19 @@ class Customize extends React.Component {
     imgWidth = Dimensions.get('window').width - 40;
     imgHeight = 80*(Dimensions.get('window').width - 40)/335;
 
-    ModelKeys = Object.keys(Models);
-
     Navigate3D = (index) => {
-        this.props.navigation.push('ThreeD', {Category: this.ModelKeys[index]})
+        this.props.navigation.push('ThreeD', {
+            CategoryID: this.state.ModelCategories[index].CategoryID,
+            Category: this.state.ModelCategories[index].Category
+        })
     }
 
     headerContainerRender = ({ item, index }) => (
         <TouchableOpacity onPress={() => this.Navigate3D(index)} style={styles.Category} center>
             <View>
-                <Image source={{uri: Models[item].ImageURL}} style={styles.ImageUpper}/>
+                <Image source={{uri: item.Image}} style={styles.ImageUpper}/>
             </View>
-            <Text h3 secondary marginT-10>{item}</Text>
+            <Text h3 secondary marginT-10>{item.Category}</Text>
         </TouchableOpacity>
     )
 
@@ -90,11 +96,11 @@ class Customize extends React.Component {
             <Text marginL-15 marginV-10 secondary hb1>3D by Levyne</Text>
             <View center>
                 <FlatList
-                    data={this.ModelKeys}
+                    data={this.state.ModelCategories}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     renderItem = {this.headerContainerRender}
-                    keyExtractor={(item) => item}
+                    keyExtractor={(item) => item.Category}
                 />
             </View>
             <Text marginL-15 marginT-30 secondary hb1>Designs by Levyne</Text>

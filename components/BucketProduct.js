@@ -3,6 +3,7 @@ import { StyleSheet, Image, Dimensions } from 'react-native';
 import { View, TouchableOpacity, Text, Colors } from 'react-native-ui-lib';
 import { ArchiveIcon } from "../Icons/ArchiveIcon";
 import ShadowView from "react-native-simple-shadow-view";
+import WebView from 'react-native-webview';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -61,6 +62,69 @@ export default class BucketProduct extends React.PureComponent {
                         <Text h2 secondary flex-15>Visit the product</Text>
                         <Text h2 secondary flex>{">"}</Text>
                     </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigateFabric(this.props.item.FabricID)} center marginT-5 marginB-15 style={styles.TouchableOpacity}>
+                        <Text h2 secondary flex-15>Visit the Fabric</Text>
+                        <Text h2 secondary flex>{">"}</Text>
+                    </TouchableOpacity>
+                    <View flex style={{ alignItems: "flex-end" }}>
+                        <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID, this.props.item.ProductType)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
+                            <ArchiveIcon Size={20} Color={Colors.white} />
+                        </TouchableOpacity>
+                    </View>
+                </ShadowView>
+            </View>
+        )
+    }
+
+    ThreeDProduct = () => {
+        console.log(this.props.item);
+        return (
+            <View padding-15>
+                <ShadowView style={styles.View}>
+                    <View flex row centerH style={{ height: "auto" }}>
+                        <View
+                            flex-6 style={{borderTopLeftRadius:10}}
+                        >
+                            <WebView
+                                style={styles.ImageContainer}
+                                source={{ uri: `https://3d.levyne.com/${this.props.item.Category}/${this.props.item.ProductID}` }}
+                            />
+                        </View>
+                        <TouchableOpacity
+                            flex-2 style={{borderTopRightRadius:10}}
+                            onPress={() => this.props.DisplayImageView(this.props.item.FabricImage)}
+                        >
+                            <Image
+                                style={styles.FabricContainer}
+                                source={{uri: this.props.item.FabricImage}}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View marginT-10>
+                        <Text h2 secondary>Average Cost</Text>
+                        <View row>
+                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
+                        </View>
+                    </View>
+
+                    <View marginV-10 paddingV-10>
+                        <Text h2 secondary>Final Budget</Text>
+                        <View row>
+                            {this.props.item.DecidedPrice ?
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
+                                <Text hb1 primary>Chat to Decide</Text>
+                            }
+                        </View>
+                    </View>
+
+                    <View flex marginV-20>
+                        <View row>
+                            <Text flex hb2 secondary>Quantity</Text>
+                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                        </View>
+                    </View>
+
                     <TouchableOpacity onPress={() => this.props.navigateFabric(this.props.item.FabricID)} center marginT-5 marginB-15 style={styles.TouchableOpacity}>
                         <Text h2 secondary flex-15>Visit the Fabric</Text>
                         <Text h2 secondary flex>{">"}</Text>
@@ -149,6 +213,8 @@ export default class BucketProduct extends React.PureComponent {
                 return <this.OnlyProduct {...this.props} />
             case 2:
                 return <this.ProductWithFabric {...this.props} />
+            case 3:
+                return <this.ThreeDProduct {...this.props} />
             default:
                 return <></>
         }
