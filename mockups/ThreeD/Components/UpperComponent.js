@@ -14,7 +14,7 @@ export default class UpperComponent extends React.PureComponent {
                     style={this.props.index === this.props.selected ? styles.boxSelected : styles.box}
                     onPress={() => (this.props.onUpperPressed(this.props.index))}
                 >
-                    <Text h2 secondary> {this.props.item} </Text>
+                    <Text h2 secondary> {this.props.item.Model} </Text>
                 </TouchableOpacity>
             </CstmShadowView>
 
