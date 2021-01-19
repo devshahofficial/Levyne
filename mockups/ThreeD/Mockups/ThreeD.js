@@ -29,7 +29,6 @@ export default class NewScreen extends Component {
     }
 
     componentDidMount() {
-
         Fetch3DModel(this.CategoryID).then(Models => {
             this.setState({
                 Models,
