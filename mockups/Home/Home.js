@@ -375,9 +375,32 @@ class HomeScreen extends React.Component {
                     <View marginT-120>
 
                         <View>
-                            <Square Image={"https://i.ibb.co/tJHQVPL/Group-4175.png"}/>
+                            <View marginV-10 paddingH-20>
+                                <Text b1 secondary>Customize Now</Text>
+                            </View>
+                            <Square/>
                             <View row marginT-20 paddingH-20>
-                                <Text b1 secondary flex>Recent Products</Text>
+                                <Text b1 secondary flex>Top trends in Men</Text>
+                                <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
+                            </View>
+                            <FlatList
+                                data={this.state.Recent15Products}
+                                horizontal={true}
+
+                                renderItem={({ item }) => {
+                                    return <ProductItemContainer
+                                        Token={this.props.AccessToken}
+                                        item={item}
+                                        navigateProduct={this.navigateProduct}
+                                        NavigateLogin={this.NavigateLogin}
+                                    />
+                                }}
+                                keyExtractor={(item) => item.ProductID.toString()}
+                                showsHorizontalScrollIndicator={false}
+                            />
+
+                            <View row marginT-20 paddingH-20>
+                                <Text b1 secondary flex>Top trends in Women</Text>
                                 <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
                             </View>
                             <FlatList
