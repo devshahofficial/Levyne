@@ -5,23 +5,23 @@ import {StyleSheet, Dimensions, Image} from 'react-native';
 const {height} = Dimensions.get('window');
 
 
-export default class Square extends React.Component {
+export default class Square extends React.PureComponent {
     render() {
         return (
             <View>
                 <View row>
-                    <TouchableOpacity onPress={() => NavigateThreeD(1)} flex style={styles.msgLeft}>
+                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(1, "Pants")} flex style={styles.msgLeft}>
                         <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/TrousersHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => NavigateThreeD(0)} flex style={styles.msgRight}>
+                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(0, "Shirt")} flex style={styles.msgRight}>
                         <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/ShirtHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                 </View>
                 <View row>
-                    <TouchableOpacity onPress={() => NavigateThreeD(3)} flex style={styles.msgLeft}>
+                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(3, "Kurtis")} flex style={styles.msgLeft}>
                         <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/KurtiHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => NavigateThreeD(4)} flex style={styles.msgRight}>
+                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(4, "Choli")} flex style={styles.msgRight}>
                         <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/CholiHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                 </View>
