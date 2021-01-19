@@ -135,10 +135,15 @@ class Bucket extends React.Component {
     }
 
     RemoveProductFromCart = () => {
-        this.setState({
-            Buckets : this.state.Buckets.filter(item => !(item.CartID === this.state.CartIDForDeletion && item.ProductType === this.state.ProductTypeForDeletion)),
-            DeleteModalVisible : !this.state.DeleteModalVisible
-        })
+        const NewBucket = this.state.Buckets.filter(item => !(item.CartID === this.state.CartIDForDeletion && item.ProductType === this.state.ProductTypeForDeletion));
+        if(NewBucket.length) {
+            this.setState({
+                Buckets : NewBucket,
+                DeleteModalVisible : !this.state.DeleteModalVisible
+            })
+        } else {
+            this.props.navigation.goBack();
+        }
         RemoveProductFromCart(this.props.route.params.BucketID, this.state.CartIDForDeletion, this.state.ProductTypeForDeletion, this.props.AccessToken).catch(console.log);
     }
 

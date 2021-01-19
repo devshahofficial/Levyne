@@ -207,7 +207,6 @@ class HomeScreen extends React.Component {
         }).catch(console.log);
 
         FetchDesignsByLevyneGender(1, this.abortController.signal).then(LevyneProducts => {
-            console.log(LevyneProducts);
             this.setState({
                 LevyneProductsMale: LevyneProducts,
                 Loading: false
