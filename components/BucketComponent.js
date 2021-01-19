@@ -54,7 +54,7 @@ export default class BucketComponent extends React.Component {
                         </View>
                         <View flex center marginL-30>
                             <ImageBackground
-                                source={{uri: this.props.item.PrimaryImage}}
+                                source={{uri: this.props.item.PrimaryImage || "https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2016/06/3d.png"}}
                                 style={styles.imageBackground}
                                 blurRadius={5}
                             >

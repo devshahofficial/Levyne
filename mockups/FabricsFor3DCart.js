@@ -1,12 +1,15 @@
 import React from 'react';
-import { Dimensions, FlatList, useWindowDimensions } from 'react-native'
+import { Dimensions, FlatList } from 'react-native'
 import { View, Button } from 'react-native-ui-lib';
 import NavBarBack from "../components/NavBarBack";
 import Loader from '../components/Loader';
 import FabricOrderContainer from '../components/FabricOrderContainer';
 import FetchFabricsByFilter from '../API/Fabrics/FetchFabricsByFilter';
+import Add3DToCart from '../API/Cart/Add3DToCart';
 import { connect } from 'react-redux';
 import CstmShadowView from '../components/CstmShadowView';
+
+const window = Dimensions.get('window');
 
 class FashionDesignerList extends React.PureComponent {
 
@@ -14,13 +17,12 @@ class FashionDesignerList extends React.PureComponent {
         super(props);
         this.state = {
             Fabrics: [],
-            SelectedFabric: -1
+            SelectedFabric: 0
         }
         this.abortController = new AbortController();
         this.Page = 0;
         this.Total = 0;
         this.LoadingMoreFabrics = false;
-        this.window = Dimensions.get('window')
     }
 
 	goBack = () => {
@@ -28,7 +30,6 @@ class FashionDesignerList extends React.PureComponent {
 	}
 
 	componentDidMount() {
-        console.log(this.props.route.params);
         FetchFabricsByFilter({CategoryID: this.props.route.params.CategoryID}, ++this.Page, this.props.AccessToken, this.abortController.signal).then(resp => {
             this.Total = resp.Total;
             this.setState({
@@ -36,11 +37,6 @@ class FashionDesignerList extends React.PureComponent {
 			})
         }).catch(console.log)
 	}
-	
-	AddDesignToCart = () => {
-		//this.props.navigation.push('BrandProfile', {BrandID})
-		console.log('Add 3D in Cart');
-    }
 
     FlatListRenderItem = ({item}) =>
         <FabricOrderContainer
@@ -70,11 +66,26 @@ class FashionDesignerList extends React.PureComponent {
         }
     }
 
+    AddDesignToCart = () => {
+        if(this.state.SelectedFabric) {
+            Add3DToCart(
+                this.props.route.params.ThreeDModel,
+                this.state.SelectedFabric,
+                this.props.AccessToken,
+                this.abortController.signal
+            ).then(() => {
+                this.SelectFabric('');
+                this.props.setIsAnyProductInCart(true);
+                this.props.navigation.push('Cart');
+            }).catch(console.log)
+        }
+    }
+
     AddToCartButton = () => {
         if(this.state.Fabrics.length) {
             return (<View absB flex width={'100%'}>
                 <CstmShadowView style={{marginHorizontal:15, marginBottom: 15}}>
-                    <Button flex onPress={this.AddProductToCart} label={"Add to Cart"}/>
+                    <Button flex onPress={this.AddDesignToCart} label={"Add to Cart"}/>
                 </CstmShadowView>
             </View>);
         } else {
@@ -90,7 +101,7 @@ class FashionDesignerList extends React.PureComponent {
 				<FlatList
                     data={this.state.Fabrics}
                     numColumns={2}
-                    contentContainerStyle={{minHeight: this.window.height, paddingBottom:10 }}
+                    contentContainerStyle={{minHeight: window.height, paddingBottom:10 }}
                     ListEmptyComponent={<Loader />}
                     showsVerticalScrollIndicator={false}
                     renderItem={this.FlatListRenderItem}
@@ -108,4 +119,11 @@ const mapsStateToProps = state => ({
 	AccessToken : state.Auth.AccessToken
 });
 
-export default connect(mapsStateToProps)(FashionDesignerList);
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setIsAnyProductInCart : (value) => dispatch({type: 'setIsAnyProductInCart', value}),
+	}
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(FashionDesignerList);
