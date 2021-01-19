@@ -1,5 +1,5 @@
 import React from 'react';
-import { BackHandler, Animated, ScrollView, FlatList, Linking, Platform } from 'react-native';
+import {BackHandler, Animated, ScrollView, FlatList, Linking, Platform, Dimensions} from 'react-native';
 import { View, Colors, Text, ConnectionStatusBar, Toast } from 'react-native-ui-lib';
 import { connect } from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
@@ -18,6 +18,11 @@ import LevyneProductContainer from "../../components/LevyneProductContainer";
 import FetchDesignsByLevyneGender from "../../API/DesignByLevyne/FetchDesignsByLevyneGender";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
+import MakeInIndia from "../../assets/images/MakeInIndia.svg";
+import Square from "../../components/Square";
+import Rectangle from "../../components/Rectangle";
+
+const deviceWidth = Dimensions.get("window").width;
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -49,12 +54,12 @@ class HomeScreen extends React.Component {
             PushNotification.configure({
 
                 onNotification: (notification) => {
-    
+
                     PushNotification.localNotification({ ...notification.data, onlyAlertOnce: true, visibility: 'private', channelId: 'chatmessages' })
-    
+
                     notification.finish(PushNotificationIOS.FetchResult.NoData);
                 },
-    
+
                 requestPermissions: false,
             });
         }
@@ -370,7 +375,8 @@ class HomeScreen extends React.Component {
                     <View marginT-120>
 
                         <View>
-                            <View row paddingH-20>
+                            <Square Image={"https://i.ibb.co/tJHQVPL/Group-4175.png"}/>
+                            <View row marginT-20 paddingH-20>
                                 <Text b1 secondary flex>Recent Products</Text>
                                 <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
                             </View>
@@ -391,6 +397,8 @@ class HomeScreen extends React.Component {
                             />
                         </View>
 
+                        <Rectangle Image={'https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8c2hpcnR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'}/>
+                        <Rectangle Image={'https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8c2hpcnR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'}/>
 
                         <View row paddingH-20 marginT-30>
                             <Text b1 secondary flex>Fresh in Levyne's Men</Text>
