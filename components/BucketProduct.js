@@ -77,7 +77,6 @@ export default class BucketProduct extends React.PureComponent {
     }
 
     ThreeDProduct = () => {
-        console.log(this.props.item);
         return (
             <View padding-15>
                 <ShadowView style={styles.View}>
