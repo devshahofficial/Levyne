@@ -13,6 +13,7 @@ import { SewingMachineIcon } from '../Icons/Secondary/SewingMachineIcon';
 import { MeasurementIcon } from '../Icons/Secondary/MeasurementIcon';
 import { DeliveryIcon } from '../Icons/Secondary/DeliveryIcon';
 import { TrialRoomIcon } from '../Icons/Secondary/TrialRoomIcon';
+import CstmShadowView from "./CstmShadowView";
 
 const Type = [
 	"Ethnic",
@@ -145,48 +146,58 @@ class ProfileBottomSection extends React.PureComponent {
 						}}
 						showsHorizontalScrollIndicator={false}>
 						{this.props.Tailoring ? (
-							<View center style={styles.View}>
-								<SewingMachineIcon size={60} Color={Colors.primary} />
-								<Text center h2 marginT-20 secondary>
-									Tailoring
-								</Text>
-							</View>
+							<CstmShadowView style={styles.View}>
+								<View center flex>
+									<SewingMachineIcon size={60} Color={Colors.primary} />
+									<Text center h2 marginT-20 secondary>
+										Tailoring
+									</Text>
+								</View>
+							</CstmShadowView>
 						) : (<></>)}
 
 						{this.props.MeasurementService ? (
-							<View center style={styles.View}>
-								<MeasurementIcon size={60} Color={Colors.primary} />
-								<Text center h2 marginT-20 secondary>
-									Measurement Services
-								</Text>
-							</View>
+							<CstmShadowView style={styles.View}>
+								<View center flex>
+									<MeasurementIcon size={60} Color={Colors.primary} />
+									<Text center h2 marginT-20 secondary>
+										Measurement Services
+									</Text>
+								</View>
+							</CstmShadowView>
 						) : (<></>)}
 
 						{this.props.TrialRoom ? (
-							<View center style={styles.View}>
-								<TrialRoomIcon size={60} Color={Colors.primary} />
-								<Text center h2 marginT-20 secondary>
-									Trial Room Availability
-								</Text>
-							</View>
+							<CstmShadowView style={styles.View}>
+								<View center flex>
+									<TrialRoomIcon size={60} Color={Colors.primary} />
+									<Text center h2 marginT-20 secondary>
+										Trial Room Availability
+									</Text>
+								</View>
+							</CstmShadowView>
 						) : (<></>)}
 
 						{this.props.Delivery ? (
-							<View center style={styles.View}>
-								<DeliveryIcon size={60} Color={Colors.primary} />
-								<Text center h2 marginT-20 secondary>
-									Home Delivery
-								</Text>
-							</View>
+							<CstmShadowView style={styles.View}>
+								<View center flex>
+									<DeliveryIcon size={60} Color={Colors.primary} />
+									<Text center h2 marginT-20 secondary>
+										Home Delivery
+									</Text>
+								</View>
+							</CstmShadowView>
 						) : (<></>)}
 
 						{this.props.Parking ? (
-							<View center style={styles.View}>
-								<ParkingIcon size={60} Color={Colors.primary} />
-								<Text center h2 marginT-20 secondary>
-									Parking Availability
-								</Text>
-							</View>
+							<CstmShadowView style={styles.View}>
+								<View center flex>
+									<ParkingIcon size={60} Color={Colors.primary} />
+									<Text center h2 marginT-20 secondary>
+										Parking Availability
+									</Text>
+								</View>
+							</CstmShadowView>
 						) : (<></>)}
 					</ScrollView>
 				</View>
@@ -213,14 +224,14 @@ const styles = StyleSheet.create({
 		height: 50,
 	},
 	View: {
-		height: 170,
-		width: 150,
-		borderColor: Colors.grey50,
-		borderRadius: 10,
-		borderWidth: 1,
-		marginHorizontal: 15,
-		paddingHorizontal: 10,
-	},
+		height:'auto',
+		padding:10,
+		borderRadius:20,
+		marginBottom:20,
+		marginTop: 5,
+		marginHorizontal:10,
+		width: 150
+	}
 });
 
 export default connect()(ProfileBottomSection);

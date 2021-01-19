@@ -7,7 +7,9 @@ import CstmShadowView from "../../components/CstmShadowView";
 import { connect } from 'react-redux';
 import { getVersion } from 'react-native-device-info';
 import { EditIcon } from "../../Icons/EditIcon";
-import { CommonActions } from '@react-navigation/native';
+import MakeInIndia from "../../assets/images/MakeInIndia.svg";
+
+const deviceWidth = Dimensions.get("window").width;
 
 class ProfileTopSection extends React.Component {
 
@@ -300,6 +302,9 @@ class ProfileTopSection extends React.Component {
                     {
                         (this.props.ProfileStatus === 2) ? this.LoggedInScreen() : this.UnloggedScreen()
                     }
+                    <View style={{width:deviceWidth}}>
+                        <MakeInIndia width={"100%"}/>
+                    </View>
                 </ScrollView>
             </>
         )
