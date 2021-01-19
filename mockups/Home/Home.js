@@ -330,6 +330,13 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('ProductDetailsPage', { DesignID })
     }
 
+    NavigateThreeD = (CategoryID, Category) => {
+        this.props.navigation.push('ThreeD', {
+            CategoryID: CategoryID,
+            Category: Category
+        })
+    }
+
     render() {
         return (
             <>
@@ -377,7 +384,7 @@ class HomeScreen extends React.Component {
                             <View marginV-10 paddingH-20>
                                 <Text b1 secondary>Customize Now</Text>
                             </View>
-                            <Square/>
+                            <Square NavigateThreeD={this.NavigateThreeD}/>
                             <View row marginT-20 paddingH-20>
                                 <Text b1 secondary flex>Top trends in Men</Text>
                                 <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>

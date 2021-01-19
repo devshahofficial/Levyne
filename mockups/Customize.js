@@ -36,7 +36,6 @@ class Customize extends React.Component {
         }).catch(console.log);
 
         Fetch3DCategories(this.abortController.signal).then(ModelCategories => {
-            console.log(ModelCategories);
             this.setState({ModelCategories});
         }).catch(console.log)
     }
