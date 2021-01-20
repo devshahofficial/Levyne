@@ -6,8 +6,9 @@ import NavBarBack from "../../../components/NavBarBack";
 import WebView from "react-native-webview";
 import {CallIcon} from "../../../Icons/CallIcon";
 import Fetch3DModel from "../../../API/ThreeD/Fetch3DModel";
+import { connect } from 'react-redux';
 
-export default class NewScreen extends Component {
+class ThreeD extends Component {
 
     constructor(props) {
         super(props);
@@ -61,12 +62,15 @@ export default class NewScreen extends Component {
 
     Navigate3DCart = () => {
 
-        //Linking.openURL('tel:+91 9819 077182').catch(err => {});
-        this.props.navigation.push('FabricsFor3DCart', {
-            CategoryID: this.CategoryID,
-            Category: this.Category,
-            ThreeDModel: this.state.Models[this.state.upperSelected].ID
-        })
+        if(this.props.AccessToken) {
+            this.props.navigation.push('FabricsFor3DCart', {
+                CategoryID: this.CategoryID,
+                Category: this.Category,
+                ThreeDModel: this.state.Models[this.state.upperSelected].ID
+            })
+        } else {
+            this.props.navigation.push("Auth", {screen: 'Login'});
+        }
     }
 
     render() {
@@ -113,3 +117,8 @@ const styles = StyleSheet.create({
     },
 })
 
+const mapsStateToProps = state => ({
+	AccessToken : state.Auth.AccessToken
+});
+
+export default connect(mapsStateToProps)(ThreeD)
