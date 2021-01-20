@@ -335,6 +335,12 @@ class HomeScreen extends React.Component {
             Category: Category
         })
     }
+    
+    NavigateDesignedAtLevyne = () => {
+        this.props.navigation.navigate('DesignedAtLevyne')
+    }
+
+    onConnectionChange = isConnected => this.setState({ isConnected })
 
     render() {
         return (
@@ -349,7 +355,7 @@ class HomeScreen extends React.Component {
                 />
                 <ConnectionStatusBar
                     useAbsolutePosition
-                    onConnectionChange={isConnected => this.setState({ isConnected })}
+                    onConnectionChange={this.onConnectionChange}
                 />
                 <Toast
                     visible={this.state.showCustomToast}
@@ -363,11 +369,11 @@ class HomeScreen extends React.Component {
                         horizontal={true} style={{ height: 90, alignContent: "center" }}
                         showsHorizontalScrollIndicator={false}
                     >
-                        <Category title={'Levyne'} NavigateSearch={() => this.props.navigation.navigate('DesignedAtLevyne')} Image={"https://d32kprqn8e36ns.cloudfront.net/NB0003%20(3).webp"} />
-                        <Category title={'Men'} NavigateSearch={() => this.navigateSearch({ Gender: 1, Type: 4, Label: 'Men' })} Image={"https://d32kprqn8e36ns.cloudfront.net/SJ0001.webp"} />
-                        <Category title={'Women'} NavigateSearch={() => this.navigateSearch({ Gender: 0, Type: 4, Label: 'Women' })} Image={"https://d32kprqn8e36ns.cloudfront.net/FemaleHP.webp"} />
-                        <Category title={'Fusion'} NavigateSearch={() => this.navigateSearch({ Index: 14, Type: 1, Label: 'Fusion' })} Image={"https://d32kprqn8e36ns.cloudfront.net/HA0003.webp"} />
-                        <Category title={'Ethnic'} NavigateSearch={() => this.navigateSearch({ Index: 0, Type: 1, Label: 'Ethnic' })} Image={"https://d32kprqn8e36ns.cloudfront.net/RS0017.webp"} />
+                        <Category title={'Levyne'} NavigateSearch={this.NavigateDesignedAtLevyne} Image={"https://d32kprqn8e36ns.cloudfront.net/NB0003%20(3).webp"} />
+                        <Category title={'Men'} NavigateSearch={this.navigateSearch.bind(this, { Gender: 1, Type: 4, Label: 'Men' })} Image={"https://d32kprqn8e36ns.cloudfront.net/SJ0001.webp"} />
+                        <Category title={'Women'} NavigateSearch={this.navigateSearch.bind(this, { Gender: 0, Type: 4, Label: 'Women' })} Image={"https://d32kprqn8e36ns.cloudfront.net/FemaleHP.webp"} />
+                        <Category title={'Fusion'} NavigateSearch={this.navigateSearch.bind(this, { Index: 14, Type: 1, Label: 'Fusion' })} Image={"https://d32kprqn8e36ns.cloudfront.net/HA0003.webp"} />
+                        <Category title={'Ethnic'} NavigateSearch={this.navigateSearch.bind(this, { Index: 0, Type: 1, Label: 'Ethnic' })} Image={"https://d32kprqn8e36ns.cloudfront.net/RS0017.webp"} />
                     </ScrollView>
                 </Animated.View>
 
@@ -385,8 +391,8 @@ class HomeScreen extends React.Component {
                             </View>
                             <Square NavigateThreeD={this.NavigateThreeD}/>
 
-                            <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
-                            <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
+                            <Rectangle onPress={this.navigateSearch.bind(this, { Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
+                            <Rectangle onPress={this.navigateSearch.bind(this, { Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
 
                             <View row marginT-20 paddingH-20>
                                 <Text b1 secondary flex>Top trends in Men</Text>
