@@ -381,10 +381,14 @@ class HomeScreen extends React.Component {
                     <View marginT-120>
 
                         <View>
-                            <View marginV-10 paddingH-20>
+                            <View marginB-10 paddingH-20>
                                 <Text b1 secondary>Customize Now</Text>
                             </View>
                             <Square NavigateThreeD={this.NavigateThreeD}/>
+
+                            <Rectangle Image={"https://i.ibb.co/B6TTcJ3/Group-4182.png"}/>
+                            <Rectangle Image={"https://i.ibb.co/LnWMvfZ/Group-4183.png"}/>
+
                             <View row marginT-20 paddingH-20>
                                 <Text b1 secondary flex>Top trends in Men</Text>
                                 <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
@@ -425,9 +429,6 @@ class HomeScreen extends React.Component {
                                 showsHorizontalScrollIndicator={false}
                             />
                         </View>
-
-                        <Rectangle Image={'https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8c2hpcnR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'}/>
-                        <Rectangle Image={'https://images.unsplash.com/photo-1523381294911-8d3cead13475?ixid=MXwxMjA3fDB8MHxzZWFyY2h8M3x8c2hpcnR8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'}/>
 
                         <View row paddingH-20 marginT-30>
                             <Text b1 secondary flex>Fresh in Levyne's Men</Text>
