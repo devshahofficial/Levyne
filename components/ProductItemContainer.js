@@ -41,7 +41,7 @@ export default class ProductItemContainer extends React.Component {
         return (
             <CstmShadowView style={styles.shadow}>
                 <TouchableOpacity
-                    activeOpacity={0.7}
+                    activeOpacity={0.7} style={{borderRadius:10}}
                     onPress={() => {this.props.navigateProduct(this.props.item.ProductID)}}
                 >
                     <AnimatedImage
@@ -102,6 +102,8 @@ const styles = StyleSheet.create({
         borderRadius:4,
         height: deviceHeight * 0.35,
         width: deviceWidth * 0.45,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
     },
     Icon : {
         height:30,
