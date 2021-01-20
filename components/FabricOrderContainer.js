@@ -74,6 +74,14 @@ export default class FabricOrderContainer extends React.Component {
                         </TouchableOpacity>
 
                     </View>
+                    <View row marginL-6>
+                        {
+                            this.props.item.BrandPrice ?
+                                <Text primary hb1>₹{this.props.item.FabricPrice + this.props.item.BrandPrice}</Text>
+                                :
+                                <Text primary hb1>₹{this.props.item.FabricPrice}</Text>
+                        }
+                    </View>
                 </TouchableOpacity>
 
                 <Button
