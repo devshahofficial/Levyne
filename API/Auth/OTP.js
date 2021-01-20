@@ -11,14 +11,18 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
     }
     else
     {
-        const json = await POST('verifyOTP', {ReturnResponse: true, Body: {Mobile, OTP, OTPTokenHash, UID, FirebaseToken}})
+        const json = await POST('verifyOTP', {ReturnResponse: true, Body: {Mobile, OTP, OTPTokenHash, UID, FirebaseToken}, ThrowError: true})
+
+        const date = new Date();
+        
+	    const Timestamp = date.toISOString().split('T')[0] + ' '  + date.toTimeString().split(' ')[0];
 
         switch(json.ProfileStatus) {
             case 1 :
                 await AsyncStorage.multiSet([
                     ['AccessToken', json.AccessToken],
                     ['RefreshToken', json.RefreshToken],
-                    ['Timestamp', json.Timestamp],
+                    ['Timestamp', Timestamp],
                     ['Mobile', Mobile.toString()],
                     ['ProfileStatus', '1'],
                     ['UserID', json.CustomerID.toString()],
@@ -29,7 +33,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                 setAuth({
                     AccessToken : json.AccessToken,
                     RefreshToken : json.RefreshToken,
-                    Timestamp : json.Timestamp,
+                    Timestamp : Timestamp,
                     Mobile : Mobile,
                     UserID : json.CustomerID,
                     SkipLogin: false
@@ -57,7 +61,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                 await AsyncStorage.multiSet([
                     ['AccessToken', json.AccessToken],
                     ['RefreshToken', json.RefreshToken],
-                    ['Timestamp', json.Timestamp],
+                    ['Timestamp', Timestamp],
                     ['Mobile', Mobile.toString()],
                     ['Name', json.Name],
                     ['Email', json.Email],
@@ -72,7 +76,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                 setAuth({
                     AccessToken : json.AccessToken,
                     RefreshToken : json.RefreshToken,
-                    Timestamp : json.Timestamp,
+                    Timestamp : Timestamp,
                     Mobile : Mobile,
                     UserID : json.CustomerID,
                     SkipLogin: false
