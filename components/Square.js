@@ -11,18 +11,18 @@ export default class Square extends React.PureComponent {
             <View>
                 <View row>
                     <TouchableOpacity onPress={() => this.props.NavigateThreeD(1, "Pants")} flex style={styles.msgLeft}>
-                        <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/TrousersHPDiscount.webp"}} style={styles.img} />
+                        <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/TrousersHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.NavigateThreeD(0, "Shirt")} flex style={styles.msgRight}>
-                        <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/ShirtHPDiscount.webp"}} style={styles.img} />
+                        <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/ShirtHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                 </View>
                 <View row>
                     <TouchableOpacity onPress={() => this.props.NavigateThreeD(3, "Kurti")} flex style={styles.msgLeft}>
-                        <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/KurtiHPDiscount.webp"}} style={styles.img} />
+                        <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/KurtiHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.NavigateThreeD(4, "Choli")} flex style={styles.msgRight}>
-                        <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/CholiHPDiscount.webp"}} style={styles.img} />
+                        <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/CholiHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                 </View>
             </View>

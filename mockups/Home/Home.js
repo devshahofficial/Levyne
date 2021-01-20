@@ -18,7 +18,6 @@ import LevyneProductContainer from "../../components/LevyneProductContainer";
 import FetchDesignsByLevyneGender from "../../API/DesignByLevyne/FetchDesignsByLevyneGender";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
-import MakeInIndia from "../../assets/images/MakeInIndia.svg";
 import Square from "../../components/Square";
 import Rectangle from "../../components/Rectangle";
 
@@ -386,8 +385,8 @@ class HomeScreen extends React.Component {
                             </View>
                             <Square NavigateThreeD={this.NavigateThreeD}/>
 
-                            <Rectangle Image={"https://i.ibb.co/B6TTcJ3/Group-4182.png"}/>
-                            <Rectangle Image={"https://i.ibb.co/LnWMvfZ/Group-4183.png"}/>
+                            <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
+                            <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
 
                             <View row marginT-20 paddingH-20>
                                 <Text b1 secondary flex>Top trends in Men</Text>
