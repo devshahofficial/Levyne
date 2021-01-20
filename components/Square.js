@@ -18,7 +18,7 @@ export default class Square extends React.PureComponent {
                     </TouchableOpacity>
                 </View>
                 <View row>
-                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(3, "Kurtis")} flex style={styles.msgLeft}>
+                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(3, "Kurti")} flex style={styles.msgLeft}>
                         <Image source={{uri: "http://d32kprqn8e36ns.cloudfront.net/KurtiHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.NavigateThreeD(4, "Choli")} flex style={styles.msgRight}>
