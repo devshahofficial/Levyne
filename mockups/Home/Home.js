@@ -363,11 +363,11 @@ class HomeScreen extends React.Component {
                         horizontal={true} style={{ height: 90, alignContent: "center" }}
                         showsHorizontalScrollIndicator={false}
                     >
-                        <Category title={'Levyne'} NavigateSearch={() => this.props.navigation.navigate('DesignedAtLevyne')} Image={"https://d1g0sqy9wcgheg.cloudfront.net/NB0003%20(3).jpg"} />
-                        <Category title={'Men'} NavigateSearch={() => this.navigateSearch({ Gender: 1, Type: 4, Label: 'Men' })} Image={"https://d1g0sqy9wcgheg.cloudfront.net/SJ0001%20(1).jpg"} />
-                        <Category title={'Women'} NavigateSearch={() => this.navigateSearch({ Gender: 0, Type: 4, Label: 'Women' })} Image={"https://d1g0sqy9wcgheg.cloudfront.net/NP0010%20(2).jpg"} />
-                        <Category title={'Fusion'} NavigateSearch={() => this.navigateSearch({ Index: 14, Type: 1, Label: 'Fusion' })} Image={"https://d1g0sqy9wcgheg.cloudfront.net/HA0003%20(1).jpg"} />
-                        <Category title={'Ethnic'} NavigateSearch={() => this.navigateSearch({ Index: 0, Type: 1, Label: 'Ethnic' })} Image={"https://d1g0sqy9wcgheg.cloudfront.net/RS0017%20(1).jpg"} />
+                        <Category title={'Levyne'} NavigateSearch={() => this.props.navigation.navigate('DesignedAtLevyne')} Image={"https://d32kprqn8e36ns.cloudfront.net/NB0003%20(3).webp"} />
+                        <Category title={'Men'} NavigateSearch={() => this.navigateSearch({ Gender: 1, Type: 4, Label: 'Men' })} Image={"https://d32kprqn8e36ns.cloudfront.net/SJ0001.webp"} />
+                        <Category title={'Women'} NavigateSearch={() => this.navigateSearch({ Gender: 0, Type: 4, Label: 'Women' })} Image={"https://d32kprqn8e36ns.cloudfront.net/FemaleHP.webp"} />
+                        <Category title={'Fusion'} NavigateSearch={() => this.navigateSearch({ Index: 14, Type: 1, Label: 'Fusion' })} Image={"https://d32kprqn8e36ns.cloudfront.net/HA0003.webp"} />
+                        <Category title={'Ethnic'} NavigateSearch={() => this.navigateSearch({ Index: 0, Type: 1, Label: 'Ethnic' })} Image={"https://d32kprqn8e36ns.cloudfront.net/RS0017.webp"} />
                     </ScrollView>
                 </Animated.View>
 
