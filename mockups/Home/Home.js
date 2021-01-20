@@ -6,22 +6,18 @@ import HomeNavBar from '../../components/HomeNavBar';
 import Category from "../../components/Category";
 import FetchStories from '../../API/Home/FetchStories';
 import Recent15Products from '../../API/Products/Recent15Products';
-import ProductItemContainer from "../../components/ProductItemContainer";
 import FetchBlogPosts from '../../API/Blogs/FetchBlogPosts';
 import PutStoryAsRead from '../../API/Home/PutStoryAsRead';
 import timeAgo from '../../API/Chats/timeAgo';
 import FetchChatBuckets from '../../API/Chats/FetchChatBuckets';
 import Recent15Brands from '../../API/Brand/Recent15Brands';
-import PopularBrands from "../../components/PopularBrands";
 import { CommonActions } from '@react-navigation/native';
-import LevyneProductContainer from "../../components/LevyneProductContainer";
 import FetchDesignsByLevyneGender from "../../API/DesignByLevyne/FetchDesignsByLevyneGender";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
-import Square from "../../components/Square";
-import Rectangle from "../../components/Rectangle";
-
-const deviceWidth = Dimensions.get("window").width;
+import Square from "../../components/PosterComponents/Square";
+import Rectangle from "../../components/PosterComponents/Rectangle";
+import Vrectangle from "../../components/PosterComponents/Vrectangle";
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -345,7 +341,7 @@ class HomeScreen extends React.Component {
                     navigateOrders={this.navigateOrders}
                     navigateNotifications={this.navigateNotifications}
                     navigateCall={this.navigateCall}
-                // navigateMenu={this.navigateMenu}
+                    // navigateMenu={this.navigateMenu}
                 />
                 <ConnectionStatusBar
                     useAbsolutePosition
@@ -378,115 +374,17 @@ class HomeScreen extends React.Component {
                     onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}
                 >
                     <View marginT-120>
-
-                        <View>
-                            <View marginB-10 paddingH-20>
-                                <Text b1 secondary>Customize Now</Text>
-                            </View>
-                            <Square NavigateThreeD={this.NavigateThreeD}/>
-
-                            <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
-                            <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
-
-                            <View row marginT-20 paddingH-20>
-                                <Text b1 secondary flex>Top trends in Men</Text>
-                                <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
-                            </View>
-                            <FlatList
-                                data={this.state.Recent15Products}
-                                horizontal={true}
-
-                                renderItem={({ item }) => {
-                                    return <ProductItemContainer
-                                        Token={this.props.AccessToken}
-                                        item={item}
-                                        navigateProduct={this.navigateProduct}
-                                        NavigateLogin={this.NavigateLogin}
-                                    />
-                                }}
-                                keyExtractor={(item) => item.ProductID.toString()}
-                                showsHorizontalScrollIndicator={false}
-                            />
-
-                            <View row marginT-20 paddingH-20>
-                                <Text b1 secondary flex>Top trends in Women</Text>
-                                <Text h3 primary paddingR-10 flexS>Swipe {'->'}</Text>
-                            </View>
-                            <FlatList
-                                data={this.state.Recent15Products}
-                                horizontal={true}
-
-                                renderItem={({ item }) => {
-                                    return <ProductItemContainer
-                                        Token={this.props.AccessToken}
-                                        item={item}
-                                        navigateProduct={this.navigateProduct}
-                                        NavigateLogin={this.NavigateLogin}
-                                    />
-                                }}
-                                keyExtractor={(item) => item.ProductID.toString()}
-                                showsHorizontalScrollIndicator={false}
-                            />
+                        <View marginB-10 paddingH-20>
+                            <Text b1 secondary>Customize Now</Text>
                         </View>
+                        <Square NavigateThreeD={this.NavigateThreeD}/>
 
-                        <View row paddingH-20 marginT-30>
-                            <Text b1 secondary flex>Fresh in Levyne's Men</Text>
-                        </View>
-                        <FlatList
-                            horizontal={true}
-                            data={this.state.LevyneProductsMale}
-                            contentContainerStyle={{ backgroundColor: 'white' }}
-                            renderItem={({ item }) => <LevyneProductContainer
-                                Image={item.PrimaryImage}
-                                Name={"#" + item.DesignCode}
-                                NewDesign={item.NewDesign}
-                                NavigateDesign={this.NavigateDesign}
-                                DesignID={item.DesignID}
-                            />}
-                            extraData={{ NavigateDesign: this.NavigateDesign }}
-                            keyExtractor={(item) => item.DesignCode}
-                            showsHorizontalScrollIndicator={false}
-                        />
+                        <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
+                        <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
+
+                        <Vrectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
                     </View>
 
-                    <View marginT-30>
-                        <View row paddingH-20>
-                            <Text b1 secondary flex>Fresh in Levyne's Women</Text>
-                        </View>
-                        <FlatList
-                            horizontal={true}
-                            data={this.state.LevyneProductsFemale}
-                            contentContainerStyle={{ backgroundColor: 'white' }}
-                            renderItem={({ item }) => <LevyneProductContainer
-                                Image={item.PrimaryImage}
-                                NewDesign={item.NewDesign}
-                                Name={"#" + item.DesignCode}
-                                NavigateDesign={this.NavigateDesign}
-                                DesignID={item.DesignID}
-                            />}
-                            extraData={{ NavigateDesign: this.NavigateDesign }}
-                            keyExtractor={(item) => item.DesignCode}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
-
-                    <View marginT-30>
-                        <View row paddingH-20>
-                            <Text b1 secondary flex>Brands</Text>
-                        </View>
-                        <FlatList
-                            horizontal={true}
-                            data={this.state.Recent15Brands}
-                            renderItem={({ item }) => {
-                                return <PopularBrands
-                                    item={item}
-                                    navigateBrand={this.navigateBrand}
-                                />
-                            }}
-                            keyExtractor={(item) => item.BrandID.toString()}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
                 </Animated.ScrollView>
             </>
         );
