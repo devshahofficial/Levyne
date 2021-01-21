@@ -56,7 +56,6 @@ class ChatScreenIos extends Component {
     }
 
     SocketListener = (Message) => {
-        console.log(Message);
         if(Message.BucketID === this.props.route.params.BucketID) {
             this.state.Messages.unshift({
                 Message,
