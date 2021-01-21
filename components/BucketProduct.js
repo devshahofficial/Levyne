@@ -129,7 +129,7 @@ export default class BucketProduct extends React.PureComponent {
                         <Text h2 secondary flex>{">"}</Text>
                     </TouchableOpacity>
                     <View flex style={{ alignItems: "flex-end" }}>
-                        <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID, this.props.item.ProductType)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
+                        <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
                             <ArchiveIcon Size={20} Color={Colors.white} />
                         </TouchableOpacity>
                     </View>
@@ -191,7 +191,75 @@ export default class BucketProduct extends React.PureComponent {
                             <Text h2 secondary flex>{">"}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID, this.props.item.ProductType)}
+                            onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
+                            flex
+                            marginH-5
+                            activeOpacity={0.8}
+                            center
+                            style={{ width: 40, height: 40, backgroundColor: "#FF0000", borderRadius: 5 }}
+                        >
+                            <ArchiveIcon Size={20} Color={Colors.white} />
+                        </TouchableOpacity>
+                    </View>
+                </ShadowView>
+            </View>
+        )
+    }
+
+    DesignByLevyne = () => {
+        return (
+            <View padding-15>
+                <ShadowView style={styles.View}>
+
+                    <View flex row centerH style={{ height: "auto" }}>
+                        <TouchableOpacity
+                            flex
+                            style={{borderRadius:10}}
+                            onPress={() => this.props.DisplayImageView(this.props.item.DesignImage)}
+                        >
+                            <Image
+                                style={styles.ImageContainerOnlyProduct}
+                                source={{ uri: this.props.item.DesignImage }}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View marginT-10>
+                        <Text h2 secondary>Average Cost</Text>
+                        <View row>
+                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
+                        </View>
+                    </View>
+
+                    <View marginV-10 paddingV-10>
+                        <Text h2 secondary>Final Budget</Text>
+                        <View row>
+                            {this.props.item.DecidedPrice ?
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
+                                <Text hb1 primary>Chat to Decide</Text>
+                            }
+                        </View>
+                    </View>
+
+                    <View flex marginV-10>
+                        <View row>
+                            <Text flex hb2 secondary>Quantity</Text>
+                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                        </View>
+                    </View>
+
+                    <View row center>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigateDesign(this.props.item.DesignID)}
+                            flex-8
+                            center
+                            marginH-5 style={styles.TouchableOpacity}
+                        >
+                            <Text h2 secondary flex-15>Visit the Design</Text>
+                            <Text h2 secondary flex>{">"}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
                             flex
                             marginH-5
                             activeOpacity={0.8}
@@ -216,7 +284,7 @@ export default class BucketProduct extends React.PureComponent {
             return <this.ThreeDProduct {...this.props} />
         } else {
             //Design By Levyne
-            return <this.OnlyProduct {...this.props} />
+            return <this.DesignByLevyne {...this.props} />
         }
     }
 }
