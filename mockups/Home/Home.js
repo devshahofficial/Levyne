@@ -178,6 +178,7 @@ class HomeScreen extends React.Component {
 
         Linking.addEventListener('url', this.handleOpenURL);
 
+        /*
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
             this.setState({ StoryData })
         }).catch(err => {
@@ -219,6 +220,8 @@ class HomeScreen extends React.Component {
                 Loading: false
             });
         }).catch(console.log);
+
+        */
     }
 
     componentWillUnmount() {
