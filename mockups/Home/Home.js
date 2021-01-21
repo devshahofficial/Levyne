@@ -1,6 +1,16 @@
 import React from 'react';
-import {BackHandler, Animated, ScrollView, FlatList, Linking, Platform, Dimensions} from 'react-native';
-import { View, Colors, Text, ConnectionStatusBar, Toast } from 'react-native-ui-lib';
+import {
+    BackHandler,
+    Animated,
+    ScrollView,
+    FlatList,
+    Linking,
+    Platform,
+    Dimensions,
+    Image,
+    StyleSheet
+} from 'react-native';
+import {View, Colors, Text, ConnectionStatusBar, Toast, TouchableOpacity} from 'react-native-ui-lib';
 import { connect } from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
 import Category from "../../components/Category";
@@ -17,7 +27,9 @@ import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 import Square from "../../components/PosterComponents/Square";
 import Rectangle from "../../components/PosterComponents/Rectangle";
-import Vrectangle from "../../components/PosterComponents/Vrectangle";
+
+const {height} = Dimensions.get('window');
+
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -379,10 +391,24 @@ class HomeScreen extends React.Component {
                         </View>
                         <Square NavigateThreeD={this.NavigateThreeD}/>
 
+                        <View marginB-10 marginT-20 paddingH-20>
+                            <Text b1 secondary>Shop Now</Text>
+                        </View>
                         <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
                         <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
 
-                        <Vrectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
+                        <View marginB-10 marginT-20 paddingH-20>
+                            <Text b1 secondary>Exciting Offers</Text>
+                        </View>
+                        <View row>
+                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} flex style={styles.msg}>
+                                <Image source={{uri: "https://i.ibb.co/KLVCrJm/Group-4188.jpg"}} style={styles.img} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} flex style={styles.msg}>
+                                <Image source={{uri: "https://i.ibb.co/5sZrzP0/Group-4189.jpg"}} style={styles.img} />
+                            </TouchableOpacity>
+                        </View>
+
                     </View>
 
                 </Animated.ScrollView>
@@ -390,6 +416,25 @@ class HomeScreen extends React.Component {
         );
     };
 }
+
+
+
+
+const styles = StyleSheet.create({
+    img: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    msg: {
+        marginTop: 10,
+        height: height * 0.30,
+        borderRadius: 10,
+        margin: 10,
+    },
+});
 
 const mapsStateToProps = (state) => ({
     AccessToken: state.Auth.AccessToken,
