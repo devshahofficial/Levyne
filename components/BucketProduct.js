@@ -66,11 +66,17 @@ export default class BucketProduct extends React.PureComponent {
                         <Text h2 secondary flex-15>Visit the Fabric</Text>
                         <Text h2 secondary flex>{">"}</Text>
                     </TouchableOpacity>
-                    <View flex style={{ alignItems: "flex-end" }}>
-                        <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID, this.props.item.ProductType)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
-                            <ArchiveIcon Size={20} Color={Colors.white} />
-                        </TouchableOpacity>
-                    </View>
+                    {
+                        this.props.OrderCompleted ?
+                            <></>
+                            :
+
+                        <View flex style={{ alignItems: "flex-end" }}>
+                            <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
+                                <ArchiveIcon Size={20} Color={Colors.white} />
+                            </TouchableOpacity>
+                        </View>
+                    }
                 </ShadowView>
             </View>
         )
@@ -124,14 +130,31 @@ export default class BucketProduct extends React.PureComponent {
                         </View>
                     </View>
 
-                    <TouchableOpacity onPress={() => this.props.navigateFabric(this.props.item.FabricID)} center marginT-5 marginB-15 style={styles.TouchableOpacity}>
-                        <Text h2 secondary flex-15>Visit the Fabric</Text>
-                        <Text h2 secondary flex>{">"}</Text>
-                    </TouchableOpacity>
-                    <View flex style={{ alignItems: "flex-end" }}>
-                        <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
-                            <ArchiveIcon Size={20} Color={Colors.white} />
+                    <View row center>
+                        <TouchableOpacity
+                            onPress={() => this.props.navigateFabric(this.props.item.FabricID)}
+                            flex-8
+                            center
+                            marginH-5 style={styles.TouchableOpacity}
+                        >
+                            <Text h2 secondary flex-15>Visit the Fabric</Text>
+                            <Text h2 secondary flex>{">"}</Text>
                         </TouchableOpacity>
+                        {
+                            this.props.OrderCompleted ?
+                                <></>
+                                :
+                                <TouchableOpacity
+                                    onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
+                                    flex
+                                    marginH-5
+                                    activeOpacity={0.8}
+                                    center
+                                    style={{ width: 40, height: 40, backgroundColor: "#FF0000", borderRadius: 5 }}
+                                >
+                                    <ArchiveIcon Size={20} Color={Colors.white} />
+                                </TouchableOpacity>
+                        }
                     </View>
                 </ShadowView>
             </View>
@@ -190,16 +213,21 @@ export default class BucketProduct extends React.PureComponent {
                             <Text h2 secondary flex-15>Visit the Product</Text>
                             <Text h2 secondary flex>{">"}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
-                            flex
-                            marginH-5
-                            activeOpacity={0.8}
-                            center
-                            style={{ width: 40, height: 40, backgroundColor: "#FF0000", borderRadius: 5 }}
-                        >
-                            <ArchiveIcon Size={20} Color={Colors.white} />
-                        </TouchableOpacity>
+                        {
+                            this.props.OrderCompleted ?
+                                <></>
+                                :
+                                <TouchableOpacity
+                                    onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
+                                    flex
+                                    marginH-5
+                                    activeOpacity={0.8}
+                                    center
+                                    style={{ width: 40, height: 40, backgroundColor: "#FF0000", borderRadius: 5 }}
+                                >
+                                    <ArchiveIcon Size={20} Color={Colors.white} />
+                                </TouchableOpacity>
+                        }
                     </View>
                 </ShadowView>
             </View>
@@ -258,16 +286,22 @@ export default class BucketProduct extends React.PureComponent {
                             <Text h2 secondary flex-15>Visit the Design</Text>
                             <Text h2 secondary flex>{">"}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
-                            flex
-                            marginH-5
-                            activeOpacity={0.8}
-                            center
-                            style={{ width: 40, height: 40, backgroundColor: "#FF0000", borderRadius: 5 }}
-                        >
-                            <ArchiveIcon Size={20} Color={Colors.white} />
-                        </TouchableOpacity>
+                        
+                        {
+                            this.props.OrderCompleted ?
+                                <></>
+                                :
+                                <TouchableOpacity
+                                    onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
+                                    flex
+                                    marginH-5
+                                    activeOpacity={0.8}
+                                    center
+                                    style={{ width: 40, height: 40, backgroundColor: "#FF0000", borderRadius: 5 }}
+                                >
+                                    <ArchiveIcon Size={20} Color={Colors.white} />
+                                </TouchableOpacity>
+                        }
                     </View>
                 </ShadowView>
             </View>
