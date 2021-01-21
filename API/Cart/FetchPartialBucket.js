@@ -2,7 +2,7 @@ import {GET} from '../CustomFetch';
 
 const FetchBucket = async (BucketID, Token, abortControllerSignal) => {
 
-    return await GET('Cart/FetchPartialBucketByID', {
+    return await GET('CartV2/FetchPartialBucketByID', {
         ReturnResponse: true,
         Token,
         QueryData: {BucketID}

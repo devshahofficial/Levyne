@@ -106,7 +106,7 @@ class ChatScreenIos extends Component {
 
     NavigateBucket = () => {
         if(this.state.BucketInfo.OrderID) {
-            this.props.navigation.push('MyOrders')
+            this.props.navigation.push('MyOrders', {OrderID: this.state.BucketInfo.OrderID});
         } else {
             this.props.navigation.push('Bucket', {
                 BucketID: this.props.route.params.BucketID,

@@ -1,13 +1,12 @@
 import {POST} from '../CustomFetch';
 
-export default RemoveProductFromCart = async (BucketID, CartID, ProductType, Token, abortControllerSignal) => {
+export default RemoveProductFromCart = async (CartID, Token, abortControllerSignal) => {
 
-    await POST('Cart/RemoveFromCartByCartID', {
+    await POST('CartV2/RemoveFromCartByCartID', {
         Body: {
-            BucketID,
-            CartID,
-            ProductType
+            CartID
         },
         Token,
+        ThrowError: true
     }, abortControllerSignal);
 }

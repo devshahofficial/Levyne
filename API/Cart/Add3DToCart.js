@@ -2,9 +2,10 @@ import {POST} from '../CustomFetch';
 
 export default AddToCart = async (ModelID, FabricID, Token, abortControllerSignal) => {
 
-   return await POST("Cart/AddToCart3D", {
+   return await POST("CartV2/AddToCart", {
         Token,
         Body: {
+            Type: 2,
             ModelID,
             FabricID,
         },

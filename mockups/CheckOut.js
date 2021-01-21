@@ -9,7 +9,7 @@ import {CheckoutIcon} from "../Icons/CheckoutIcon";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 import CheckoutAPI from '../API/Cart/Checkout';
-import FetchPartialBucket from '../API/Chats/FetchPartialBucket';
+import FetchPartialBucket from '../API/Cart/FetchPartialBucket';
 import Loader from '../components/Loader';
 import { CommonActions } from '@react-navigation/native';
 import IsAnyProductInCartAPI from '../API/Profile/IsAnyProductInCart';
