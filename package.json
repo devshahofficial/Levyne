@@ -9,7 +9,8 @@
 		"start": "npx react-native start",
 		"pod": "cd ios && pod install && cd ..",
 		"postinstall": "npx react-native link",
-		"adb": "adb kill-server && adb tcpip 5555 && sleep 5 && adb shell ip route | awk '{print $9}' | xargs adb connect"
+		"adb": "adb kill-server && adb tcpip 5555 && sleep 5 && adb shell ip route | awk '{print $9}' | xargs adb connect",
+		"adb-reconnect": "adb kill-server && adb start-server && adb reconnect offline"
 	},
 	"dependencies": {
 		"@react-native-async-storage/async-storage": "^1.13.2",
