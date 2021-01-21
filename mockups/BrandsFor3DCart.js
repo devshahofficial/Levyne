@@ -38,7 +38,6 @@ export default class FashionDesignerList extends React.PureComponent {
 	Total = 0;
 
 	componentDidMount() {
-		console.log(this.props.route.params);
 		FetchBrandsWith3DPricing('ShirtPrice', undefined, ++this.Page).then(resp => {
 			this.setState({
 				Brands: resp.Brands
