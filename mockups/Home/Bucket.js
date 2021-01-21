@@ -47,6 +47,11 @@ class Bucket extends React.Component {
 
     componentDidMount() {
         FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
+            
+            if(!Buckets[0]) {
+                this.props.navigation.goBack();
+            }
+
             let CheckoutActive = false;
             if(Buckets[0].Status === 1) {
                 CheckoutActive = true;
@@ -63,11 +68,8 @@ class Bucket extends React.Component {
                 this.setState({Loading: true});
                 FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
                     let CheckoutActive = true;
-                    for(let i = 0;i<Buckets.length;i++) {
-                        if(!Buckets[i].DecidedPrice) {
-                            CheckoutActive = false;
-                            break;
-                        }
+                    if(Buckets[0].Status === 1) {
+                        CheckoutActive = true;
                     }
                     this.setState({
                         Buckets,
@@ -144,7 +146,7 @@ class Bucket extends React.Component {
         } else {
             this.props.navigation.goBack();
         }
-        RemoveProductFromCart(this.props.route.params.BucketID, this.state.CartIDForDeletion, this.state.ProductTypeForDeletion, this.props.AccessToken).catch(console.log);
+        RemoveProductFromCart(this.state.CartIDForDeletion, this.props.AccessToken).catch(console.log);
     }
 
     setDeleteModalVisible = () => {
@@ -222,7 +224,7 @@ class Bucket extends React.Component {
                     modalVisible={this.state.DeleteModalVisible}
                     setModalVisible={this.setDeleteModalVisible}
                 />
-                {!this.state.Loading && this.state.Buckets[0].Status < 2 ?
+                {!this.state.Loading && this.state.Buckets[0].Status === 1 ?
                     <BottomButton
                         ButtonA={"Chat"}
                         ButtonB={"Checkout"}

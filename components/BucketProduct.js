@@ -86,7 +86,7 @@ export default class BucketProduct extends React.PureComponent {
                         >
                             <WebView
                                 style={styles.ImageContainer}
-                                source={{ uri: `https://3d.levyne.com/${this.props.item.Category}/${this.props.item.ProductID}` }}
+                                source={{ uri: `https://3d.levyne.com/${this.props.item.Category}/${this.props.item['3DModel']}` }}
                             />
                         </View>
                         <TouchableOpacity
@@ -167,7 +167,7 @@ export default class BucketProduct extends React.PureComponent {
                         <Text h2 secondary>Final Budget</Text>
                         <View row>
                             {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}</Text> :
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
                                 <Text hb1 primary>Chat to Decide</Text>
                             }
                         </View>
@@ -207,17 +207,17 @@ export default class BucketProduct extends React.PureComponent {
     }
 
     render() {
-        switch (this.props.item.ProductType) {
-            case 1:
-                return <this.OnlyProduct {...this.props} />
-            case 2:
+        if(this.props.item.ProductID) {
+            if(this.props.item.FabricID) {
                 return <this.ProductWithFabric {...this.props} />
-            case 3:
-                return <this.ThreeDProduct {...this.props} />
-            default:
-                return <></>
+            }
+            return <this.OnlyProduct {...this.props} />
+        } else if(this.props.item['3DModelID']) {
+            return <this.ThreeDProduct {...this.props} />
+        } else {
+            //Design By Levyne
+            return <this.OnlyProduct {...this.props} />
         }
-
     }
 }
 

@@ -18,10 +18,15 @@ class MyOrders extends Component {
         this.abortController = new AbortController();
         this.Page = 0;
         this.LoadingNewOrders = false;
+        if(!this.props.route.params) {
+            this.props.route.params = {
+                OrderID: undefined
+            }
+        } 
     }
 
     componentDidMount() {
-        FetchOrders(this.props.AccessToken, ++this.Page, this.abortController.signal).then(Orders => {
+        FetchOrders(this.props.AccessToken, this.props.route.params.OrderID, ++this.Page, this.abortController.signal).then(Orders => {
             this.setState({
                 Orders,
                 Loading: false
