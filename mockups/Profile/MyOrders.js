@@ -20,7 +20,7 @@ class MyOrders extends Component {
         this.LoadingNewOrders = false;
         if(!this.props.route.params) {
             this.props.route.params = {
-                OrderID: undefined
+                OrderID: null
             }
         } 
     }

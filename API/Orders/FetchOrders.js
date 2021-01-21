@@ -5,7 +5,7 @@ const FetchOrders = async (Token, OrderID, Page, abortControllerSignal) => {
     return await GET('Orders/FetchOrders', {
         ReturnResponse: true,
         Token,
-        QueryData: {Page, OrderID}
+        QueryData: {Page, ...(OrderID ? {OrderID} : {})}
     }, abortControllerSignal)
 
 }

@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import {DeliveryIcon} from "../../Icons/Secondary/DeliveryIcon";
 import Colors from "../../Style/Colors";
-import BucketProduct from "../../components/BucketProductOrder";
+import BucketProduct from "../../components/BucketProduct";
 import {TimerIcon} from "../../Icons/Secondary/TimerIcon";
 import FetchBucket from '../../API/Cart/FetchBucket';
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
@@ -28,6 +28,7 @@ class Bucket extends React.Component {
     }
 
     componentDidMount() {
+        console.log(this.props.route.params);
         FetchBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then((Buckets) => {
             let CheckoutActive = true;
             for(let i = 0;i<Buckets.length;i++) {
@@ -54,11 +55,17 @@ class Bucket extends React.Component {
     FatListRenderItem = ({item}) => (
         <BucketProduct
             item={item}
+            OrderCompleted={true}
             DisplayImageView={this.DisplayImageView}
             navigateProduct={this.navigateProduct}
             navigateFabric={this.navigateFabric}
+            navigateDesign={this.navigateDesign}
         />
     )
+
+    navigateDesign = (DesignID) => {
+        this.props.navigation.navigate('ProductDetailsPage', {DesignID});
+    }
 
     navigateProduct = (ProductID) => {
         this.props.navigation.navigate('Product', {ProductID});
