@@ -405,10 +405,10 @@ class HomeScreen extends React.Component {
                         </View>
                         <View row>
                             <TouchableOpacity onPress={() => this.navigateSearch({ Index: 8, Type: 0, Label: 'Bridal' })} flex style={styles.msg}>
-                                <Image source={{uri: "https://i.ibb.co/KLVCrJm/Group-4188.jpg"}} style={styles.img} />
+                                <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4188.jpg"}} style={styles.img} />
                             </TouchableOpacity>
                             <TouchableOpacity onPress={() => this.navigateSearch({ Index: 7, Type: 0, Label: 'Indo-Western' })} flex style={styles.msg}>
-                                <Image source={{uri: "https://i.ibb.co/5sZrzP0/Group-4189.jpg"}} style={styles.img} />
+                                <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4189.jpg"}} style={styles.img} />
                             </TouchableOpacity>
                         </View>
 
