@@ -95,12 +95,17 @@ class Bucket extends React.Component {
             DisplayImageView={this.DisplayImageView}
             navigateProduct={this.navigateProduct}
             navigateFabric={this.navigateFabric}
+            navigateDesign={this.navigateDesign}
             RemoveProductFromCart={this.setStateForProductDelete}
         />
     )
 
     navigateProduct = (ProductID) => {
         this.props.navigation.navigate('Product', {ProductID});
+    }
+
+    navigateDesign = (DesignID) => {
+        this.props.navigation.navigate('ProductDetailsPage', {DesignID});
     }
 
     navigateFabric = (FabricID) => {
@@ -137,7 +142,7 @@ class Bucket extends React.Component {
     }
 
     RemoveProductFromCart = () => {
-        const NewBucket = this.state.Buckets.filter(item => !(item.CartID === this.state.CartIDForDeletion && item.ProductType === this.state.ProductTypeForDeletion));
+        const NewBucket = this.state.Buckets.filter(item => !(item.CartID === this.state.CartIDForDeletion));
         if(NewBucket.length) {
             this.setState({
                 Buckets : NewBucket,
@@ -164,11 +169,10 @@ class Bucket extends React.Component {
         );
     };
 
-    setStateForProductDelete = (CartID, ProductType) => {
+    setStateForProductDelete = (CartID) => {
         this.setState({
             DeleteModalVisible : !this.state.DeleteModalVisible,
-            CartIDForDeletion: CartID,
-            ProductTypeForDeletion: ProductType
+            CartIDForDeletion: CartID
         })
     }
 
@@ -208,7 +212,7 @@ class Bucket extends React.Component {
                             }
                             showsVerticalScrollIndicator={false}
                             data={this.state.Buckets}
-                            keyExtractor={(item) => `T${item.ProductType}C${item.CartID}`}
+                            keyExtractor={(item) => item.CartID.toString()}
                             renderItem={this.FlatListRenderItem}
                         />
                     </View>
