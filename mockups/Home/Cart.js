@@ -17,6 +17,7 @@ class Cart extends React.Component {
             Buckets: [],
             Loading: true,
             showToast: false,
+            refreshing: false,
         }
         this.abortController = new AbortController();
         this.willFocusSubscription = null;
@@ -121,6 +122,19 @@ class Cart extends React.Component {
         this.props.navigation.navigate("MyOrders");
     }
 
+    onRefresh = () => {
+        this.setState({refreshing: true})
+        FetchCart(this.props.AccessToken, this.abortController.signal).then(Cart => {
+            Cart = Cart.map(item => {
+                item.BucketID = item.BucketID.toString();
+                return item;
+            });
+            this.setState({Cart, refreshing: false});
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
     render() {
         return (
             <>
@@ -148,6 +162,8 @@ class Cart extends React.Component {
                                         <Text center b1 grey40>Make a wish and we'll make sure that it comes true.</Text>
                                     </View>
                                 }
+                                refreshing={this.state.refreshing}
+                                onRefresh={this.onRefresh}
                             />
                             <Toast
                                 visible={this.state.showToast}
