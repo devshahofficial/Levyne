@@ -20,7 +20,7 @@ import Category from "../../components/Category";
 //import FetchDesignsByLevyneGender from "../../API/DesignByLevyne/FetchDesignsByLevyneGender";
 //import timeAgo from '../../API/Chats/timeAgo';
 //import Recent15Brands from '../../API/Brand/Recent15Brands';
-import PutStoryAsRead from '../../API/Home/PutStoryAsRead';
+//import PutStoryAsRead from '../../API/Home/PutStoryAsRead';
 import FetchChatBuckets from '../../API/Chats/FetchChatBuckets';
 import { CommonActions } from '@react-navigation/native';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
