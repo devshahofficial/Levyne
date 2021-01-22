@@ -109,7 +109,7 @@ class Customize extends React.Component {
 
     render() {
         return (
-            <>
+            <View flex>
                 <TextNavBar Title={'Customize on Levyne'}/>
                 {this.state.Loading ? <Loader /> :
                     <>
@@ -139,7 +139,7 @@ class Customize extends React.Component {
                 >
                     <Text h1 secondary center>"3D Customization" is currently under maintenance, you can still place an order by calling us.</Text>
                 </View>
-            </>
+            </View>
         )
     }
 }
