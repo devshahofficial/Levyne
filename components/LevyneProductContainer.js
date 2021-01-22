@@ -17,8 +17,8 @@ export default class ProductScreenPartOne extends React.PureComponent {
                     onPress={() => this.props.NavigateDesign(this.props.DesignID)}
                 >
                     {this.props.NewDesign ? (
-                        <View center absR flex style={styles.New}>
-                            <Text h4 white>New</Text>
+                        <View absR style={styles.New}>
+                            <Text h4 center white>New</Text>
                         </View>
                     ) : <></>}
                     <AnimatedImage
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
         width: deviceWidth * 0.45,
         borderRadius: 10,
         margin: 10,
+        overflow: 'hidden'
     },
     Container: {
         borderRadius: 10
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.red40,
         zIndex:99,
         width:100,
+        right: 0,
         marginTop:10,
         marginRight:-30
     }
