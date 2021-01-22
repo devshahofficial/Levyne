@@ -3,7 +3,7 @@ import {
     BackHandler,
     Animated,
     ScrollView,
-    FlatList,
+    //FlatList,
     Linking,
     Platform,
     Dimensions,
@@ -14,15 +14,15 @@ import {View, Colors, Text, ConnectionStatusBar, Toast, TouchableOpacity} from '
 import { connect } from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
 import Category from "../../components/Category";
-import FetchStories from '../../API/Home/FetchStories';
-import Recent15Products from '../../API/Products/Recent15Products';
-import FetchBlogPosts from '../../API/Blogs/FetchBlogPosts';
+//import FetchStories from '../../API/Home/FetchStories';
+//import Recent15Products from '../../API/Products/Recent15Products';
+//import FetchBlogPosts from '../../API/Blogs/FetchBlogPosts';
+//import FetchDesignsByLevyneGender from "../../API/DesignByLevyne/FetchDesignsByLevyneGender";
+//import timeAgo from '../../API/Chats/timeAgo';
+//import Recent15Brands from '../../API/Brand/Recent15Brands';
 import PutStoryAsRead from '../../API/Home/PutStoryAsRead';
-import timeAgo from '../../API/Chats/timeAgo';
 import FetchChatBuckets from '../../API/Chats/FetchChatBuckets';
-import Recent15Brands from '../../API/Brand/Recent15Brands';
 import { CommonActions } from '@react-navigation/native';
-import FetchDesignsByLevyneGender from "../../API/DesignByLevyne/FetchDesignsByLevyneGender";
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 import Square from "../../components/PosterComponents/Square";
@@ -232,11 +232,12 @@ class HomeScreen extends React.Component {
         Linking.removeEventListener('url', this.handleOpenURL);
     }
 
+    /*
     navigateProductStory = () => {
         this.setModalVisible();
         this.props.navigation.navigate('Product', { ProductID: this.state.StoryData[this.state.CurrentStory].ProductID });
     }
-
+    */
 
     navigateSearchText = () => {
         this.props.navigation.navigate('SearchText');
@@ -278,6 +279,7 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('Call');
     }
 
+    /*
     ChangeStoryIndex = () => {
         this.setModalVisible();
         setImmediate(() => {
@@ -286,11 +288,12 @@ class HomeScreen extends React.Component {
             }
         })
     }
-
+   
     navigateBrandStory = () => {
         this.setModalVisible();
         this.props.navigation.push('BrandProfile', { BrandID: this.state.StoryData[this.state.CurrentStory].BrandID })
     }
+     */
 
     navigateBrand = (BrandID) => {
         this.props.navigation.push('BrandProfile', { BrandID })
@@ -317,6 +320,7 @@ class HomeScreen extends React.Component {
         outputRange: [0, 40]
     })
 
+    /*
     setModalVisible = () => {
         this.setState({ modalVisible: !this.state.modalVisible });
     };
@@ -335,6 +339,7 @@ class HomeScreen extends React.Component {
         });
         PutStoryAsRead(this.state.StoryData[index].ProductID, this.props.AccessToken).catch(() => { })
     }
+    */
 
     NavigateDesign = (DesignID) => {
         this.props.navigation.navigate('ProductDetailsPage', { DesignID })
