@@ -28,7 +28,7 @@ import PushNotification from "react-native-push-notification";
 import Square from "../../components/PosterComponents/Square";
 import Rectangle from "../../components/PosterComponents/Rectangle";
 
-const {height} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
 
 
 class HomeScreen extends React.Component {
@@ -403,11 +403,11 @@ class HomeScreen extends React.Component {
                         <View marginB-10 marginT-20 paddingH-20>
                             <Text b1 secondary>Exciting Offers</Text>
                         </View>
-                        <View row>
-                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 8, Type: 0, Label: 'Bridal' })} flex style={styles.msg}>
+                        <View spread row flex>
+                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 8, Type: 0, Label: 'Bridal' })} style={styles.msg}>
                                 <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4188.jpg"}} style={styles.img} />
                             </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 7, Type: 0, Label: 'Indo-Western' })} flex style={styles.msg}>
+                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 7, Type: 0, Label: 'Indo-Western' })} style={styles.msg}>
                                 <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4189.jpg"}} style={styles.img} />
                             </TouchableOpacity>
                         </View>
@@ -432,8 +432,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     msg: {
-        marginTop: 10,
-        height: height * 0.30,
+        width: 0.4475*width,
+        height: 0.581*width,
         borderRadius: 10,
         margin: 10,
     },
