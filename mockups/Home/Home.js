@@ -388,30 +388,39 @@ class HomeScreen extends React.Component {
                     bounces={false}
                     onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}
                 >
-                    <View marginT-120>
-                        <View marginB-10 paddingH-20>
-                            <Text b1 secondary>Customize Now</Text>
-                        </View>
-                        <Square NavigateThreeD={this.NavigateThreeD}/>
+                    <View marginT-120 marginB-10 paddingH-20>
+                        <Text b1 secondary>Shop Now</Text>
+                    </View>
+                    <View row>
+                        <TouchableOpacity style={styles.Discount}>
+                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/MenLevyne-min.png"}} style={styles.img} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.Discount}>
+                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/WomenLevyne-min.png"}} style={styles.img} />
+                        </TouchableOpacity>
+                    </View>
 
-                        <View marginB-10 marginT-20 paddingH-20>
-                            <Text b1 secondary>Shop Now</Text>
-                        </View>
-                        <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
-                        <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
+                    <View marginB-10 marginT-20 paddingH-20>
+                        <Text b1 secondary>Customize Now</Text>
+                    </View>
+                    <Square NavigateThreeD={this.NavigateThreeD}/>
 
-                        <View marginB-10 marginT-20 paddingH-20>
-                            <Text b1 secondary>Exciting Offers</Text>
-                        </View>
-                        <View row>
-                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 8, Type: 0, Label: 'Bridal' })} flex style={styles.msg}>
-                                <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4188.jpg"}} style={styles.img} />
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 7, Type: 0, Label: 'Indo-Western' })} flex style={styles.msg}>
-                                <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4189.jpg"}} style={styles.img} />
-                            </TouchableOpacity>
-                        </View>
+                    <View marginB-10 marginT-20 paddingH-20>
+                        <Text b1 secondary>Shop Now</Text>
+                    </View>
+                    <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
+                    <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
 
+                    <View marginB-10 marginT-20 paddingH-20>
+                        <Text b1 secondary>Exciting Offers</Text>
+                    </View>
+                    <View row>
+                        <TouchableOpacity onPress={() => this.navigateSearch({ Index: 8, Type: 0, Label: 'Bridal' })} flex style={styles.msg}>
+                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4188.jpg"}} style={styles.img} />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.navigateSearch({ Index: 7, Type: 0, Label: 'Indo-Western' })} flex style={styles.msg}>
+                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4189.jpg"}} style={styles.img} />
+                        </TouchableOpacity>
                     </View>
 
                 </Animated.ScrollView>
