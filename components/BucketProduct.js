@@ -82,7 +82,7 @@ export default class BucketProduct extends React.PureComponent {
         )
     }
 
-    ThreeDProduct = () => {
+    ThreeDProductMale = () => {
         return (
             <View padding-15>
                 <ShadowView style={styles.View}>
@@ -156,6 +156,62 @@ export default class BucketProduct extends React.PureComponent {
                                 </TouchableOpacity>
                         }
                     </View>
+                </ShadowView>
+            </View>
+        )
+    }
+
+    ThreeDProductFemale = () => {
+        return (
+            <View padding-15>
+                <ShadowView style={styles.View}>
+                    <View flex row centerH style={{ height: "auto" }}>
+                        <View
+                            flex
+                            style={{borderRadius:10}}
+                        >
+                            <WebView
+                                style={styles.ImageContainerOnlyProduct}
+                                source={{ uri: `https://3d.levyne.com/${this.props.item.Category}/${this.props.item['3DModel']}` }}
+                            />
+                        </View>
+                    </View>
+
+                    <View marginT-10>
+                        <Text h2 secondary>Average Cost</Text>
+                        <View row>
+                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
+                        </View>
+                    </View>
+
+                    <View marginV-10 paddingV-10>
+                        <Text h2 secondary>Final Budget</Text>
+                        <View row>
+                            {this.props.item.DecidedPrice ?
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
+                                <Text hb1 primary>Chat to Decide</Text>
+                            }
+                        </View>
+                    </View>
+
+                    <View flex marginV-20>
+                        <View row>
+                            <Text flex hb2 secondary>Quantity</Text>
+                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                        </View>
+                    </View>
+
+                    {
+                        this.props.OrderCompleted ?
+                            <></>
+                            :
+
+                        <View flex style={{ alignItems: "flex-end" }}>
+                            <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
+                                <ArchiveIcon Size={20} Color={Colors.white} />
+                            </TouchableOpacity>
+                        </View>
+                    }
                 </ShadowView>
             </View>
         )
@@ -311,14 +367,17 @@ export default class BucketProduct extends React.PureComponent {
     render() {
         if(this.props.item.ProductID) {
             if(this.props.item.FabricID) {
-                return <this.ProductWithFabric {...this.props} />
+                return <this.ProductWithFabric/>
             }
-            return <this.OnlyProduct {...this.props} />
+            return <this.OnlyProduct/>
         } else if(this.props.item['3DModelID']) {
-            return <this.ThreeDProduct {...this.props} />
+            if(this.props.item.FabricID) {
+                return <this.ThreeDProductMale/>
+            }
+            return <this.ThreeDProductFemale/>
         } else {
             //Design By Levyne
-            return <this.DesignByLevyne {...this.props} />
+            return <this.DesignByLevyne/>
         }
     }
 }
