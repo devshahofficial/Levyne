@@ -28,8 +28,8 @@ import PushNotification from "react-native-push-notification";
 import Square from "../../components/PosterComponents/Square";
 import Rectangle from "../../components/PosterComponents/Rectangle";
 
-const {height} = Dimensions.get('window');
-const {width} = Dimensions.get('window');
+const {height, width} = Dimensions.get('window');
+
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -388,40 +388,32 @@ class HomeScreen extends React.Component {
                     bounces={false}
                     onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}
                 >
-                    <View marginT-120 marginB-10 paddingH-20>
-                        <Text b1 secondary>Shop Now</Text>
-                    </View>
-                    <View row>
-                        <TouchableOpacity style={styles.Discount}>
-                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/MenLevyne-min.png"}} style={styles.img} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.Discount}>
-                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/WomenLevyne-min.png"}} style={styles.img} />
-                        </TouchableOpacity>
+                    <View marginT-120>
+                        <View marginB-10 paddingH-20>
+                            <Text b1 secondary>Customize Now</Text>
+                        </View>
+                        <Square NavigateThreeD={this.NavigateThreeD}/>
+
+                        <View marginB-10 marginT-20 paddingH-20>
+                            <Text b1 secondary>Shop Now</Text>
+                        </View>
+                        <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
+                        <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
+
+                        <View marginB-10 marginT-20 paddingH-20>
+                            <Text b1 secondary>Exciting Offers</Text>
+                        </View>
+                        <View row>
+                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 8, Type: 0, Label: 'Bridal' })} flex style={styles.msg}>
+                                <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4188.jpg"}} style={styles.img} />
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => this.navigateSearch({ Index: 7, Type: 0, Label: 'Indo-Western' })} flex style={styles.msg}>
+                                <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4189.jpg"}} style={styles.img} />
+                            </TouchableOpacity>
+                        </View>
+
                     </View>
 
-                    <View marginB-10 marginT-20 paddingH-20>
-                        <Text b1 secondary>Customize Now</Text>
-                    </View>
-                    <Square NavigateThreeD={this.NavigateThreeD}/>
-
-                    <View marginB-10 marginT-20 paddingH-20>
-                        <Text b1 secondary>Shop Now</Text>
-                    </View>
-                    <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
-                    <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
-
-                    <View marginB-10 marginT-20 paddingH-20>
-                        <Text b1 secondary>Exciting Offers</Text>
-                    </View>
-                    <View row>
-                        <TouchableOpacity onPress={() => this.navigateSearch({ Index: 8, Type: 0, Label: 'Bridal' })} flex style={styles.msg}>
-                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4188.jpg"}} style={styles.img} />
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => this.navigateSearch({ Index: 7, Type: 0, Label: 'Indo-Western' })} flex style={styles.msg}>
-                            <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/Group-4189.jpg"}} style={styles.img} />
-                        </TouchableOpacity>
-                    </View>
                 </Animated.ScrollView>
             </>
         );
@@ -440,7 +432,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     msg: {
-        height: height * 0.30,
+        width: 0.4475*width,
+        height: 0.581*width,
         borderRadius: 10,
         margin: 10,
     },
