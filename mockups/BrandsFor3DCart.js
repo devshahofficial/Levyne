@@ -50,7 +50,7 @@ class FashionDesignerList extends React.PureComponent {
 	NavigateBrandProfile = (BrandID) => {
         this.props.navigation.push('BrandProfile', {BrandID})
 	}
-	
+
 	AddDesignToCart = (BrandID) => {
 		Add3DToCart(
 			{
@@ -137,4 +137,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapsStateToProps, mapDispatchToProps)(FashionDesignerList);
-
