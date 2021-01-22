@@ -137,7 +137,7 @@ class Customize extends React.Component {
                     center padding-10
                     style={{height:"auto", backgroundColor: Colors.grey70}}
                 >
-                    <Text h1 secondary center>"3D Customization" is currently under maintenance, you can still place an order by calling us.</Text>
+                    <Text h1 secondary center>"3D Customization" is currently under maintenance, you can still place an order by selecting parts manually.</Text>
                 </View>
             </View>
         )

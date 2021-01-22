@@ -149,6 +149,9 @@ class Bucket extends React.Component {
                 DeleteModalVisible : !this.state.DeleteModalVisible
             })
         } else {
+            this.setState({
+                DeleteModalVisible : !this.state.DeleteModalVisible
+            });
             this.props.navigation.goBack();
         }
         RemoveProductFromCart(this.state.CartIDForDeletion, this.props.AccessToken).catch(console.log);
