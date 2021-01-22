@@ -392,10 +392,10 @@ class HomeScreen extends React.Component {
                         <Text b1 secondary>Shop Now</Text>
                     </View>
                     <View row>
-                        <TouchableOpacity style={styles.Discount}>
+                        <TouchableOpacity onPress={() => this.navigateSearch({ Gender: 1, Type: 4, Label: 'Man' })} style={styles.Discount}>
                             <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/MenLevyne-min.png"}} style={styles.img} />
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.Discount}>
+                        <TouchableOpacity onPress={() => this.navigateSearch({ Gender: 0, Type: 4, Label: 'Women' })} style={styles.Discount}>
                             <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/WomenLevyne-min.png"}} style={styles.img} />
                         </TouchableOpacity>
                     </View>
