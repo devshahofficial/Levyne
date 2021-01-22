@@ -69,8 +69,11 @@ class FashionDesignerList extends React.PureComponent {
     AddDesignToCart = () => {
         if(this.state.SelectedFabric) {
             Add3DToCart(
-                this.props.route.params.ThreeDModel,
-                this.state.SelectedFabric,
+                {
+                    Type: 2,
+                    ModelID: this.props.route.params.ThreeDModel,
+                    FabricID: this.state.SelectedFabric
+                },
                 this.props.AccessToken,
                 this.abortController.signal
             ).then(() => {

@@ -27,6 +27,8 @@ class ThreeD extends Component {
         if(typeof this.CategoryID !== 'number') {
             this.goBack();
         }
+
+        this.Male = [0, 1, 2, 5].findIndex((num) => num === Number(this.CategoryID)) !== -1;
     }
 
     componentDidMount() {
@@ -35,7 +37,7 @@ class ThreeD extends Component {
                 Models,
                 LoadingList: false
             });
-        }).catch(console.log)
+        }).catch(console.log);
     }
 
 
@@ -63,11 +65,19 @@ class ThreeD extends Component {
     Navigate3DCart = () => {
 
         if(this.props.AccessToken) {
-            this.props.navigation.push('FabricsFor3DCart', {
-                CategoryID: this.CategoryID,
-                Category: this.Category,
-                ThreeDModel: this.state.Models[this.state.upperSelected].ID
-            })
+            if(this.Male) {
+                this.props.navigation.push('FabricsFor3DCart', {
+                    CategoryID: this.CategoryID,
+                    Category: this.Category,
+                    ThreeDModel: this.state.Models[this.state.upperSelected].ID
+                })
+            } else {
+                this.props.navigation.push('BrandsFor3DCart', {
+                    CategoryID: this.CategoryID,
+                    Category: this.Category,
+                    ThreeDModel: this.state.Models[this.state.upperSelected].ID
+                })
+            }
         } else {
             this.props.navigation.push("Auth", {screen: 'Login'});
         }
