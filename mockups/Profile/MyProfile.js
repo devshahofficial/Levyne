@@ -220,19 +220,7 @@ class ProfileTopSection extends React.Component {
                 </CstmShadowView>
 
                 <View marginT-50 paddingH-15>
-                    <TouchableOpacity
-                        marginT-5
-                        onPress={this.NavigateFashionDesigners}
-                    >
-                        <View centerV style={styles.Tab}>
-                            <Text secondary hb1>
-                                My fashion designers and tailors.
-                            </Text>
-                            <Text h2 grey40>
-                                Designers and tailors you follow.
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+
                     <TouchableOpacity
                         onPress={this.NavigateHelp}
                     >
@@ -297,12 +285,12 @@ class ProfileTopSection extends React.Component {
 
                 <ScrollView
                     showsVerticalScrollIndicator={false}
-                    style={{ flex: 1, backgroundColor: Colors.white }}
+                    style={{ flex: 1, height: deviceWidth, backgroundColor: Colors.white }}
                 >
                     {
                         (this.props.ProfileStatus === 2) ? this.LoggedInScreen() : this.UnloggedScreen()
                     }
-                    <View style={{width:deviceWidth}}>
+                    <View style={{width:deviceWidth, alignSelf: 'flex-end'}}>
                         <MakeInIndia width={"100%"}/>
                     </View>
                 </ScrollView>
@@ -315,7 +303,7 @@ class ProfileTopSection extends React.Component {
 const styles = StyleSheet.create({
     View: {
         backgroundColor: Colors.shadow,
-        width: Dimensions.get('window').width,
+        width: deviceWidth,
         height: 120
     },
     ImageView: {
