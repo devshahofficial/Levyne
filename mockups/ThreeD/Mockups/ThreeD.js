@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import {StyleSheet, FlatList, SafeAreaView, Linking, ActivityIndicator} from 'react-native';
-import {Colors, Text, TouchableOpacity, View, AvatarHelper} from "react-native-ui-lib";
+import {Colors, Text, TouchableOpacity, View, AvatarHelper, Button} from "react-native-ui-lib";
 import UpperComponent from '../Components/UpperComponent'
 import NavBarBack from "../../../components/NavBarBack";
 import WebView from "react-native-webview";
 import {CallIcon} from "../../../Icons/CallIcon";
 import Fetch3DModel from "../../../API/ThreeD/Fetch3DModel";
 import { connect } from 'react-redux';
+import BottomButton from "../../../components/BottomButtons";
+import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
 
 class ThreeD extends Component {
 
@@ -95,13 +97,22 @@ class ThreeD extends Component {
                         </View>
 
                         <WebView source={{ uri: this.URL3DModelBase + this.state.Models[this.state.upperSelected].Model }}/>
-                        <TouchableOpacity
-                            style={{height:50, backgroundColor: Colors.primary}} center
-                            onPress={this.Navigate3DCart} row
-                        >
-                            <CallIcon Size={18} Color={Colors.white}/>
-                            <Text h1 white marginL-20>Add to Cart</Text>
-                        </TouchableOpacity>
+                        <View style={styles.Main}>
+                            <ShadowView style={styles.ShadowView}>
+                                <Button
+                                    onPress={() => Linking.openURL('tel:+91 9819 077182')}
+                                    style={[styles.Button,{borderColor: Colors.white}]}
+                                    h1 label={"Enquire"}
+                                />
+                            </ShadowView>
+                            <ShadowView style={styles.ShadowView}>
+                                <Button
+                                    onPress={this.Navigate3DCart}
+                                    style={[styles.Button,{backgroundColor: Colors.primary}]}
+                                    h1 label={"Add to Cart"} color={Colors.white}
+                                />
+                            </ShadowView>
+                        </View>
                     </SafeAreaView>
                 }
             </>
@@ -115,10 +126,28 @@ const styles = StyleSheet.create({
         marginTop: 10,
         paddingLeft: 20,
     },
+    Main: {
+        flexDirection:'row',
+        backgroundColor:Colors.white
+    },
+    ShadowView: {
+        flex:1,
+        shadowColor: Colors.grey50,
+        shadowOpacity: 1,
+        shadowRadius: 2,
+        shadowOffset: {width: 0,height: -0.5},
+        backgroundColor:Colors.white,
+    },
+    Button: {
+        height:50,
+        borderRadius:0,
+        backgroundColor:Colors.white,
+        borderColor: Colors.white
+    }
 })
 
 const mapsStateToProps = state => ({
-	AccessToken : state.Auth.AccessToken
+    AccessToken : state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(ThreeD)

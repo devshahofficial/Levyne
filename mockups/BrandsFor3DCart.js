@@ -5,24 +5,6 @@ import StarIconsComponent from "../components/StarIconsComponent";
 import NavBarBack from "../components/NavBarBack";
 import FetchBrandsWith3DPricing from '../API/Brand/FetchBrandsWith3DPricing';
 
-const Designs = [{
-	image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
-	des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
-	prodname: 'Shoes',
-	Heart: true
-},
-{
-	image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
-	des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
-	prodname: 'Shoes',
-	Heart: true
-},
-{
-	image: 'https://images-na.ssl-images-amazon.com/images/I/81TwqU4-ZdL._UL1500_.jpg',
-	des: 'Louren nasfnononlmzcmvp kdsanoivnanpv oajvpob oanvnbam',
-	prodname: 'Shoes',
-	Heart: true
-}]
 
 export default class FashionDesignerList extends React.PureComponent {
 	goBack = () => {
@@ -48,7 +30,7 @@ export default class FashionDesignerList extends React.PureComponent {
 	NavigateBrandProfile = (BrandID) => {
         this.props.navigation.push('BrandProfile', {BrandID})
 	}
-	
+
 	AddDesignToCart = (BrandID) => {
 		//this.props.navigation.push('BrandProfile', {BrandID})
 		console.log('Add 3D in Cart');
