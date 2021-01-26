@@ -135,19 +135,19 @@ class MainHomeStack extends React.PureComponent {
 			>
 				<HomeStack.Screen name="Home" component={BottomTabNavigationConnect}/>
 				<HomeStack.Screen name="Customize" component={Customize} />
-				<HomeStack.Screen name="Product" component={ProductScreen} />
-                <HomeStack.Screen name="Fabric" component={FabricScreen} />
+				<HomeStack.Screen name="Product" getId={({params}) => params.ProductID} component={ProductScreen} />
+                <HomeStack.Screen name="Fabric" getId={({params}) => params.FabricID} component={FabricScreen} />
 				<HomeStack.Screen name="FAQs" component={FAQscreen} />
 				<HomeStack.Screen name="MyProfile" component={MyProfile} />
 				<HomeStack.Screen name="InitialProfile" component={InitialProfile} />
-				<HomeStack.Screen name="BrandProfile" component={BrandProfile}/>
+				<HomeStack.Screen name="BrandProfile" getId={({params}) => params.BrandID} component={BrandProfile}/>
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
-				<HomeStack.Screen name="Chat" component={ChatScreen} />
-				<HomeStack.Screen name="ChatWhenNoBucketID" component={ChatScreenWhenNoBucketID} />
+				<HomeStack.Screen name="Chat" getId={({params}) => params.BucketID} component={ChatScreen} />
+				<HomeStack.Screen name="ChatWhenNoBucketID" getId={({params}) => params.BrandID} component={ChatScreenWhenNoBucketID} />
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
 				<HomeStack.Screen name="SearchText" component={SearchText} />
 				<HomeStack.Screen name='Help' component={Help}/>
-				<HomeStack.Screen name='Bucket' component={Bucket}/>
+				<HomeStack.Screen name='Bucket' getId={({params}) => params.BucketID} component={Bucket}/>
 				<HomeStack.Screen name='MyFashionDesigners' component={MyFashionDesigners}/>
 				<HomeStack.Screen name='ProductAddToCart' component={ProductAddToCart}/>
 				<HomeStack.Screen name='TermsAndCondition' component={TermsConditionsScreen}/>
@@ -157,10 +157,10 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name='Notifications' component={Notifications}/>
 				<HomeStack.Screen name='MyFits' component={MyFits}/>
 				<HomeStack.Screen name='MyOrders' component={MyOrders}/>
-				<HomeStack.Screen name='CheckOut' component={CheckOut}/>
-				<HomeStack.Screen name='BrandList' component={BrandList} />
+				<HomeStack.Screen name='CheckOut' getId={({params}) => params.BucketID} component={CheckOut}/>
+				<HomeStack.Screen name='BrandList' getId={({params}) => params.BrandID} component={BrandList} />
 				<HomeStack.Screen name='Order' component={OrderScreen}/>
-				<HomeStack.Screen name='ProductDetailsPage' component={ProductDetailsPage}/>
+				<HomeStack.Screen name='ProductDetailsPage' getId={({params}) => params.DesignID} component={ProductDetailsPage}/>
 				<HomeStack.Screen name='BlogPost' component={BlogPost}/>
 				<HomeStack.Screen name='SearchScreen' component={SearchScreen}/>
 				<HomeStack.Screen name='ThreeD' component={ThreeD}/>
