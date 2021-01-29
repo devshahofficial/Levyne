@@ -1,11 +1,10 @@
 import {GET} from '../CustomFetch';
 
-const FetchDesignsByLevyne = async (Page, Seed, abortControllerSignal) => {
+const FetchDesignsByLevyne = async (Page, abortControllerSignal) => {
 
-    return await GET('Products/FetchDesignsByLevyneWithRandomness', {
+    return await GET('Products/FetchDesignsByLevyne', {
         QueryData: {
-            Page,
-            ...(Seed ? {Seed} : {})
+            Page
         },
         ReturnResponse: true,
     }, abortControllerSignal)
