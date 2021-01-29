@@ -54,11 +54,16 @@ export default class ProductScreenPartOne extends React.Component {
                         <Text marginV-3 h1 secondary>
                             {this.props.ShortDescription}
                         </Text>
-                        {/*<View row bottom>
-                            <Text b1 primary>
-                                ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
-                            </Text>
-                        </View>*/}
+                        {
+                            this.props.MinPrice ? 
+                                <View row bottom>
+                                    <Text b1 primary>
+                                        ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
+                                    </Text>
+                                </View>
+                                :
+                                <></>
+                        }
                     </View>
 
                     <View flex-end>

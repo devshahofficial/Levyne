@@ -21,6 +21,8 @@ export default class ProductDetailsPage extends Component {
         CategoryID: null,
         StyleIDs: [],
         Styles: [],
+        MinPrice: null,
+        MaxPrice: null,
         Loading: true,
         ModalVisible: false,
         ImageIndex: 0,
@@ -77,6 +79,8 @@ export default class ProductDetailsPage extends Component {
                                     Category={this.state.Category}
                                     DesignID={this.props.route.params.DesignID}
                                     Styles={this.state.Styles}
+                                    MinPrice={this.state.MinPrice}
+                                    MaxPrice={this.state.MaxPrice}
                                     StyleIDs={this.state.StyleIDs}
                                     LongDescription={this.state.LongDescription}
                                     navigation={this.props.navigation}
