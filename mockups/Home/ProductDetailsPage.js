@@ -44,6 +44,12 @@ export default class ProductDetailsPage extends Component {
         })
     }
 
+    AddToCart = () => {
+        this.props.navigation.navigate("BrandsForDesignByLevyne", {
+            DesignID: this.props.route.params.DesignID
+        })
+    }
+
     DisplayModal = (ImageIndex) => {
         this.setState({ModalVisible: true, ImageIndex})
     }
@@ -89,10 +95,9 @@ export default class ProductDetailsPage extends Component {
                             </ScrollView>
                             <TouchableOpacity
                                 style={{height:50, backgroundColor: Colors.primary}} center
-                                onPress={() => Linking.openURL('tel:+91 9819 077182')} row
+                                onPress={this.AddToCart} row
                             >
-                                <CallIcon Size={18} Color={Colors.white}/>
-                                <Text h1 white marginL-20>Call us for product enquire</Text>
+                                <Text h1 white>Add to Cart</Text>
                             </TouchableOpacity>
                         </>
                     }
