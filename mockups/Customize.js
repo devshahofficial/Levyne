@@ -22,17 +22,14 @@ class Customize extends React.Component {
     NewPageLoading = false;
     NewProducts = true;
 
-    Seed = undefined;
-
     abortController = new AbortController();
 
     componentDidMount = () => {
-        FetchDesignsByLevyne(++this.Page, this.Seed, this.abortController.signal).then(({Designs, Seed}) => {
+        FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(Designs => {
             this.setState({
                 LevyneProducts: Designs,
                 Loading: false
             });
-            this.Seed = Seed;
         }).catch(console.log);
 
         Fetch3DCategories(this.abortController.signal).then(ModelCategories => {
@@ -51,7 +48,7 @@ class Customize extends React.Component {
     FlatListonEndReached = () => {
         if(!this.NewPageLoading && this.NewProducts) {
             this.NewPageLoading = true;
-            FetchDesignsByLevyne(++this.Page, this.Seed, this.abortController.signal).then(({Designs: LevyneProducts}) => {
+            FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
                 if(!LevyneProducts.length) {
                     this.NewProducts = false;
                 } else {

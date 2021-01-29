@@ -18,15 +18,13 @@ export default class DesignedAtLevyne extends Component {
     NewProducts = true;
 
     abortController = new AbortController();
-    Seed = undefined;
 
     componentDidMount = () => {
-        FetchDesignsByLevyne(++this.Page, this.Seed, this.abortController.signal).then(({Designs, Seed}) => {
+        FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(Designs => {
             this.setState({
                 LevyneProducts: Designs,
                 Loading: false
             });
-            this.Seed = Seed;
         }).catch(console.log);
     }
 
@@ -41,7 +39,7 @@ export default class DesignedAtLevyne extends Component {
     FlatListonEndReached = () => {
         if(!this.NewPageLoading && this.NewProducts) {
             this.NewPageLoading = true;
-            FetchDesignsByLevyne(++this.Page, this.Seed, this.abortController.signal).then(({Designs: LevyneProducts}) => {
+            FetchDesignsByLevyne(++this.Page, this.abortController.signal).then(LevyneProducts => {
                 if(!LevyneProducts.length) {
                     this.NewProducts = false;
                 } else {
