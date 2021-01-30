@@ -37,7 +37,7 @@ export default class BucketComponent extends React.Component {
                                 {this.props.item.Name}
                             </Text>
                             <View row marginT-5>
-                                <StarIconsComponent BrandRating="4" />
+                                <StarIconsComponent BrandRating={Math.round(this.props.item.BrandRating)} />
                             </View>
                         </View>
                     </View>

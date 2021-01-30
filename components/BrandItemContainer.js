@@ -5,7 +5,7 @@ import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
 
 
-export default class BrandItemContainer extends React.Component {
+export default class BrandItemContainer extends React.PureComponent {
     render() {
         return (
             <CstmShadowView style={styles.Shadow}>
@@ -34,10 +34,7 @@ export default class BrandItemContainer extends React.Component {
                         </Text>
                         <Text h2 grey40 marginH-10 left numberOfLines={3} ellipsizeMode='tail'>{this.props.item.About.replace(/(\r\n|\r|\n){2,}/g, '\n')}</Text>
                         <View row flex marginT-10 paddingL-10>
-                            <StarIconsComponent
-                                BrandRating={0}
-                                //BrandRating={Math.round(this.props.item.ratings)}
-                            />
+                            <StarIconsComponent BrandRating={Math.round(this.props.item.Rating)} />
                         </View>
                     </View>
                 </TouchableOpacity>
