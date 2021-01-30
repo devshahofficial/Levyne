@@ -5,7 +5,7 @@ import StarIconsComponent from "../components/StarIconsComponent";
 import NavBarBack from "../components/NavBarBack";
 import FetchBrandsDesignsByLevyne from '../API/Brand/FetchBrandsDesignsByLevyne';
 import Loader from '../components/Loader';
-import Add3DToCart from '../API/Cart/Add3DToCart';
+import AddToCart from '../API/Cart/Add3DToCart';
 import { connect } from 'react-redux';
 
 class FashionDesignerList extends React.PureComponent {
@@ -39,10 +39,10 @@ class FashionDesignerList extends React.PureComponent {
 	}
 
 	AddDesignToCart = (BrandID) => {
-		Add3DToCart(
+		AddToCart(
 			{
-				Type: 4,
-				ModelID: this.props.route.params.ThreeDModel,
+				Type: 3,
+				DesignID: this.props.route.params.DesignID,
 				BrandID
 			},
 			this.props.AccessToken,
