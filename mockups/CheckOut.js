@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, ScrollView, StyleSheet} from 'react-native';
-import {View, Text, RadioButton, TouchableOpacity} from 'react-native-ui-lib';
+import {View, Text, RadioButton, TouchableOpacity,Button} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import Colors from "../Style/Colors";
@@ -13,6 +13,9 @@ import FetchPartialBucket from '../API/Cart/FetchPartialBucket';
 import Loader from '../components/Loader';
 import { CommonActions } from '@react-navigation/native';
 import IsAnyProductInCartAPI from '../API/Profile/IsAnyProductInCart';
+import {EditIcon} from "../Icons/EditIcon";
+import CstmShadowView from "../components/CstmShadowView";
+import {CancelIcon} from "../Icons/Cancel";
 
 
 class CheckOut extends React.PureComponent {
@@ -23,7 +26,8 @@ class CheckOut extends React.PureComponent {
             Loading: true,
             Comment: "",
             DecidedPrice: 0,
-            TotalProducts: 0
+            TotalProducts: 0,
+            Edit: false
         }
         this.abortController = new AbortController();
     }
@@ -93,6 +97,9 @@ class CheckOut extends React.PureComponent {
 
     setComment = (Comment) => this.setState({Comment});
 
+    setEdit = () => {
+        this.setState({Edit: !this.state.Edit});
+    }
 
     render() {
         return (
@@ -102,72 +109,98 @@ class CheckOut extends React.PureComponent {
                 {this.state.Loading ?
                     <Loader />
                     :
-                    <View flex>
-                        <ScrollView
-                            style={{flex:1}}
-                            contentContainerStyle={{backgroundColor:Colors.white, flex:1}}
-                        >
-                            <View paddingH-10 centerV style={styles.View}>
-                                <View row>
-                                    <Text flex hb1 secondary>Total</Text>
-                                    <View centerV row>
-                                        <Text hb1 primary>₹{this.state.DecidedPrice}</Text>
-                                    </View>
-                                </View>
-
-                                <View marginT-20 row>
-                                    <Text hb1 flex secondary>Number of Products</Text>
-                                    <Text hb1 primary>{this.state.TotalProducts}</Text>
+                    <ScrollView
+                        showsVerticalScrollIndicator={false}
+                        contentContainerStyle={{backgroundColor:Colors.white}}
+                    >
+                        <View paddingH-10 centerV style={styles.View}>
+                            <View row>
+                                <Text flex hb1 secondary>Total</Text>
+                                <View centerV row>
+                                    <Text hb1 primary>₹{this.state.DecidedPrice}</Text>
                                 </View>
                             </View>
 
-                            <View marginT-20 paddingH-15 center row style={styles.view}>
-                                <DeliveryIcon size={30} Color={Colors.black} />
-                                <DeliveryChargeComponent TotalPrice={this.state.DecidedPrice} />
+                            <View marginT-20 row>
+                                <Text hb1 flex secondary>Number of Products</Text>
+                                <Text hb1 primary>{this.state.TotalProducts}</Text>
                             </View>
-                            <View style={styles.View} marginT-20>
-                                <Text hb1 secondary>Address</Text>
-                                <View marginT-20>
-                                    <RadioButton
-                                        selected={true}
-                                        color={Colors.shadow}
-                                        label={this.props.Address + "-" + this.props.PinCode}
-                                        labelStyle={{fontSize:16, color:Colors.secondary}}
-                                    />
-                                </View>
+                        </View>
+
+                        <View marginT-20 paddingH-15 center row style={styles.view}>
+                            <DeliveryIcon size={30} Color={Colors.black} />
+                            <DeliveryChargeComponent TotalPrice={this.state.DecidedPrice} />
+                        </View>
+                        <View style={styles.View} marginT-20>
+                            <View row>
+                                <Text flex hb1 secondary>Address</Text>
+                                {
+                                    !this.state.Edit ? <TouchableOpacity flex right onPress={this.setEdit}>
+                                        <EditIcon size={22} Color={Colors.secondary}/>
+                                    </TouchableOpacity> : <TouchableOpacity flex right onPress={this.setEdit}>
+                                        <CancelIcon size={22} Color={Colors.secondary}/>
+                                    </TouchableOpacity>
+                                }
+                            </View>
+                            <View marginT-20>
+                                {
+                                    !this.state.Edit ? <Text h1 secondary>{this.props.Address + "-" + this.props.PinCode}</Text> : <></>
+                                }
+                                {
+                                    this.state.Edit ?
+                                        <CstmInput
+                                            style={{height:100, borderRadius:15}}
+                                            placeholder='Address'
+                                            value={this.state.Address}
+                                            onChangeText={this.setComment}
+                                        /> : <></>
+                                }
+                            </View>
+                        </View>
+
+                        <View style={styles.View} marginT-20>
+                            <Text hb1 secondary>Coupon Code (Optional)</Text>
+                            <View marginT-20>
+                                <CstmInput
+                                    placeholder='Happy Discounting'
+                                    value={this.state.Comment}
+                                    style={{borderRadius: 10}}
+                                    onChangeText={this.setComment}
+                                />
+                            </View>
+                        </View>
+
+                        <View style={styles.View} marginT-20>
+                            <Text hb1 secondary>Payment Mode</Text>
+                            <View marginT-20>
+                                <RadioButton
+                                    selected={true}
+                                    color={Colors.shadow}
+                                    label={"Cash On Delivery"}
+                                    labelStyle={{fontSize:16, color:Colors.secondary}}
+                                />
                             </View>
 
-                            <View style={styles.View} marginT-20>
-                                <Text hb1 secondary>Comment (Optional)</Text>
-                                <View marginT-20>
-                                    <CstmInput
-                                        placeholder='Comment'
-                                        value={this.state.Comment}
-                                        onChangeText={this.setComment}
-                                    />
-                                </View>
+                            <Text h3 secondary marginT-20>Online payment mode may soon be available.</Text>
+                        </View>
+
+                        <View style={styles.View} marginT-20>
+                            <Text hb1 secondary>Comment (Optional)</Text>
+                            <View marginT-20>
+                                <CstmInput
+                                    style={{height:100, borderRadius:15}}
+                                    placeholder='Comment'
+                                    value={this.state.Comment}
+                                    onChangeText={this.setComment}
+                                />
                             </View>
+                        </View>
 
-                            <View style={styles.View} marginT-20>
-                                <Text hb1 secondary>Payment Mode</Text>
-                                <View marginT-20>
-                                    <RadioButton
-                                        selected={true}
-                                        color={Colors.shadow}
-                                        label={"Cash On Delivery"}
-                                        labelStyle={{fontSize:16, color:Colors.secondary}}
-                                    />
-                                </View>
-
-                                <Text h3 secondary marginT-20>Online payment mode may soon be available.</Text>
-                            </View>
-
-                        </ScrollView>
-                    </View>
+                    </ScrollView>
                 }
 
                 <TouchableOpacity onPress={this.CheckoutOnPress} center row style={styles.Button} activeOpacity={0.8}>
-                    <CheckoutIcon size={30} Color={Colors.white} />
+                    <CheckoutIcon size={26} Color={Colors.white} />
                     <Text marginL-20 hb1 white>
                         Place an Order
                     </Text>
@@ -181,9 +214,10 @@ class CheckOut extends React.PureComponent {
 const styles = StyleSheet.create({
     View: {
         borderRadius: 10,
-        borderColor: Colors.shadow,
         borderWidth: 1,
+        borderColor: Colors.shadow,
         padding:10,
+        paddingVertical:20,
         margin:10
     },
     Product: {

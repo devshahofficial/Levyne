@@ -25,6 +25,14 @@ export default class ProductScreenPartThree extends React.PureComponent {
 						</TouchableOpacity>
 					</View>
 				)}
+
+				<Text hb1>
+					Disclaimer
+				</Text>
+				<Text h1>
+					Product colour may slightly vary due to photographic lighting sources or your monitor/screen setting.
+				</Text>
+
 				<View
 					marginT-10
 					center

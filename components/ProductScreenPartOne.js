@@ -91,7 +91,7 @@ export default class ProductScreenPartOne extends React.Component {
 							</View>
 						) : <></>}
 
-							<View row bottom>		
+							<View row bottom>
 								<Text b1 primary>
 									₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
 								</Text>
@@ -111,6 +111,7 @@ export default class ProductScreenPartOne extends React.Component {
 						</TouchableOpacity>
 					</View>
 				</View>
+
 				{this.props.Styles ? (
 					<View marginT-20>
 						<FlatList
@@ -131,9 +132,9 @@ export default class ProductScreenPartOne extends React.Component {
 						/>
 					</View>
 				) : <></>}
-				<View marginT-10 paddingH-15 center row style={styles.View}>
+				<View marginT-20 paddingH-15 center row style={styles.View}>
 					<DeliveryIcon size={30} Color={Colors.black} />
-					{this.props.MinPrice >= 1000 ? (
+					{this.props.MinPrice >= 2000 ? (
 						<>
 							<Text marginL-10 h2>
 								Free Delivery!
@@ -142,7 +143,7 @@ export default class ProductScreenPartOne extends React.Component {
 					) : (
 						<>
 							<Text marginL-10 h2>
-								Free Delivery on buckets over ₹1000{'/-'}
+								Free Delivery on buckets over ₹2000{'/-'}
 							</Text>
 						</>
 					)}
