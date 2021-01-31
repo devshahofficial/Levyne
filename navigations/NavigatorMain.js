@@ -223,8 +223,8 @@ export default class NavigationMain extends React.PureComponent {
 				screenOptions={{
 					gestureEnabled: false,
 				}}>
-				<MainStack.Screen name="Auth" component={NavigationAuth} />
-				<MainStack.Screen name="MainHomeStack" component={MainHomeStack} />
+				<MainStack.Screen name="Auth" component={NavigationAuth}/>
+				<MainStack.Screen name="MainHomeStack" component={MainHomeStack}/>
 			</MainStack.Navigator>
 		);
 	}

@@ -10,13 +10,13 @@ import Loader from '../../components/Loader';
 
 
 export default class ProductSearchScreen extends React.Component {
-    
+
     constructor(props) {
         super(props);
         this.state = {
             sortModel: false,
             scrollY: new Animated.Value(0)
-        }
+        },
         this.actionItems = [
             {
                 id: 0,
@@ -109,7 +109,7 @@ export default class ProductSearchScreen extends React.Component {
                     }
                 </Animated.View>
                 {
-                    this.props.LoadingProduct ? 
+                    this.props.LoadingProduct ?
                     <Loader />
                     :
                     <Animated.FlatList
@@ -143,7 +143,7 @@ export default class ProductSearchScreen extends React.Component {
             </View>
         );
     }
-    
+
 }
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View,Button,Text,Colors} from 'react-native-ui-lib';
+import {View,Button,Text,Colors, TouchableOpacity} from 'react-native-ui-lib';
 import CstmShadowView from '../../components/CstmShadowView';
 import NavBarBack from '../../components/NavBarBack';
 import {Linking} from "react-native";
