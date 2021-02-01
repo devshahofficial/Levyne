@@ -59,7 +59,7 @@ export const POST = async (URL, { ReturnResponse, ThrowError, Token, Body }, abo
  * @param {{ReturnResponse: boolean, Token: String, QueryData: any}} param1 
  */
 
-export const GET = async (URL, { ReturnResponse, Token, QueryData }, abortControllerSignal) => {
+export const GET = async (URL, { ReturnResponse, ThrowError, Token, QueryData }, abortControllerSignal) => {
 
     const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(QueryData), {
         method: 'GET',
@@ -71,8 +71,12 @@ export const GET = async (URL, { ReturnResponse, Token, QueryData }, abortContro
         },
     });
     if (resp.status != 200) {
-        console.log(global.BaseURL + URL + '?' + encodeQueryData(QueryData));
-        console.log(await resp.text());
+        if(ThrowError) {
+            throw {
+                Error: await resp.json(),
+                Status: resp.status
+            }
+        }
         throw resp.status;
     }
     else {

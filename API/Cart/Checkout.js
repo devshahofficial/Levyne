@@ -1,6 +1,6 @@
 import { POST } from "../CustomFetch";
 
-const Checkout = async (Address, PinCode, Comment, BucketID, Token, abortControllerSignal) => {
+const Checkout = async (Address, PinCode, Comment, CouponCode, BucketID, Token, abortControllerSignal) => {
     return await POST("Orders/Checkout", {
         ReturnResponse: true,
         ThrowError: true,
@@ -9,7 +9,8 @@ const Checkout = async (Address, PinCode, Comment, BucketID, Token, abortControl
             Address,
             PinCode,
             Comment,
-            BucketID
+            BucketID,
+            ...(CouponCode ? {CouponCode}: {})
         }
     }, abortControllerSignal)
 }
