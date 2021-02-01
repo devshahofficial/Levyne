@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, ScrollView, StyleSheet} from 'react-native';
-import {View, Text, RadioButton, TouchableOpacity,ActionSheet} from 'react-native-ui-lib';
+import {View, Text, RadioButton, TouchableOpacity,Button} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import Colors from "../Style/Colors";
@@ -30,7 +30,8 @@ class CheckOut extends React.PureComponent {
             DecidedPrice: 0,
             TotalProducts: 0,
             Edit: false,
-            Checkout: false
+            Checkout: false,
+            Coupon: true
         }
         this.abortController = new AbortController();
     }
@@ -196,7 +197,13 @@ class CheckOut extends React.PureComponent {
                                 </CstmShadowView>
 
                             </View>
-                            <Text h3 secondary marginT-10>Text from backend for coupon code</Text>
+                            {
+                                this.state.Coupon ? <><Text h3 secondary marginV-10>Text from backend for coupon code</Text>
+                                    <TouchableOpacity>
+                                    <Text h3 primary>Remove Code</Text>
+                                </TouchableOpacity>
+                                </> : <></>
+                            }
                         </View>
 
                         <View style={styles.View} marginT-20>
@@ -224,7 +231,6 @@ class CheckOut extends React.PureComponent {
                                 />
                             </View>
                         </View>
-
                     </ScrollView>
                 }
 
