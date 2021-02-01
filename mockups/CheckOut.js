@@ -1,6 +1,6 @@
 import React from 'react';
 import {Dimensions, ScrollView, StyleSheet} from 'react-native';
-import {View, Text, RadioButton, TouchableOpacity,Button} from 'react-native-ui-lib';
+import {View, Text, RadioButton, TouchableOpacity,ActionSheet} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import Colors from "../Style/Colors";
@@ -27,7 +27,8 @@ class CheckOut extends React.PureComponent {
             Comment: "",
             DecidedPrice: 0,
             TotalProducts: 0,
-            Edit: false
+            Edit: false,
+            Checkout: false
         }
         this.abortController = new AbortController();
     }
@@ -101,11 +102,25 @@ class CheckOut extends React.PureComponent {
         this.setState({Edit: !this.state.Edit});
     }
 
+    setCheckout = () => {
+        this.setState({Checkout: !this.state.Checkout});
+    }
+
     render() {
         return (
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
 
+                <ActionSheet
+                    title='Agree to checkout?'
+                    cancelButtonIndex={2}
+                    options={[
+                        {label: 'Checkout', onPress: this.CheckoutOnPress},
+                        {label: 'cancel', onPress: this.setCheckout},
+                    ]}
+                    visible={this.state.Checkout}
+                    onDismiss={() => this.setState({Checkout: !this.state.Checkout})}
+                />
                 {this.state.Loading ?
                     <Loader />
                     :
@@ -167,6 +182,7 @@ class CheckOut extends React.PureComponent {
                                     style={{borderRadius: 10}}
                                     onChangeText={this.setComment}
                                 />
+                                <Text h3 secondary marginT-10>Text from backend for coupon code</Text>
                             </View>
                         </View>
 
@@ -199,7 +215,7 @@ class CheckOut extends React.PureComponent {
                     </ScrollView>
                 }
 
-                <TouchableOpacity onPress={this.CheckoutOnPress} center row style={styles.Button} activeOpacity={0.8}>
+                <TouchableOpacity onPress={this.setCheckout} center row style={styles.Button} activeOpacity={0.8}>
                     <CheckoutIcon size={26} Color={Colors.white} />
                     <Text marginL-20 hb1 white>
                         Place an Order
