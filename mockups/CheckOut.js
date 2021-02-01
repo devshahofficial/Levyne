@@ -16,6 +16,8 @@ import IsAnyProductInCartAPI from '../API/Profile/IsAnyProductInCart';
 import {EditIcon} from "../Icons/EditIcon";
 import {CancelIcon} from "../Icons/Cancel";
 import CheckoutActionSheet from "../components/Modal/CheckoutActionSheet";
+import {RightIcon} from "../Icons/RightIcon";
+import CstmShadowView from "../components/CstmShadowView";
 
 
 class CheckOut extends React.PureComponent {
@@ -160,27 +162,41 @@ class CheckOut extends React.PureComponent {
                                 }
                                 {
                                     this.state.Edit ?
-                                        <CstmInput
-                                            style={{height:100, borderRadius:15}}
-                                            placeholder='Address'
-                                            value={this.state.Address}
-                                            onChangeText={this.setComment}
-                                        /> : <></>
+                                        <>
+                                            <CstmInput
+                                                style={{height:100, borderRadius:15}}
+                                                placeholder='Address'
+                                                value={this.state.Address}
+                                                onChangeText={this.setComment}
+                                            />
+                                            <CstmInput
+                                                placeholder='Pin code'
+                                                value={this.state.PinCode}
+                                                onChangeText={this.setComment}
+                                            />
+                                        </>
+                                        : <></>
                                 }
                             </View>
                         </View>
 
                         <View style={styles.View} marginT-20>
                             <Text hb1 secondary>Coupon Code (Optional)</Text>
-                            <View marginT-20>
+                            <View marginT-20 row center>
                                 <CstmInput
                                     placeholder='Happy Discounting'
                                     value={this.state.Comment}
-                                    style={{borderRadius: 10}}
+                                    style={{borderRadius: 10, flex:4}}
                                     onChangeText={this.setComment}
                                 />
-                                <Text h3 secondary marginT-10>Text from backend for coupon code</Text>
+                                <CstmShadowView style={{height:50,width:50,flex:1,marginLeft:20}}>
+                                    <TouchableOpacity flex center style={{borderRadius:50}}>
+                                        <RightIcon size={22} Color={Colors.secondary}/>
+                                    </TouchableOpacity>
+                                </CstmShadowView>
+
                             </View>
+                            <Text h3 secondary marginT-10>Text from backend for coupon code</Text>
                         </View>
 
                         <View style={styles.View} marginT-20>
