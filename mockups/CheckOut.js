@@ -14,8 +14,8 @@ import Loader from '../components/Loader';
 import { CommonActions } from '@react-navigation/native';
 import IsAnyProductInCartAPI from '../API/Profile/IsAnyProductInCart';
 import {EditIcon} from "../Icons/EditIcon";
-import CstmShadowView from "../components/CstmShadowView";
 import {CancelIcon} from "../Icons/Cancel";
+import CheckoutActionSheet from "../components/Modal/CheckoutActionSheet";
 
 
 class CheckOut extends React.PureComponent {
@@ -46,6 +46,7 @@ class CheckOut extends React.PureComponent {
     }
 
     CheckoutOnPress = () => {
+        this.setState({Checkout: !this.state.Checkout});
         this.setState({
             Loading: true
         });
@@ -111,16 +112,12 @@ class CheckOut extends React.PureComponent {
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName}/>
 
-                <ActionSheet
-                    title='Agree to checkout?'
-                    cancelButtonIndex={2}
-                    options={[
-                        {label: 'Checkout', onPress: this.CheckoutOnPress},
-                        {label: 'cancel', onPress: this.setCheckout},
-                    ]}
-                    visible={this.state.Checkout}
-                    onDismiss={() => this.setState({Checkout: !this.state.Checkout})}
+                <CheckoutActionSheet
+                    modalVisible={this.state.Checkout}
+                    setModalVisible={this.setCheckout}
+                    CheckOut={this.CheckoutOnPress}
                 />
+
                 {this.state.Loading ?
                     <Loader />
                     :

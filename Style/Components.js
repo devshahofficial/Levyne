@@ -29,6 +29,7 @@ ThemeManager.setComponentTheme(
     },
 );
 
+
 ThemeManager.setComponentTheme(
     'TouchableOpacity', {
         backgroundColor:Colors.white,
