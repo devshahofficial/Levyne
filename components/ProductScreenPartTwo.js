@@ -7,7 +7,7 @@ import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
 import {HandWashIcon} from "../Icons/Secondary/HandWashIcon";
 import {TimerIcon} from "../Icons/Secondary/TimerIcon";
 import Fabric from "./Fabric";
-
+import ReviewForProducts from './ReviewForProducts';
 
 
 export default class ProductScreenPartTwo extends React.PureComponent {
@@ -48,10 +48,9 @@ export default class ProductScreenPartTwo extends React.PureComponent {
         )
     }
 
-    checkSwitch = (Wash) => {
+    checkSwitch = ({Wash}) => {
 
         switch (Wash) {
-
             case 1:
                 return this.MachineWash();
             case 2:
@@ -65,6 +64,15 @@ export default class ProductScreenPartTwo extends React.PureComponent {
     NavigateSearch = (SearchFilter) => {
         this.props.navigation.push('SearchScreen', {SearchFilter});
     }
+
+    MaterialsRender = ({item, index}) => (
+        <Fabric
+            Image={'https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/' + item + '.jpg'}
+            title={item}
+            NavigateSearch={() => this.NavigateSearch({Type: 2, Index: this.props.MaterialIDs[index], Label: item})}
+            ImageStyle={styles.Image}
+        />
+    )
 
     render() {
         return (
@@ -87,22 +95,14 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                             horizontal={true}
                             extraData={this.props.navigation}
                             keyExtractor={(item) => item}
-						    renderItem={({item, index}) => (
-                                <Fabric
-                                    Image={'https://d32kprqn8e36ns.cloudfront.net/LevyneApplicationFiles/' + item + '.jpg'}
-                                    title={item}
-                                    NavigateSearch={() => this.NavigateSearch({Type: 2, Index: this.props.MaterialIDs[index], Label: item})}
-                                    ImageStyle={styles.Image}
-                                />
-                            )}
+						    renderItem={this.MaterialsRender}
                         />
                     </View>
                 </TouchableOpacity>
                 <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
-                    {
-                        this.checkSwitch(this.props.FabricWashType)
-                    }
-                </View>
+                    <this.checkSwitch Wash={this.props.FabricWashType} />
+                </View>     
+                <ReviewForProducts Reviews={this.props.Reviews} />
             </View>
 
         );
