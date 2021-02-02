@@ -17,9 +17,7 @@ export default class HomeNavBar extends React.PureComponent {
             <View row centerV style={styles.NavBar}>
                 <TouchableOpacity
                     marginH-20 br100
-                    onPress={() => {
-                        this.props.navigateMenu();
-                    }}
+                    onPress={this.props.navigateMenu}
                 >
                     <MenuIcon size={28} Color={Colors.black}/>
                 </TouchableOpacity>
