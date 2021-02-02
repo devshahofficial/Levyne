@@ -25,9 +25,9 @@ export default class ChatModal extends React.PureComponent {
                     activeOpacity={1}
                 />
                 <View padding-20>
-                    <View right>
+                    <TouchableOpacity onPress={this.props.setModalVisible} right>
                         <CancelIcon Color={Colors.secondary} size={22}/>
-                    </View>
+                    </TouchableOpacity>
                     <Text marginT-20 h1 secondary center>Confirm your Checkout?</Text>
                     <CstmShadowView style={{width:150, alignSelf:'center'}}>
                         <Button
