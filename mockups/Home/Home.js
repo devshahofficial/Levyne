@@ -361,7 +361,7 @@ class HomeScreen extends React.Component {
                     navigateOrders={this.navigateOrders}
                     navigateNotifications={this.navigateNotifications}
                     navigateCall={this.navigateCall}
-                    // navigateMenu={this.navigateMenu}
+                    navigateMenu={this.navigateMenu}
                 />
                 <ConnectionStatusBar
                     useAbsolutePosition
