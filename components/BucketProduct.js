@@ -364,20 +364,99 @@ export default class BucketProduct extends React.PureComponent {
         )
     }
 
+    BrandCustomProduct = () => {
+        return (
+            <View padding-15>
+                <ShadowView style={styles.View}>
+
+                    <View flex row centerH style={{ height: "auto" }}>
+                        <TouchableOpacity
+                            flex
+                            style={{borderRadius:10}}
+                            onPress={() => this.props.DisplayImageView(this.props.BrandImage.uri)}
+                        >
+                            <Image
+                                style={styles.ImageContainerOnlyProduct}
+                                source={this.props.BrandImage}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View marginT-10>
+                        <Text h2 secondary>Average Cost</Text>
+                        <View row>
+                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
+                        </View>
+                    </View>
+
+                    <View marginV-10 paddingV-10>
+                        <Text h2 secondary>Final Budget</Text>
+                        <View row>
+                            {this.props.item.DecidedPrice ?
+                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
+                                <Text hb1 primary>Chat to Decide</Text>
+                            }
+                        </View>
+                    </View>
+
+                    <View flex marginV-10>
+                        <View row>
+                            <Text flex hb2 secondary>Quantity</Text>
+                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                        </View>
+                    </View>
+
+                    <View row center>
+                        <TouchableOpacity
+                            onPress={this.props.navigateChat}
+                            flex-8
+                            center
+                            marginH-5 style={styles.TouchableOpacity}
+                        >
+                            <Text h2 secondary flex-15>See the Chat</Text>
+                            <Text h2 secondary flex>{">"}</Text>
+                        </TouchableOpacity>
+                        
+                        {
+                            this.props.OrderCompleted ?
+                                <></>
+                                :
+                                <TouchableOpacity
+                                    onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)}
+                                    flex
+                                    marginH-5
+                                    activeOpacity={0.8}
+                                    center
+                                    style={{ width: 40, height: 40, backgroundColor: "#FF0000", borderRadius: 5 }}
+                                >
+                                    <ArchiveIcon Size={20} Color={Colors.white} />
+                                </TouchableOpacity>
+                        }
+                    </View>
+                </ShadowView>
+            </View>
+        )
+    }
+
     render() {
+        console.log(this.props);
         if(this.props.item.ProductID) {
             if(this.props.item.FabricID) {
                 return <this.ProductWithFabric/>
             }
             return <this.OnlyProduct/>
         } else if(this.props.item['3DModelID']) {
+            //3D Model
             if(this.props.item.FabricID) {
                 return <this.ThreeDProductMale/>
             }
             return <this.ThreeDProductFemale/>
-        } else {
+        } else if(this.props.item['DesignID']) {
             //Design By Levyne
             return <this.DesignByLevyne/>
+        } else {
+            //Custom Brand Product
+            return <this.BrandCustomProduct/>
         }
     }
 }
