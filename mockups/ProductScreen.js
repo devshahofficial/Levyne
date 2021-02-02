@@ -5,6 +5,7 @@ import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../components/ProductScreenPartThree';
 import ImageCarouselProduct from "../components/ImageCarouselProduct";
 import ProductByID from '../API/Products/ProductByID';
+import FetchBrandReviews from '../API/Brand/FetchBrandReviews';
 import AddWishlistProductByID from '../API/Products/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/Products/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
@@ -24,21 +25,25 @@ class ProductScreen extends React.Component {
             success : true,
             ModalVisible: false,
             ImageIndex: 0,
-            EmbroideryModalVisible: false
+            EmbroideryModalVisible: false,
+            Reviews: [],
         }
         this.abortController = new AbortController();
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         if(!this.props.route.params.ProductID) {
             return this.props.navigation.goBack();
         }
-        ProductByID(this.props.route.params.ProductID, this.props.AccessToken, this.abortController.signal).then(resp => {
-            this.setState({
-                ProductObject : resp,
-                loading : false
-            })
-        }).catch(() => {})
+        try {
+            const ProductObject = await ProductByID(this.props.route.params.ProductID, this.props.AccessToken, this.abortController.signal);
+            this.setState({ ProductObject, loading : false })
+
+            const Reviews = await FetchBrandReviews({BrandID: ProductObject.BrandID, Limit: 10});
+            this.setState({ Reviews });
+        } catch(err) {
+            console.log(err);
+        }
     }
 
     componentWillUnmount() {
@@ -146,8 +151,9 @@ class ProductScreen extends React.Component {
                                 ApproxDaysForProduction = {this.state.ProductObject.ApproxDaysForProduction}
                                 Materials={this.state.ProductObject.Materials}
                                 MaterialIDs={this.state.ProductObject.MaterialIDs}
+                                Reviews={this.state.Reviews}
                                 FabricWashType={this.state.ProductObject.FabricWashType}
-                                navigation={this.props.navigation}
+                                navigation={this.props.navigation} 
                             />
                             <ProductScreenPartThree
                                 EmbroideryDisplayModal = {this.EmbroideryDisplayModal}

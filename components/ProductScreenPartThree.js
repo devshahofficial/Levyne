@@ -7,7 +7,7 @@ const deviceWidth = Dimensions.get('window').width;
 export default class ProductScreenPartThree extends React.PureComponent {
 	render() {
 		return (
-			<View marginT-20 marginH-15>
+			<View marginT-10 marginH-15>
 				{this.props.EmbroideryImage && (
 					<View marginB-20>
 						<Text hb1 marginB-10>
