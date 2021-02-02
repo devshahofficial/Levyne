@@ -89,11 +89,15 @@ class Bucket extends React.Component {
         this.Timeout && clearTimeout(this.Timeout);
     }
 
+    
+
     FlatListRenderItem = ({item}) => (
         <BucketProduct
             item={item}
+            BrandImage={this.props.route.params.imageSource}
             DisplayImageView={this.DisplayImageView}
             navigateProduct={this.navigateProduct}
+            navigateChat={this.navigateChat}
             navigateFabric={this.navigateFabric}
             navigateDesign={this.navigateDesign}
             RemoveProductFromCart={this.setStateForProductDelete}
