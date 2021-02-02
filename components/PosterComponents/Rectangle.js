@@ -8,7 +8,7 @@ const {height} = Dimensions.get('window');
 export default class Rectangle extends React.Component {
     render() {
         return (
-            <TouchableOpacity onPress={this.props.onPress} style={styles.msg}>
+            <TouchableOpacity activeOpacity={0.8} onPress={this.props.onPress} style={styles.msg}>
                 <Image source={{uri: this.props.Image}} style={styles.img} />
             </TouchableOpacity>
         );

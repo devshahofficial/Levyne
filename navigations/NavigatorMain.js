@@ -48,6 +48,7 @@ import DesignedAtLevyne from '../mockups/Home/Designed at Levyne';
 import CallToOrder from '../mockups/Home/CallToOrder';
 import FabricsFor3DCart from '../mockups/FabricsFor3DCart';
 import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
+import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -176,6 +177,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="CheckOut" component={CheckOut} />
 				<HomeStack.Screen name="BrandList" component={BrandList} />
 				<HomeStack.Screen name="Order" component={OrderScreen} />
+				<HomeStack.Screen name="ChatToOrder" component={ChatToOrder} />
 				<HomeStack.Screen
 					name="ProductDetailsPage"
 					component={ProductDetailsPage}

@@ -345,6 +345,10 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('ProductDetailsPage', { DesignID })
     }
 
+    NavigateChatToOrder = () => {
+        this.props.navigation.navigate('ChatToOrder')
+    }
+
     NavigateThreeD = (CategoryID, Category) => {
         this.props.navigation.push('ThreeD', {
             CategoryID: CategoryID,
@@ -396,7 +400,7 @@ class HomeScreen extends React.Component {
                     <View marginT-120 paddingH-20>
                         <Text b1 secondary>Chat Now</Text>
                     </View>
-                    <Rectangle Image={"https://i.ibb.co/7yTnh0Y/Group-4247.png"}/>
+                    <Rectangle Image={"https://i.ibb.co/7yTnh0Y/Group-4247.png"} onPress={this.NavigateChatToOrder}/>
 
                     <View marginT-20 paddingH-20>
                         <Text b1 secondary>Shop Now</Text>
