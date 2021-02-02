@@ -393,12 +393,12 @@ class HomeScreen extends React.Component {
                     bounces={false}
                     onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}
                 >
-                    <View marginT-120 marginB-10 paddingH-20>
+                    <View marginT-120 paddingH-20>
                         <Text b1 secondary>Chat Now</Text>
                     </View>
                     <Rectangle Image={"https://i.ibb.co/7yTnh0Y/Group-4247.png"}/>
 
-                    <View marginT-20 marginB-10 paddingH-20>
+                    <View marginT-20 paddingH-20>
                         <Text b1 secondary>Shop Now</Text>
                     </View>
                     <View row>
