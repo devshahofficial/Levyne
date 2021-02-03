@@ -4,18 +4,21 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import HandleShareURL from '../../API/Home/HandleShareURL';
 import NavbarBack from "../../components/NavBarBack";
+import { Dimensions } from 'react-native';
+
+const width = Dimensions.get('window').width
 
 export default class ScanScreen extends React.Component {
 
     Header = () => (
-        <View flex paddingH-10>
+        <View style={{width}} flex paddingH-10>
             <Text h1>Ask for a QR code from your fashion designer and enjoy seamless tailoring online.</Text>
         </View>
     )
 
     Footer = () => (
-        <View flex paddingH-10 marginT-50>
-            <Text secondary h3 center>**Unlock the potential of hassle free product searching power!**</Text>
+        <View style={{width}} flex paddingH-10 marginT-50>
+            <Text secondary h3 center>Unlock the potential of hassle free product searching power!</Text>
         </View>
     )
 
