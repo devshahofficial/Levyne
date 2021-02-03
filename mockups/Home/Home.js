@@ -132,6 +132,8 @@ class HomeScreen extends React.Component {
             const Paths = url.replace('https://collections.levyne.com', '').split('/');
             if (Paths.length === 3) {
                 HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
+            } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
+                HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
             }
         }
     }

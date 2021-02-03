@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import {StyleSheet, FlatList, SafeAreaView, Linking, ActivityIndicator} from 'react-native';
-import {Colors, Text, TouchableOpacity, View, AvatarHelper, Button} from "react-native-ui-lib";
+import {Colors, View, Button} from "react-native-ui-lib";
 import UpperComponent from '../Components/UpperComponent'
 import NavBarBack from "../../../components/NavBarBack";
 import WebView from "react-native-webview";
-import {CallIcon} from "../../../Icons/CallIcon";
 import Fetch3DModel from "../../../API/ThreeD/Fetch3DModel";
 import { connect } from 'react-redux';
-import BottomButton from "../../../components/BottomButtons";
 import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
 
 class ThreeD extends Component {
@@ -106,7 +104,12 @@ class ThreeD extends Component {
                             />
                         </View>
 
-                        <WebView source={{ uri: this.URL3DModelBase + this.state.Models[this.state.upperSelected].Model }}/>
+                        <WebView
+                            automaticallyAdjustContentInsets={false}
+                            scrollEnabled={false}
+                            style={{ flex: 1, minHeight: 200, height: 300, opacity: 0.99 }}                   
+                            source={{ uri: this.URL3DModelBase + this.state.Models[this.state.upperSelected].Model }}
+                        />
                         <View style={styles.Main}>
                             <ShadowView style={styles.ShadowView}>
                                 <Button
