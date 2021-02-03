@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Text} from 'react-native-ui-lib';
+import {View, Text} from 'react-native-ui-lib';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
 import HandleShareURL from '../../API/Home/HandleShareURL';
