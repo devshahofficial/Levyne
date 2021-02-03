@@ -82,20 +82,18 @@ export default class ProductScreenPartOne extends React.Component {
 							{this.props.ShortDescription}
 						</Text>
 
-						{typeof this.props.ProductRating !== 'undefined' ? (
-							<View row marginV-13>
-								<View row marginR-15>
-									<StarIconsComponent BrandRating={Math.round(this.props.ProductRating)} />
-								</View>
-								<Text h2>{this.props.ProductRating} Ratings</Text>
+						<View row marginV-13>
+							<View row marginR-15>
+								<StarIconsComponent BrandRating={Math.round(this.props.BrandRating)} />
 							</View>
-						) : <></>}
+							<Text h2>{this.props.RatingCount} Ratings</Text>
+						</View>
 
-							<View row bottom>
-								<Text b1 primary>
-									₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
-								</Text>
-							</View>
+						<View row bottom>
+							<Text b1 primary>
+								₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
+							</Text>
+						</View>
 					</View>
 
 					<View flex-end>
