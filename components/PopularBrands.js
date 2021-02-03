@@ -30,8 +30,7 @@ export default class PopularBrands extends React.Component {
                     </Text>
                     <View row flex marginT-5>
                         <StarIconsComponent
-                            BrandRating={0}
-                            //BrandRating={Math.round(this.props.item.ratings)}
+                            BrandRating={Math.round(this.props.item.BrandRating)}
                         />
                     </View>
                 </TouchableOpacity>

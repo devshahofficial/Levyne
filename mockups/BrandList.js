@@ -74,7 +74,7 @@ class BrandList extends React.PureComponent {
 					</Text>
 					<Text numberOfLines={4} h2 grey40 marginR-160 left>{item.About} </Text>
 					<View row flex marginT-10>
-						<Stars BrandRating={Math.round(5)} />
+						<Stars BrandRating={Math.round(item.BrandRating)} />
 					</View>
 				</View>
 			</TouchableOpacity>
