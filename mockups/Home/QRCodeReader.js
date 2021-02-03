@@ -31,10 +31,10 @@ export default class ScanScreen extends React.Component {
                  *  1 : Product
                  *  2 : Fabric
                  *  3 : Design
-                 *  4 : 3D Models //Need to implement this.
+                 *  4 : 3D Models
                  *  5 : Brand
                  */
-                HandleShareURL(LevyneData.Type, LevyneData.ID, this.props.navigation);
+                HandleShareURL(LevyneData.Type, LevyneData.ID, this.props.navigation, LevyneData.SubID);
             }
         } catch(err) {
             console.log(err);

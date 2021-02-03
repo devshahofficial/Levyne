@@ -43,6 +43,7 @@ import BrandsForDesignByLevyne from '../mockups/BrandsForDesignByLevyne';
 import SearchText from '../mockups/Search/SearchText';
 import BlogPost from '../mockups/Home/BlogPost';
 import ThreeD from '../mockups/ThreeD/Mockups/ThreeD';
+import ThreeDModel from '../mockups/ThreeD/Mockups/ThreeDModel';
 import FabricIn3D from '../mockups/ThreeD/Mockups/FabricIn3DExp';
 import DesignedAtLevyne from '../mockups/Home/Designed at Levyne';
 import CallToOrder from '../mockups/Home/CallToOrder';
@@ -187,6 +188,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="BlogPost" component={BlogPost} />
 				<HomeStack.Screen name="SearchScreen" component={SearchScreen} />
 				<HomeStack.Screen name="ThreeD" component={ThreeD} />
+				<HomeStack.Screen name="ThreeDModel" component={ThreeDModel} />
 				<HomeStack.Screen name="FabricInThreeD" component={FabricIn3D} />
 				<HomeStack.Screen name="Call" component={CallToOrder} />
 				<HomeStack.Screen name="BrandsFor3DCart" component={BrandsFor3DCart} />
