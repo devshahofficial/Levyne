@@ -49,6 +49,7 @@ import CallToOrder from '../mockups/Home/CallToOrder';
 import FabricsFor3DCart from '../mockups/FabricsFor3DCart';
 import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
 import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
+import QRCodeReader from '../mockups/Home/QRCodeReader';
 
 const MainStack = createStackNavigator();
 const HomeStack = createStackNavigator();
@@ -172,6 +173,7 @@ class MainHomeStack extends React.PureComponent {
 					component={DesignedAtLevyne}
 				/>
 				<HomeStack.Screen name="Notifications" component={Notifications} />
+				<HomeStack.Screen name="QRCodeReader" component={QRCodeReader} />
 				<HomeStack.Screen name="MyFits" component={MyFits} />
 				<HomeStack.Screen name="MyOrders" component={MyOrders} />
 				<HomeStack.Screen name="CheckOut" component={CheckOut} />
