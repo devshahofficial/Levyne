@@ -5,31 +5,29 @@ import Colors from '../Style/Colors';
 import BookMarkIcon from "../Icons/BookMarkIcon";
 import {SearchIcon} from '../Icons/SearchIcon';
 import Logo from '../assets/images/Logo.svg';
-import {MenuIcon} from "../Icons/MenuIcon";
-import BellIcon from "../Icons/BellIcon";
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
-import {CallIcon} from "../Icons/CallIcon";
+import {QRCodeIcon} from "../Icons/QRCodeIcon";
 
 export default class HomeNavBar extends React.PureComponent {
 
     render() {
         return (
             <View row centerV style={styles.NavBar}>
-                <TouchableOpacity
+                {/*<TouchableOpacity
                     marginH-20 br100
                     onPress={this.props.navigateMenu}
                 >
                     <MenuIcon size={28} Color={Colors.black}/>
-                </TouchableOpacity>
+                </TouchableOpacity>*/}
                 <View marginH-20 row>
                     <Logo width='55%' height='50'/>
                 </View>
                 <View flex row centerV right>
                     <TouchableOpacity
                         marginL-12 marginR-12 br100
-                        onPress={this.props.navigateCall}
+                        onPress={this.props.navigateQRCode}
                     >
-                        <CallIcon Size={22} Fill={false} Color={Colors.black}/>
+                        <QRCodeIcon size={22} Color={Colors.black}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         marginR-12 br100

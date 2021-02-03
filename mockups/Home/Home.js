@@ -235,7 +235,7 @@ class HomeScreen extends React.Component {
         }
     }
 
-    navigateMenu = () => {
+    navigateQRCode = () => {
         //this.props.navigation.navigate('DesignedAtLevyne');
         this.props.navigation.navigate('QRCodeReader');
     }
@@ -330,7 +330,7 @@ class HomeScreen extends React.Component {
                     navigateOrders={this.navigateOrders}
                     navigateNotifications={this.navigateNotifications}
                     navigateCall={this.navigateCall}
-                    navigateMenu={this.navigateMenu}
+                    navigateQRCode={this.navigateQRCode}
                 />
                 <ConnectionStatusBar
                     useAbsolutePosition
