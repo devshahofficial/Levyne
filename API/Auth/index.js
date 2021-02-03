@@ -22,6 +22,7 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
         }
 
         const Response = await AsyncStorage.multiGet(['AccessToken', 'RefreshToken', 'Timestamp', 'UserID', 'Mobile']);
+        
         if(!(Response[0][1] && Response[1][1] && Response[2][1] && Response[3][1]))
             throw new Error('Tokens not found');
 
@@ -41,7 +42,7 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
         const today = new Date();
         const yesterday = new Date(today);
 
-        yesterday.setHours(yesterday.getHours() - 20);
+        yesterday.setHours(yesterday.getHours() - 15);
         const Timestamp = new Date(Response[2][1].replace(' ', 'T'));
 
         if(Timestamp < yesterday)
