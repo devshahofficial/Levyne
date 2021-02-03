@@ -27,16 +27,7 @@ class ConversationListScreen extends Component {
         this.abortController = new AbortController();
     }
 
-    componentDidMount = () => {
-        this.props.Socket && this.props.Socket.on('ChatMessage', this.SocketListener);
-    }
-
-    SocketListener = (Message) => {
-        console.log("ChatList: ", Message);
-    }
-
     componentWillUnmount = () => {
-        this.props.Socket && this.props.Socket.off('ChatMessage', this.SocketListener);
         this.abortController.abort();
     }
 
