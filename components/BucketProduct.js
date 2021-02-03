@@ -439,7 +439,6 @@ export default class BucketProduct extends React.PureComponent {
     }
 
     render() {
-        console.log(this.props);
         if(this.props.item.ProductID) {
             if(this.props.item.FabricID) {
                 return <this.ProductWithFabric/>
