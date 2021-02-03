@@ -22,7 +22,7 @@ import Category from "../../components/Category";
 //import Recent15Brands from '../../API/Brand/Recent15Brands';
 //import PutStoryAsRead from '../../API/Home/PutStoryAsRead';
 import FetchChatBuckets from '../../API/Chats/FetchChatBuckets';
-import { CommonActions } from '@react-navigation/native';
+import HandleShareURL from '../../API/Home/HandleShareURL';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 import Square from "../../components/PosterComponents/Square";
@@ -116,58 +116,22 @@ class HomeScreen extends React.Component {
     handleOpenURL = ({ url }) => {
         if (url && url.includes('https://collections.levyne.com')) {
 
+            const ScreenIDs = {
+                'p': 1,
+                'P': 1,
+                'f': 2,
+                'F': 2,
+                'd': 3,
+                'D': 3,
+                'm': 4,
+                'M': 4,
+                'B': 5,
+                'b': 5
+            }
+
             const Paths = url.replace('https://collections.levyne.com', '').split('/');
             if (Paths.length === 3) {
-                switch (Paths[1]) {
-                    case 'p':
-                    case 'P':
-                        const ProductID = parseInt(Paths[2]);
-                        if (ProductID) {
-
-                            this.props.navigation.dispatch(
-                                CommonActions.reset({
-                                    index: 1,
-                                    routes: [
-                                        {
-                                            name: 'MainHomeStack',
-                                            state: {
-                                                routes: [
-                                                    { name: 'Home' },
-                                                    { name: 'Product', params: { ProductID } },
-                                                ],
-                                                index: 1,
-                                            }
-                                        },
-                                    ]
-                                })
-                            );
-                        }
-                        break;
-                    case 'd':
-                    case 'D':
-                        const DesignID = parseInt(Paths[2])
-                        if (DesignID) {
-
-                            this.props.navigation.dispatch(
-                                CommonActions.reset({
-                                    index: 1,
-                                    routes: [
-                                        {
-                                            name: 'MainHomeStack',
-                                            state: {
-                                                routes: [
-                                                    { name: 'Home' },
-                                                    { name: 'ProductDetailsPage', params: { DesignID } },
-                                                ],
-                                                index: 1,
-                                            }
-                                        },
-                                    ]
-                                })
-                            );
-                        }
-                        break;
-                }
+                HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
             }
         }
     }
@@ -272,7 +236,8 @@ class HomeScreen extends React.Component {
     }
 
     navigateMenu = () => {
-        this.props.navigation.navigate('DesignedAtLevyne');
+        //this.props.navigation.navigate('DesignedAtLevyne');
+        this.props.navigation.navigate('QRCodeReader');
     }
 
     navigateCall = () => {
