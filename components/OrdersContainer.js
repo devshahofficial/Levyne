@@ -17,7 +17,7 @@ export default class OrdersContainer extends React.Component {
         super(props);
     }
 
-    Process() {
+    Process = () => {
         if(this.props.PaymentSuccess) {
             this.props.OrderStatus = 3;
         }
