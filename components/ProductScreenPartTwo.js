@@ -101,7 +101,7 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                 </TouchableOpacity>
                 <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     <this.checkSwitch Wash={this.props.FabricWashType} />
-                </View>     
+                </View>   
                 <ReviewForProducts Reviews={this.props.Reviews} />
             </View>
 
