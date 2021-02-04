@@ -76,7 +76,7 @@ export default class ProductScreenPartTwo extends React.PureComponent {
 
     render() {
         return (
-            <View marginT-30 marginB-20 marginH-15>
+            <View marginT-30 marginB-10 marginH-15>
                 <Text hb1>Product Description</Text>
                 <DescriptionCard CompleteDescription = {this.props.LongDescription} />
 
