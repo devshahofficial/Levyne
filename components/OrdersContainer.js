@@ -1,10 +1,8 @@
-import {Dimensions, StyleSheet} from "react-native";
+import {StyleSheet} from "react-native";
 import React from 'react';
 import {View, Text, Colors, TouchableOpacity, Image} from 'react-native-ui-lib';
 import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
-
-
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
 import {TailorIcon} from "../Icons/Secondary/TailorIcon";
 import {OrderReceivedIcon} from "../Icons/Secondary/OrderReceived";
@@ -19,80 +17,86 @@ export default class OrdersContainer extends React.Component {
         super(props);
     }
 
-    Process(param) {
-        switch(param) {
-            case 0:
-                return <>
+    Process({OrderStatus}) {
+        switch(OrderStatus) {
+            case 3:
+                return (
                     <View row centerV marginB-15 marginT-15>
                         <View flex>
                             <OrderReceivedIcon size={35} Color={Colors.primary}/>
                         </View>
                         <Text flex-8 marginL-20 h1 primary>Order placed</Text>
                     </View>
-                    </>;
-            case 1:
-                return <>
-                    <View row centerV marginT-15>
-                        <View flex>
-                            <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                )
+            case 4:
+                return (
+                    <>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
-                    </View>
-                    <View row centerV marginV-15>
-                        <View flex>
-                            <TailorIcon size={35} Color={Colors.primary}/>
+                        <View row centerV marginV-15>
+                            <View flex>
+                                <TailorIcon size={35} Color={Colors.primary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 primary>Production Started</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 primary>Production Started</Text>
-                    </View>
-                </>;
-            case 2:
-                return <>
-                    <View row centerV marginT-15>
-                        <View flex>
-                            <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                    </>
+                );
+            case 5:
+                return (
+                    <>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
-                    </View>
-                    <View row centerV marginT-15>
-                        <View flex>
-                            <TailorIcon size={35} Color={Colors.secondary}/>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <TailorIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Production Started</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 secondary>Production Started</Text>
-                    </View>
-                    <View row centerV marginV-15>
-                        <View flex>
-                            <ProductionCompletedIcon size={35} Color={Colors.primary}/>
+                        <View row centerV marginV-15>
+                            <View flex>
+                                <ProductionCompletedIcon size={35} Color={Colors.primary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 primary>Production Completed</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 primary>Production Completed</Text>
-                    </View>
-                </>;
-            case 3:
-                return <>
-                    <View row centerV marginT-15>
-                        <View flex>
-                            <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                    </>
+                )
+            case 6:
+                return (
+                    <>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
-                    </View>
-                    <View row centerV marginT-15>
-                        <View flex>
-                            <TailorIcon size={35} Color={Colors.secondary}/>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <TailorIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Production Started</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 secondary>Production Started</Text>
-                    </View>
-                    <View row centerV marginT-15>
-                        <View flex>
-                            <ProductionCompletedIcon size={35} Color={Colors.secondary}/>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <ProductionCompletedIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Production Completed</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 secondary>Production Completed</Text>
-                    </View>
-                    <View row centerV marginV-15>
-                        <View flex>
-                            <DeliveryIcon size={35} Color={Colors.primary}/>
+                        <View row centerV marginV-15>
+                            <View flex>
+                                <DeliveryIcon size={35} Color={Colors.primary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 primary>Out for Delivery</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 primary>Out for Delivery</Text>
-                    </View>
-                </>;
+                    </>
+                )
         }
     }
 
@@ -126,7 +130,7 @@ export default class OrdersContainer extends React.Component {
                                 {this.props.Name}
                             </Text>
                             <View row>
-                                <StarIconsComponent BrandRating={this.props.CompanyRating}/>
+                                <StarIconsComponent BrandRating={this.props.BrandRating}/>
                             </View>
                         </View>
                     </View>
@@ -141,7 +145,7 @@ export default class OrdersContainer extends React.Component {
                         <Text hb1 marginL-20>₹{this.props.FinalAmount}</Text>
                     </View>
 
-                    {this.Process(this.props.OrderStatus)}
+                    <this.Process OrderStatus={this.props.OrderStatus} />
 
                     <View marginV-20 paddingH-15 center row style={styles.View}>
                         <CashIcon size={30} Color={Colors.black} />

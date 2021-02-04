@@ -41,7 +41,6 @@ class MyOrders extends Component {
     FlatListRenderItem = ({item}) => (
         <OrdersContainer
             {...item}
-            CompanyRating={5}
             NavigateBrand={this.NavigateBrand}
             NavigateOrder={this.NavigateOrder}
         />
