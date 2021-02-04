@@ -27,8 +27,6 @@ class MyOrders extends Component {
 
     componentDidMount() {
         FetchOrders(this.props.AccessToken, this.props.route.params.OrderID, ++this.Page, this.abortController.signal).then(Orders => {
-            console.log(Orders);
-            console.log(this.props.route.params.OrderID);
             this.setState({
                 Orders,
                 Loading: false
@@ -43,6 +41,7 @@ class MyOrders extends Component {
     FlatListRenderItem = ({item}) => (
         <OrdersContainer
             {...item}
+            PaymentSuccess={this.props.route.params.PaymentSuccess}
             NavigateBrand={this.NavigateBrand}
             NavigateOrder={this.NavigateOrder}
         />

@@ -112,7 +112,7 @@ class CheckOut extends React.PureComponent {
                                 state: {
                                     routes: [
                                         { name: 'Home' },
-                                        { name: 'MyOrders', params: { OrderID } }
+                                        { name: 'MyOrders', params: { OrderID, PaymentSuccess: true } }
                                     ],
                                     index: 1
                                 }

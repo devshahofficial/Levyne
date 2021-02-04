@@ -17,8 +17,29 @@ export default class OrdersContainer extends React.Component {
         super(props);
     }
 
-    Process({OrderStatus}) {
-        switch(OrderStatus) {
+    Process() {
+        if(this.props.PaymentSuccess) {
+            this.props.OrderStatus = 3;
+        }
+        switch(this.props.OrderStatus) {
+            case 1:
+                return (
+                    <View row centerV marginB-15 marginT-15>
+                        <View flex>
+                            <OrderReceivedIcon size={35} Color={Colors.primary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 primary>Payment Processing...</Text>
+                    </View>
+                )
+            case 2:
+                return (
+                    <View row centerV marginB-15 marginT-15>
+                        <View flex>
+                            <OrderReceivedIcon size={35} Color={Colors.primary}/>
+                        </View>
+                        <Text flex-8 marginL-20 h1 primary>Payment Declined.</Text>
+                    </View>
+                )
             case 3:
                 return (
                     <View row centerV marginB-15 marginT-15>
@@ -145,7 +166,7 @@ export default class OrdersContainer extends React.Component {
                         <Text hb1 marginL-20>₹{this.props.FinalAmount}</Text>
                     </View>
 
-                    <this.Process OrderStatus={this.props.OrderStatus} />
+                    <this.Process/>
 
                     <View marginV-20 paddingH-15 center row style={styles.View}>
                         <CashIcon size={30} Color={Colors.black} />
