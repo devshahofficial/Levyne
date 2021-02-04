@@ -5,6 +5,7 @@ import { AuthCheck } from '../API/Auth/index';
 import { connect } from 'react-redux';
 import { Colors, AvatarHelper } from 'react-native-ui-lib';
 import { CommonActions } from '@react-navigation/native';
+import HandleShareURL from '../API/Home/HandleShareURL';
 
 class IndexScreen extends React.Component {
 
@@ -75,113 +76,25 @@ class IndexScreen extends React.Component {
 	handleOpenURL = ({ url }) => {
 		if (url && url.includes('https://collections.levyne.com')) {
 
-			const Paths = url.replace('https://collections.levyne.com', '').split('/');
-			if (Paths.length === 3) {
-				switch (Paths[1]) {
-					case 'p':
-					case 'P':
-						const ProductID = parseInt(Paths[2]);
-						if (ProductID) {
+			const ScreenIDs = {
+                'p': 1,
+                'P': 1,
+                'f': 2,
+                'F': 2,
+                'd': 3,
+                'D': 3,
+                'm': 4,
+                'M': 4,
+                'B': 5,
+                'b': 5
+            }
 
-							this.props.navigation.dispatch(
-								CommonActions.reset({
-									index: 1,
-									routes: [
-										{
-											name: 'Auth',
-											state: {
-												routes: [
-													{ name: 'Login' }
-												],
-												index: 1,
-											}
-										},
-										{
-											name: 'MainHomeStack',
-											state: {
-												routes: [
-													{ name: 'Home' },
-													{ name: 'Product', params: { ProductID } },
-												],
-												index: 1,
-											}
-										},
-									]
-								})
-							);
-
-							return true;
-						}
-					case 'd':
-					case 'D':
-						const DesignID = parseInt(Paths[2])
-						if (DesignID) {
-
-							this.props.navigation.dispatch(
-								CommonActions.reset({
-									index: 1,
-									routes: [
-										{
-											name: 'Auth',
-											state: {
-												routes: [
-													{ name: 'Login' }
-												],
-												index: 1,
-											}
-										},
-										{
-											name: 'MainHomeStack',
-											state: {
-												routes: [
-													{ name: 'Home' },
-													{ name: 'ProductDetailsPage', params: { DesignID } },
-												],
-												index: 1,
-											}
-										},
-									]
-								})
-							);
-
-							return true;
-						}
-					case 'f':
-					case 'F':
-						const FabricID = parseInt(Paths[2])
-						if (FabricID) {
-
-							this.props.navigation.dispatch(
-								CommonActions.reset({
-									index: 1,
-									routes: [
-										{
-											name: 'Auth',
-											state: {
-												routes: [
-													{ name: 'Login' }
-												],
-												index: 1,
-											}
-										},
-										{
-											name: 'MainHomeStack',
-											state: {
-												routes: [
-													{ name: 'Home' },
-													{ name: 'Fabric', params: { FabricID } },
-												],
-												index: 1,
-											}
-										},
-									]
-								})
-							);
-
-							return true;
-						}
-				}
-			}
+            const Paths = url.replace('https://collections.levyne.com', '').split('/');
+            if (Paths.length === 3) {
+                HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
+            } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
+                HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
+            }
 		}
 		return false;
 	}

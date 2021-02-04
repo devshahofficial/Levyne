@@ -19,5 +19,6 @@ export default {
         ios: isIPhoneX() ? 44 : 20,
         android: StatusBar.currentHeight,
         default: 0
-    })
+    }),
+    RazorPayKeyID: 'rzp_test_GmcRoBLt8iKq7I'
 };
