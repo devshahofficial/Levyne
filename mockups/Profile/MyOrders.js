@@ -22,11 +22,13 @@ class MyOrders extends Component {
             this.props.route.params = {
                 OrderID: null
             }
-        } 
+        }
     }
 
     componentDidMount() {
         FetchOrders(this.props.AccessToken, this.props.route.params.OrderID, ++this.Page, this.abortController.signal).then(Orders => {
+            console.log(Orders);
+            console.log(this.props.route.params.OrderID);
             this.setState({
                 Orders,
                 Loading: false

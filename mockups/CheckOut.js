@@ -12,6 +12,8 @@ import CheckoutAPI from '../API/Cart/Checkout';
 import FetchPartialBucket from '../API/Cart/FetchPartialBucket';
 import Loader from '../components/Loader';
 import { CommonActions } from '@react-navigation/native';
+import config from '../assets/constants';
+import RazorpayCheckout from 'react-native-razorpay';
 import IsAnyProductInCartAPI from '../API/Profile/IsAnyProductInCart';
 import { EditIcon } from "../Icons/EditIcon";
 import { CancelIcon } from "../Icons/Cancel";
@@ -19,6 +21,7 @@ import CheckoutActionSheet from "../components/Modal/CheckoutActionSheet";
 import { RightIcon } from "../Icons/RightIcon";
 import CstmShadowView from "../components/CstmShadowView";
 import ValidateCoupon from '../API/Cart/ValidateCoupon';
+
 
 
 class CheckOut extends React.PureComponent {
@@ -43,7 +46,7 @@ class CheckOut extends React.PureComponent {
             CouponKey: Math.random().toString()
         }
         this.abortController = new AbortController();
-        this.Timeouts = []
+        this.Timeouts = [];
     }
 
     componentDidMount = () => {
@@ -59,53 +62,72 @@ class CheckOut extends React.PureComponent {
         })
     }
 
-    CheckoutOnPress = () => {
+    CheckoutOnPress = async () => {
         this.setState({ Checkout: !this.state.Checkout });
-        this.setState({
-            Loading: true
-        });
-        CheckoutAPI(
-            this.state.Address,
-            this.state.PinCode,
-            this.state.Comment,
-            this.state.isCouponApplied ? this.state.Coupon : undefined,
-            this.props.route.params.BucketID,
-            this.props.AccessToken,
-            this.abortController.signal
-        ).then(async () => {
-            let { IsAnyProductInCart } = await IsAnyProductInCartAPI(this.props.AccessToken).catch(() => { });
-            this.props.setIsAnyProductInCart(IsAnyProductInCart);
-            this.props.navigation.dispatch(
-                CommonActions.reset({
-                    routes: [
-                        {
-                            name: 'Auth',
-                            state: {
-                                routes: [
-                                    { name: 'Login' }
-                                ]
-                            }
-                        },
-                        {
-                            name: 'MainHomeStack',
-                            state: {
-                                routes: [
-                                    { name: 'Home' },
-                                    { name: 'MyOrders' }
-                                ],
-                                index: 1
-                            }
-                        },
-                    ],
-                    index: 1
-                })
-            );
-        }).catch(err => {
-            this.setState({
-                Loading: false
-            });
+        this.setState({ Loading: true });
+        try {
+            const {OrderID, RazorPayOrderID, TotalAmount} = await CheckoutAPI(
+                this.state.Address,
+                this.state.PinCode,
+                this.state.Comment,
+                this.state.isCouponApplied ? this.state.Coupon : undefined,
+                this.props.route.params.BucketID,
+                this.props.AccessToken,
+                this.abortController.signal
+            )
+            IsAnyProductInCartAPI(this.props.AccessToken).then(({IsAnyProductInCart}) => {
+                this.props.setIsAnyProductInCart(IsAnyProductInCart);
+            }).catch(() => {});
+
+            try {
+                await RazorpayCheckout.open({
+                    image: 'https://levyne.com/images/favicon.png',
+                    currency: 'INR',
+                    key: config.RazorPayKeyID, // Your api key
+                    amount: TotalAmount,
+                    name: 'Levyne',
+                    order_id: RazorPayOrderID,
+                    customer_id: this.props.Mobile.toString(),
+                    prefill: {
+                        email: this.props.Email,
+                        contact: this.props.Mobile,
+                        name: this.props.Name
+                    },
+                    theme: {color: Colors.primary}
+                });
+                this.setState({Loading: false});
+                this.props.navigation.dispatch(
+                    CommonActions.reset({
+                        routes: [
+                            {
+                                name: 'Auth',
+                                state: {
+                                    routes: [
+                                        { name: 'Login' }
+                                    ]
+                                }
+                            },
+                            {
+                                name: 'MainHomeStack',
+                                state: {
+                                    routes: [
+                                        { name: 'Home' },
+                                        { name: 'MyOrders', params: { OrderID } }
+                                    ],
+                                    index: 1
+                                }
+                            },
+                        ],
+                        index: 1
+                    })
+                );
+            } catch(err) {
+                //Handle Payment Failure.
+            }
+        } catch(err) {
+            this.setState({Loading: false});
             console.log(err);
-        });
+        }
     }
 
     componentWillUnmount() {
@@ -401,7 +423,10 @@ const styles = StyleSheet.create({
 const mapsStateToProps = state => ({
     AccessToken: state.Auth.AccessToken,
     Address: state.Profile.Address,
+    Name: state.Profile.Name,
+    Email: state.Profile.Email,
     PinCode: state.Profile.PinCode,
+    Mobile: state.Auth.Mobile
 });
 
 const mapDispatchToProps = dispatch => {

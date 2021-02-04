@@ -22,20 +22,38 @@ export default class ScanScreen extends React.Component {
         </View>
     )
 
-    onSuccess = ({data}) => {
+    onSuccess = ({data: url}) => {
         try {
-            const LevyneData = JSON.parse(data);
-            if(LevyneData.isLevyneQR) {
-                /**
-                 * Types
-                 *  1 : Product
-                 *  2 : Fabric
-                 *  3 : Design
-                 *  4 : 3D Models
-                 *  5 : Brand
-                 */
-                HandleShareURL(LevyneData.Type, LevyneData.ID, this.props.navigation, LevyneData.SubID);
+            
+            /**
+             * Types
+             *  1 : Product
+             *  2 : Fabric
+             *  3 : Design
+             *  4 : 3D Models
+             *  5 : Brand
+             */
+
+            const ScreenIDs = {
+                'p': 1,
+                'P': 1,
+                'f': 2,
+                'F': 2,
+                'd': 3,
+                'D': 3,
+                'm': 4,
+                'M': 4,
+                'B': 5,
+                'b': 5
             }
+
+            const Paths = url.replace('https://collections.levyne.com', '').split('/');
+            if (Paths.length === 3) {
+                HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
+            } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
+                HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
+            }
+
         } catch(err) {
             console.log(err);
         }
