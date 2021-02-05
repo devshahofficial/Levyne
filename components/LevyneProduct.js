@@ -46,7 +46,7 @@ export default class ProductScreenPartOne extends React.Component {
                             </Text>
                             <View marginL-15 center style={styles.Product}>
                                 <Text h2 secondary onPress={this.navigateCategory}>
-                                    {this.props.Category}
+                                    {this.props.Category || "Others"}
                                 </Text>
                             </View>
                         </View>
