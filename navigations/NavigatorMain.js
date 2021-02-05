@@ -47,6 +47,7 @@ import ThreeDModel from '../mockups/ThreeD/Mockups/ThreeDModel';
 import FabricIn3D from '../mockups/ThreeD/Mockups/FabricIn3DExp';
 import DesignedAtLevyne from '../mockups/Home/Designed at Levyne';
 import CallToOrder from '../mockups/Home/CallToOrder';
+import AddReview from '../mockups/AddReviews';
 import FabricsFor3DCart from '../mockups/FabricsFor3DCart';
 import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
 import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
@@ -194,6 +195,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="ThreeDModel" component={ThreeDModel} />
 				<HomeStack.Screen name="FabricInThreeD" component={FabricIn3D} />
 				<HomeStack.Screen name="Call" component={CallToOrder} />
+				<HomeStack.Screen name="AddReview" component={AddReview} />
 				<HomeStack.Screen name="BrandsFor3DCart" component={BrandsFor3DCart} />
 				<HomeStack.Screen name="BrandsForDesignByLevyne" component={BrandsForDesignByLevyne} />
 				<HomeStack.Screen
