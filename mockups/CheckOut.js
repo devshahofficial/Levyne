@@ -80,6 +80,21 @@ class CheckOut extends React.PureComponent {
             }).catch(() => {});
 
             try {
+                console.log({
+                    image: 'https://levyne.com/images/favicon.png',
+                    currency: 'INR',
+                    key: config.RazorPayKeyID, // Your api key
+                    amount: TotalAmount,
+                    name: 'Levyne',
+                    order_id: RazorPayOrderID,
+                    customer_id: this.props.Mobile.toString(),
+                    prefill: {
+                        email: this.props.Email,
+                        contact: this.props.Mobile,
+                        name: this.props.Name
+                    },
+                    theme: {color: Colors.primary}
+                });
                 await RazorpayCheckout.open({
                     image: 'https://levyne.com/images/favicon.png',
                     currency: 'INR',
@@ -122,6 +137,8 @@ class CheckOut extends React.PureComponent {
                     })
                 );
             } catch(err) {
+                this.setState({Loading: false});
+                console.log(err);
                 //Handle Payment Failure.
             }
         } catch(err) {

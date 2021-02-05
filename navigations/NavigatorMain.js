@@ -133,7 +133,10 @@ const BottomTabNavigationConnect = connect(mapsStateToProps)(
 class MainHomeStack extends React.PureComponent {
 	render() {
 		return (
-			<HomeStack.Navigator headerMode="none" hideStatusBar={true}>
+			<HomeStack.Navigator
+				headerMode="none"
+				hideStatusBar={true}
+			>
 				<HomeStack.Screen name="Home" component={BottomTabNavigationConnect} />
 				<HomeStack.Screen name="Customize" component={Customize} />
 				<HomeStack.Screen name="Product" component={ProductScreen} />
