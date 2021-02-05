@@ -4,8 +4,8 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import MainNavigator from './navigations/NavigatorMain';
 import {Provider} from 'react-redux';
 import constants from './assets/constants';
-import { NavigationContainer } from '@react-navigation/native';
-import {ConnectionStatusBar} from 'react-native-ui-lib';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import {ConnectionStatusBar, Colors} from 'react-native-ui-lib';
 
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
@@ -45,13 +45,21 @@ PushNotification.configure({
 	requestPermissions: false,
 });
 
+const MyTheme = {
+	...DefaultTheme,
+	colors: {
+	  ...DefaultTheme.colors,
+	  background: Colors.white
+	},
+  };
+
 export default class App extends React.Component {
 	render() {
 		return (
 			<>
 				<Provider store={ReduxStore}>
 					<MyStatusBar backgroundColor={'#FFFFFF'} barStyle="dark-content" />
-					<NavigationContainer>
+					<NavigationContainer theme={MyTheme}>
 						<MainNavigator IsAnyChatMessage={true} />
 					</NavigationContainer>
 				</Provider>
