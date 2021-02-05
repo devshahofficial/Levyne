@@ -74,22 +74,34 @@ class IndexScreen extends React.Component {
 	 * @param {{url: string}} param0 
 	 */
 	handleOpenURL = ({ url }) => {
-		if (url && url.includes('https://collections.levyne.com')) {
+		if(!url) return false;
+		url = url.toLowerCase();
 
-			const ScreenIDs = {
-                'p': 1,
-                'P': 1,
-                'f': 2,
-                'F': 2,
-                'd': 3,
-                'D': 3,
-                'm': 4,
-                'M': 4,
-                'B': 5,
-                'b': 5
-            }
+		const ScreenIDs = {
+			'p': 1,
+			'P': 1,
+			'f': 2,
+			'F': 2,
+			'd': 3,
+			'D': 3,
+			'm': 4,
+			'M': 4,
+			'B': 5,
+			'b': 5
+		}
+
+		if (url.includes('https://collections.levyne.com/')) {
 
             const Paths = url.replace('https://collections.levyne.com', '').split('/');
+            if (Paths.length === 3) {
+                HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
+				return true;
+            } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
+                HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
+				return true;
+            }
+		} else if(url.includes('levyne://collections/')) {
+			const Paths = url.replace('levyne://collections', '').split('/');
             if (Paths.length === 3) {
                 HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
 				return true;
@@ -102,6 +114,7 @@ class IndexScreen extends React.Component {
 	}
 
 	HandleLinkingInitialURL = (url, NavigateScreen) => {
+
 
 		if (!this.handleOpenURL({ url })) {
 			if (NavigateScreen === 'MainHomeStack') {
