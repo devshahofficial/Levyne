@@ -125,6 +125,7 @@ class EditProfile extends React.Component {
     }
 
     componentWillUnmount = () => {
+        BackHandler.removeEventListener('hardwareBackPress');
         this.timeouts.forEach(clearTimeout);
     }
 

@@ -32,6 +32,7 @@
 		"react-native-hyperlink": "0.0.19",
 		"react-native-image-crop-picker": "^0.35.3",
 		"react-native-image-viewing": "^0.2.0",
+		"react-native-in-app-review": "^2.1.8",
 		"react-native-loading-spinner-overlay": "^2.0.0",
 		"react-native-permissions": "^3.0.0",
 		"react-native-push-notification": "^7.2.0",

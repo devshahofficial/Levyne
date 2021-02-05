@@ -27,8 +27,11 @@ import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 import Square from "../../components/PosterComponents/Square";
 import Rectangle from "../../components/PosterComponents/Rectangle";
+import FetchBucketsPendingForReview from '../../API/Orders/FetchBucketsPendingForReview';
+import StarIconsWithPress from '../../components/StarIconsWithPress';
+import CloseReviewModal from '../../API/Orders/CloseReviewModal';
 
-const {height, width} = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 
 class HomeScreen extends React.Component {
@@ -47,7 +50,9 @@ class HomeScreen extends React.Component {
             LevyneProducts: [],
             LevyneProductsMale: [],
             LevyneProductsFemale: [],
-            Loading: true
+            Loading: true,
+            Rating: [0],
+            PendingReviews: []
         }
         this.backPressed = 0;
         this.abortController = new AbortController();
@@ -71,6 +76,18 @@ class HomeScreen extends React.Component {
             });
         }
     };
+
+    UpdateRating = (index, OrderID, Rating) => {
+        this.state.PendingReviews.splice(index, 1);
+        this.setState({PendingReviews: this.state.PendingReviews});
+        this.props.navigation.navigate('AddReview', { OrderID, Rating });
+    }
+
+    CloseRatingToast = (index, OrderID) => {
+        this.state.PendingReviews.splice(index, 1);
+        this.setState({PendingReviews: this.state.PendingReviews});
+        CloseReviewModal(OrderID, this.props.AccessToken);
+    }
 
     SocketListener = () => {
         FetchChatBuckets(this.props.AccessToken, 1, this.abortController.signal).then(rows => {
@@ -143,6 +160,12 @@ class HomeScreen extends React.Component {
         BackHandler.addEventListener("hardwareBackPress", this.backButtonHandler);
 
         Linking.addEventListener('url', this.handleOpenURL);
+
+        FetchBucketsPendingForReview(this.props.AccessToken, this.abortController.signal).then(PendingReviews => {
+            this.setState({PendingReviews})
+        }).catch(err => {
+            console.log(err);
+        })
 
         /*
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
@@ -325,7 +348,7 @@ class HomeScreen extends React.Component {
 
     render() {
         return (
-            <>
+            <View flex>
                 <HomeNavBar
                     navigateSearchText={this.navigateSearchText}
                     navigateBookMark={this.navigateBookMark}
@@ -405,7 +428,37 @@ class HomeScreen extends React.Component {
                     </View>
 
                 </Animated.ScrollView>
-            </>
+                {
+                    this.state.PendingReviews.length ?
+                        <Toast
+                        visible={true}
+                        position={'bottom'}
+                        backgroundColor={Colors.primary}
+                    >
+                        <ScrollView horizontal={true} pagingEnabled={true} showsHorizontalScrollIndicator={false}>
+                            {this.state.PendingReviews.map((item, index) => {
+                                const UpdateRating = (Rating) => this.UpdateRating(index, item.OrderID, Rating);
+                                const CloseRatingToast = () => this.CloseRatingToast(index, item.OrderID);
+                                return (
+                                    <View style={{maxWidth: width}} key={item.OrderID.toString()} flex center paddingT-10>
+                                        <Text center hb2 secondary>{"How How would you rate your with " + item.Name + " ?"}</Text>
+                                        <View row marginV-10>
+                                            <StarIconsWithPress Rating = {this.state.Rating[index] || 0} UpdateRating={UpdateRating}  />
+                                        </View>
+                                        <View flex style={{borderTopColor: Colors.shadow, borderTopWidth: 1, width: width}}></View>
+                                        <Text marginV-10 hb2 secondary onPress={CloseRatingToast}>
+                                            Not Now
+                                        </Text>
+                                    </View>
+                                )
+                            })}
+                        </ScrollView>
+                    </Toast>
+                    :
+                    <></>
+                }
+                
+            </View>
         );
     };
 }
