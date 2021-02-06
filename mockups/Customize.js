@@ -7,8 +7,21 @@ import FetchDesignsByLevyne from "../API/DesignByLevyne/FetchDesignsByLevyne";
 import Fetch3DCategories from "../API/ThreeD/Fetch3DCategories";
 import Loader from "../components/Loader";
 import LevyneProductContainer from "../components/LevyneProductContainer";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
+
+/**
+ * @type {React.PureComponent}
+ * @typedef {object} AccessTokenProps
+ * @prop {string} AccessToken
+ * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {RouteProp<HomeStackParamList, 'Customize'>} ReviewScreenRouteProp
+ * @typedef {StackNavigationProp<HomeStackParamList, "Customize">} ReviewScreenNavigationProps
+ * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
+ * @extends {React.Component<Props>}
+ */
 
 class Customize extends React.Component {
 
@@ -41,6 +54,9 @@ class Customize extends React.Component {
         this.abortController.abort();
     }
 
+    /**
+     * @param {number} DesignID
+     */
     NavigateDesign = (DesignID) => {
         this.props.navigation.navigate('ProductDetailsPage', {DesignID})
     }
@@ -52,6 +68,7 @@ class Customize extends React.Component {
                 if(!LevyneProducts.length) {
                     this.NewProducts = false;
                 } else {
+                    // @ts-ignore
                     this.state.LevyneProducts.push(...LevyneProducts);
                     this.setState({LevyneProducts: this.state.LevyneProducts});
                     this.NewPageLoading = false;
@@ -63,15 +80,20 @@ class Customize extends React.Component {
     imgWidth = Dimensions.get('window').width - 40;
     imgHeight = 80*(Dimensions.get('window').width - 40)/335;
 
+    /**
+     * @param {number} index
+     */
     Navigate3D = (index) => {
         this.props.navigation.push('ThreeD', {
+            // @ts-ignore
             CategoryID: this.state.ModelCategories[index].CategoryID,
+            // @ts-ignore
             Category: this.state.ModelCategories[index].Category
         })
     }
 
     headerContainerRender = ({ item, index }) => (
-        <TouchableOpacity onPress={() => this.Navigate3D(index)} style={styles.Category} center>
+        <TouchableOpacity onPress={() => this.Navigate3D(index)} center>
             <View>
                 <Image source={{uri: item.Image}} style={styles.ImageUpper}/>
             </View>
@@ -154,6 +176,9 @@ const styles = StyleSheet.create({
 })
 
 
+/**
+ * @param {{ Auth: { AccessToken: any; }; }} state
+ */
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken
 });

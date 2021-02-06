@@ -7,9 +7,27 @@ import FetchBrandsWith3DPricing from '../API/Brand/FetchBrandsWith3DPricing';
 import Loader from '../components/Loader';
 import Add3DToCart from '../API/Cart/Add3DToCart';
 import { connect } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import {HomeStackParamList} from '../Types/index';
+
+/**
+ * @type {React.PureComponent}
+ * @typedef {object} ReduxProps
+ * @prop {string} AccessToken
+ * @prop {(arg0: boolean) => void} setIsAnyProductInCart
+ * @typedef {RouteProp<HomeStackParamList, 'BrandsFor3DCart'>} ReviewScreenRouteProp
+ * @typedef {StackNavigationProp<HomeStackParamList, "BrandsFor3DCart">} ReviewScreenNavigationProps
+ * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
+ * @extends {React.PureComponent<Props>}
+ */
+
 
 class FashionDesignerList extends React.PureComponent {
 
+	/**
+	 * @param {Props | Readonly<Props>} props
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -47,10 +65,16 @@ class FashionDesignerList extends React.PureComponent {
 		}).catch(console.log)
 	}
 
+	/**
+	 * @param {number} BrandID
+	 */
 	NavigateBrandProfile = (BrandID) => {
         this.props.navigation.push('BrandProfile', {BrandID})
 	}
 
+	/**
+	 * @param {number} BrandID
+	 */
 	AddDesignToCart = (BrandID) => {
 		Add3DToCart(
 			{
@@ -96,7 +120,7 @@ class FashionDesignerList extends React.PureComponent {
 	render() {
 		return (
 
-			<View useSafeAre marginB-10 flex>
+			<View useSafeArea marginB-10 flex>
 				<NavBarBack Title={"Design 3D here!"} Navigation={this.goBack} />
 				{!this.state.Loading ?
 					<FlatList
@@ -120,18 +144,24 @@ const styles = StyleSheet.create({
 		width: 100,
 		flex: 1
 	},
-
 });
 
 
 
+/**
+ * @param {{ Auth: { AccessToken: string; }; }} state
+ */
 const mapsStateToProps = state => ({
 	AccessToken : state.Auth.AccessToken
 });
 
 
+/**
+ * @param {(arg0: { type: string; value: any; }) => any} dispatch
+ */
 const mapDispatchToProps = dispatch => {
 	return {
+		// @ts-ignore
 		setIsAnyProductInCart : (value) => dispatch({type: 'setIsAnyProductInCart', value}),
 	}
 }

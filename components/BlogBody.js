@@ -1,6 +1,11 @@
 import React from 'react';
 import { Text } from 'react-native-ui-lib';
-import PropTypes from 'prop-types';
+
+/**
+ * @type {React.Component}
+ * @typedef {[{textContent: string,type: number, children: RootChildrens}]} RootChildrens
+ * @extends {React.PureComponent<{RootChildrens: RootChildrens, isBold: boolean}>}
+ **/
 
 class BlogBody extends React.PureComponent {
 
@@ -27,12 +32,5 @@ class BlogBody extends React.PureComponent {
     }
 
 };
-
-BlogBody.propTypes = {
-    /**
-     * The key of the language value to retrieve
-     */
-    RootChildrens: PropTypes.any.isRequired
-}
 
 export default BlogBody;

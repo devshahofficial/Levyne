@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { StyleSheet, TouchableHighlight } from 'react-native';
 import {Text, Colors, View} from "react-native-ui-lib";
@@ -6,6 +5,17 @@ import {Text, Colors, View} from "react-native-ui-lib";
 const PRIMARY_COLOR = Colors.secondary;
 const WHITE = Colors.white;
 const BORDER_COLOR = Colors.grey60;
+
+/**
+ * 
+ * @type {React.FunctionComponent<{actionItems: {
+ *  id: number,
+ *  label: string,
+ *  onPress: (arg0: any) => void
+ * }[], onCancel: (arg0: any) => void, actionTextColor: ?string}>}
+ * 
+ **/
+
 
 const ActionSheet = (props) => {
     const { actionItems } = props;
@@ -49,9 +59,9 @@ const ActionSheet = (props) => {
                                   allowFontScaling={false}
                                   style={[
                                       styles.actionSheetText,
-                                      props?.actionTextColor && {
+                                      props?.actionTextColor ? {
                                           color: props?.actionTextColor
-                                      },
+                                      } : {},
                                       index === actionSheetItems.length - 1 && {
                                           color: Colors.primary,
                                       }
@@ -93,25 +103,6 @@ const styles = StyleSheet.create({
         borderColor: BORDER_COLOR
     }
 });
-
-ActionSheet.propTypes = {
-    actionItems: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-            label: PropTypes.string,
-            onPress: PropTypes.func
-        })
-    ).isRequired,
-    onCancel: PropTypes.func,
-    actionTextColor: PropTypes.string
-}
-
-
-ActionSheet.defaultProps = {
-    actionItems: [],
-    onCancel: () => { },
-    actionTextColor: null
-}
 
 
 export default ActionSheet;

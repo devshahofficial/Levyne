@@ -13,10 +13,26 @@ import Loader from "../components/Loader";
 import FabricItemContainer from "../components/FabricItemContainer";
 import FetchBrandFabrics from "../API/Fabrics/FetchFabricByBrandID";
 import ProfileBottomSection from "../components/MyProfileBottomSection";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import {HomeStackParamList} from '../Types/index';
+
+/**
+ * @type {React.Component}
+ * @typedef {{AccessToken: string, SkipLogin: boolean}} ReduxProps
+ * @typedef {RouteProp<HomeStackParamList, 'BrandProfile'>} ReviewScreenRouteProp
+ * @typedef {StackNavigationProp<HomeStackParamList, "BrandProfile">} ReviewScreenNavigationProps
+ * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
+ * @extends {React.Component<Props>}
+ */
+
 
 
 class BrandProfile extends Component {
 
+    /**
+     * @param {Props | Readonly<Props>} props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -54,14 +70,14 @@ class BrandProfile extends Component {
                 { key: 'Fabrics', title: 'Fabrics' },
             ]
         }
+        
+        this.ProductPage = 1;
+        this.FabricPage = 1;
         this.abortController = new AbortController();
-        this.BrandID = parseInt(this.props.route.params.BrandID);
-        this.MyBrandID = parseInt(this.props.BrandID);
+        this.BrandID = Number(this.props.route.params.BrandID);
     }
 
     componentDidMount() {
-        this.ProductPage = 1;
-        this.FabricPage = 1;
         ViewBrandProfile(this.props.route.params.BrandID,this.props.AccessToken, this.abortController.signal).then(ProfileObject => {
             this.setState({
                 Name : ProfileObject.Name,
@@ -117,15 +133,20 @@ class BrandProfile extends Component {
 
     navigateFollowings = () => {
         this.props.navigation.push('BrandList', {
-            BrandID: this.props.route.params.BrandID,
-            Type: 1
+            BrandID: this.props.route.params.BrandID
         })
     }
 
+    /**
+     * @param {number} ProductID
+     */
     navigateProduct = (ProductID) => {
         this.props.navigation.push('Product', {ProductID})
     }
 
+    /**
+     * @param {number} FabricID
+     */
     navigateFabric = (FabricID) => {
         this.props.navigation.push('Fabric', {FabricID})
     }
@@ -133,12 +154,11 @@ class BrandProfile extends Component {
     NavigateLogin = () => {
         this.props.navigation.push("Auth", {screen: 'Login'});
     }
-
+    
     ProductRenderItem = ({ item }) =>
         <ProductItemContainer
             Token={this.props.AccessToken}
             item={item} navigateProduct={this.navigateProduct}
-            archivePressed={() => this.archivePressed({Type: 'Product', ID: item.ProductID})}
             NavigateLogin={this.NavigateLogin}
         />
 
@@ -148,7 +168,6 @@ class BrandProfile extends Component {
             item={item}
             NavigateLogin={this.NavigateLogin}
             navigateFabric={this.navigateFabric}
-            archivePressed={() => this.archivePressed({Type: 'Fabric', ID: item.FabricID})}
         />
 
     ProductScreenOnEndReached = () => {
@@ -235,6 +254,9 @@ class BrandProfile extends Component {
         )
     }
 
+    /**
+     * @param {{ BrandProducts: readonly any[] | null | undefined; }} props
+     */
     ProductScreen = (props) => {
         return (
             <View center flex>
@@ -258,6 +280,9 @@ class BrandProfile extends Component {
     }
 
 
+    /**
+     * @param {{ BrandFabrics: readonly any[] | null | undefined; }} props
+     */
     FabricScreen = (props) => {
         return (
             <>
@@ -376,9 +401,11 @@ const styles = StyleSheet.create({
         borderRadius:10,
     }
 })
+/**
+ * @param {{ Auth: { AccessToken: string; SkipLogin: boolean; }; }} state
+ */
 const mapsStateToProps = state => ({
     AccessToken: state.Auth.AccessToken,
-    BrandID: state.Auth.BrandID,
     SkipLogin: state.Auth.SkipLogin
 });
 

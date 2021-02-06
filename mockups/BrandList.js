@@ -8,11 +8,29 @@ import BrandFollowings from '../API/Brand/BrandFollowing';
 import Stars from '../components/StarIconsComponent';
 import CstmShadowView from "../components/CstmShadowView";
 import Loader from '../components/Loader';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import {HomeStackParamList} from '../Types/index';
 
 const FetchBrandFollowings = BrandFollowings.FetchBrandFollowings;
 
+/**
+ * @type {React.PureComponent}
+ * @typedef {object} ReduxProps
+ * @prop {string} AccessToken
+ * @prop {(arg0: boolean) => void} setIsAnyProductInCart
+ * @typedef {RouteProp<HomeStackParamList, 'BrandList'>} ReviewScreenRouteProp
+ * @typedef {StackNavigationProp<HomeStackParamList, "BrandList">} ReviewScreenNavigationProps
+ * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
+ * @extends {React.PureComponent<Props, {BrandList: any[], Loading: boolean, Total: number, showCustomToast: boolean}>}
+ */
+
+
 class BrandList extends React.PureComponent {
 
+	/**
+	 * @param {Props | Readonly<Props>} props
+	 */
 	constructor(props){
 		super(props);
 		this.state = {
@@ -28,6 +46,7 @@ class BrandList extends React.PureComponent {
 	componentDidMount() {
         FetchBrandFollowings(++this.Page, this.props.route.params.BrandID, this.props.AccessToken, this.abortController.signal).then(rows => {
 			this.setState({
+				// @ts-ignore
 				BrandList : rows.Brands,
 				Total : rows.Total,
 				Loading : false
@@ -69,7 +88,7 @@ class BrandList extends React.PureComponent {
 					source={{ uri: item.ProfileImage }}
 				/>
 				<View marginL-10 marginT-5>
-					<Text hb1 style={styles.headerText}>
+					<Text hb1>
 						{item.Name}
 					</Text>
 					<Text numberOfLines={4} h2 grey40 marginR-160 left>{item.About} </Text>
@@ -130,6 +149,9 @@ const styles = StyleSheet.create({
 });
 
 
+/**
+ * @param {{ Auth: { AccessToken: string; }; }} state
+ */
 const mapsStateToProps = state => ({
 	AccessToken : state.Auth.AccessToken
 });

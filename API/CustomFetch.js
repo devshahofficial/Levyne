@@ -2,7 +2,10 @@ import _ from 'lodash';
 
 /**
  * 
- * @param {any} data 
+ * @param {any} obj 
+ * @param {?string} prefix
+ * @returns {string}
+ * 
  */
 
 var encodeQueryData = function (obj, prefix) {
@@ -22,13 +25,20 @@ var encodeQueryData = function (obj, prefix) {
     return str.join("&");
 };
 
-/**
+ /**
  * 
  * @param {String} URL 
- * @param {{ReturnResponse: boolean, ThrowError: boolean, Token: String, Body: any}} param1 
+ * @param {Object} config
+ * @param {boolean} [config.ReturnResponse]
+ * @param {boolean} [config.ThrowError]
+ * @param {string} [config.Token]
+ * @param {any} [config.Body]
+ * @param {AbortSignal | undefined} abortControllerSignal
  */
 
-export const POST = async (URL, { ReturnResponse, ThrowError, Token, Body }, abortControllerSignal) => {
+
+export const POST = async (URL, { ReturnResponse, ThrowError, Token, Body }, abortControllerSignal = undefined) => {
+    // @ts-ignore
     const resp = await fetch(global.BaseURL + URL, {
         method: 'POST',
         signal: abortControllerSignal,
@@ -56,12 +66,18 @@ export const POST = async (URL, { ReturnResponse, ThrowError, Token, Body }, abo
 /**
  * 
  * @param {String} URL 
- * @param {{ReturnResponse: boolean, Token: String, QueryData: any}} param1 
+ * @param {Object} config
+ * @param {boolean} [config.ReturnResponse]
+ * @param {boolean} [config.ThrowError]
+ * @param {string} [config.Token]
+ * @param {any} [config.QueryData]
+ * @param {AbortSignal | undefined} abortControllerSignal
  */
 
-export const GET = async (URL, { ReturnResponse, ThrowError, Token, QueryData }, abortControllerSignal) => {
+export const GET = async (URL, { ReturnResponse = false, ThrowError = false, Token = "", QueryData = {} }, abortControllerSignal = undefined) => {
 
-    const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(QueryData), {
+    // @ts-ignore
+    const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(QueryData, null), {
         method: 'GET',
         signal: abortControllerSignal,
         headers: {

@@ -1,0 +1,83 @@
+{
+  "project_info": {
+    "project_number": "461020935392",
+    "firebase_url": "https://levyne-official.firebaseio.com",
+    "project_id": "levyne-official",
+    "storage_bucket": "levyne-official.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461020935392:android:a7114d1466ceabc7d60c85",
+        "android_client_info": {
+          "package_name": "com.levyne"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461020935392-4ibh1ql4iucqsfes9erptme3vkrqhf7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANKikUdLj9vGGDez1ymOWcfAUvZ57BAjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461020935392-4ibh1ql4iucqsfes9erptme3vkrqhf7q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "461020935392-vi0j0j87ac14jipc8siu9s5eeck5toqh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.levyne.app"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461020935392:android:f66e31c118395f93d60c85",
+        "android_client_info": {
+          "package_name": "com.levynebusiness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "461020935392-4ibh1ql4iucqsfes9erptme3vkrqhf7q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANKikUdLj9vGGDez1ymOWcfAUvZ57BAjY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "461020935392-4ibh1ql4iucqsfes9erptme3vkrqhf7q.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "461020935392-vi0j0j87ac14jipc8siu9s5eeck5toqh.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.levyne.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
