@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react';
-import {TouchableOpacity,Text,Colors,View} from 'react-native-ui-lib';
+import {TouchableOpacity, Colors,View} from 'react-native-ui-lib';
 import {ShoppingBag} from "../Icons/ShoppingBag";
 import CstmShadowView from "./CstmShadowView";
-import {StyleSheet, Platform} from 'react-native';
+
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{onSendPressed: () => void}>}
+ **/
 
 //The bar at the bottom with a textbox and a send button.
 export default class ConfirmModal extends PureComponent {
@@ -14,7 +18,6 @@ export default class ConfirmModal extends PureComponent {
                 onPress={this.props.onSendPressed}
                 style={{
                     backgroundColor: 'rgba(255,255,255,0)',
-
                 }}
             >
                 <CstmShadowView style={{height:50, width:50, justifyContent:'center', alignContent:'center'}}>
@@ -26,21 +29,3 @@ export default class ConfirmModal extends PureComponent {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    YesButton:{
-        backgroundColor:Colors.primary,
-        marginLeft:80,
-        borderRadius: 60,
-        height: 35,
-        width:85,
-    },
-    modal: {
-        paddingHorizontal: 20,
-        flexDirection:'row',
-        flex: 1,
-        justifyContent: 'center',
-        height: 50,
-        paddingBottom: Platform.OS === 'ios' ? 5 : 0
-    },
-})

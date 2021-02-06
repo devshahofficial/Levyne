@@ -4,6 +4,11 @@ import {View,Text, TouchableOpacity,Colors, AnimatedImage} from 'react-native-ui
 import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{navigateBrand: (BrandID: number) => void, item: {BrandID: number, ProfileImage: string, Name: string, About: string, Rating: number}}>}
+ **/
+
 
 export default class BrandItemContainer extends React.PureComponent {
     render() {

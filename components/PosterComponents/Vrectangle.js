@@ -4,8 +4,12 @@ import {StyleSheet, Dimensions, Image} from 'react-native';
 
 const {height} = Dimensions.get('window');
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{onPress: (arg0: any) => void}>}
+ **/
 
-export default class Vrectangle extends React.Component {
+export default class Vrectangle extends React.PureComponent {
     render() {
         return (
             <View row>

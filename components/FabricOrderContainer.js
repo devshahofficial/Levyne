@@ -8,12 +8,23 @@ import RemoveWishlistFabricByID from '../API/Fabrics/RemoveWishlistFabricByID';
 import CstmShadowView from "./CstmShadowView";
 import BookMarkIcon from '../Icons/BookMarkIcon';
 
+
+/**
+ * @type {React.PureComponent}
+ * @typedef {{IsWishlist: 1 | 0 | boolean, FabricID: number, FabricImage: string, Category: string, FabricPrice: number, Name: string, ShortDescription: string, BrandPrice: number}} FabricItem
+ * @typedef {{NavigateSearch: () => void, item: FabricItem, navigateFabric: (FabricID: number) => void, Token: string, NavigateLogin: () => void, SelectedFabric: number, SelectFabric: (FabricID: number) => void}} FabricItemContainerProps
+ * @extends {React.Component<FabricItemContainerProps>}
+ **/
+
+
 export default class FabricOrderContainer extends React.Component {
 
+    /**
+     * @param {FabricItemContainerProps | Readonly<FabricItemContainerProps>} props
+     */
     constructor(props)
     {
         super(props);
-        _HeartIcon = React.createRef();
         this.state={
             addToWishlist: this.props.item.IsWishlist === 1 ? true : false
         }
@@ -86,7 +97,7 @@ export default class FabricOrderContainer extends React.Component {
 
                 <Button
                     label={this.props.SelectedFabric === this.props.item.FabricID ? "Your Choice" : "Choose"}
-                    h2 style={{height:"auto"}} center
+                    h2 center
                     onPress={() => {
                         this.props.SelectFabric(this.props.item.FabricID)
                     }}

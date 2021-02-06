@@ -4,8 +4,13 @@ import {StyleSheet, Dimensions, Image} from 'react-native';
 
 const {height} = Dimensions.get('window');
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{onPress: (arg0: any) => void, Image: string}>}
+ **/
 
-export default class Rectangle extends React.Component {
+
+export default class Rectangle extends React.PureComponent {
     render() {
         return (
             <TouchableOpacity activeOpacity={0.8} onPress={this.props.onPress} style={styles.msg}>

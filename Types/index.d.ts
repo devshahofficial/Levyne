@@ -26,14 +26,14 @@ export type HomeStackParamList = {
     EditProfile: undefined,
     Chat: {
         BucketID: number,
-        BrandID: ?number,
+        [BrandID]: number,
         Name: string,
         imageSource: {
             uri: string
         }
     },
     ChatWhenNoBucketID: {
-        BucketID: ?number,
+        [BucketID]: number,
         BrandID: number,
         Name: string,
         imageSource: {
@@ -66,7 +66,7 @@ export type HomeStackParamList = {
     MyFits: undefined,
     MyOrders: {
         PaymentSuccess: boolean,
-        OrderID: ?number
+        [OrderID]: number
     },
     CheckOut: {
         BrandName: string,
@@ -97,7 +97,7 @@ export type HomeStackParamList = {
             Label: string,
             Type: 0 | 1 | 2 | 3 | 4,
             Index: number,
-            Gender: ?number
+            [Gender]: number
         }
     },
     ThreeDModel: {

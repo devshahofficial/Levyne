@@ -5,6 +5,11 @@ import {
     Text,
 } from 'react-native-ui-lib';
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{NavigateSearch: () => void, title: string, Image: string}>}
+ **/
+
 export default class Fabric extends React.PureComponent {
     render() {
         return (

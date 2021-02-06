@@ -6,6 +6,12 @@ import CstmShadowView from "./CstmShadowView";
 import Colors from '../Style/Colors';
 import {CameraIcon} from "../Icons/CameraIcon";
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{value: string, onChangeText: (value : string) => void, TextInputKey: string, DisplayImagePicker: () => void, SendMessage: () => void}>}
+ **/
+
+
 //The bar at the bottom with a textbox and a send button.
 export default class ChatInputBar extends PureComponent {
 
@@ -16,6 +22,7 @@ export default class ChatInputBar extends PureComponent {
                     <CstmShadowView style={styles.ShadowViewInput}>
                         <View centerV marginL-10 flex-10 style={styles.TextArea}>
                             <TextArea
+                                // @ts-ignore
                                 hideUnderline h1
                                 blurOnSubmit={true}
                                 placeholder={"Type message..."}

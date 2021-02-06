@@ -7,10 +7,29 @@ import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
 const screenWidth = Dimensions.get('window').width;
 
-export default class BucketComponent extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+/**
+ * @type {React.PureComponent}
+ * @typedef {(BucketID: number, BrandID: number, Name: string, TotalProducts: string, ProfileImage: {uri : string}) => void} NavigateBucket
+ * @typedef {(BrandID: number) => void} navigateBrand
+ * @typedef {(BucketID: number, BrandName: string, BrandID: number, ChatProfileImage: {uri: string}) => void} navigateChat
+ * @typedef {(BucketID: number, BrandName: string, Status: 1 | 0 | boolean) => void} navigateCheckout
+ * @typedef {{
+ *  BucketID: number,
+ *  BrandID: number,
+ *  Name: string,
+ *  TotalProducts: string,
+ *  ProfileImage: string,
+ *  BrandRating: number,
+ *  AveragePrice: number,
+ *  Status: 1 | 0 | boolean,
+ *  DecidedPrice: number,
+ *  PrimaryImage: string,
+ *  ProductsCount: number
+ * }} item
+ * @extends {React.PureComponent<{NavigateBucket: NavigateBucket, item: item, navigateBrand: navigateBrand, navigateChat: navigateChat, navigateCheckout: navigateCheckout}>}
+ **/
+
+export default class BucketComponent extends React.PureComponent {
 
     render() {
         return (
@@ -58,7 +77,7 @@ export default class BucketComponent extends React.Component {
                                 style={styles.imageBackground}
                                 blurRadius={5}
                             >
-                                <Text center b1 white style={styles.text}>{"+"}{this.props.item.ProductsCount}</Text>
+                                <Text center b1 white>{"+"}{this.props.item.ProductsCount}</Text>
                             </ImageBackground>
                         </View>
                     </View>

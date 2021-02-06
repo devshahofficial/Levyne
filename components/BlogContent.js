@@ -1,11 +1,14 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Colors, Image } from 'react-native-ui-lib';
+import { Text, TouchableOpacity, Image } from 'react-native-ui-lib';
 import CstmShadowView from "./CstmShadowView";
 
+/**
+ * @type {React.PureComponent}
+ * @typedef {(PostID: number, Headline: string, Image: string, Timestamp: string) => void} Navigation
+ * @extends {React.PureComponent<{Navigation: Navigation,PostID: number, Headline: string, Image: string, Timestamp: string}>}
+ **/
+
 export default class BlogContent extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (

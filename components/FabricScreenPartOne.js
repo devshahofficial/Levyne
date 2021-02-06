@@ -3,10 +3,26 @@ import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import BookMarkIcon from "../Icons/BookMarkIcon";
 import Colors from '../Style/Colors';
 import {FlatList,StyleSheet} from "react-native";
+import { StackNavigationProp } from '@react-navigation/stack';
 const defaultColors = ["#ff99cc","#7ac1ff"];
+import {HomeStackParamList} from '../Types/index';
+
+/**
+ * @type {React.PureComponent}
+ * @typedef {(FabricID: number, Token: string) => void} AddToWishlistFn
+ * @typedef {(FabricID: number, Token: string) => void} RemoveFromWishlistFn
+ * @typedef {() => void} NavigateLogin
+ * @typedef {{FabricWishlist: boolean | 1 | 0, Token: string, FabricID: number, CategoryID: number, Category: string, Title: string, FabricPrice: number, Materials: string[], MaterialIDs: number[]}} FabricPartOneDetails
+ * @typedef {{AddToWishlistFn: AddToWishlistFn, RemoveFromWishlistFn: RemoveFromWishlistFn, NavigateLogin: NavigateLogin, navigation: StackNavigationProp<HomeStackParamList, 'Fabric'>}} FabricPartOneNavigation
+ * @extends {React.Component<FabricPartOneDetails & FabricPartOneNavigation>}
+ **/
+
 
 export default class FabricScreenPartOne extends React.Component {
 
+    /**
+     * @param {(FabricPartOneDetails & FabricPartOneNavigation) | Readonly<FabricPartOneDetails & FabricPartOneNavigation>} props
+     */
     constructor(props){
         super(props);
         this.state = {
@@ -40,6 +56,10 @@ export default class FabricScreenPartOne extends React.Component {
 		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 0, Index: this.props.CategoryID, Label: this.props.Category}});
     }
 
+    /**
+     * @param {any} MaterialID
+     * @param {any} Material
+     */
     navigateMaterial = (MaterialID, Material) => {
 		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 2, Index: MaterialID, Label: Material}});
 	}

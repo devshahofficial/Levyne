@@ -4,6 +4,11 @@ import {TouchableOpacity,View,Text,Button,Colors} from 'react-native-ui-lib';
 import {CancelIcon} from "../../Icons/Cancel";
 import CstmShadowView from "../CstmShadowView";
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{CheckOut: (arg0: any) => void, modalVisible: boolean, setModalVisible: (arg0: any) => void}>}
+ **/
+
 
 export default class ChatModal extends React.PureComponent {
 

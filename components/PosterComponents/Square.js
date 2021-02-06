@@ -4,6 +4,10 @@ import {StyleSheet, Dimensions, Image} from 'react-native';
 
 const {height} = Dimensions.get('window');
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{NavigateThreeD: (Type: number, Label: string) => void}>}
+ **/
 
 export default class Square extends React.PureComponent {
     render() {

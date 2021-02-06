@@ -3,8 +3,20 @@ import {StyleSheet,Dimensions} from 'react-native';
 import {Avatar, Text, View, Colors, TouchableOpacity} from 'react-native-ui-lib';
 import {BackArrowIcon} from "../Icons/BackArrowIcon";
 
+/**
+ * @type {React.PureComponent}
+ * @typedef {() => void} NavigateBack
+ * @typedef {() => void} NavigateBrandProfile
+ * @typedef {() => void} NavigateBucket
+ * @extends {React.PureComponent<{NavigateBack: NavigateBack, NavigateBrandProfile: NavigateBrandProfile, NavigateBucket: NavigateBucket, imageSource: {uri: string}, initials: string, Name: string, BucketID: number, BucketInfo: {OrderID: number}, Status: 0 | 1 | 2}>}
+ **/
+
+
 export default class ChatHeader extends React.PureComponent {
 
+    /**
+     * @param {0 | 1 | 2} BucketStatus
+     */
     renderStatus(BucketStatus) {
         switch(BucketStatus) {
             case 0:
@@ -26,7 +38,6 @@ export default class ChatHeader extends React.PureComponent {
                         <Avatar
                             source={this.props.imageSource}
                             label={this.props.initials}
-                            containerStyle={styles.avatar}
                         />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.textView} onPress={this.props.NavigateBucket}>

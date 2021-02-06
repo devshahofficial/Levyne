@@ -5,6 +5,13 @@ import {
     Text,
 } from 'react-native-ui-lib';
 
+/**
+ * @type {React.PureComponent}
+ * @typedef {() => void} NavigateSearch
+ * @extends {React.PureComponent<{NavigateSearch: NavigateSearch, Image: string, title: string}>}
+ **/
+
+
 export default class Category extends React.PureComponent {
     render() {
         return (

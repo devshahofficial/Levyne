@@ -3,11 +3,13 @@ import { StyleSheet, SafeAreaView } from 'react-native';
 import {Button, Colors} from "react-native-ui-lib";
 import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
 
-export default class ConstBottomButton extends React.PureComponent {
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{ButtonA: string, ButtonActionA: (BrandID: number) => {}, ButtonB: string, ButtonActionB: () => {}, BrandID: number}>}
+ **/
 
-    constructor(props){
-        super(props);
-    }
+
+export default class ConstBottomButton extends React.PureComponent {
 
     render() {
         return (

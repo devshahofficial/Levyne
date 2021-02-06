@@ -3,7 +3,7 @@ import { Modal, TouchableOpacity } from 'react-native';
 import ActionSheet from './ActionSheet';
 
 /**
- * @type {React.Component}
+ * @type {React.PureComponent}
  * @extends {React.PureComponent<{ConfirmOrder: (arg0: any) => void, modalVisible: boolean, setModalVisible: (arg0: any) => void}>}
  **/
 

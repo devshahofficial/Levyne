@@ -2,10 +2,43 @@ import React from 'react';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { View, TouchableOpacity, Text, Colors } from 'react-native-ui-lib';
 import { ArchiveIcon } from "../Icons/ArchiveIcon";
-import ShadowView from "react-native-simple-shadow-view";
+/**
+ * @extends {RNView}
+ */
+// @ts-ignore
+const ShadowView = require("react-native-simple-shadow-view").default;
+
+
 import WebView from 'react-native-webview';
 
 const windowWidth = Dimensions.get('window').width;
+
+/**
+ * @type {React.PureComponent}
+ * @typedef {(ProductID: number) => void} navigateProduct
+ * @typedef {(Image: string) => void} DisplayImageView
+ * @typedef {(FabricID: number) => void} navigateFabric
+ * @typedef {(CartID: number) => void} RemoveProductFromCart
+ * @typedef {(DesignID: number) => void} navigateDesign
+ * @typedef {() => void} navigateChat
+ * @typedef {{
+ *  ProductImage: string,
+ *  FabricImage: string,
+ *  DesignImage: string,
+ *  AveragePrice: number,
+ *  DesignID: number,
+ *  DecidedPrice: number,
+ *  Status: 0 | 1 | 2,
+ *  Quantity: number,
+ *  ProductID: number,
+ *  FabricID: number,
+ *  Category: string,
+ *  '3DModel': string | number,
+ *  '3DModelID': number
+ *  CartID: number
+ * }} BucketItem
+ * @extends {React.PureComponent<{OrderCompleted: boolean, BrandImage: {uri: string}, item: BucketItem, navigateChat: navigateChat, navigateProduct: navigateProduct,DisplayImageView: DisplayImageView, navigateFabric: navigateFabric, RemoveProductFromCart: RemoveProductFromCart, navigateDesign: navigateDesign}>}
+ **/
 
 export default class BucketProduct extends React.PureComponent {
 
