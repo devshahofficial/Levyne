@@ -10,9 +10,29 @@ const width = Dimensions.get('window').width;
 import InAppReview from "react-native-in-app-review";
 import AddReviews from '../API/Orders/AddReviews';
 import { connect } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
+/**
+ * @type {React.PureComponent}
+ * @typedef {object} AccessTokenProps
+ * @prop {string} AccessToken
+ * @typedef {{
+ * 	Review: {
+ * 		Rating: number,
+ * 		OrderID: number
+ * 	}
+ * }} RootStackParamList
+ * @typedef {RouteProp<RootStackParamList, 'Review'>} ReviewScreenRouteProp
+ * @typedef {StackNavigationProp<RootStackParamList, "Review">} ReviewScreenNavigationProps
+ * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
+ * @extends {React.PureComponent<Props>}
+ */
 class Review extends React.PureComponent {
 
+	/**
+	 * @param {Props | Readonly<Props>} props
+	 */
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -25,24 +45,36 @@ class Review extends React.PureComponent {
 		this.InAppReviewAvailable = InAppReview.isAvailable();
 	}
 
+	/**
+	 * @param {number} BrandRating
+	 */
 	UpdateBrandRating = (BrandRating) => {
 		this.setState({ BrandRating });
 	}
 
+	/**
+	 * @param {string} BrandReview
+	 */
 	setBrandReview = (BrandReview) => {
 		this.setState({ BrandReview })
 	}
 
+	/**
+	 * @param {number} DeliveryRating
+	 */
 	UpdateDeliveryRating = (DeliveryRating) => {
 		this.setState({ DeliveryRating });
 	}
 
+	/**
+	 * @param {string} DeliveryReview
+	 */
 	setDeliveryReview = (DeliveryReview) => {
 		this.setState({ DeliveryReview })
 	}
 
 	goToDeliveryRating = () => {
-		this.SVR.scrollTo({x: width, animated: true})
+		this.SVR?.scrollTo({ x: width, animated: true })
 	}
 
 	OpenInAppReview = () => {
@@ -70,57 +102,58 @@ class Review extends React.PureComponent {
 					Navigation={this.props.navigation.goBack}
 				/>
 				<ScrollView horizontal pagingEnabled scrollEnabled={false} ref={(SVR) => this.SVR = SVR}>
-				<View flex center width={width}>
-					<Image
-						style={{ width: 100, height: 100 }}
-						source={{ uri: 'https://cdn.dribbble.com/users/508588/screenshots/14415916/media/b57f1898f0f5430c34d262a54fd9e010.jpg' }}
-					/>
-					<Text hb1>Tell us about your experience!</Text>
-					<View marginV-10 style={{ flexDirection: 'row' }}>
-						<StarIconsWithPress Rating={this.state.BrandRating || 0} UpdateRating={this.UpdateBrandRating} />
+					<View flex center width={width}>
+						<Image
+							style={{ width: 100, height: 100 }}
+							source={{ uri: 'https://cdn.dribbble.com/users/508588/screenshots/14415916/media/b57f1898f0f5430c34d262a54fd9e010.jpg' }}
+						/>
+						<Text hb1>Tell us about your experience!</Text>
+						<View marginV-10 style={{ flexDirection: 'row' }}>
+							<StarIconsWithPress Rating={this.state.BrandRating || 0} UpdateRating={this.UpdateBrandRating} />
+						</View>
+
+						<CstmInput
+							style={{ height: 100, width: '90%', borderRadius: 15 }}
+							placeholder='Review'
+							value={this.state.BrandReview}
+							onChangeText={this.setBrandReview}
+						/>
+
+						<TouchableOpacity onPress={this.goToDeliveryRating} center marginV-10 style={{ backgroundColor: Colors.primary, padding: 12, borderRadius: 10, width: 90 }}>
+							<Text hb1 white>Post</Text>
+						</TouchableOpacity>
 					</View>
+					<View flex center width={width}>
+						<Image
+							style={{ width: 100, height: 100 }}
+							source={{ uri: 'https://cdn.dribbble.com/users/508588/screenshots/14415916/media/b57f1898f0f5430c34d262a54fd9e010.jpg' }}
+						/>
+						<Text hb1>Tell us about your experience!</Text>
+						<View marginV-10 style={{ flexDirection: 'row' }}>
+							<StarIconsWithPress Rating={this.state.DeliveryRating || 0} UpdateRating={this.UpdateDeliveryRating} />
+						</View>
 
-					<CstmInput
-						style={{ height: 100, width: '90%', borderRadius: 15 }}
-						placeholder='Review'
-						value={this.state.BrandReview}
-						onChangeText={this.setBrandReview}
-					/>
+						<CstmInput
+							style={{ height: 100, width: '90%', borderRadius: 15 }}
+							placeholder='Review'
+							value={this.state.DeliveryReview}
+							onChangeText={this.setDeliveryReview}
+						/>
 
-					<TouchableOpacity onPress={this.goToDeliveryRating} center marginV-10 style={{backgroundColor: Colors.primary, padding: 12, borderRadius: 10, width: 90}}>
-						<Text hb1 white>Post</Text>
-					</TouchableOpacity>
-				</View>
-				<View flex center width={width}>
-					<Image
-						style={{ width: 100, height: 100 }}
-						source={{ uri: 'https://cdn.dribbble.com/users/508588/screenshots/14415916/media/b57f1898f0f5430c34d262a54fd9e010.jpg' }}
-					/>
-					<Text hb1>Tell us about your experience!</Text>
-					<View marginV-10 style={{ flexDirection: 'row' }}>
-						<StarIconsWithPress Rating={this.state.DeliveryRating || 0} UpdateRating={this.UpdateDeliveryRating} />
+						<TouchableOpacity onPress={this.OpenInAppReview} center marginV-10 style={{ backgroundColor: Colors.primary, padding: 12, borderRadius: 10, width: 90 }}>
+							<Text hb1 white>Post</Text>
+						</TouchableOpacity>
 					</View>
-
-					<CstmInput
-						style={{ height: 100, width: '90%', borderRadius: 15 }}
-						placeholder='Review'
-						value={this.state.DeliveryReview}
-						onChangeText={this.setDeliveryReview}
-					/>
-
-					<TouchableOpacity onPress={this.OpenInAppReview} center marginV-10 style={{backgroundColor: Colors.primary, padding: 12, borderRadius: 10, width: 90}}>
-						<Text hb1 white>Post</Text>
-					</TouchableOpacity>
-				</View>
 				</ScrollView>
 			</>
 		);
 	}
 }
-
-
+/**
+ * @param {{ Auth: { AccessToken: string; }; }} state
+ */
 const mapsStateToProps = (state) => ({
-    AccessToken: state.Auth.AccessToken
+	AccessToken: state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(Review);

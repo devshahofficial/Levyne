@@ -4,8 +4,17 @@ import NewSocket from './NewSocket';
 import FetchChatBuckets from '../Chats/FetchChatBuckets';
 import { POST } from '../CustomFetch';
 import IsAnyProductInCart from '../Profile/IsAnyProductInCart';
+import { Socket } from 'socket.io-client';
 
-export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart) => {
+/**
+ * @param {(AuthObject: { SkipLogin?: boolean; AccessToken?: string; RefreshToken?: string; Timestamp?: string; Mobile?: string | null; UserID?: string; }) => void} setAuth
+ * @param {(ProfileObject: { ProfileStatus: number; Name?: string | null; Email?: string | null; Address?: string | null; Gender?: number; PinCode?: string | null; }) => void} setProfile
+ * @param {(Socket: Socket) => void} setSocket
+ * @param {(ChatList: any[]) => void} setChatList
+ * @param {(BucketID: Number) => void} MarkBucketAsUnRead
+ * @param {(IsAnyProductInCart: boolean) => void} setIsAnyProductInCart
+ */
+const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart) => {
     try {
         const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus', 'Testing']);
         if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
@@ -16,8 +25,11 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
             return 'MainHomeStack'
         }
 
+        // @ts-ignore
         if (+SkipLogin[2][1]) {
+            // @ts-ignore
             global.BaseURL = 'https://apitesting603.levyne.com/v1/Users/';
+            // @ts-ignore
             global.URL = 'https://apitesting603.levyne.com/';
         }
 
@@ -37,7 +49,7 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
 
         const UserID = Response[3][1];
 
-        const ProfileStatus = parseInt(SkipLogin[1][1]);
+        const ProfileStatus = Number(SkipLogin[1][1]);
 
         const today = new Date();
         const yesterday = new Date(today);
@@ -104,7 +116,7 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
                     Email : ResponseCase2[1][1],
                     Address : ResponseCase2[2][1],
                     ProfileStatus: 2,
-                    Gender: parseInt(ResponseCase2[3][1]),
+                    Gender: Number(ResponseCase2[3][1]),
                     PinCode: ResponseCase2[4][1]
                 })
                 return 'MainHomeStack';
@@ -119,3 +131,5 @@ export const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, Mar
         throw new Error('Login');
     }
 }
+
+export default AuthCheck;

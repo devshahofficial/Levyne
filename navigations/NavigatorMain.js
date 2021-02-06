@@ -2,14 +2,18 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IndexScreen from '../mockups/Index';
+// @ts-ignore
 import LoginScreen from '../mockups/Login';
+// @ts-ignore
 import OTPScreen from '../mockups/OTP';
 import HomeScreen from '../mockups/Home/Home';
 import MyProfile from '../mockups/Profile/MyProfile';
 import BrandProfile from '../mockups/BrandProfile';
 import SearchScreen from '../mockups/Search/SearchScreen';
 import ChatListScreen from '../mockups/ChatSystem/ChatListScreen';
+// @ts-ignore
 import InitialProfile from '../mockups/InitialProfile';
+// @ts-ignore
 import ChatScreen from '../mockups/ChatSystem/ChatScreen';
 import ProductScreen from '../mockups/ProductScreen';
 import { Colors } from 'react-native-ui-lib';
@@ -22,12 +26,14 @@ import TermsConditionsScreen from '../mockups/Profile/TermsConditionsScreen';
 import InternetConnection from '../mockups/InternetConnection';
 import Cart from '../mockups/Home/Cart';
 import Notifications from '../mockups/Home/Notifications';
+// @ts-ignore
 import EditProfile from '../mockups/Profile/EditProfile';
 import Customize from '../mockups/Customize';
 import Bucket from '../mockups/Home/Bucket';
 import ProductAddToCart from '../mockups/ProductAddToCart';
 import CheckOut from '../mockups/CheckOut';
 import MyFashionDesigners from '../mockups/Profile/MyFashionDesigners';
+// @ts-ignore
 import MyFits from '../mockups/Profile/MyFits';
 import FAQscreen from '../mockups/Profile/FAQscreen';
 import MyOrders from '../mockups/Profile/MyOrders';
@@ -49,6 +55,7 @@ import DesignedAtLevyne from '../mockups/Home/Designed at Levyne';
 import CallToOrder from '../mockups/Home/CallToOrder';
 import AddReview from '../mockups/AddReviews';
 import FabricsFor3DCart from '../mockups/FabricsFor3DCart';
+// @ts-ignore
 import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
 import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
 import QRCodeReader from '../mockups/Home/QRCodeReader';
@@ -63,7 +70,6 @@ class BottomTabNavigation extends React.PureComponent {
 		return (
 			<Tab.Navigator
 				initialRouteName="HomeTab"
-				header="none"
 				tabBarOptions={{
 					activeTintColor: Colors.primary,
 					inactiveTintColor: Colors.grey40,
@@ -122,6 +128,9 @@ class BottomTabNavigation extends React.PureComponent {
 	}
 }
 
+/**
+ * @param {{ Chat: { UnreadBuckets: string | any[]; IsAnyProductInCart: boolean; }; }} state
+ */
 const mapsStateToProps = (state) => ({
 	IsAnyUnreadMessage: state.Chat.UnreadBuckets.length,
 	IsAnyProductInCart: state.Chat.IsAnyProductInCart,
@@ -136,7 +145,6 @@ class MainHomeStack extends React.PureComponent {
 		return (
 			<HomeStack.Navigator
 				headerMode="none"
-				hideStatusBar={true}
 			>
 				<HomeStack.Screen name="Home" component={BottomTabNavigationConnect} />
 				<HomeStack.Screen name="Customize" component={Customize} />
@@ -212,7 +220,6 @@ class NavigationAuth extends React.PureComponent {
 		return (
 			<AuthStack.Navigator
 				headerMode="none"
-				hideStatusBar={true}
 				screenOptions={{
 					gestureEnabled: false,
 				}}>

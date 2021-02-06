@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Linking } from 'react-native';
+// @ts-ignore
 import Logo from '../assets/images/Logo.svg';
-import { AuthCheck } from '../API/Auth/index';
+import AuthCheck from '../API/Auth/index';
 import { connect } from 'react-redux';
 import { Colors, AvatarHelper } from 'react-native-ui-lib';
 import { CommonActions } from '@react-navigation/native';
@@ -16,8 +17,10 @@ class IndexScreen extends React.Component {
 
 		AuthCheck(setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart).then(NavigateScreen => {
 
+			// @ts-ignore
 			if(global.NotificationObject) {
 				
+				// @ts-ignore
 				if(global.NotificationObject.BucketID) {
 					this.props.navigation.dispatch(
 						CommonActions.reset({
@@ -38,11 +41,16 @@ class IndexScreen extends React.Component {
 										routes: [
 											{ name: 'Home' },
 											{ name: 'Chat', params: {
+                                                // @ts-ignore
                                                 BucketID : global.NotificationObject.BucketID,
+                                                // @ts-ignore
                                                 Name : global.NotificationObject.Name,
+                                                // @ts-ignore
                                                 Status: global.NotificationObject.Status,
+                                                // @ts-ignore
                                                 BrandID: global.NotificationObject.BrandID,
                                                 imageSource: null,
+                                                // @ts-ignore
                                                 initials: AvatarHelper.getInitials(global.NotificationObject.Name)
                                             } },
 										],
@@ -56,6 +64,7 @@ class IndexScreen extends React.Component {
 					Linking.getInitialURL().then(url => this.HandleLinkingInitialURL(url, NavigateScreen)).catch(() => { });
 				}
 
+				// @ts-ignore
 				delete global.NotificationObject;
 				//return;
 			} else {
@@ -93,30 +102,44 @@ class IndexScreen extends React.Component {
 		if (url.includes('https://collections.levyne.com/')) {
 
             const Paths = url.replace('https://collections.levyne.com', '').split('/');
-            if (Paths.length === 3) {
-                HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
-				return true;
-            } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
-                HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
-				return true;
-            }
+			if(Paths[1] in ScreenIDs) {
+				if (Paths.length === 3) {
+					// @ts-ignore
+					HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
+					return true;
+				// @ts-ignore
+				} else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
+					// @ts-ignore
+					HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
+					return true;
+				}
+			}
 		} else if(url.includes('levyne://collections/')) {
 			const Paths = url.replace('levyne://collections', '').split('/');
-            if (Paths.length === 3) {
-                HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
-				return true;
-            } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
-                HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
-				return true;
-            }
+			if(Paths[1] in ScreenIDs) {
+				if (Paths.length === 3) {
+					// @ts-ignore
+					HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
+					return true;
+				// @ts-ignore
+				} else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
+					// @ts-ignore
+					HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
+					return true;
+				}
+			}
 		}
 		return false;
 	}
 
+	/**
+	 * @param {?string} url
+	 * @param {string} NavigateScreen
+	 */
 	HandleLinkingInitialURL = (url, NavigateScreen) => {
 
 
-		if (!this.handleOpenURL({ url })) {
+		if (url && !this.handleOpenURL({ url })) {
 			if (NavigateScreen === 'MainHomeStack') {
 
 				this.props.navigation.dispatch(
@@ -163,13 +186,22 @@ class IndexScreen extends React.Component {
 	}
 };
 
+/**
+ * @param {(arg0: { type: string; value: any; }) => any} dispatch
+ */
 const mapDispatchToProps = dispatch => {
 	return {
+		// @ts-ignore
 		setAuth: (AuthObject) => dispatch({ type: 'setAuth', value: AuthObject }),
+		// @ts-ignore
 		setProfile: (ProfileObject) => dispatch({ type: 'setProfile', value: ProfileObject }),
+		// @ts-ignore
 		setSocket: (Socket) => dispatch({ type: 'setSocket', value: Socket }),
+		// @ts-ignore
 		setChatList: (ChatList) => dispatch({ type: 'setChatList', value: ChatList }),
+		// @ts-ignore
 		MarkBucketAsUnRead: (Buckets) => dispatch({ type: 'MarkBucketAsUnRead', value: Buckets }),
+		// @ts-ignore
 		setIsAnyProductInCart: (value) => dispatch({ type: 'setIsAnyProductInCart', value }),
 	}
 }

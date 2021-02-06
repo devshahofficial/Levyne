@@ -2,6 +2,10 @@ import React from 'react';
 import { Modal, TouchableOpacity } from 'react-native';
 import ActionSheet from './ActionSheet';
 
+/**
+ * @type {React.Component}
+ * @extends {React.PureComponent<{ConfirmOrder: (arg0: any) => void, modalVisible: boolean, setModalVisible: (arg0: any) => void}>}
+ **/
 
 export default class ChatModal extends React.PureComponent {
 
@@ -32,6 +36,7 @@ export default class ChatModal extends React.PureComponent {
                     <ActionSheet
                         actionItems={actionItems}
                         onCancel={this.props.setModalVisible}
+                        actionTextColor={null}
                     />
                 </TouchableOpacity>
             </Modal>

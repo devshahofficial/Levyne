@@ -1,5 +1,11 @@
 import { CommonActions } from '@react-navigation/native';
 
+/**
+ * @param {1 | 2 | 3 | 4 | 5 } Type
+ * @param {string | number} TypeID
+ * @param {{ dispatch: (arg0: CommonActions.Action) => void; }} navigation
+ * @param {string | undefined} [BrandUserName]
+ */
 const HandleShareURL = (Type, TypeID, navigation, BrandUserName) => {
     if(Type && TypeID) {
         switch (Type) {

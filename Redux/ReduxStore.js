@@ -10,6 +10,9 @@ const InitialAuthStates = {
     SkipLogin: false
 }
 
+/**
+ * @param {{ type: string; value: any; }} action
+ */
 const AuthReducer = (state = InitialAuthStates, action) => {
 	switch(action.type)
 	{
@@ -38,6 +41,9 @@ const InitialProfileStates = {
     ProfileStatus: 0
 }
 
+/**
+ * @param {{ type: string; value: any; }} action
+ */
 const ProfileReducer = (state = InitialProfileStates, action) => {
     switch(action.type)
     {
@@ -58,8 +64,14 @@ const ProfileReducer = (state = InitialProfileStates, action) => {
     }
 }
 
-const InitialSocketState = {};
+const InitialSocketState = {
+	Socket: null
+};
 
+/**
+ * @param {{Socket: ?any}} state
+ * @param {{ type: string; value: any; }} action
+ */
 const SocketReducer = (state = InitialSocketState, action) => {
 	switch (action.type) {
 		case 'setSocket':
@@ -79,27 +91,38 @@ const InitialChatStates = {
 	IsAnyProductInCart: false,
 };
 
+/**
+ * @param {{ UnreadBuckets: number[], ChatList: {unread: number}[], ChatLoading: boolean, IsAnyProductInCart: boolean}} state
+ * @param {{ type: string; EmptyFirst: boolean; value: any[] | number, itemIndex: number }} action
+ */
 const ChatReducer = (state = InitialChatStates, action) => {
 	switch (action.type) {
 		case 'setChatList':
 			//Removing any duplicates 
 			if(action.EmptyFirst) {
 				return {...state, ChatList: action.value};
-			} else {		
-				return {...state, ChatList: _.unionBy(action.value, state.ChatList, 'BucketID'), ChatLoading: false};
+			} else {	
+				if(Array.isArray(action.value)) {
+					return {...state, ChatList: _.unionBy(action.value, state.ChatList, 'BucketID'), ChatLoading: false};
+				}
 			}
 		case 'MarkBucketAsUnRead':
 			if(action.EmptyFirst) {
 				return {...state, UnreadBuckets: action.value};
 			} else {
-				state.UnreadBuckets.push(...action.value);
+				if(Array.isArray(action.value)) {
+					state.UnreadBuckets.push(...action.value);
+				}
 			}
 			return {...state};
 		case 'MarkBucketAsRead':
-			const index = state.UnreadBuckets.indexOf(action.value);
-			if (index > -1) {
-				state.UnreadBuckets.splice(index, 1);
+			if(Number.isInteger(action.value)) {
+				const index = state.UnreadBuckets.indexOf(Number(action.value));
+				if (index > -1) {
+					state.UnreadBuckets.splice(index, 1);
+				}
 			}
+			
 			state.ChatList[action.itemIndex].unread = 0;
 			return {ChatList: [...state.ChatList], UnreadBuckets: [...state.UnreadBuckets]};
 		case 'StopChatLoading':
