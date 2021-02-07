@@ -8,9 +8,9 @@ import {
     Platform,
     Dimensions,
     Image,
-    StyleSheet
+    StyleSheet, Modal
 } from 'react-native';
-import {View, Colors, Text, ConnectionStatusBar, Toast, TouchableOpacity} from 'react-native-ui-lib';
+import {View, Colors, Text, ConnectionStatusBar, Toast, TouchableOpacity } from 'react-native-ui-lib';
 import { connect } from 'react-redux';
 import HomeNavBar from '../../components/HomeNavBar';
 import Category from "../../components/Category";
@@ -30,6 +30,7 @@ import Rectangle from "../../components/PosterComponents/Rectangle";
 import FetchBucketsPendingForReview from '../../API/Orders/FetchBucketsPendingForReview';
 import StarIconsWithPress from '../../components/StarIconsWithPress';
 import CloseReviewModal from '../../API/Orders/CloseReviewModal';
+import {CancelIcon} from "../../Icons/Cancel";
 
 const {width} = Dimensions.get('window');
 
@@ -431,33 +432,36 @@ class HomeScreen extends React.Component {
                 {
                     this.state.PendingReviews.length ?
                         <Toast
-                        visible={true}
-                        position={'bottom'}
-                        backgroundColor={Colors.primary}
-                    >
-                        <ScrollView horizontal={true} pagingEnabled={true} showsHorizontalScrollIndicator={false}>
-                            {this.state.PendingReviews.map((item, index) => {
-                                const UpdateRating = (Rating) => this.UpdateRating(index, item.OrderID, Rating);
-                                const CloseRatingToast = () => this.CloseRatingToast(index, item.OrderID);
-                                return (
-                                    <View style={{maxWidth: width}} key={item.OrderID.toString()} flex center paddingT-10>
-                                        <Text center hb2 secondary>{"How How would you rate your with " + item.Name + " ?"}</Text>
-                                        <View row marginV-10>
-                                            <StarIconsWithPress Rating = {this.state.Rating[index] || 0} UpdateRating={UpdateRating}  />
-                                        </View>
-                                        <View flex style={{borderTopColor: Colors.shadow, borderTopWidth: 1, width: width}}></View>
-                                        <Text marginV-10 hb2 secondary onPress={CloseRatingToast}>
-                                            Not Now
-                                        </Text>
-                                    </View>
-                                )
-                            })}
-                        </ScrollView>
-                    </Toast>
-                    :
-                    <></>
+                            visible={true}
+                            position={'bottom'}
+                        >
+                            <View flex paddingB-20>
+                                <ScrollView
+                                    horizontal={true}
+                                    pagingEnabled={true}
+                                    showsHorizontalScrollIndicator={false}
+                                >
+                                    {this.state.PendingReviews.map((item, index) => {
+                                        const UpdateRating = (Rating) => this.UpdateRating(index, item.OrderID, Rating);
+                                        const CloseRatingToast = () => this.CloseRatingToast(index, item.OrderID);
+                                        return (
+                                            <View key={item.OrderID.toString()} style={{width:width}}>
+                                                <TouchableOpacity right onPress={CloseRatingToast} margin-15>
+                                                    <CancelIcon size={22} Color={Colors.secondary}/>
+                                                </TouchableOpacity>
+                                                <Text hb2 secondary center marginH-10>{"Rate your experience with " + item.Name}</Text>
+                                                <View row marginV-20 center>
+                                                    <StarIconsWithPress Rating = {this.state.Rating[index] || 0} UpdateRating={UpdateRating}  />
+                                                </View>
+                                            </View>
+                                        )
+                                    })}
+                                </ScrollView>
+                            </View>
+                        </Toast>
+                        : <></>
                 }
-                
+
             </View>
         );
     };

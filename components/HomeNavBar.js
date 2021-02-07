@@ -32,15 +32,15 @@ export default class HomeNavBar extends React.PureComponent {
                 <View flex row centerV right>
                     <TouchableOpacity
                         marginL-12 marginR-12 br100
-                        onPress={this.props.navigateQRCode}
-                    >
-                        <QRCodeIcon size={22} Color={Colors.black}/>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        marginR-12 br100
                         onPress={this.props.navigateSearchText}
                     >
                         <SearchIcon size={28} Color={Colors.black}/>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        marginR-12 br100
+                        onPress={this.props.navigateQRCode}
+                    >
+                        <QRCodeIcon size={22} Color={Colors.black}/>
                     </TouchableOpacity>
                     <TouchableOpacity
                         marginR-12 br100

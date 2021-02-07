@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native-ui-lib';
+import { Text, View, TouchableOpacity, Button } from 'react-native-ui-lib';
 import NavBarBack from '../components/NavBarBack';
 import { Image } from 'react-native';
 import Colors from '../Style/Colors';
@@ -12,6 +12,8 @@ import AddReviews from '../API/Orders/AddReviews';
 import { connect } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import CstmShadowView from "../components/CstmShadowView";
+import RateIcon from "../assets/images/AppImages/Ratings.svg";
 
 /**
  * @type {React.PureComponent}
@@ -93,51 +95,37 @@ class Review extends React.PureComponent {
 		return (
 			<>
 				<NavBarBack
-					Title={'Rating'}
+					Title={'Rate'}
 					Navigation={this.props.navigation.goBack}
 				/>
-				<ScrollView horizontal pagingEnabled scrollEnabled={false} ref={(SVR) => this.SVR = SVR}>
-					<View flex center width={width}>
-						<Image
-							style={{ width: 100, height: 100 }}
-							source={{ uri: 'https://cdn.dribbble.com/users/508588/screenshots/14415916/media/b57f1898f0f5430c34d262a54fd9e010.jpg' }}
-						/>
-						<Text hb1>Tell us about your experience!</Text>
+				<ScrollView
+					contentContainerStyle={{paddingHorizontal:15}}
+				>
+					<View center width={width} height={0.5*width}><RateIcon width={"50%"}/></View>
+
+					<View centerH>
+						<Text h1 marginT-20 h1 secondary>Rate your experience with Levyne!</Text>
 						<View marginV-10 style={{ flexDirection: 'row' }}>
+							<StarIconsWithPress Rating={this.state.DeliveryRating || 0} UpdateRating={this.UpdateDeliveryRating} />
+						</View>
+
+
+						<Text h1 marginT-20 h1 secondary>Rate your experience with the Brand!</Text>
+						<View marginV-10 row>
 							<StarIconsWithPress Rating={this.state.BrandRating || 0} UpdateRating={this.UpdateBrandRating} />
 						</View>
 
+						<Text marginT-20 h1 secondary>Leave back your valuable brand review.</Text>
 						<CstmInput
-							style={{ height: 100, width: '90%', borderRadius: 15 }}
+							style={{ height: 100, width:"100%", borderRadius: 15 }}
 							placeholder='Review'
 							value={this.state.BrandReview}
 							onChangeText={this.setBrandReview}
 						/>
 
-						<TouchableOpacity onPress={this.goToDeliveryRating} center marginV-10 style={{ backgroundColor: Colors.primary, padding: 12, borderRadius: 10, width: 90 }}>
-							<Text hb1 white>Post</Text>
-						</TouchableOpacity>
-					</View>
-					<View flex center width={width}>
-						<Image
-							style={{ width: 100, height: 100 }}
-							source={{ uri: 'https://cdn.dribbble.com/users/508588/screenshots/14415916/media/b57f1898f0f5430c34d262a54fd9e010.jpg' }}
-						/>
-						<Text hb1>Tell us about your experience!</Text>
-						<View marginV-10 style={{ flexDirection: 'row' }}>
-							<StarIconsWithPress Rating={this.state.DeliveryRating || 0} UpdateRating={this.UpdateDeliveryRating} />
-						</View>
-
-						<CstmInput
-							style={{ height: 100, width: '90%', borderRadius: 15 }}
-							placeholder='Review'
-							value={this.state.DeliveryReview}
-							onChangeText={this.setDeliveryReview}
-						/>
-
-						<TouchableOpacity onPress={this.OpenInAppReview} center marginV-10 style={{ backgroundColor: Colors.primary, padding: 12, borderRadius: 10, width: 90 }}>
-							<Text hb1 white>Post</Text>
-						</TouchableOpacity>
+						<CstmShadowView style={{alignSelf: "center", marginBottom: 30, marginTop:30}}>
+							<Button flex label={"Post"} onPress={this.goToDeliveryRating}/>
+						</CstmShadowView>
 					</View>
 				</ScrollView>
 			</>

@@ -24,8 +24,8 @@ const StarIcons = (props) => {
                     <TouchableOpacity onPress={onPress} key={i.toString()}>
                         <StarIcon
                             Fill={name}
-                            height={45}
-                            width={45}
+                            height={30}
+                            width={30}
                             Color={Colors.primary}
                         />
                     </TouchableOpacity>
