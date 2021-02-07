@@ -4,9 +4,16 @@ import {View, TouchableOpacity} from 'react-native-ui-lib';
 import Colors from '../Style/Colors';
 import BookMarkIcon from "../Icons/BookMarkIcon";
 import {SearchIcon} from '../Icons/SearchIcon';
+// @ts-ignore
 import Logo from '../assets/images/Logo.svg';
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
 import {QRCodeIcon} from "../Icons/QRCodeIcon";
+
+/**
+ * @type {React.PureComponent}
+ * @typedef {{navigateQRCode: () => void, navigateSearchText: () => void, navigateBookMark: () => void, navigateOrders: () => void}} HomeNavBarProps
+ * @extends {React.PureComponent<HomeNavBarProps>}
+ **/
 
 export default class HomeNavBar extends React.PureComponent {
 
