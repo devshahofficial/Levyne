@@ -38,6 +38,7 @@ import MyFits from '../mockups/Profile/MyFits';
 import FAQscreen from '../mockups/Profile/FAQscreen';
 import MyOrders from '../mockups/Profile/MyOrders';
 import BrandList from '../mockups/BrandList';
+import BrandListForChat from '../mockups/BrandListForChat';
 import OrderScreen from '../mockups/Profile/OrderScreen';
 import ChatIcon from '../Icons/ChatIcon';
 import { OrdersIcon } from '../Icons/OrdersIcon';
@@ -164,6 +165,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="SearchText" component={SearchText} />
 				<HomeStack.Screen name="Help" component={Help} />
 				<HomeStack.Screen name="Bucket" component={Bucket} />
+				<HomeStack.Screen name="BrandListForChat" component={BrandListForChat} />
 				<HomeStack.Screen
 					name="MyFashionDesigners"
 					component={MyFashionDesigners}

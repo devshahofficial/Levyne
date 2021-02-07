@@ -1,7 +1,15 @@
 import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {View, Button, Colors} from 'react-native-ui-lib';
+// @ts-ignore
 import LoginSVG from "../assets/images/AppImages/Login.svg";
+
+/**
+ * @type {React.PureComponent}
+ * @typedef {() => void} NavigateLogin
+ * @extends {React.PureComponent<{NavigateLogin: NavigateLogin}>}
+ **/
+
 
 export default class UnLoggedScreen extends React.PureComponent {
 

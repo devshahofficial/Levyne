@@ -6,7 +6,7 @@ import CstmShadowView from "./CstmShadowView";
 
 /**
  * @type {React.PureComponent}
- * @extends {React.PureComponent<{navigateBrand: (BrandID: number) => void, item: {BrandID: number, ProfileImage: string, Name: string, About: string, Rating: number}}>}
+ * @extends {React.PureComponent<{navigateBrand: (BrandID: number, Name: string, ProfileImage: string) => void, item: {BrandID: number, ProfileImage: string, Name: string, About: string, Rating: number}}>}
  **/
 
 
@@ -18,7 +18,7 @@ export default class BrandItemContainer extends React.PureComponent {
                     activeOpacity={0.6}
                     style={styles.Container}
                     onPress={() => {
-                        this.props.navigateBrand(this.props.item.BrandID)
+                        this.props.navigateBrand(this.props.item.BrandID, this.props.item.Name, this.props.item.ProfileImage)
                     }}
                 >
                     <View>
