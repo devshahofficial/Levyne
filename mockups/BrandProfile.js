@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {FlatList, StyleSheet, ScrollView} from 'react-native';
-import {View, Text, Colors, TouchableOpacity} from 'react-native-ui-lib';
+import {View, Text, Colors, TouchableOpacity, Button} from 'react-native-ui-lib';
 import ProductItemContainer from '../components/ProductItemContainer';
 import ProfileTopSection from '../components/ProfileTopSection';
 import ViewBrandProfile from '../API/Brand/ViewBrandProfile';
@@ -15,6 +15,7 @@ import FetchBrandFabrics from "../API/Fabrics/FetchFabricByBrandID";
 import ProfileBottomSection from "../components/MyProfileBottomSection";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
+import CstmShadowView from "../components/CstmShadowView";
 
 /**
  * @type {React.Component}
@@ -70,7 +71,7 @@ class BrandProfile extends Component {
                 { key: 'Fabrics', title: 'Fabrics' },
             ]
         }
-        
+
         this.ProductPage = 1;
         this.FabricPage = 1;
         this.abortController = new AbortController();
@@ -154,7 +155,7 @@ class BrandProfile extends Component {
     NavigateLogin = () => {
         this.props.navigation.push("Auth", {screen: 'Login'});
     }
-    
+
     ProductRenderItem = ({ item }) =>
         <ProductItemContainer
             Token={this.props.AccessToken}
@@ -211,27 +212,25 @@ class BrandProfile extends Component {
                     navigateFollowings={this.navigateFollowings}
                     Type={this.state.Type}
                 />
-                <View marginH-20>
-                    <TouchableOpacity
-                        style={[
-                            styles.button,
-                            {
-                                backgroundColor: this.state.DoIFollow ? Colors.primary : Colors.white,
-                                borderWidth: 1,
-                                borderColor: Colors.primary,
-                            },
-                        ]}
-                        onPress={this.Follow}
-                    >
-                        <Text
+                <View padding-20 row center>
+                    <CstmShadowView style={{flex:1, marginRight:10, height:45}}>
+                        <Button
+                            flex hb2
+                            label={"Order"}
+                        />
+                    </CstmShadowView>
+                    <CstmShadowView style={{flex:1, marginLeft:10, height:45}}>
+                        <Button
+                            flex onPress={this.Follow} hb2
                             style={[
-                                styles.buttonText,
-                                { color: this.state.DoIFollow ? Colors.white : Colors.primary },
+                                {
+                                    backgroundColor: this.state.DoIFollow ? Colors.primary : Colors.white,
+                                },
                             ]}
-                        >
-                            {this.state.DoIFollow ? "Following" : "Follow" }
-                        </Text>
-                    </TouchableOpacity>
+                            label={this.state.DoIFollow ? "Following" : "Follow" }
+                            labelStyle={{color: this.state.DoIFollow ? Colors.white : Colors.primary}}
+                        />
+                    </CstmShadowView>
                 </View>
                 <ProfileBottomSection
                     Address={this.state.Address}
