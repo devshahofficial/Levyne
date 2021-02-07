@@ -10,7 +10,6 @@ import CstmShadowView from "../components/CstmShadowView";
 import Loader from '../components/Loader';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import {HomeStackParamList} from '../Types/index';
 
 const FetchBrandFollowings = BrandFollowings.FetchBrandFollowings;
 
@@ -19,6 +18,7 @@ const FetchBrandFollowings = BrandFollowings.FetchBrandFollowings;
  * @typedef {object} ReduxProps
  * @prop {string} AccessToken
  * @prop {(arg0: boolean) => void} setIsAnyProductInCart
+ * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'BrandList'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandList">} ReviewScreenNavigationProps
  * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

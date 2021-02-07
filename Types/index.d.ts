@@ -6,6 +6,10 @@ export type HomeStackParamList = {
     ProductDetailsPage: {
         DesignID: number
     },
+    AddReview: {
+        Rating: number,
+        OrderID: number
+    },
     ThreeD: {
         CategoryID: number,
         Category: string

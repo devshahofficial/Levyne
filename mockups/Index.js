@@ -80,7 +80,7 @@ class IndexScreen extends React.Component {
 
 	/**
 	 * 
-	 * @param {{url: string}} param0 
+	 * @param {{url: string | null}} urlObject 
 	 */
 	handleOpenURL = ({ url }) => {
 		if(!url) return false;
@@ -138,8 +138,8 @@ class IndexScreen extends React.Component {
 	 */
 	HandleLinkingInitialURL = (url, NavigateScreen) => {
 
-
-		if (url && !this.handleOpenURL({ url })) {
+		
+		if (!this.handleOpenURL({ url })) {
 			if (NavigateScreen === 'MainHomeStack') {
 
 				this.props.navigation.dispatch(

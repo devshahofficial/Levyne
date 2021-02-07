@@ -5,13 +5,13 @@ import Colors from '../Style/Colors';
 import {FlatList,StyleSheet} from "react-native";
 import { StackNavigationProp } from '@react-navigation/stack';
 const defaultColors = ["#ff99cc","#7ac1ff"];
-import {HomeStackParamList} from '../Types/index';
 
 /**
  * @type {React.PureComponent}
  * @typedef {(FabricID: number, Token: string) => void} AddToWishlistFn
  * @typedef {(FabricID: number, Token: string) => void} RemoveFromWishlistFn
  * @typedef {() => void} NavigateLogin
+ * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {{FabricWishlist: boolean | 1 | 0, Token: string, FabricID: number, CategoryID: number, Category: string, Title: string, FabricPrice: number, Materials: string[], MaterialIDs: number[]}} FabricPartOneDetails
  * @typedef {{AddToWishlistFn: AddToWishlistFn, RemoveFromWishlistFn: RemoveFromWishlistFn, NavigateLogin: NavigateLogin, navigation: StackNavigationProp<HomeStackParamList, 'Fabric'>}} FabricPartOneNavigation
  * @extends {React.Component<FabricPartOneDetails & FabricPartOneNavigation>}

@@ -15,10 +15,10 @@ import FetchBrandFabrics from "../API/Fabrics/FetchFabricByBrandID";
 import ProfileBottomSection from "../components/MyProfileBottomSection";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import {HomeStackParamList} from '../Types/index';
 
 /**
  * @type {React.Component}
+ * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {{AccessToken: string, SkipLogin: boolean}} ReduxProps
  * @typedef {RouteProp<HomeStackParamList, 'BrandProfile'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandProfile">} ReviewScreenNavigationProps

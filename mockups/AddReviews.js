@@ -17,14 +17,9 @@ import { RouteProp } from '@react-navigation/native';
  * @type {React.PureComponent}
  * @typedef {object} AccessTokenProps
  * @prop {string} AccessToken
- * @typedef {{
- * 	Review: {
- * 		Rating: number,
- * 		OrderID: number
- * 	}
- * }} RootStackParamList
- * @typedef {RouteProp<RootStackParamList, 'Review'>} ReviewScreenRouteProp
- * @typedef {StackNavigationProp<RootStackParamList, "Review">} ReviewScreenNavigationProps
+ * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {RouteProp<HomeStackParamList, 'AddReview'>} ReviewScreenRouteProp
+ * @typedef {StackNavigationProp<HomeStackParamList, "AddReview">} ReviewScreenNavigationProps
  * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
  * @extends {React.PureComponent<Props>}
  */
