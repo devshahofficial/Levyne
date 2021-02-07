@@ -66,7 +66,7 @@ export default class FabricScreenPartOne extends React.Component {
 
     render() {
         return (
-            <View flex primary marginL-15 marginR-15>
+            <View flex marginL-15 marginR-15>
                 <View row marginV-5>
                     <View flex-7 centerV row>
                         <Text b1 black>
