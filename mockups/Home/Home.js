@@ -131,7 +131,6 @@ class HomeScreen extends React.Component {
      * @param {{url: string}} param0
      */
     handleOpenURL = ({ url }) => {
-        console.log(url);
         if (url && url.includes('https://collections.levyne.com')) {
 
             const ScreenIDs = {
