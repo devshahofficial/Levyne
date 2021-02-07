@@ -18,13 +18,13 @@ export default class ScanScreen extends React.Component {
 
     Footer = () => (
         <View style={{width}} flex paddingH-10 marginT-50>
-            <Text secondary h3 center>Unlock the potential of hassle free product searching power!</Text>
+            <Text secondary h3 center>Unlock the potential of hassle free product searching!</Text>
         </View>
     )
 
     onSuccess = ({data: url}) => {
         try {
-            
+
             /**
              * Types
              *  1 : Product
