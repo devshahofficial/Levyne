@@ -1,10 +1,16 @@
 import React from 'react';
 import {Dimensions} from 'react-native';
 import {Colors, View, Text} from 'react-native-ui-lib';
-import {DescriptionCard} from "./ReadMore";
 import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
 import {HandWashIcon} from "../Icons/Secondary/HandWashIcon";
 import {ShrinkIcon} from "../Icons/Secondary/ShrinkIcon";
+
+
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<>}
+ **/
+
 
 export default class ProductScreenPartTwo extends React.PureComponent {
 

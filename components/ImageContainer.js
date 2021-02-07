@@ -1,10 +1,15 @@
 import React from 'react';
 import {StyleSheet,ImageBackground, Dimensions, Platform} from 'react-native';
 import {Text,TouchableOpacity,Colors,View} from 'react-native-ui-lib';
+
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{onPress: () => void, source: string, title: string, }>}
+ **/
+
+
 export default class ImageContainer extends React.PureComponent {
-    constructor(props) {
-        super(props);
-    }
+
     render() {
         return (
             <TouchableOpacity

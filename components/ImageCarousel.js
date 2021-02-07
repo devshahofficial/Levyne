@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
 import {StyleSheet, ImageBackground} from 'react-native';
-import { Carousel, Text, View, TouchableOpacity } from 'react-native-ui-lib';
-import colors from "../assets/colors";
+import { Carousel, Text, View, TouchableOpacity, Colors } from 'react-native-ui-lib';
+
+
+/**
+ * @type {React.Component}
+ * @extends {React.Component<{height: number,imageURL: string[], width: number, addImage: () => void, removeImage: (index: number) => void }>}
+ **/
+
+
 
 export default class ImageCarousel extends Component {
+    /**
+     * @param {{ height: number; imageURL: string[]; width: number; addImage: () => void; removeImage: (index: number) => void; } | Readonly<{ height: number; imageURL: string[]; width: number; addImage: () => void; removeImage: (index: number) => void; }>} props
+     */
     constructor(props) {
         super(props);
         this.state = {
             activeSlide: 0,
         }
+        this.carousel = null;
     }
 
+    /**
+     * @param {number} index
+     */
     onPagePress = index => {
-        this.carousel.goToPage(index, true);
+        // @ts-ignore
+        this.carousel?.goToPage(index, true);
     };
 
     render() {
@@ -22,6 +37,7 @@ export default class ImageCarousel extends Component {
                 ref={ref => this.carousel = ref}
                 onChangePage={(activeSlide) => this.setState({activeSlide})}
                 key={'Carousel'}
+                // @ts-ignore
                 pageControlPosition={'under'}
                 pageControlProps={{
                     onPagePress: this.onPagePress,
@@ -33,7 +49,7 @@ export default class ImageCarousel extends Component {
                         // console.log(item);
                         return (
                             <View key={index.toString()} style={{...styles.addImageButtonView, width: this.props.width, height: this.props.height}}>
-                                <TouchableOpacity style={[styles.iconCircle, {width : 80, height: 80}]} onPress={() => {this.props.addImage()}}>
+                                <TouchableOpacity style={[styles.iconCircle, {width : 80, height: 80}]} onPress={this.props.addImage}>
                                     <Text f1 primary>+</Text>
                                 </TouchableOpacity>
                             </View>
@@ -77,7 +93,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     addImageText: {
-        color: colors.trivisionPink,
+        color: Colors.primary
     },
     ImageBG : {
         alignItems : 'flex-end',
@@ -90,7 +106,7 @@ const styles = StyleSheet.create({
         height: 45,
         width: 45,
         margin : 10,
-        backgroundColor: colors.trivisionWhite,
-        borderColor: colors.trivisionWhite,
+        backgroundColor: Colors.white,
+        borderColor: Colors.white
     }
 })

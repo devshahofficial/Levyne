@@ -4,15 +4,29 @@ import {Carousel, AnimatedImage, Colors, TouchableOpacity} from 'react-native-ui
 
 const screenWidth = Dimensions.get('window').width;
 
+/**
+ * @type {React.Component}
+ * @extends {React.Component<{height: number,ProductImages: string[], width: number, DisplayModal: (index: number) => void }>}
+ **/
+
+
 export default class ImageCarouselLevyne extends Component{
+    /**
+     * @param {{ height: number; ProductImages: string[]; width: number; DisplayModal: (index: number) => void; }} props
+     */
     constructor(props) {
         super(props);
         this.state = {
             activeSlide : 0
         }
+        this.carousel = null;
     }
+    /**
+     * @param {number} index
+     */
     onPagePress = index => {
-        this.carousel.goToPage(index, true);
+        // @ts-ignore
+        this.carousel?.goToPage(index, true);
     };
     render() {
         return (
@@ -21,6 +35,7 @@ export default class ImageCarouselLevyne extends Component{
                 ref={ref => this.carousel = ref}
                 onChangePage={(activeSlide) => this.setState({activeSlide})}
                 key={'Carousel'}
+                // @ts-ignore
                 pageControlPosition={'under'}
                 pageControlProps={{
                     onPagePress: this.onPagePress,
