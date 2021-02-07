@@ -10,6 +10,13 @@ export type HomeStackParamList = {
         Rating: number,
         OrderID: number
     },
+    BrandListForChat: {
+        Gender: 0 | 1,
+        Budget: string,
+        Occasion: string,
+        Description: string,
+        Image: string
+    },
     ThreeD: {
         CategoryID: number,
         Category: string
@@ -30,14 +37,17 @@ export type HomeStackParamList = {
     EditProfile: undefined,
     Chat: {
         BucketID: number,
-        [BrandID]: number,
+        BrandID?: number,
         Name: string,
         imageSource: {
             uri: string
         }
     },
     ChatWhenNoBucketID: {
-        [BucketID]: number,
+        BucketID?: number,
+        Message?: string,
+        Status?: number,
+        ImagePath?: string,
         BrandID: number,
         Name: string,
         imageSource: {
@@ -70,7 +80,7 @@ export type HomeStackParamList = {
     MyFits: undefined,
     MyOrders: {
         PaymentSuccess: boolean,
-        [OrderID]: number
+        OrderID?: number
     },
     CheckOut: {
         BrandName: string,
@@ -101,7 +111,7 @@ export type HomeStackParamList = {
             Label: string,
             Type: 0 | 1 | 2 | 3 | 4,
             Index: number,
-            [Gender]: number
+            Gender?: number
         }
     },
     ThreeDModel: {

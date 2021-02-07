@@ -8,7 +8,7 @@ import {BackArrowIcon} from "../Icons/BackArrowIcon";
  * @typedef {() => void} NavigateBack
  * @typedef {() => void} NavigateBrandProfile
  * @typedef {() => void} NavigateBucket
- * @extends {React.PureComponent<{NavigateBack: NavigateBack, NavigateBrandProfile: NavigateBrandProfile, NavigateBucket: NavigateBucket, imageSource: {uri: string}, initials: string, Name: string, BucketID: number, BucketInfo: {OrderID: number}, Status: 0 | 1 | 2}>}
+ * @extends {React.PureComponent<{NavigateBack: NavigateBack, NavigateBrandProfile: NavigateBrandProfile, NavigateBucket: NavigateBucket, imageSource: {uri: string}, initials: string, Name: string, BucketID: number, ShowBrandID?: boolean, BrandID: number, BucketInfo: {OrderID: number}, Status: 0 | 1 | 2}>}
  **/
 
 
@@ -28,6 +28,18 @@ export default class ChatHeader extends React.PureComponent {
         }
     }
 
+    HeaderFetching = () => {
+        if(this.props.ShowBrandID) {
+            return <Text secondary h3>Brand ID: {this.props.BrandID}</Text>
+        } else {
+            if(this.props.Status < 2) {
+                return <Text secondary h3>Bucket ID: {this.props.BucketID || "Fetching..."}</Text>
+            } else {
+                return <Text secondary h3>Order ID: {this.props.BucketInfo.OrderID || "Fetching..."}</Text>
+            }
+        }
+    }
+
     render() {
 
         return (
@@ -42,11 +54,7 @@ export default class ChatHeader extends React.PureComponent {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.textView} onPress={this.props.NavigateBucket}>
                         <Text hb1>{this.props.Name}</Text>
-                        {this.props.Status < 2 ?
-                            <Text secondary h3>Bucket ID: {this.props.BucketID || "Fetching..."}</Text>
-                            :
-                            <Text secondary h3>Order ID: {this.props.BucketInfo.OrderID || "Fetching..."}</Text>
-                        }
+                        <this.HeaderFetching />
                     </TouchableOpacity>
                 </View>
                 <View center style={styles.Header}>

@@ -12,6 +12,7 @@ import Hyperlink from 'react-native-hyperlink';
 import {GalleryIcon} from "../../Icons/GalleryIcon";
 import {CameraIcon} from "../../Icons/CameraIcon";
 import UpdateReadTimestamp from '../../API/Chats/UpdateReadTimestamp';
+import Loader from '../../components/Loader';
 const windowHeight = Dimensions.get('window').height;
 
 /**
@@ -50,6 +51,7 @@ class ChatScreenIos extends Component {
         this.Page = 0;
         this.FlatListRef = React.createRef();
         this.props.Socket.on('ChatMessage', this.SocketListener);
+        /** @type {number[]} */
         this.TimeOutArray = [];
         this.NewChatLoading = false;
 
@@ -379,7 +381,7 @@ class ChatScreenIos extends Component {
                     NavigateBrandProfile={this.NavigateBrandProfile}
                     NavigateBucket={this.NavigateBucket}
                 />
-                {this.state.LoadingMessages ? <LoaderScreen /> :
+                {this.state.LoadingMessages ? <Loader /> :
                     <FlatList
                         data = {this.state.Messages}
                         inverted={true}
