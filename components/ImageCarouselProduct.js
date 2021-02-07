@@ -31,7 +31,7 @@ export default class ImageCarouselProduct extends Component{
     render() {
         return (
             <Carousel
-                containerStyle={{height:screenWidth * 1.5}}
+                containerStyle={{height:screenWidth * 1.5 + 40}}
                 ref={ref => this.carousel = ref}
                 onChangePage={(activeSlide) => this.setState({activeSlide})}
                 key={'Carousel'}

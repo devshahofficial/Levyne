@@ -31,7 +31,7 @@ export default class ImageCarouselLevyne extends Component{
     render() {
         return (
             <Carousel
-                containerStyle={{height:screenWidth}}
+                containerStyle={{height:screenWidth+40}}
                 ref={ref => this.carousel = ref}
                 onChangePage={(activeSlide) => this.setState({activeSlide})}
                 key={'Carousel'}

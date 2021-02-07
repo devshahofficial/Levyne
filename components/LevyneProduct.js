@@ -6,6 +6,7 @@ import Colors from '../Style/Colors';
 import CstmShadowView from "./CstmShadowView";
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
+const deviceWidth = Dimensions.get('window').width;
 
 export default class ProductScreenPartOne extends React.Component {
 
@@ -55,7 +56,7 @@ export default class ProductScreenPartOne extends React.Component {
                             {this.props.ShortDescription}
                         </Text>
                         {
-                            this.props.MinPrice ? 
+                            this.props.MinPrice ?
                                 <View row bottom>
                                     <Text b1 primary>
                                         ₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
@@ -119,7 +120,14 @@ export default class ProductScreenPartOne extends React.Component {
 
                 <View marginT-30 marginB-20 marginH-15>
                     <Text hb1>Product Description</Text>
-                    <Text h2>{this.props.LongDescription}</Text>
+                    <Text h1>{this.props.LongDescription}</Text>
+
+                    <Text hb1 marginT-20>
+                        Disclaimer
+                    </Text>
+                    <Text h1>
+                        Product colour may slightly vary due to photographic lighting sources or your monitor/screen setting.
+                    </Text>
                 </View>
 
             </View>
