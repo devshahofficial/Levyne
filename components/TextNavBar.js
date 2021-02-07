@@ -2,6 +2,14 @@ import {StyleSheet} from "react-native";
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 
+/**
+ * @type {React.PureComponent}
+ * @typedef {() => void} NavigateLogin
+ * @extends {React.PureComponent<{Title: string, Navigation: () => void, children: React.ReactElement<{}>}>}
+ **/
+
+
+
 export default class TextNavBar extends React.PureComponent {
 
     render() {

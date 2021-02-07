@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import {StyleSheet, Image,FlatList} from 'react-native';
 import { View,Text,Colors } from 'react-native-ui-lib';
 
+/**
+ * @type {React.PureComponent}
+ * @extends {React.PureComponent<{Data: {source: string, id: string}[]}>}
+ **/
 
-export default class TopDesigners extends Component {
-    constructor(props) {
-        super(props);
-    }
+
+export default class TopDesigners extends React.PureComponent {
     render() {
         return (
             <View paddingL-15 paddingT-15>
@@ -17,7 +19,6 @@ export default class TopDesigners extends Component {
                     renderItem={({ item }) => (
                         <View style={styles.View}>
                             <Image
-                                id={item.id}
                                 source={{uri:item.source}}
                                 style={styles.Image}
                             />
