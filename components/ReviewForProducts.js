@@ -35,12 +35,12 @@ export default class ReviewForProducts extends React.PureComponent {
 						)
 					}))
 					:
-						<>
-							<View centerV height={width*0.4} width={width}>
+						<View flex center>
+							<View center height={width*0.4} width={width}>
 								<Review width={"50%"}/>
 							</View>
 							<Text h1>No reviews yet!</Text>
-						</>
+						</View>
 				}
 			</View>
 		);

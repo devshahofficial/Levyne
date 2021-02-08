@@ -5,7 +5,7 @@ import ShadowView from "react-native-simple-shadow-view/src/ShadowView";
 
 /**
  * @type {React.PureComponent}
- * @extends {React.PureComponent<{ButtonA: string, ButtonActionA: (BrandID: number) => {}, ButtonB: string, ButtonActionB: () => {}, BrandID: number}>}
+ * @extends {React.PureComponent<{ButtonA: string, ButtonActionA: (BrandID: number) => void, ButtonB: string, ButtonActionB: () => void, BrandID: number}>}
  **/
 
 
