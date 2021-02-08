@@ -192,10 +192,8 @@ export default class ChatToOrder extends React.Component {
                             value={this.state.Description}
                             onChangeText={this.onDescriptionChange}
                         />
+                        <Text h3 secondary marginB-20>Let us know about the colours, embroideries, fabric you are looking for, etc...</Text>
 
-                        <View paddingR-50>
-                            <Text h3 padding-50 secondary>**Let us know about the colours, embroideries, fabric you are looking for, etc...**</Text>
-                        </View>
                         {
                             this.state.Image ?
                                 <ImageBackground
@@ -208,12 +206,12 @@ export default class ChatToOrder extends React.Component {
                                     </TouchableOpacity>
                                 </ImageBackground>
                                 :
-                                <TouchableOpacity onPress={this.setModalVisible} flex center style={{height: screenWidth*0.5}}>
-                                    <Text b1 primary>+</Text>
+                                <TouchableOpacity onPress={this.setModalVisible} flex center style={{height: screenWidth*0.5, borderWidth:0.8, borderColor:Colors.shadow}}>
+                                    <Text h2 primary>Upload an Image of outfit</Text>
                                 </TouchableOpacity>
                         }
-                        <CstmShadowView style={{marginBottom: 20}}>
-                            <Button onPress={this.selectBrand} flex hb1 label='Select Brand' />
+                        <CstmShadowView style={{marginBottom: 20, marginTop:20}}>
+                            <Button onPress={this.selectBrand} flex h2 label='Select Brand'/>
                         </CstmShadowView>
                     </ScrollView>
                 </SafeAreaView>

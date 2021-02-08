@@ -1,15 +1,16 @@
 import React from 'react';
 import {Dimensions, ActivityIndicator} from 'react-native';
 import {View, Text, Colors, AnimatedImage, TouchableOpacity} from 'react-native-ui-lib';
+import ReviewForProducts from "./ReviewForProducts";
 
 const deviceWidth = Dimensions.get('window').width;
 
 export default class ProductScreenPartThree extends React.PureComponent {
 	render() {
 		return (
-			<View marginT-10 marginH-15>
+			<View marginT-20 marginH-15>
 				{this.props.EmbroideryImage && (
-					<View marginB-20>
+					<View>
 						<Text hb1 marginB-10>
 							Embroidery Overlook
 						</Text>
@@ -33,8 +34,9 @@ export default class ProductScreenPartThree extends React.PureComponent {
 					Product colour may slightly vary due to photographic lighting sources or your monitor/screen setting.
 				</Text>
 
+				<ReviewForProducts Reviews={this.props.Reviews} />
 				<View
-					marginT-10
+					marginT-20
 					center
 					style={{
 						marginLeft: -15,

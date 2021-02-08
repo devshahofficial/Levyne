@@ -152,11 +152,11 @@ class ProductScreen extends React.Component {
                                 ApproxDaysForProduction = {this.state.ProductObject.ApproxDaysForProduction}
                                 Materials={this.state.ProductObject.Materials}
                                 MaterialIDs={this.state.ProductObject.MaterialIDs}
-                                Reviews={this.state.Reviews}
                                 FabricWashType={this.state.ProductObject.FabricWashType}
-                                navigation={this.props.navigation} 
+                                navigation={this.props.navigation}
                             />
                             <ProductScreenPartThree
+                                Reviews={this.state.Reviews}
                                 EmbroideryDisplayModal = {this.EmbroideryDisplayModal}
                                 EmbroideryImage = {this.state.ProductObject.EmbroideryImage}
                             />

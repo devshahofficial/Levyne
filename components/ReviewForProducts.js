@@ -1,16 +1,18 @@
 import React from 'react';
 import { Text, View, Avatar, AvatarHelper, Colors } from 'react-native-ui-lib';
-import { StyleSheet } from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import StarIconsComponent from './StarIconsComponent';
 import { DescriptionCard } from './ReadMore';
+import Review from "../assets/images/AppImages/Reviews.svg";
 
+const width = Dimensions.get("window").width;
 
 export default class ReviewForProducts extends React.PureComponent {
 
 	render() {
 		return (
-			<View flex>
-				<Text hb1 marginV-20>
+			<View flex marginT-40>
+				<Text hb1>
 					Reviews
        			</Text>
 				{
@@ -34,8 +36,13 @@ export default class ReviewForProducts extends React.PureComponent {
 							</View>
 						)
 					}))
-					: 
-					<Text center h2>No Reviews Yet !</Text>
+					:
+						<>
+							<View centerV height={width*0.4} width={width}>
+								<Review width={"50%"}/>
+							</View>
+							<Text h1>No reviews yet!</Text>
+						</>
 				}
 			</View>
 		);

@@ -16,6 +16,8 @@ import ProfileBottomSection from "../components/MyProfileBottomSection";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import CstmShadowView from "../components/CstmShadowView";
+import ReviewForProducts from "../components/ReviewForProducts";
+import FetchBrandReviews from "../API/Brand/FetchBrandReviews";
 
 /**
  * @type {React.Component}
@@ -41,6 +43,7 @@ class BrandProfile extends Component {
             TextColor: Colors.primary,
             ProfileLoading : true,
             FabricsLoading: true,
+            ReviewLoading: false,
             Name : '',
             Followers : '',
             Followings : '',
@@ -58,6 +61,7 @@ class BrandProfile extends Component {
             StudioCloseTiming: "0000",
             BrandProductOffering: [],
             Delivery: 0,
+            Reviews: [],
             MeasurementService: 0,
             Parking: 0,
             Tailoring: 0,
@@ -69,6 +73,7 @@ class BrandProfile extends Component {
                 { key: 'Profile', title: 'Profile' },
                 { key: 'Products', title: 'Products' },
                 { key: 'Fabrics', title: 'Fabrics' },
+                { key: 'Reviews', title: 'Reviews' }
             ]
         }
 
@@ -107,6 +112,11 @@ class BrandProfile extends Component {
                 Type: ProfileObject.Type
             });
         }).catch(() => {});
+
+        FetchBrandReviews({BrandID: this.props.route.params.BrandID, Limit: 10}).then(Reviews => {
+            this.setState({ Reviews });
+        }).catch(() => {})
+
 
         FetchBrandProducts(this.props.route.params.BrandID, this.ProductPage, this.props.AccessToken, this.abortController.signal).then(rows => {
             this.TotalProducts = rows.Total;
@@ -258,7 +268,7 @@ class BrandProfile extends Component {
      */
     ProductScreen = (props) => {
         return (
-            <View center flex>
+            <View flex>
                 <FlatList
                     data={props.BrandProducts}
                     numColumns={2}
@@ -288,7 +298,7 @@ class BrandProfile extends Component {
                 <View center padding-10 style={{backgroundColor:Colors.shadow, height: 'auto'}}>
                     <Text>Fabric price is per product.</Text>
                 </View>
-                <View center flex>
+                <View flex>
                     <FlatList
                         data={props.BrandFabrics}
                         numColumns={2}
@@ -304,6 +314,19 @@ class BrandProfile extends Component {
                         onEndReached = {this.FabricScreenOnEndReached}
                         onEndReachedThreshold={0.75}
                     />
+                </View>
+            </>
+        );
+    }
+
+    ReviewScreen = (props) => {
+        return (
+            <>
+                <View center padding-10 style={{backgroundColor:Colors.shadow, height: 'auto'}}>
+                    <Text>Reviews from customers!</Text>
+                </View>
+                <View flex>
+                    <ReviewForProducts Reviews={this.props.BrandReviews} />
                 </View>
             </>
         );
@@ -359,6 +382,8 @@ class BrandProfile extends Component {
                                     return this.state.ProductsLoading ? <Loader/> : <this.ProductScreen BrandProducts={this.state.BrandProducts} />
                                 case 'Fabrics':
                                     return this.state.FabricsLoading ? <Loader/> : <this.FabricScreen BrandFabrics={this.state.BrandFabrics} />
+                                case 'Reviews':
+                                    return this.state.ReviewLoading ? <Loader/> : <this.ReviewScreen BrandReviews={this.state.Reviews} />
                             }
                         }}
                     />

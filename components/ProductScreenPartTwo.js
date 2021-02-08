@@ -76,18 +76,18 @@ export default class ProductScreenPartTwo extends React.PureComponent {
 
     render() {
         return (
-            <View marginT-30 marginB-10 marginH-15>
+            <View marginT-40 marginB-10 marginH-15>
                 <Text hb1>Product Description</Text>
                 <DescriptionCard CompleteDescription = {this.props.LongDescription} />
 
-                <View marginT-20 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
+                <View marginT-40 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     <TimerIcon size={30} Color={Colors.black}/>
                     <Text marginL-10 h2>Approximate Delivery within {this.props.ApproxDaysForProduction} days.</Text>
                 </View>
 
-                <Text hb1 marginT-20>Fabric Description</Text>
+                <Text hb1 marginT-40>Fabric Description</Text>
                 <DescriptionCard CompleteDescription = {this.props.FabricDescription} />
-                <TouchableOpacity>
+                <TouchableOpacity marginT-10>
                     <View style={{marginHorizontal: -15}}>
                         <FlatList
                             data={this.props.Materials}
@@ -99,10 +99,9 @@ export default class ProductScreenPartTwo extends React.PureComponent {
                         />
                     </View>
                 </TouchableOpacity>
-                <View marginT-10 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
+                <View marginT-20 paddingH-15 center row style={{height:50,width:Dimensions.get('window').width,marginLeft:-15, backgroundColor:Colors.shadow}}>
                     <this.checkSwitch Wash={this.props.FabricWashType} />
-                </View>   
-                <ReviewForProducts Reviews={this.props.Reviews} />
+                </View>
             </View>
 
         );
