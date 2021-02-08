@@ -34,6 +34,9 @@ export default class ProductScreenPartThree extends React.PureComponent {
 					Product colour may slightly vary due to photographic lighting sources or your monitor/screen setting.
 				</Text>
 
+				<Text hb1 marginT-40>
+					Reviews
+				</Text>
 				<ReviewForProducts Reviews={this.props.Reviews} />
 				<View
 					marginT-20

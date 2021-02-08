@@ -11,10 +11,8 @@ export default class ReviewForProducts extends React.PureComponent {
 
 	render() {
 		return (
-			<View flex marginT-40>
-				<Text hb1>
-					Reviews
-       			</Text>
+			<View flex>
+
 				{
 					this.props.Reviews.length ? this.props.Reviews.map(((item, index) => {
 						const Initials = AvatarHelper.getInitials(item.CustomerName);

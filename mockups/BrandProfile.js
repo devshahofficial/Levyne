@@ -43,7 +43,7 @@ class BrandProfile extends Component {
             TextColor: Colors.primary,
             ProfileLoading : true,
             FabricsLoading: true,
-            ReviewLoading: false,
+            ReviewLoading: true,
             Name : '',
             Followers : '',
             Followings : '',
@@ -114,7 +114,7 @@ class BrandProfile extends Component {
         }).catch(() => {});
 
         FetchBrandReviews({BrandID: this.props.route.params.BrandID, Limit: 10}).then(Reviews => {
-            this.setState({ Reviews });
+            this.setState({ Reviews,ReviewLoading:false });
         }).catch(() => {})
 
 
@@ -325,8 +325,8 @@ class BrandProfile extends Component {
                 <View center padding-10 style={{backgroundColor:Colors.shadow, height: 'auto'}}>
                     <Text>Reviews from customers!</Text>
                 </View>
-                <View flex>
-                    <ReviewForProducts Reviews={this.props.BrandReviews} />
+                <View flex paddingH-10>
+                    <ReviewForProducts Reviews={props.BrandReviews} />
                 </View>
             </>
         );
