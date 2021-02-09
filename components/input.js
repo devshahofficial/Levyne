@@ -5,7 +5,7 @@ import {TextInputProps, ViewStyle} from 'react-native';
 
 /**
  * @type {React.PureComponent}
- * @extends {React.PureComponent<TextInputProps & {style: ViewStyle}>}
+ * @extends {React.PureComponent<TextInputProps & {style?: ViewStyle}>}
  **/
 
 

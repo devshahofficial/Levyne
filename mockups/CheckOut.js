@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, ScrollView, StyleSheet } from 'react-native';
-import { View, Text, RadioButton, TouchableOpacity, Button, Toast } from 'react-native-ui-lib';
+import { View, Text, TouchableOpacity, Toast } from 'react-native-ui-lib';
 import { connect } from 'react-redux';
 import NavBarBack from '../components/NavBarBack';
 import Colors from "../Style/Colors";
@@ -17,7 +17,6 @@ import RazorpayCheckout from 'react-native-razorpay';
 import IsAnyProductInCartAPI from '../API/Profile/IsAnyProductInCart';
 import { EditIcon } from "../Icons/EditIcon";
 import { CancelIcon } from "../Icons/Cancel";
-import CheckoutActionSheet from "../components/Modal/CheckoutActionSheet";
 import { RightIcon } from "../Icons/RightIcon";
 import CstmShadowView from "../components/CstmShadowView";
 import ValidateCoupon from '../API/Cart/ValidateCoupon';
@@ -26,6 +25,9 @@ import ValidateCoupon from '../API/Cart/ValidateCoupon';
 
 class CheckOut extends React.PureComponent {
 
+    /**
+     * @param {any} props
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -46,6 +48,7 @@ class CheckOut extends React.PureComponent {
             CouponKey: Math.random().toString()
         }
         this.abortController = new AbortController();
+        /** @type {number[]} */
         this.Timeouts = [];
     }
 
@@ -136,8 +139,14 @@ class CheckOut extends React.PureComponent {
         this.Timeouts.forEach(clearTimeout)
     }
 
+    /**
+     * @param {string} Comment
+     */
     setComment = (Comment) => this.setState({ Comment });
 
+    /**
+     * @param {string} Address
+     */
     setAddress = (Address) => {
         if (Address) {
             this.setState({ Address });
@@ -146,6 +155,9 @@ class CheckOut extends React.PureComponent {
         }
     }
 
+    /**
+     * @param {string} PinCode
+     */
     setPinCode = (PinCode) => {
         if (PinCode) {
             this.setState({ PinCode });
@@ -154,6 +166,9 @@ class CheckOut extends React.PureComponent {
         }
     }
 
+    /**
+     * @param {string} Coupon
+     */
     setCoupon = (Coupon) => this.setState({ Coupon });
 
     removeCoupon = () => {
@@ -241,12 +256,6 @@ class CheckOut extends React.PureComponent {
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={this.props.route.params.BrandName} />
 
-                <CheckoutActionSheet
-                    modalVisible={this.state.Checkout}
-                    setModalVisible={this.setCheckout}
-                    CheckOut={this.CheckoutOnPress}
-                />
-
                 <Toast
                     visible={this.state.showCustomToast}
                     position={'bottom'}
@@ -267,7 +276,7 @@ class CheckOut extends React.PureComponent {
                         >
                             <View paddingH-10 centerV style={styles.View}>
                                 <View row>
-                                    <Text flex hb1 secondary>item Total</Text>
+                                    <Text flex hb1 secondary>Item Total</Text>
                                     <View centerV row>
                                         <Text hb1 primary>₹{this.state.DecidedPrice}</Text>
                                     </View>
@@ -356,20 +365,6 @@ class CheckOut extends React.PureComponent {
                             </View>
 
                             <View style={styles.View} marginT-20>
-                                <Text hb1 secondary>Payment Mode</Text>
-                                <View marginT-20>
-                                    <RadioButton
-                                        selected={true}
-                                        color={Colors.shadow}
-                                        label={"Cash On Delivery"}
-                                        labelStyle={{ fontSize: 16, color: Colors.secondary }}
-                                    />
-                                </View>
-
-                                <Text h3 secondary marginT-20>Online payment mode may soon be available.</Text>
-                            </View>
-
-                            <View style={styles.View} marginT-20>
                                 <Text hb1 secondary>Comment (Optional)</Text>
                                 <View marginT-20>
                                     <CstmInput
@@ -381,7 +376,7 @@ class CheckOut extends React.PureComponent {
                                 </View>
                             </View>
                         </ScrollView>
-                        <TouchableOpacity onPress={this.setCheckout} center row style={styles.Button} activeOpacity={0.8}>
+                        <TouchableOpacity onPress={this.CheckoutOnPress} center row style={styles.Button} activeOpacity={0.8}>
                             <CheckoutIcon size={26} Color={Colors.white} />
                             <Text marginL-20 hb1 white>
                                 Place an Order
@@ -421,6 +416,9 @@ const styles = StyleSheet.create({
 });
 
 
+/**
+ * @param {{ Auth: { AccessToken: any; Mobile: any; }; Profile: { Address: any; Name: any; Email: any; PinCode: any; }; }} state
+ */
 const mapsStateToProps = state => ({
     AccessToken: state.Auth.AccessToken,
     Address: state.Profile.Address,
@@ -430,6 +428,9 @@ const mapsStateToProps = state => ({
     Mobile: state.Auth.Mobile
 });
 
+/**
+ * @param {(arg0: { type: string; value: any; }) => any} dispatch
+ */
 const mapDispatchToProps = dispatch => {
     return {
         setIsAnyProductInCart: (value) => dispatch({ type: 'setIsAnyProductInCart', value }),
