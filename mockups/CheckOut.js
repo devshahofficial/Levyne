@@ -95,7 +95,8 @@ class CheckOut extends React.PureComponent {
                         contact: this.props.Mobile,
                         name: this.props.Name
                     },
-                    theme: {color: Colors.primary}
+                    theme: {color: Colors.primary,backdrop_color:Colors.black
+                    }
                 });
                 this.setState({Loading: false});
                 this.props.navigation.dispatch(
@@ -178,7 +179,7 @@ class CheckOut extends React.PureComponent {
             Loading: true,
             Coupon: "",
             CouponKey: Math.random().toString()
-        }); 
+        });
         this.Timeouts.push(setTimeout(() => {
             this.setState({
                 Loading: false

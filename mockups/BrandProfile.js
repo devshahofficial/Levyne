@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {FlatList, StyleSheet, ScrollView} from 'react-native';
-import {View, Text, Colors, TouchableOpacity, Button} from 'react-native-ui-lib';
+import {View, Text, Colors, Button} from 'react-native-ui-lib';
 import ProductItemContainer from '../components/ProductItemContainer';
 import ProfileTopSection from '../components/ProfileTopSection';
 import ViewBrandProfile from '../API/Brand/ViewBrandProfile';

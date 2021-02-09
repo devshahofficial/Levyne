@@ -14,16 +14,16 @@ import {CashIcon} from "../Icons/Secondary/CashIcon";
  * 1) Customer created order, and Razorpay has provided the orderID
  * 2) Payment canceled by a customer or something wrong happened in mid of payment.
  * 3) Payment verified and Order transferred to the Brand.
- * 
+ *
  * Above all was part of the standard order stages, now coming to part if the customer has canceled the order before manufacturing starts.
  * 4) Customer has canceled the order, and a refund is pending.
  * 5) Refund completed.
- * 
+ *
  * 6) Manufacturing started.
  * 7) Manufacturing completed and Order Ready for shipping.
  * 8) Order shipped.
  * 9) Order delivered.
- * 
+ *
  * Now comes to the alteration part.
  * 10) Customer request for alteration.
  * 11) Brand agreed for alteration
@@ -32,7 +32,7 @@ import {CashIcon} from "../Icons/Secondary/CashIcon";
  * 14) Alteration completed and Order Ready for shipping again.
  * 15) Order shipped
  * 16) Order Delivered.
- * 
+ *
  * Now Final feedback
  * 17) Customer has provided the feedback.
  */
@@ -48,7 +48,7 @@ export default class OrdersContainer extends React.Component {
         switch(this.props.OrderStatus) {
             case 1:
                 return (
-                    <View row centerV marginB-15 marginT-15>
+                    <View row centerV marginV-15>
                         <View flex>
                             <OrderReceivedIcon size={35} Color={Colors.primary}/>
                         </View>
@@ -57,7 +57,7 @@ export default class OrdersContainer extends React.Component {
                 )
             case 2:
                 return (
-                    <View row centerV marginB-15 marginT-15>
+                    <View row centerV marginV-15>
                         <View flex>
                             <OrderReceivedIcon size={35} Color={Colors.primary}/>
                         </View>
@@ -66,7 +66,7 @@ export default class OrdersContainer extends React.Component {
                 )
             case 3:
                 return (
-                    <View row centerV marginB-15 marginT-15>
+                    <View row centerV marginV-15>
                         <View flex>
                             <OrderReceivedIcon size={35} Color={Colors.primary}/>
                         </View>
@@ -76,7 +76,7 @@ export default class OrdersContainer extends React.Component {
             case 4:
                 return (
                     <>
-                        <View row centerV marginT-15>
+                        <View row centerV marginV-15>
                             <View flex>
                                 <OrderReceivedIcon size={35} Color={Colors.primary}/>
                             </View>
@@ -87,13 +87,13 @@ export default class OrdersContainer extends React.Component {
             case 5:
                 return (
                     <>
-                        <View row centerV marginT-15>
+                        <View row centerV marginB-15 marginT-15>
                             <View flex>
                                 <OrderReceivedIcon size={35} Color={Colors.secondary}/>
                             </View>
                             <Text flex-8 marginL-20 h1 secondary>Order cancelled</Text>
                         </View>
-                        <View row centerV marginV-15>
+                        <View row centerV marginB-15 marginV-15>
                             <View flex>
                                 <TailorIcon size={35} Color={Colors.primary}/>
                             </View>
@@ -277,11 +277,6 @@ export default class OrdersContainer extends React.Component {
                     </View>
 
                     <this.Process/>
-
-                    <View marginV-20 paddingH-15 center row style={styles.View}>
-                        <CashIcon size={30} Color={Colors.black} />
-                        <Text marginL-20>Cash On Delivery</Text>
-                    </View>
 
                 </TouchableOpacity>
             </CstmShadowView>
