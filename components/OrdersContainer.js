@@ -22,19 +22,21 @@ import {CashIcon} from "../Icons/Secondary/CashIcon";
  * 6) Manufacturing started.
  * 7) Manufacturing completed and Order Ready for shipping.
  * 8) Order shipped.
- * 9) Order delivered.
+ * 9) Order out of delivery.
+ * 10) Order delivered.
  *
  * Now comes to the alteration part.
- * 10) Customer request for alteration.
- * 11) Brand agreed for alteration
- * 12) Order collected for alteration and transferred to the Brand
- * 13) Alteration started.
- * 14) Alteration completed and Order Ready for shipping again.
- * 15) Order shipped
- * 16) Order Delivered.
+ * 11) Customer request for alteration.
+ * 12) Brand agreed for alteration
+ * 13) Order collected for alteration and transferred to the Brand
+ * 14) Alteration started.
+ * 15) Alteration completed and Order Ready for shipping again.
+ * 16) Order shipped
+ * 17) Order out of delivery.
+ * 18) Order Delivered.
  *
  * Now Final feedback
- * 17) Customer has provided the feedback.
+ * 19) Customer has provided the feedback.
  */
 
 export default class OrdersContainer extends React.Component {
@@ -199,7 +201,7 @@ export default class OrdersContainer extends React.Component {
                         </View>
                     </>
                 )
-            default :
+            case 10: 
                 return (
                     <>
                         <View row centerV marginT-15>
@@ -224,7 +226,36 @@ export default class OrdersContainer extends React.Component {
                             <View flex>
                                 <DeliveryIcon size={35} Color={Colors.primary}/>
                             </View>
-                            <Text flex-8 marginL-20 h1 primary>Order Out of delivery</Text>
+                            <Text flex-8 marginL-20 h1 primary>Order Delivered.</Text>
+                        </View>
+                    </>
+                )
+            default: 
+                return (
+                    <>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <OrderReceivedIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Order placed</Text>
+                        </View>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <TailorIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Production Started</Text>
+                        </View>
+                        <View row centerV marginT-15>
+                            <View flex>
+                                <ProductionCompletedIcon size={35} Color={Colors.secondary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 secondary>Production Completed</Text>
+                        </View>
+                        <View row centerV marginV-15>
+                            <View flex>
+                                <DeliveryIcon size={35} Color={Colors.primary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 primary>Order Delivered.</Text>
                         </View>
                     </>
                 )
