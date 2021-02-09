@@ -66,7 +66,7 @@ class Review extends React.PureComponent {
 			this.props.route.params.OrderID,
 			{
 				Brand: this.state.BrandRating,
-				Delivery: this.state.LevyneRating
+				Levyne: this.state.LevyneRating
 			},
 			{
 				Brand: this.state.BrandReview
