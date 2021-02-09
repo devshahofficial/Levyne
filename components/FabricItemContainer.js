@@ -11,7 +11,7 @@ import BookMarkIcon from '../Icons/BookMarkIcon';
 /**
  * @type {React.PureComponent}
  * @typedef {{IsWishlist: 1 | 0 | boolean, FabricID: number, FabricImage: string, Category: string, FabricPrice: number, Name: string}} FabricItem
- * @typedef {{NavigateSearch: () => void, item: FabricItem, navigateFabric: (FabricID: number) => void, Token: string, NavigateLogin: () => void}} FabricItemContainerProps
+ * @typedef {{item: FabricItem, navigateFabric: (FabricID: number) => void, Token: string, NavigateLogin: () => void}} FabricItemContainerProps
  * @extends {React.Component<FabricItemContainerProps>}
  **/
 

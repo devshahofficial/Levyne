@@ -1,8 +1,6 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, Button } from 'react-native-ui-lib';
+import { Text, View, Button } from 'react-native-ui-lib';
 import NavBarBack from '../components/NavBarBack';
-import { Image } from 'react-native';
-import Colors from '../Style/Colors';
 import { Dimensions, ScrollView } from 'react-native';
 import StarIconsWithPress from '../components/StarIconsWithPress';
 import CstmInput from '../components/input';
@@ -13,6 +11,7 @@ import { connect } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import CstmShadowView from "../components/CstmShadowView";
+// @ts-ignore
 import RateIcon from "../assets/images/AppImages/Ratings.svg";
 
 /**
@@ -34,11 +33,9 @@ class Review extends React.PureComponent {
 		super(props);
 		this.state = {
 			BrandRating: this.props.route.params.Rating,
-			DeliveryRating: 0,
-			BrandReview: '',
-			DeliveryReview: ''
+			LevyneRating: 0,
+			BrandReview: ''
 		}
-		this.SVR = null;
 		this.InAppReviewAvailable = InAppReview.isAvailable();
 	}
 
@@ -57,21 +54,10 @@ class Review extends React.PureComponent {
 	}
 
 	/**
-	 * @param {number} DeliveryRating
+	 * @param {number} LevyneRating
 	 */
-	UpdateDeliveryRating = (DeliveryRating) => {
-		this.setState({ DeliveryRating });
-	}
-
-	/**
-	 * @param {string} DeliveryReview
-	 */
-	setDeliveryReview = (DeliveryReview) => {
-		this.setState({ DeliveryReview })
-	}
-
-	goToDeliveryRating = () => {
-		this.SVR?.scrollTo({ x: width, animated: true })
+	UpdateLevyneRating = (LevyneRating) => {
+		this.setState({ LevyneRating });
 	}
 
 	OpenInAppReview = () => {
@@ -80,11 +66,10 @@ class Review extends React.PureComponent {
 			this.props.route.params.OrderID,
 			{
 				Brand: this.state.BrandRating,
-				Delivery: this.state.DeliveryRating
+				Delivery: this.state.LevyneRating
 			},
 			{
-				Brand: this.state.BrandReview,
-				Delivery: this.state.DeliveryReview
+				Brand: this.state.BrandReview
 			},
 			this.props.AccessToken
 		)
@@ -104,13 +89,13 @@ class Review extends React.PureComponent {
 					<View center width={width} height={0.5*width}><RateIcon width={"50%"}/></View>
 
 					<View centerH>
-						<Text h1 marginT-20 h1 secondary>Rate your experience with Levyne!</Text>
+						<Text h1 marginT-20 secondary>Rate your experience with Levyne!</Text>
 						<View marginV-10 style={{ flexDirection: 'row' }}>
-							<StarIconsWithPress Rating={this.state.DeliveryRating || 0} UpdateRating={this.UpdateDeliveryRating} />
+							<StarIconsWithPress Rating={this.state.LevyneRating || 0} UpdateRating={this.UpdateLevyneRating} />
 						</View>
 
 
-						<Text h1 marginT-20 h1 secondary>Rate your experience with the Brand!</Text>
+						<Text h1 marginT-20 secondary>Rate your experience with the Brand!</Text>
 						<View marginV-10 row>
 							<StarIconsWithPress Rating={this.state.BrandRating || 0} UpdateRating={this.UpdateBrandRating} />
 						</View>
@@ -124,7 +109,7 @@ class Review extends React.PureComponent {
 						/>
 
 						<CstmShadowView style={{alignSelf: "center", marginBottom: 30, marginTop:30}}>
-							<Button flex label={"Post"} onPress={this.goToDeliveryRating}/>
+							<Button flex label={"Post"} onPress={this.OpenInAppReview}/>
 						</CstmShadowView>
 					</View>
 				</ScrollView>

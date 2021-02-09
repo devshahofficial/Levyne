@@ -113,6 +113,7 @@ class BrandProfile extends Component {
             });
         }).catch(() => {});
 
+        // @ts-ignore
         FetchBrandReviews({BrandID: this.props.route.params.BrandID, Limit: 10}).then(Reviews => {
             this.setState({ Reviews,ReviewLoading:false });
         }).catch(() => {})
@@ -166,6 +167,7 @@ class BrandProfile extends Component {
         this.props.navigation.push("Auth", {screen: 'Login'});
     }
 
+    // @ts-ignore
     ProductRenderItem = ({ item }) =>
         <ProductItemContainer
             Token={this.props.AccessToken}
@@ -173,6 +175,7 @@ class BrandProfile extends Component {
             NavigateLogin={this.NavigateLogin}
         />
 
+    // @ts-ignore
     FabricRenderItem = ({ item }) =>
         <FabricItemContainer
             Token={this.props.AccessToken}
@@ -319,15 +322,18 @@ class BrandProfile extends Component {
         );
     }
 
+    /**
+     * @param {{ BrandReviews: any; }} props
+     */
     ReviewScreen = (props) => {
         return (
             <>
                 <View center padding-10 style={{backgroundColor:Colors.shadow, height: 'auto'}}>
                     <Text>Reviews from customers!</Text>
                 </View>
-                <View flex paddingH-10>
+                <ScrollView style={{flex: 1, margin:10}}>
                     <ReviewForProducts Reviews={props.BrandReviews} />
-                </View>
+                </ScrollView>
             </>
         );
     }
@@ -377,7 +383,7 @@ class BrandProfile extends Component {
                         renderScene={({ route }) => {
                             switch (route.key) {
                                 case 'Profile':
-                                    return this.state.ProfileLoading ? <Loader/> : <this.ProfileScreen BrandProducts={this.state.BrandProducts} />
+                                    return this.state.ProfileLoading ? <Loader/> : <this.ProfileScreen />
                                 case 'Products':
                                     return this.state.ProductsLoading ? <Loader/> : <this.ProductScreen BrandProducts={this.state.BrandProducts} />
                                 case 'Fabrics':

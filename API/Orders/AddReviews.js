@@ -1,5 +1,11 @@
 import { POST } from "../CustomFetch";
 
+/**
+ * @param {number} OrderID
+ * @param {{ Brand: number; Delivery: number; }} Ratings
+ * @param {{ Brand: string; }} Reviews
+ * @param {string} Token
+ */
 const AddReviews = async (OrderID, Ratings, Reviews, Token) => {
     POST("Orders/ReviewOrder", {
         Token,
