@@ -5,7 +5,7 @@ import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 /**
  * @type {React.PureComponent}
  * @typedef {() => void} NavigateLogin
- * @extends {React.PureComponent<{Title: string, Navigation: () => void, children: React.ReactElement<{}>}>}
+ * @extends {React.PureComponent<{Title: string, Navigation?: () => void, children?: React.ReactElement<{}>}>}
  **/
 
 

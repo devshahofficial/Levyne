@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import React from 'react';
-import {View, Text, Colors, TouchableOpacity, Image} from 'react-native-ui-lib';
+import {View, Text, Colors, TouchableOpacity, Image, Button} from 'react-native-ui-lib';
 import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
 import {DeliveryIcon} from "../Icons/Secondary/DeliveryIcon";
@@ -59,11 +59,19 @@ export default class OrdersContainer extends React.Component {
                 )
             case 2:
                 return (
-                    <View row centerV marginV-15>
-                        <View flex>
-                            <OrderReceivedIcon size={35} Color={Colors.primary}/>
+                    <View flex>
+                        <View row centerV marginV-15>
+                            <View flex>
+                                <OrderReceivedIcon size={35} Color={Colors.primary}/>
+                            </View>
+                            <Text flex-8 marginL-20 h1 primary>Payment Declined.</Text>
                         </View>
-                        <Text flex-8 marginL-20 h1 primary>Payment Declined.</Text>
+                        <CstmShadowView style={{flex: 1, marginBottom: 20}}>
+							<Button
+								h2 onPress={() => this.props.RetryPayment(this.props)}
+								label="Retry Payment" flex
+							/>
+						</CstmShadowView>
                     </View>
                 )
             case 3:
@@ -73,6 +81,12 @@ export default class OrdersContainer extends React.Component {
                             <OrderReceivedIcon size={35} Color={Colors.primary}/>
                         </View>
                         <Text flex-8 marginL-20 h1 primary>Order placed</Text>
+                        <CstmShadowView style={{marginBottom: 20}}>
+                            <Button
+                                h2 onPress={() => this.props.CancelOrder(this.props.BucketID)}
+                                label="Cancel Order" flex
+                            />
+                        </CstmShadowView>
                     </View>
                 )
             case 4:
@@ -228,6 +242,12 @@ export default class OrdersContainer extends React.Component {
                             </View>
                             <Text flex-8 marginL-20 h1 primary>Order Delivered.</Text>
                         </View>
+                        <CstmShadowView style={{flex: 1, marginBottom: 20}}>
+							<Button
+								h2 onPress={() => this.props.RateExperience(this.props.BucketID)}
+								label="Rate Your Experience" flex
+							/>
+						</CstmShadowView>
                     </>
                 )
             default: 

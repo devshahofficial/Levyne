@@ -12,7 +12,7 @@ const BORDER_COLOR = Colors.grey60;
  *  id: number,
  *  label: string,
  *  onPress: (arg0: any) => void
- * }[], onCancel: (arg0: any) => void, actionTextColor: ?string}>}
+ * }[], onCancel: (arg0: any) => void, actionTextColor?: string}>}
  * 
  **/
 

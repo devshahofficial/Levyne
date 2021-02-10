@@ -5,6 +5,7 @@ import {ThemeManager, Colors, ListItem, Text, Avatar, AvatarHelper, View} from '
 import {connect} from 'react-redux';
 import TextNavBar from '../../components/TextNavBar';
 import FetchChatBuckets from '../../API/Chats/FetchChatBuckets';
+// @ts-ignore
 import MessageSVG from '../../assets/images/AppImages/Messages.svg';
 import UnLoggedScreen from '../../components/UnLoggedScreen';
 import Loader from '../../components/Loader';
@@ -16,6 +17,7 @@ class ConversationListScreen extends Component {
     constructor(props) {
         super(props);
         if(!this.props.ChatList) {
+            // @ts-ignore
             this.props.ChatList = [];
         };
         this.Page = 1;
@@ -34,8 +36,8 @@ class ConversationListScreen extends Component {
     onEndReached = () => {
         if(this.props.ChatList.length >= this.Page*20) {
             FetchChatBuckets(this.props.AccessToken, ++this.Page, this.abortController.signal).then(rows => {
-                MarkBucketAsUnRead(rows[1]);
-                setChatList(rows[0]);
+                this.props.MarkBucketAsUnRead(rows[1]);
+                this.props.setChatList(rows[0]);
             }).catch(err => {
                 console.log(err);
             });

@@ -9,7 +9,7 @@ const ShadowView = require("react-native-simple-shadow-view").default;
 
 /**
  * @type {React.PureComponent}
- * @extends {React.PureComponent<{style: ViewStyle}>}
+ * @extends {React.PureComponent<{style?: ViewStyle}>}
  **/
 
 
