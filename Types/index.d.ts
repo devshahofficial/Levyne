@@ -3,7 +3,7 @@ export type HomeStackParamList = {
         Rating: number,
         OrderID: number
     },
-    ProductDetailsPage: {
+    DesignScreen: {
         DesignID: number
     },
     AddReview: {
@@ -97,7 +97,7 @@ export type HomeStackParamList = {
         BucketID: number,
     },
     ChatToOrder: undefined,
-    ProductDetailsPage: {
+    DesignScreen: {
         DesignID: number
     },
     BlogPost: {

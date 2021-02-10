@@ -33,7 +33,7 @@ export default class DesignedAtLevyne extends Component {
     }
 
     NavigateDesign = (DesignID) => {
-        this.props.navigation.navigate('ProductDetailsPage', {DesignID})
+        this.props.navigation.navigate('DesignScreen', {DesignID})
     }
 
     FlatListonEndReached = () => {

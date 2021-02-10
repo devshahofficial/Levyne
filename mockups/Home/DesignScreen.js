@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
-import {Linking, SafeAreaView, ScrollView} from "react-native";
+import {SafeAreaView, ScrollView} from "react-native";
 import {Text, TouchableOpacity, Colors} from 'react-native-ui-lib';
 import ImageView from "react-native-image-viewing";
 import NavbarBack from "../../components/NavBarBack"
 import LevyneProduct from "../../components/LevyneProduct";
 import ImageCarouselLevyne from "../../components/ImageCarouselLevyne";
-import {CallIcon} from "../../Icons/CallIcon";
 import FetchDesignByID from '../../API/DesignByLevyne/FetchDesignByID';
 import Loader from '../../components/Loader';
 
 
-export default class ProductDetailsPage extends Component {
+export default class DesignScreen extends Component {
 
     state = {
         DesignImages : [],

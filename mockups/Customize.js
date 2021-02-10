@@ -58,7 +58,7 @@ class Customize extends React.Component {
      * @param {number} DesignID
      */
     NavigateDesign = (DesignID) => {
-        this.props.navigation.navigate('ProductDetailsPage', {DesignID})
+        this.props.navigation.navigate('DesignScreen', {DesignID})
     }
 
     FlatListonEndReached = () => {

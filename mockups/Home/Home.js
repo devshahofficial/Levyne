@@ -333,7 +333,7 @@ class HomeScreen extends React.Component {
     */
 
     NavigateDesign = (DesignID) => {
-        this.props.navigation.navigate('ProductDetailsPage', { DesignID })
+        this.props.navigation.navigate('DesignScreen', { DesignID })
     }
 
     NavigateChatToOrder = () => {

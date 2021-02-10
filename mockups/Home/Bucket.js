@@ -109,7 +109,7 @@ class Bucket extends React.Component {
     }
 
     navigateDesign = (DesignID) => {
-        this.props.navigation.navigate('ProductDetailsPage', {DesignID});
+        this.props.navigation.navigate('DesignScreen', {DesignID});
     }
 
     navigateFabric = (FabricID) => {

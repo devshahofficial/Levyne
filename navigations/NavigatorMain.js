@@ -43,7 +43,7 @@ import OrderScreen from '../mockups/Profile/OrderScreen';
 import ChatIcon from '../Icons/ChatIcon';
 import { OrdersIcon } from '../Icons/OrdersIcon';
 import { CustomizeIcon } from '../Icons/CustomizeIcon';
-import ProductDetailsPage from '../mockups/Home/ProductDetailsPage';
+import DesignScreen from '../mockups/Home/DesignScreen';
 import { connect } from 'react-redux';
 import BrandsFor3DCart from '../mockups/BrandsFor3DCart';
 import BrandsForDesignByLevyne from '../mockups/BrandsForDesignByLevyne';
@@ -196,8 +196,8 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="Order" component={OrderScreen} />
 				<HomeStack.Screen name="ChatToOrder" component={ChatToOrder} />
 				<HomeStack.Screen
-					name="ProductDetailsPage"
-					component={ProductDetailsPage}
+					name="DesignScreen"
+					component={DesignScreen}
 				/>
 				<HomeStack.Screen name="BlogPost" component={BlogPost} />
 				<HomeStack.Screen name="SearchScreen" component={SearchScreen} />
