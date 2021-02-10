@@ -9,6 +9,7 @@ import FetchBrandReviews from '../API/Brand/FetchBrandReviews';
 import AddWishlistProductByID from '../API/Products/AddWishlistProductByID';
 import RemoveWishlistProductByID from '../API/Products/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
+import AddProductToCartAPI from '../API/Cart/AddProductToCart';
 import NavBarBack from '../components/NavBarBack';
 import { Colors } from "react-native-ui-lib";
 import BottomButton from "../components/BottomButtons";
@@ -67,12 +68,15 @@ class ProductScreen extends React.Component {
         if(this.props.SkipLogin) {
             this.props.navigation.navigate("Login");
         } else {
-            this.props.navigation.push('ProductAddToCart', {
-                BrandID: this.state.ProductObject.BrandID,
-                AvailableSizes: this.state.ProductObject.AvailableSizes,
-                MaterialIDs: this.state.ProductObject.MaterialIDs,
-                ProductID: this.props.route.params.ProductID
-            })
+            AddProductToCartAPI(
+                this.props.route.params.ProductID,
+                undefined,
+                this.props.AccessToken,
+                this.abortController.signal
+            ).then(() => {
+                this.props.setIsAnyProductInCart(true);
+                this.props.navigation.push('Cart');
+            }).catch(console.log)
         }
     }
 
@@ -181,4 +185,10 @@ const mapsStateToProps = state => ({
     SkipLogin: state.Auth.SkipLogin
 });
 
-export default connect(mapsStateToProps)(ProductScreen)
+const mapDispatchToProps = dispatch => {
+	return {
+		setIsAnyProductInCart : (value) => dispatch({type: 'setIsAnyProductInCart', value}),
+	}
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(ProductScreen)

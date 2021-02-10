@@ -3,6 +3,7 @@ import { Text, View, Avatar, AvatarHelper, Colors } from 'react-native-ui-lib';
 import {Dimensions, StyleSheet} from 'react-native';
 import StarIconsComponent from './StarIconsComponent';
 import { DescriptionCard } from './ReadMore';
+// @ts-ignore
 import Review from "../assets/images/AppImages/Reviews.svg";
 
 const width = Dimensions.get("window").width;
@@ -22,7 +23,7 @@ export default class ReviewForProducts extends React.PureComponent {
 									<Avatar label={Initials} style={styles.img} />
 									<View marginL-10 marginT-5>
 										<Text hb2>{item.CustomerName}</Text>
-										<Text h3>{item.HoursAgo} Hours Ago</Text>
+										<Text h3>{item.HoursAgo > 24 ? parseInt(item.HoursAgo/24) + " Days ago" : item.HoursAgo/24 + " Hours ago" }</Text>
 									</View>
 									<View flex marginV-10 row right>
 										<StarIconsComponent BrandRating={item.Rating}></StarIconsComponent>
