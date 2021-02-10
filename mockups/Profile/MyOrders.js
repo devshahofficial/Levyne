@@ -112,11 +112,13 @@ class MyOrders extends Component {
         });
     }
 
-    /**
-     * @param {any} BucketID
-     */
-    RateExperience = (BucketID) => {
 
+    /**
+     * @param {number} OrderID
+     * @param {number} BrandRating
+     */
+    RateExperience = (OrderID, BrandRating) => {
+        this.props.navigation.navigate('AddReview', { OrderID, Rating: BrandRating });
     }
 
     FlatListRenderItem = ({item}) => (

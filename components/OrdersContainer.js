@@ -244,7 +244,7 @@ export default class OrdersContainer extends React.Component {
                         </View>
                         <CstmShadowView style={{flex: 1, marginBottom: 20}}>
 							<Button
-								h2 onPress={() => this.props.RateExperience(this.props.BucketID)}
+								h2 onPress={() => this.props.RateExperience(this.props.OrderID, parseInt(this.props.BrandRating))}
 								label="Rate Your Experience" flex
 							/>
 						</CstmShadowView>
