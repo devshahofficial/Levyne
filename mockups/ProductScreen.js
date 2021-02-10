@@ -68,6 +68,9 @@ class ProductScreen extends React.Component {
         if(this.props.SkipLogin) {
             this.props.navigation.navigate("Login");
         } else {
+            this.setState({
+                loading: true
+            });
             AddProductToCartAPI(
                 this.props.route.params.ProductID,
                 undefined,
@@ -75,6 +78,9 @@ class ProductScreen extends React.Component {
                 this.abortController.signal
             ).then(() => {
                 this.props.setIsAnyProductInCart(true);
+                this.setState({
+                    loading: false
+                });
                 this.props.navigation.push('Cart');
             }).catch(console.log)
         }
