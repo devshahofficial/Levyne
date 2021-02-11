@@ -51,6 +51,7 @@ class BrandProfile extends Component {
             ProfileImage : '',
             Latitude: '',
             Longitude: '',
+            Gender: 0,
             TotalProducts: 0,
             index: 0,
             BrandProducts : [],
@@ -94,6 +95,7 @@ class BrandProfile extends Component {
                 BrandRating : ProfileObject.BrandRating,
                 ProfileImage : ProfileObject.ProfileImage,
                 About : ProfileObject.About,
+                Gender : ProfileObject.Gender,
                 Latitude: ProfileObject.Latitude,
                 Longitude: ProfileObject.Longitude,
                 TotalProducts: ProfileObject.TotalProducts,
@@ -212,7 +214,8 @@ class BrandProfile extends Component {
         this.props.navigation.push('ChatToOrderBrand', {
             BrandID: this.props.route.params.BrandID,
             BrandImage: this.state.ProfileImage,
-            BrandName: this.state.Name
+            BrandName: this.state.Name,
+            Gender: this.state.Gender
         })
     }
 

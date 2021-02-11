@@ -100,7 +100,8 @@ export type HomeStackParamList = {
     ChatToOrderBrand: {
         BrandID: number,
         BrandName: string,
-        BrandImage: string
+        BrandImage: string,
+        Gender?: number
     },
     DesignScreen: {
         DesignID: number

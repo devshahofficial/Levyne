@@ -32,7 +32,7 @@ export default class ChatToOrder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Gender: false,
+            Gender: true,
             Budget: 0,
             Occasion: '',
             Description: '',
@@ -163,7 +163,7 @@ export default class ChatToOrder extends React.Component {
             return;
         }
         this.props.navigation.push("BrandListForChat", {
-            Gender: this.state.Gender,
+            Gender: this.state.Gender ? 1 : 0,
             Budget: this.state.Budget.value,
             Occasion: this.state.Occasion.value,
             Description: this.state.Description,
@@ -186,7 +186,7 @@ export default class ChatToOrder extends React.Component {
                                 onColor={Colors.primary}
                                 offColor={Colors.shadow}
                                 height={30} width={60} thumbSize={20}
-                                value={this.state.Gender}
+                                value={!this.state.Gender}
                                 onValueChange={this.switchGender}
                             />
                             <Text marginH-20 secondary hb1>Female</Text>

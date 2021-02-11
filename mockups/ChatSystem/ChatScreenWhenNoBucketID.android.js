@@ -36,7 +36,7 @@ const windowHeight = Dimensions.get('window').height;
 class ChatScreenIos extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             Messages: [],
             LoadingMessages: false,
@@ -380,7 +380,7 @@ class ChatScreenIos extends Component {
                             ImageSent: this.state.ImageSent
                         });
                     }
-                })
+                });
             } else {
                 this.props.Socket.emit('SendMessageWithBrandID', {
                     BrandID: this.props.route.params.BrandID,
@@ -401,6 +401,8 @@ class ChatScreenIos extends Component {
                     this.ChatOnEndReached();
                 })
             }
+
+            this.SendMessage();
 
             this.ImageSendVerify(BucketMessagesID);
         }

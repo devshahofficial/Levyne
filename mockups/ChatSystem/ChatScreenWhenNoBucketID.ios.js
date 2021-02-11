@@ -391,6 +391,8 @@ class ChatScreenIos extends Component {
                 })
             }
 
+            this.SendMessage();
+
             this.ImageSendVerify(BucketMessagesID);
         }
     }

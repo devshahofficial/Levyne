@@ -32,7 +32,8 @@ export default class ChatToOrder extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            Gender: false,
+            Gender: !this.props.route.params.Gender,
+            GenderDisabled: typeof this.props.route.params.Gender !== 'undefined' && this.props.route.params.Gender !== 2,
             Budget: 0,
             Occasion: '',
             Description: '',
@@ -164,6 +165,7 @@ export default class ChatToOrder extends React.Component {
                                 offColor={Colors.shadow}
                                 height={30} width={60} thumbSize={20}
                                 value={this.state.Gender}
+                                disabled={this.state.GenderDisabled}
                                 onValueChange={this.switchGender}
                             />
                             <Text marginH-20 secondary hb1>Female</Text>
