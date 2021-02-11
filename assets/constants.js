@@ -20,5 +20,5 @@ export default {
         android: StatusBar.currentHeight,
         default: 0
     }),
-    RazorPayKeyID: 'rzp_test_UYAoEmTyNK1nAu'
+    RazorPayKeyID: __DEV__ ? 'rzp_test_UYAoEmTyNK1nAu' : "rzp_live_oFOjKJYOe1uQfG"
 };
