@@ -21,6 +21,8 @@ const GetLastMessage = (Message) => {
             return 'You placed an order';
         case 8:
             return 'You cancelled an order';
+        case 9:
+            return 'Brand added the product to the Bucket';
         default : 
             return Message.Text;
 

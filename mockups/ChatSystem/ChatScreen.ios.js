@@ -378,6 +378,8 @@ class ChatScreenIos extends Component {
                                         return <this.CenterText TextInput={'You placed an order'}/>
                                     case 8 :
                                         return <this.CenterText TextInput={'You cancelled an order'}/>
+                                    case 9 :
+                                        return <this.CenterText TextInput={'Brand added the product to the Bucket'}/>
                                     default :
                                         return <></>
                                 }
