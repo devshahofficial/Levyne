@@ -43,7 +43,7 @@ class ChatScreenIos extends Component {
             ImageToDisplay: [],
             ModalVisible: false,
             ImagePickerModalVisible: false,
-            TextInput: '',
+            TextInput: this.props.route.params.Message ? this.props.route.params.Message : "",
             TextInputKey: Math.random(),
             ImageSent: {},
             BucketInfo: {}
@@ -60,8 +60,11 @@ class ChatScreenIos extends Component {
     SocketListener = (Message) => {
         if(Message.BucketID === this.props.route.params.BucketID) {
             this.state.Messages.unshift({
+                // @ts-ignore
                 Message,
+                // @ts-ignore
                 BucketMessagesID: Math.random(),
+                // @ts-ignore
                 Timestamp: 'now'
             });
 
@@ -198,6 +201,7 @@ class ChatScreenIos extends Component {
 
         const BucketMessagesID = Math.random().toString();
 
+        // @ts-ignore
         this.state.ImageSent[BucketMessagesID] = false;
 
         this.setState({
@@ -304,6 +308,7 @@ class ChatScreenIos extends Component {
                     CustomerID: this.props.UserID,
                     Type: 1,
                     Text: this.state.TextInput
+                // @ts-ignore
                 }, (BucketID) => {
                     this.props.route.params.BucketID = BucketID;
                     this.NewChatLoading = true;
@@ -313,17 +318,91 @@ class ChatScreenIos extends Component {
 
             this.state.Messages.unshift({
                 Message: {
+                    // @ts-ignore
                     Type: 1,
+                    // @ts-ignore
                     Sender: 1,
+                    // @ts-ignore
                     Text: this.state.TextInput,
                 },
-                BucketMessagesID: Math.random(),
+                // @ts-ignore
+                BucketMessagesID: Math.random().toString(),
+                // @ts-ignore
                 Timestamp: 'now'
             });
 
             this.setState({Messages: this.state.Messages});
 
             this.EmptyTextInput();
+        }
+    }
+    
+    componentDidMount() {
+        if(this.props.route.params.ImagePath) {
+            const BucketMessagesID = Math.random().toString();
+
+            // @ts-ignore
+            this.state.ImageSent[BucketMessagesID] = false;
+
+            this.setState({
+                ImageSent: this.state.ImageSent
+            });
+
+            this.state.Messages.unshift({
+                Message: {
+                    // @ts-ignore
+                    Type: 2,
+                    // @ts-ignore
+                    Sender: 1,
+                    // @ts-ignore
+                    ImageURL: this.props.route.params.ImagePath,
+                },
+                // @ts-ignore
+                BucketMessagesID,
+                // @ts-ignore
+                Timestamp: 'now'
+            });
+
+            this.setState({Messages: this.state.Messages});
+
+            if(this.props.route.params.BucketID) {
+                this.props.Socket.emit('SendMessage', {
+                    BucketID: this.props.route.params.BucketID,
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 2,
+                    Base64Image: this.props.route.params.ImagePath
+                }, () => {
+                    if(this.state && this.state.Messages) {
+                        // @ts-ignore
+                        this.state.ImageSent[BucketMessagesID] = true;
+                        this.setState({
+                            ImageSent: this.state.ImageSent
+                        });
+                    }
+                })
+            } else {
+                this.props.Socket.emit('SendMessageWithBrandID', {
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 2,
+                    Base64Image: this.props.route.params.ImagePath
+                // @ts-ignore
+                }, (BucketID) => {
+                    if(this.state && this.state.Messages) {
+                        // @ts-ignore
+                        this.state.ImageSent[BucketMessagesID] = true;
+                        this.setState({
+                            ImageSent: this.state.ImageSent
+                        });
+                    }
+                    this.props.route.params.BucketID = BucketID;
+                    this.NewChatLoading = true;
+                    this.ChatOnEndReached();
+                })
+            }
+
+            this.ImageSendVerify(BucketMessagesID);
         }
     }
 
@@ -407,6 +486,7 @@ class ChatScreenIos extends Component {
                                     return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
                                 case 7 :
                                     return <this.CenterText TextInput={'You placed an order'}/>
+                                default: return <></>
                             }
                         }}
                         keyExtractor = {this.keyExtractor}
@@ -416,9 +496,9 @@ class ChatScreenIos extends Component {
                 <ChatInputBar
                     DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
                     SendMessage = {this.SendMessage}
-                    value = {this.state.InputText}
+                    value = {this.state.TextInput}
                     onChangeText={this.onChangeTextInput}
-                    TextInputKey={this.state.TextInputKey}
+                    TextInputKey={this.state.TextInputKey.toString()}
                 />
             </SafeAreaView>
         )

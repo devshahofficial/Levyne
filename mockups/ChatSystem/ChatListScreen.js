@@ -25,7 +25,6 @@ class ConversationListScreen extends Component {
             refreshing: false
         }
 
-
         this.abortController = new AbortController();
     }
 
@@ -93,6 +92,7 @@ class ConversationListScreen extends Component {
                                             this.props.navigation.navigate('Chat', {
                                                 BucketID : item.BucketID,
                                                 Name : item.Name,
+                                                ItemCount: item.ItemCount,
                                                 Status: item.Status,
                                                 BrandID: item.BrandID,
                                                 OrderID: item.OrderID,

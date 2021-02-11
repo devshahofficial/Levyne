@@ -208,6 +208,14 @@ class BrandProfile extends Component {
         }
     }
 
+    ChatToOrderBrand = () => {
+        this.props.navigation.push('ChatToOrderBrand', {
+            BrandID: this.props.route.params.BrandID,
+            BrandImage: this.state.ProfileImage,
+            BrandName: this.state.Name
+        })
+    }
+
     ProfileScreen = () => {
         return (
             <ScrollView
@@ -229,6 +237,7 @@ class BrandProfile extends Component {
                     <CstmShadowView style={{flex:1, marginRight:10, height:45}}>
                         <Button
                             flex hb2
+                            onPress={this.ChatToOrderBrand}
                             label={"Order"}
                         />
                     </CstmShadowView>

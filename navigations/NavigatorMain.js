@@ -59,6 +59,7 @@ import FabricsFor3DCart from '../mockups/FabricsFor3DCart';
 // @ts-ignore
 import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
 import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
+import ChatToOrderBrand from "../mockups/ChatSystem/ChatToOrderBrand";
 import QRCodeReader from '../mockups/Home/QRCodeReader';
 
 const MainStack = createStackNavigator();
@@ -195,6 +196,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="BrandList" component={BrandList} />
 				<HomeStack.Screen name="Order" component={OrderScreen} />
 				<HomeStack.Screen name="ChatToOrder" component={ChatToOrder} />
+				<HomeStack.Screen name="ChatToOrderBrand" component={ChatToOrderBrand} />
 				<HomeStack.Screen
 					name="DesignScreen"
 					component={DesignScreen}

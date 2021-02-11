@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, Dimensions, SafeAreaView, Platform} from "react-native";
-import {View,Text,Colors, Picker, Switch, Button, Toast} from 'react-native-ui-lib';
+import {View,Text,Colors, Picker, Switch, Button} from 'react-native-ui-lib';
 import NavBarBack from '../../components/NavBarBack';
 import CstmInput from "../../components/input";
 import {ScrollView} from "react-native";
@@ -18,9 +18,9 @@ const screenWidth = Dimensions.get('window').width;
  * @typedef {object} AccessTokenProps
  * @prop {string} AccessToken
  * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
- * @typedef {RouteProp<HomeStackParamList, 'ChatToOrder'>} ReviewScreenRouteProp
- * @typedef {StackNavigationProp<HomeStackParamList, "ChatToOrder">} ReviewScreenNavigationProps
- * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
+ * @typedef {RouteProp<HomeStackParamList, 'ChatToOrderBrand'>} ChatToOrderScreenRouteProp
+ * @typedef {StackNavigationProp<HomeStackParamList, "ChatToOrder">} ChatToOrderScreenNavigationProps
+ * @typedef {AccessTokenProps & { navigation: ChatToOrderScreenNavigationProps, route: ChatToOrderScreenRouteProp }} Props
  * @typedef {{Gender: boolean, Budget: number, Occasion: string, Description: string, Image: string, ImageSize: {width: number, height: number}, modalVisible: boolean}} ChatToOrderState
  * @extends {React.Component<Props, ChatToOrderState>}
  */
@@ -41,8 +41,6 @@ export default class ChatToOrder extends React.Component {
                 width: screenWidth,
                 height: screenWidth
             },
-            ShowToast: false,
-            ToastContent: '',
             modalVisible: false,
             BudgetListKey: '232',
             OccasionListKey: '2132',
@@ -50,8 +48,6 @@ export default class ChatToOrder extends React.Component {
 
         this.BudgetList = [''],
         this.OccasionList = [''],
-
-        this.Timeouts = [0];
 
         this.Page = 0;
         /**
@@ -62,6 +58,18 @@ export default class ChatToOrder extends React.Component {
 
     switchGender = () => {
         this.setState({ Gender: !this.state.Gender });
+    }
+
+    componentDidMount() {
+        fetch(global.URL + 'ProductData.json').then(resp => resp.json()).then(({OccasionList, BudgetList}) => {
+            this.BudgetList = OccasionList,
+            this.OccasionList = BudgetList,
+            this.setState({
+                // @ts-ignore
+                BudgetListKey: Math.random().toString(),
+                OccasionListKey: Math.random().toString(),
+            })
+        }).catch(err => {});
     }
 
     /**
@@ -120,54 +128,23 @@ export default class ChatToOrder extends React.Component {
         this.setState({modalVisible: !this.state.modalVisible})
     }
 
-    componentDidMount() {
-        fetch(global.URL + 'ProductData.json').then(resp => resp.json()).then(({OccasionList, BudgetList}) => {
-            this.BudgetList = BudgetList,
-            this.OccasionList = OccasionList,
-            this.setState({
-                // @ts-ignore
-                BudgetListKey: Math.random().toString(),
-                OccasionListKey: Math.random().toString(),
-            })
-        }).catch(err => {});
-    }
-
     selectBrand = () => {
-        this.Timeouts.forEach(clearTimeout);
-        if(!this.state.Budget) {
-            this.setState({
-                // @ts-ignore
-                ShowToast: true,
-                ToastContent: 'Please Enter Budget',
-            });
-            this.Timeouts.push(setTimeout(() => {
-                this.setState({
-                    // @ts-ignore
-                    ShowToast: false,
-                });
-            }, 3000));
-            return;
+
+        let Message = `Gender: ${this.state.Gender ? "Male" : "Female"}\nBudget: ${this.state.Budget.value}\nOccasion: ${this.state.Occasion.value}\n`;
+
+        if(this.state.Description) {
+            Message += `Description: ${this.state.Description}`;
         }
-        if(!this.state.Occasion) {
-            this.setState({
-                // @ts-ignore
-                ShowToast: true,
-                ToastContent: 'Please Enter Occasion',
-            });
-            this.Timeouts.push(setTimeout(() => {
-                this.setState({
-                    // @ts-ignore
-                    ShowToast: false,
-                });
-            }, 3000));
-            return;
-        }
-        this.props.navigation.push("BrandListForChat", {
-            Gender: this.state.Gender,
-            Budget: this.state.Budget.value,
-            Occasion: this.state.Occasion.value,
-            Description: this.state.Description,
-            Image: this.state.Image
+
+        this.props.navigation.push("ChatWhenNoBucketID", {
+            Message: Message,
+            Status: 0,
+            ImagePath: this.state.Image,
+            BrandID: this.props.route.params.BrandID,
+            Name: this.props.route.params.BrandName,
+            imageSource: {
+                uri: this.props.route.params.BrandImage
+            }
         })
     }
 
@@ -260,18 +237,9 @@ export default class ChatToOrder extends React.Component {
                                 </TouchableOpacity>
                         }
                         <CstmShadowView style={{marginBottom: 20, marginTop:20}}>
-                            <Button onPress={this.selectBrand} flex h2 label='Select Brand'/>
+                            <Button onPress={this.selectBrand} flex h2 label='Send Message'/>
                         </CstmShadowView>
                     </ScrollView>
-                    <Toast
-                        visible={this.state.ShowToast}
-                        position={'bottom'}
-                        backgroundColor={Colors.primary}
-                    >
-                        <View flex padding-10 paddingB-30 style={{backgroundColor : Colors.primary}}>
-                            <Text white h1>{this.state.ToastContent}</Text>
-                        </View>
-                    </Toast>
                 </SafeAreaView>
             </>
         );

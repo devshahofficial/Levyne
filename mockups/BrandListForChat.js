@@ -59,13 +59,20 @@ class BrandList extends React.PureComponent {
 	 * @param {string} ProfileImage
 	 */
     navigateBrand = (BrandID, BrandName, ProfileImage) => {
+
+        let Message = `Gender: ${this.props.route.params.Gender ? "Male" : "Female"}\nBudget: ${this.props.route.params.Budget}\nOccasion: ${this.props.route.params.Occasion}\n`;
+
+        if(this.props.route.params.Description) {
+            Message += `Description: ${this.props.route.params.Description}`;
+        }
+
         //this.props.navigation.navigate("BrandProfile", {BrandID});
 		this.props.navigation.navigate('ChatWhenNoBucketID', {
 			BrandID: BrandID,
 			Name: BrandName,
 			Status: 0,
 			imageSource: {uri: ProfileImage},
-			Message: this.props.route.params.Description,
+			Message: Message,
 			ImagePath: this.props.route.params.Image
 		})
     }

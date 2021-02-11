@@ -97,6 +97,11 @@ export type HomeStackParamList = {
         BucketID: number,
     },
     ChatToOrder: undefined,
+    ChatToOrderBrand: {
+        BrandID: number,
+        BrandName: string,
+        BrandImage: string
+    },
     DesignScreen: {
         DesignID: number
     },

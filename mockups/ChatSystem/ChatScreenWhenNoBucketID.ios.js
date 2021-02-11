@@ -84,9 +84,16 @@ class ChatScreenIos extends Component {
         if(this.NewChatLoading) {
             this.NewChatLoading = false;
             GetChatMessage(this.props.route.params.BucketID, ++this.Page, this.props.AccessToken).then(Resp => {
-                if(Resp.Messages.length) {
-                    this.setState({Messages: [...this.state.Messages, ...Resp.Messages]});
-                    this.NewChatLoading = true;
+                if(this.Page === 1) {
+                    if(Resp.Messages.length) {
+                        this.setState({Messages: Resp.Messages});
+                        this.NewChatLoading = true;
+                    }
+                } else {
+                    if(Resp.Messages.length) {
+                        this.setState({Messages: [...this.state.Messages, ...Resp.Messages]});
+                        this.NewChatLoading = true;
+                    }
                 }
             }).catch(err => {
                 console.log(err);
@@ -319,6 +326,75 @@ class ChatScreenIos extends Component {
         }
     }
 
+    componentDidMount() {
+        if(this.props.route.params.ImagePath) {
+            const BucketMessagesID = Math.random().toString();
+
+            // @ts-ignore
+            this.state.ImageSent[BucketMessagesID] = false;
+
+            this.setState({
+                ImageSent: this.state.ImageSent
+            });
+
+            this.state.Messages.unshift({
+                Message: {
+                    // @ts-ignore
+                    Type: 2,
+                    // @ts-ignore
+                    Sender: 1,
+                    // @ts-ignore
+                    ImageURL: this.props.route.params.ImagePath,
+                },
+                // @ts-ignore
+                BucketMessagesID,
+                // @ts-ignore
+                Timestamp: 'now'
+            });
+
+            this.setState({Messages: this.state.Messages});
+
+            if(this.props.route.params.BucketID) {
+                this.props.Socket.emit('SendMessage', {
+                    BucketID: this.props.route.params.BucketID,
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 2,
+                    Base64Image: this.props.route.params.ImagePath
+                }, () => {
+                    if(this.state && this.state.Messages) {
+                        // @ts-ignore
+                        this.state.ImageSent[BucketMessagesID] = true;
+                        this.setState({
+                            ImageSent: this.state.ImageSent
+                        });
+                    }
+                })
+            } else {
+                this.props.Socket.emit('SendMessageWithBrandID', {
+                    BrandID: this.props.route.params.BrandID,
+                    CustomerID: this.props.UserID,
+                    Type: 2,
+                    Base64Image: this.props.route.params.ImagePath
+                // @ts-ignore
+                }, (BucketID) => {
+                    if(this.state && this.state.Messages) {
+                        // @ts-ignore
+                        this.state.ImageSent[BucketMessagesID] = true;
+                        this.setState({
+                            ImageSent: this.state.ImageSent
+                        });
+                    }
+                    this.props.route.params.BucketID = BucketID;
+                    this.NewChatLoading = true;
+                    this.ChatOnEndReached();
+                })
+            }
+
+            this.ImageSendVerify(BucketMessagesID);
+        }
+    }
+
     ImagePickerModalSwitchVisibility = () => {
         this.setState({ImagePickerModalVisible: !this.state.ImagePickerModalVisible})
     }
@@ -414,7 +490,7 @@ class ChatScreenIos extends Component {
                     <ChatInputBar
                         DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
                         SendMessage = {this.SendMessage}
-                        value = {this.state.InputText}
+                        value = {this.state.TextInput}
                         onChangeText={this.onChangeTextInput}
                         TextInputKey={this.state.TextInputKey}
                     />
