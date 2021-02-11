@@ -481,6 +481,10 @@ class ChatScreenIos extends Component {
                                         return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
                                     case 7 :
                                         return <this.CenterText TextInput={'You placed an order'}/>
+                                    case 8 :
+                                        return <this.CenterText TextInput={'You cancelled an order'}/>
+                                    default :
+                                        return <></>
                                 }
                             }}
                             keyExtractor = {this.keyExtractor}
@@ -492,7 +496,7 @@ class ChatScreenIos extends Component {
                         SendMessage = {this.SendMessage}
                         value = {this.state.TextInput}
                         onChangeText={this.onChangeTextInput}
-                        TextInputKey={this.state.TextInputKey}
+                        TextInputKey={this.state.TextInputKey.toString()}
                     />
                 </KeyboardAvoidingView>
             </SafeAreaView>

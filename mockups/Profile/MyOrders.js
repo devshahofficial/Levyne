@@ -4,9 +4,8 @@ import NavBarBack from '../../components/NavBarBack';
 import OrdersContainer from "../../components/OrdersContainer";
 import {connect} from 'react-redux';
 import FetchOrders from '../../API/Orders/FetchOrders';
-import {FlatList, Modal} from 'react-native';
+import {FlatList, Modal, StyleSheet, TouchableHighlight} from 'react-native';
 import Loader from '../../components/Loader';
-import ActionSheet from '../../components/Modal/ActionSheet';
 import CancelOrder from '../../API/Orders/CancelOrder';
 import RazorpayCheckout from 'react-native-razorpay';
 import config from '../../assets/constants';
@@ -207,14 +206,37 @@ class MyOrders extends Component {
                                 onPress={this.ChangeModalVisible}
                                 activeOpacity={1}
                             >
-                                <ActionSheet
-                                    actionItems={[{
-                                        id: 1,
-                                        label: 'Confirm',
-                                        onPress: this.handleCancelOrder
-                                    }]}
-                                    onCancel={this.ChangeModalVisible}
-                                />
+                                <View style={styles.modalContent}>
+                                    <View marginT-20 style={{borderBottomColor: Colors.grey60, borderBottomWidth:1}}>
+                                        <Text center marginH-20 marginB-20 hb1>
+                                           5% will be deducted as order cancellation fee.
+                                        </Text>
+                                    </View>
+                                    <TouchableHighlight
+                                        style={styles.actionSheetView}
+                                        underlayColor={'#f7f7f7'}
+                                        onPress={this.handleCancelOrder}
+                                    >
+                                        <Text h1
+                                            allowFontScaling={false}
+                                            style={styles.actionSheetText}
+                                        >
+                                            Confirm
+                                        </Text>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight
+                                        style={styles.actionSheetView}
+                                        underlayColor={'#f7f7f7'}
+                                        onPress={this.ChangeModalVisible}
+                                    >
+                                        <Text h1
+                                            allowFontScaling={false}
+                                            style={styles.actionSheetText}
+                                        >
+                                            Cancel
+                                        </Text>
+                                    </TouchableHighlight>
+                                </View>
                             </TouchableOpacity>
                         </Modal>
                     </View>
@@ -233,5 +255,37 @@ const mapsStateToProps = state => ({
     Email: state.Profile.Email,
     Mobile: state.Auth.Mobile
 });
+
+const PRIMARY_COLOR = Colors.secondary;
+const WHITE = Colors.white;
+const BORDER_COLOR = Colors.grey60;
+
+const styles = StyleSheet.create({
+    modalContent: {
+        borderTopLeftRadius: 12,
+        borderTopRightRadius: 12,
+        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 12,
+        marginLeft: 8,
+        marginRight: 8,
+        marginBottom: 20,
+    },
+    actionSheetView: {
+        backgroundColor: WHITE,
+        display: 'flex',
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingTop: 16,
+        paddingBottom: 16,
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderColor: BORDER_COLOR
+    },
+    actionSheetText: {
+        fontSize: 18,
+        color: PRIMARY_COLOR
+    },
+})
 
 export default connect(mapsStateToProps)(MyOrders);

@@ -19,6 +19,8 @@ const GetLastMessage = (Message) => {
             return 'Brand Removed the product from the cart';
         case 7:
             return 'You placed an order';
+        case 8:
+            return 'You cancelled an order';
         default : 
             return Message.Text;
 
