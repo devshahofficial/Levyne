@@ -138,7 +138,6 @@ class MyFits extends Component {
                         maxLength={5}
                         keyboardType="numeric"
                         textAlign={'center'}
-                        style={{ paddingLeft: 0}}
                         value={this.state[item].toString()}
                         onChangeText={value => {
                             this.setState({[item]: value})
