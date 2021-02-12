@@ -95,8 +95,7 @@ class CheckOut extends React.PureComponent {
                         contact: this.props.Mobile,
                         name: this.props.Name
                     },
-                    theme: {color: Colors.primary,backdrop_color:Colors.black
-                    }
+                    theme: { color: Colors.primary,backdrop_color:Colors.black }
                 });
                 this.setState({Loading: false});
                 this.props.navigation.dispatch(
