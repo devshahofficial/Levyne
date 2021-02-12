@@ -2,7 +2,8 @@ import React from 'react';
 import {StyleSheet, BackHandler, ScrollView } from 'react-native';
 import {Button, View, Text, Toast, Colors} from 'react-native-ui-lib';
 import CstmInput from '../../components/input';
-import Logo from '../assets/images/Logo.svg';
+// @ts-ignore
+import Logo from '../../assets/images/Logo.svg';
 import generateOTP from '../../API/Auth/Login';
 import SkipLogin from '../../API/Auth/SkipLogin';
 import CstmShadowView from "../../components/CstmShadowView";
