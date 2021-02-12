@@ -1,20 +1,20 @@
 import React from 'react';
 import { FlatList } from 'react-native'
 import {View, Text} from 'react-native-ui-lib';
-import NavBarBack from '../components/NavBarBack';
+import NavBarBack from '../../components/NavBarBack';
 import {connect} from 'react-redux';
-import Loader from '../components/Loader';
+import Loader from '../../components/Loader';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import BrandBySearch from '../API/Brand/BrandBySearch';
-import BrandItemContainer from '../components/BrandItemContainer';
+import BrandBySearch from '../../API/Brand/BrandBySearch';
+import BrandItemContainer from '../../components/BrandItemContainer';
 
 /**
  * @type {React.PureComponent}
  * @typedef {object} ReduxProps
  * @prop {string} AccessToken
  * @prop {(arg0: boolean) => void} setIsAnyProductInCart
- * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'BrandListForChat'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandListForChat">} ReviewScreenNavigationProps
  * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

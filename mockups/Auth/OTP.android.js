@@ -1,14 +1,15 @@
 import React from 'react';
 import { StyleSheet, ScrollView} from 'react-native';
 import {Button,Text, View, Colors, Toast} from 'react-native-ui-lib';
-import CstmInput from '../components/input';
+import CstmInput from '../../components/input';
+// @ts-ignore
 import Logo from '../assets/images/Logo.svg';
-import VerifyOTP from '../API/Auth/OTP';
-import {generateOTP} from '../API/Auth/Login';
+import VerifyOTP from '../../API/Auth/OTP';
+import generateOTP from '../../API/Auth/Login';
 import {connect} from 'react-redux';
-import CstmShadowView from "../components/CstmShadowView";
+import CstmShadowView from "../../components/CstmShadowView";
 import PushNotification from "react-native-push-notification";
-import Loader from '../components/Loader';
+import Loader from '../../components/Loader';
 
 class OTPScreen extends React.Component {
 

@@ -1,24 +1,24 @@
 import React from 'react';
 import { Text, View, Button } from 'react-native-ui-lib';
-import NavBarBack from '../components/NavBarBack';
+import NavBarBack from '../../components/NavBarBack';
 import { Dimensions, ScrollView } from 'react-native';
-import StarIconsWithPress from '../components/StarIconsWithPress';
-import CstmInput from '../components/input';
+import StarIconsWithPress from '../../components/StarIconsWithPress';
+import CstmInput from '../../components/input';
 const width = Dimensions.get('window').width;
 import InAppReview from "react-native-in-app-review";
-import AddReviews from '../API/Orders/AddReviews';
+import AddReviews from '../../API/Orders/AddReviews';
 import { connect } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import CstmShadowView from "../components/CstmShadowView";
+import CstmShadowView from "../../components/CstmShadowView";
 // @ts-ignore
-import RateIcon from "../assets/images/AppImages/Ratings.svg";
+import RateIcon from "../../assets/images/AppImages/Ratings.svg";
 
 /**
  * @type {React.PureComponent}
  * @typedef {object} AccessTokenProps
  * @prop {string} AccessToken
- * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'AddReview'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "AddReview">} ReviewScreenNavigationProps
  * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

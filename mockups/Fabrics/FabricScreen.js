@@ -1,17 +1,17 @@
 import {SafeAreaView, ScrollView, ActivityIndicator, Dimensions, Share} from "react-native";
 import React from 'react';
-import FabricScreenPartOne from '../components/FabricScreenPartOne';
-import FabricScreenPartTwo from '../components/FabricScreenPartTwo';
-import FabricByID from '../API/Fabrics/FabricByID';
-import AddWishlistFabricByID from '../API/Fabrics/AddWishlistFabricByID';
-import RemoveWishlistFabricByID from '../API/Fabrics/RemoveWishlistFabricByID';
+import FabricScreenPartOne from '../../components/FabricScreenPartOne';
+import FabricScreenPartTwo from '../../components/FabricScreenPartTwo';
+import FabricByID from '../../API/Fabrics/FabricByID';
+import AddWishlistFabricByID from '../../API/Fabrics/AddWishlistFabricByID';
+import RemoveWishlistFabricByID from '../../API/Fabrics/RemoveWishlistFabricByID';
 import {connect} from 'react-redux';
-import NavBarBack from '../components/NavBarBack';
+import NavBarBack from '../../components/NavBarBack';
 import { Colors, AnimatedImage, TouchableOpacity, Text, View} from "react-native-ui-lib";
 import ImageView from "react-native-image-viewing";
-import Loader from "../components/Loader";
-import {ShareIcon} from "../Icons/ShareIcon";
-import {MachineWashIcon} from "../Icons/Secondary/MachineWashIcon";
+import Loader from "../../components/Loader";
+import {ShareIcon} from "../../Icons/ShareIcon";
+import {MachineWashIcon} from "../../Icons/Secondary/MachineWashIcon";
 
 
 const screenWidth = Dimensions.get('window').width;

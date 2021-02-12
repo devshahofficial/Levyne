@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import {FlatList, StyleSheet, ScrollView} from 'react-native';
 import {View, Text, Colors, Button} from 'react-native-ui-lib';
-import ProductItemContainer from '../components/ProductItemContainer';
-import ProfileTopSection from '../components/ProfileTopSection';
-import ViewBrandProfile from '../API/Brand/ViewBrandProfile';
-import FetchBrandProducts from '../API/Products/FetchBrandProducts';
+import ProductItemContainer from '../../components/ProductItemContainer';
+import ProfileTopSection from '../../components/ProfileTopSection';
+import ViewBrandProfile from '../../API/Brand/ViewBrandProfile';
+import FetchBrandProducts from '../../API/Products/FetchBrandProducts';
 import {connect} from 'react-redux';
-import BrandFollowing from '../API/Brand/BrandFollowing'
-import NavBarBack from '../components/NavBarBack';
+import BrandFollowing from '../../API/Brand/BrandFollowing'
+import NavBarBack from '../../components/NavBarBack';
 import {TabBar, TabView} from "react-native-tab-view";
-import Loader from "../components/Loader";
-import FabricItemContainer from "../components/FabricItemContainer";
-import FetchBrandFabrics from "../API/Fabrics/FetchFabricByBrandID";
-import ProfileBottomSection from "../components/MyProfileBottomSection";
+import Loader from "../../components/Loader";
+import FabricItemContainer from "../../components/FabricItemContainer";
+import FetchBrandFabrics from "../../API/Fabrics/FetchFabricByBrandID";
+import ProfileBottomSection from "../../components/MyProfileBottomSection";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
-import CstmShadowView from "../components/CstmShadowView";
-import ReviewForProducts from "../components/ReviewForProducts";
-import FetchBrandReviews from "../API/Brand/FetchBrandReviews";
+import CstmShadowView from "../../components/CstmShadowView";
+import ReviewForProducts from "../../components/ReviewForProducts";
+import FetchBrandReviews from "../../API/Brand/FetchBrandReviews";
 
 /**
  * @type {React.Component}
- * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {{AccessToken: string, SkipLogin: boolean}} ReduxProps
  * @typedef {RouteProp<HomeStackParamList, 'BrandProfile'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandProfile">} ReviewScreenNavigationProps

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Image, StyleSheet, FlatList } from 'react-native'
 import { View, Text, TouchableOpacity } from 'react-native-ui-lib';
-import StarIconsComponent from "../components/StarIconsComponent";
-import NavBarBack from "../components/NavBarBack";
-import FetchBrandsDesignsByLevyne from '../API/Brand/FetchBrandsDesignsByLevyne';
-import Loader from '../components/Loader';
-import AddToCart from '../API/Cart/Add3DToCart';
+import StarIconsComponent from "../../components/StarIconsComponent";
+import NavBarBack from "../../components/NavBarBack";
+import FetchBrandsDesignsByLevyne from '../../API/Brand/FetchBrandsDesignsByLevyne';
+import Loader from '../../components/Loader';
+import AddToCart from '../../API/Cart/Add3DToCart';
 import { connect } from 'react-redux';
 
 class FashionDesignerList extends React.PureComponent {

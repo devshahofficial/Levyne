@@ -1,20 +1,20 @@
 import React from 'react';
 import {SafeAreaView, ScrollView} from "react-native";
-import ProductScreenPartOne from '../components/ProductScreenPartOne';
-import ProductScreenPartTwo from '../components/ProductScreenPartTwo';
-import ProductScreenPartThree from '../components/ProductScreenPartThree';
-import ImageCarouselProduct from "../components/ImageCarouselProduct";
-import ProductByID from '../API/Products/ProductByID';
-import FetchBrandReviews from '../API/Brand/FetchBrandReviews';
-import AddWishlistProductByID from '../API/Products/AddWishlistProductByID';
-import RemoveWishlistProductByID from '../API/Products/RemoveWishlistProductByID';
+import ProductScreenPartOne from '../../components/ProductScreenPartOne';
+import ProductScreenPartTwo from '../../components/ProductScreenPartTwo';
+import ProductScreenPartThree from '../../components/ProductScreenPartThree';
+import ImageCarouselProduct from "../../components/ImageCarouselProduct";
+import ProductByID from '../../API/Products/ProductByID';
+import FetchBrandReviews from '../../API/Brand/FetchBrandReviews';
+import AddWishlistProductByID from '../../API/Products/AddWishlistProductByID';
+import RemoveWishlistProductByID from '../../API/Products/RemoveWishlistProductByID';
 import {connect} from 'react-redux';
-import AddProductToCartAPI from '../API/Cart/AddProductToCart';
-import NavBarBack from '../components/NavBarBack';
+import AddProductToCartAPI from '../../API/Cart/AddProductToCart';
+import NavBarBack from '../../components/NavBarBack';
 import { Colors } from "react-native-ui-lib";
-import BottomButton from "../components/BottomButtons";
+import BottomButton from "../../components/BottomButtons";
 import ImageView from "react-native-image-viewing";
-import Loader from '../components/Loader';
+import Loader from '../../components/Loader';
 
 class ProductScreen extends React.Component {
 

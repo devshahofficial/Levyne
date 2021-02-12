@@ -1,12 +1,11 @@
 import React from 'react';
-import {StyleSheet, ScrollView, ActivityIndicator} from 'react-native';
+import {StyleSheet, ScrollView, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
-import EditProfileAPI from '../API/Profile/EditProfile';
-import CstmInput from "../components/input";
+import EditProfileAPI from '../../API/Profile/EditProfile';
+import CstmInput from "../../components/input";
 import {Text, TouchableOpacity, Button, Colors, View, Toast} from 'react-native-ui-lib';
-import CstmShadowView from '../components/CstmShadowView';
-import NavBarBack from "../components/NavBarBack";
-
+import CstmShadowView from '../../components/CstmShadowView';
+import NavBarBack from "../../components/NavBarBack";
 import {EmailValidator} from 'commons-validator-js';
 
 
@@ -112,7 +111,6 @@ class InitialProfile extends React.Component {
             this.setState({ Loading : false});
             this.props.navigation.navigate('MainHomeStack');
         }).catch(err => {
-            console.log(err);
             this.setState({Loading : false, ShowToast : true, ToastContent : err});
             setTimeout(() => {
                 this.setState({ShowToast : false});
@@ -133,78 +131,83 @@ class InitialProfile extends React.Component {
     }
 
     render() {
-        
+
         return (
             <>
                 <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"}/>
-                <ScrollView
-                    style={styles.container}
-                    showsVerticalScrollIndicator={false}
-                >
-                    <View paddingH-20 marginB-20>
+                <KeyboardAvoidingView
+                        behavior={ 'padding' }
+                        style={styles.container}
+                        keyboardVerticalOffset={35}
+                    >
+                    <ScrollView
+                        style={ { flex: 1 } }
+                        showsVerticalScrollIndicator={false}
+                    >
+                        <View paddingH-20 marginB-20>
 
-                        <Text h1 marginT-10>Name</Text>
-                        <CstmInput
-                            placeholder='Name'
-                            value={this.state.Name}
-                            onChangeText={this.setName}
-                            textContentType={'name'}
-                        />
-
-                        <Text h1 marginT-30>Email</Text>
-                        <CstmInput
-                            placeholder='Email'
-                            value={this.state.Email}
-                            onChangeText={this.setEmail}
-                            keyboardType={'email-address'}
-                            textContentType={'emailAddress'}
-                        />
-
-
-                        <View row marginT-30>
-                            <TouchableOpacity
-                                center
-                                onPress={this.setGender}
-                                style={this.state.Female === true ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
-                            >
-                                <Text h1 secondary>Female</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                center
-                                onPress={this.setGender}
-                                style={this.state.Female === false ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
-                            >
-                                <Text h1 secondary>Male</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        <Text h1 marginT-30>Address</Text>
-                        <CstmInput
-                            style={{height:100,borderRadius:20}}
-                            placeholder='Address'
-                            value={this.state.Address}
-                            onChangeText={this.setAddress}
-                        />
-
-                        <Text h1 marginT-30>Pin Code</Text>
-                        <CstmInput
-                            style={{marginBottom: 20}}
-                            placeholder='Pin Code'
-                            value={this.state.PinCode}
-                            keyboardType='number-pad'
-                            maxLength={6}
-                            onChangeText={this.setPinCode}
-                        />
-
-                        <CstmShadowView style={styles.ShadowView}>
-                            <Button
-                                flex hb2
-                                label='Submit'
-                                onPress={this.EditProfileSubmit}
+                            <Text h1 marginT-10>Name</Text>
+                            <CstmInput
+                                placeholder='Name'
+                                value={this.state.Name}
+                                onChangeText={this.setName}
+                                textContentType={'name'}
                             />
-                        </CstmShadowView>
-                    </View>
-                </ScrollView>
+
+                            <Text h1 marginT-30>Email</Text>
+                            <CstmInput
+                                placeholder='Email'
+                                value={this.state.Email}
+                                onChangeText={this.setEmail}
+                                keyboardType={'email-address'}
+                                textContentType={'emailAddress'}
+                            />
+
+                            <View row marginT-30>
+                                <TouchableOpacity
+                                    center
+                                    onPress={this.setGender}
+                                    style={this.state.Female === true ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                                >
+                                    <Text h1 secondary>Female</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    center
+                                    onPress={this.setGender}
+                                    style={this.state.Female === false ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                                >
+                                    <Text h1 secondary>Male</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            <Text h1 marginT-30>Address</Text>
+                            <CstmInput
+                                style={{height:100,borderRadius:20}}
+                                placeholder='Address'
+                                value={this.state.Address}
+                                onChangeText={this.setAddress}
+                            />
+
+                            <Text h1 marginT-30>Pin Code</Text>
+                            <CstmInput
+                                style={{marginBottom: 20}}
+                                placeholder='Pin Code'
+                                value={this.state.PinCode}
+                                keyboardType='number-pad'
+                                maxLength={6}
+                                onChangeText={this.setPinCode}
+                            />
+
+                            <CstmShadowView style={styles.ShadowView}>
+                                <Button
+                                    flex hb2
+                                    label='Submit'
+                                    onPress={this.EditProfileSubmit}
+                                />
+                            </CstmShadowView>
+                        </View>
+                    </ScrollView>
+                </KeyboardAvoidingView>
                 <Toast
                     visible={this.state.ShowToast}
                     position={'bottom'}

@@ -1,12 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Linking } from 'react-native';
-// @ts-ignore
-import Logo from '../assets/images/Logo.svg';
-import AuthCheck from '../API/Auth/index';
+import Logo from '../../assets/images/Logo.svg';
+import AuthCheck from '../../API/Auth/index';
 import { connect } from 'react-redux';
 import { Colors, AvatarHelper } from 'react-native-ui-lib';
 import { CommonActions } from '@react-navigation/native';
-import HandleShareURL from '../API/Home/HandleShareURL';
+import HandleShareURL from '../../API/Home/HandleShareURL';
 
 class IndexScreen extends React.Component {
 

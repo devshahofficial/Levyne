@@ -2,11 +2,11 @@ import React from 'react';
 import {StyleSheet, Dimensions, FlatList} from 'react-native';
 import {View, Text, TouchableOpacity, Image, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
-import TextNavBar from '../components/TextNavBar';
-import FetchDesignsByLevyne from "../API/DesignByLevyne/FetchDesignsByLevyne";
-import Fetch3DCategories from "../API/ThreeD/Fetch3DCategories";
-import Loader from "../components/Loader";
-import LevyneProductContainer from "../components/LevyneProductContainer";
+import TextNavBar from '../../components/TextNavBar';
+import FetchDesignsByLevyne from "../../API/DesignByLevyne/FetchDesignsByLevyne";
+import Fetch3DCategories from "../../API/ThreeD/Fetch3DCategories";
+import Loader from "../../components/Loader";
+import LevyneProductContainer from "../../components/LevyneProductContainer";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get('window').width;
  * @type {React.PureComponent}
  * @typedef {object} AccessTokenProps
  * @prop {string} AccessToken
- * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'Customize'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "Customize">} ReviewScreenNavigationProps
  * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

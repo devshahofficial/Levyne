@@ -1,13 +1,13 @@
 import React from 'react';
 import { FlatList, SafeAreaView } from 'react-native';
-import CstmShadowView from "../components/CstmShadowView";
+import CstmShadowView from "../../components/CstmShadowView";
 import {Text, View, Colors, Button, Checkbox, Toast} from "react-native-ui-lib";
-import FabricOrderContainer from "../components/FabricOrderContainer";
-import FetchFabricByBrandID from '../API/Fabrics/FetchFabricByBrandID';
-import AddProductToCartAPI from '../API/Cart/AddProductToCart';
+import FabricOrderContainer from "../../components/FabricOrderContainer";
+import FetchFabricByBrandID from '../../API/Fabrics/FetchFabricByBrandID';
+import AddProductToCartAPI from '../../API/Cart/AddProductToCart';
 import {connect} from 'react-redux';
-import NavBarBack from "../components/NavBarBack";
-import Loader from '../components/Loader';
+import NavBarBack from "../../components/NavBarBack";
+import Loader from '../../components/Loader';
 
 class AddToCartScreen extends React.PureComponent {
 

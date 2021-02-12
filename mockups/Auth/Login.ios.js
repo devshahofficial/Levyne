@@ -1,12 +1,13 @@
 import React from 'react';
 import {StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
 import {Button, View, Text, Toast, Colors} from 'react-native-ui-lib';
-import CstmInput from '../components/input';
-import Logo from '../assets/images/Logo.svg';
-import generateOTP from '../API/Auth/Login';
-import SkipLogin from '../API/Auth/SkipLogin';
-import CstmShadowView from "../components/CstmShadowView";
-import Constants from '../assets/constants';
+import CstmInput from '../../components/input';
+// @ts-ignore
+import Logo from '../../assets/images/Logo.svg';
+import generateOTP from '../../API/Auth/Login';
+import SkipLogin from '../../API/Auth/SkipLogin';
+import CstmShadowView from "../../components/CstmShadowView";
+import Constants from '../../assets/constants';
 import {connect} from 'react-redux';
 
 class LoginScreen extends React.Component {
@@ -23,11 +24,9 @@ class LoginScreen extends React.Component {
 	}
 
 	renderCustomContent = () => {
-		const {selectedColor} = this.state;
-		const backgroundColor = selectedColor === 'none' ? undefined : selectedColor;
 
 		return (
-			<View flex padding-10 style={{backgroundColor}}>
+			<View flex padding-10 style={{backgroundColor: undefined}}>
 				<Text white h1>
 					{this.state.showContent}
 				</Text>

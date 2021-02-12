@@ -1,11 +1,11 @@
 import React from 'react';
 import { Image, StyleSheet, FlatList } from 'react-native'
 import { View, Text, TouchableOpacity } from 'react-native-ui-lib';
-import StarIconsComponent from "../components/StarIconsComponent";
-import NavBarBack from "../components/NavBarBack";
-import FetchBrandsWith3DPricing from '../API/Brand/FetchBrandsWith3DPricing';
-import Loader from '../components/Loader';
-import Add3DToCart from '../API/Cart/Add3DToCart';
+import StarIconsComponent from "../../components/StarIconsComponent";
+import NavBarBack from "../../components/NavBarBack";
+import FetchBrandsWith3DPricing from '../../API/Brand/FetchBrandsWith3DPricing';
+import Loader from '../../components/Loader';
+import Add3DToCart from '../../API/Cart/Add3DToCart';
 import { connect } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -15,7 +15,7 @@ import { RouteProp } from '@react-navigation/native';
  * @typedef {object} ReduxProps
  * @prop {string} AccessToken
  * @prop {(arg0: boolean) => void} setIsAnyProductInCart
- * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'BrandsFor3DCart'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandsFor3DCart">} ReviewScreenNavigationProps
  * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

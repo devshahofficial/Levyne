@@ -1,13 +1,13 @@
 import React from 'react';
 import { Dimensions, FlatList } from 'react-native'
 import { View, Button } from 'react-native-ui-lib';
-import NavBarBack from "../components/NavBarBack";
-import Loader from '../components/Loader';
-import FabricOrderContainer from '../components/FabricOrderContainer';
-import FetchFabricsByFilter from '../API/Fabrics/FetchFabricsByFilter';
-import Add3DToCart from '../API/Cart/Add3DToCart';
+import NavBarBack from "../../components/NavBarBack";
+import Loader from '../../components/Loader';
+import FabricOrderContainer from '../../components/FabricOrderContainer';
+import FetchFabricsByFilter from '../../API/Fabrics/FetchFabricsByFilter';
+import Add3DToCart from '../../API/Cart/Add3DToCart';
 import { connect } from 'react-redux';
-import CstmShadowView from '../components/CstmShadowView';
+import CstmShadowView from '../../components/CstmShadowView';
 
 const window = Dimensions.get('window');
 

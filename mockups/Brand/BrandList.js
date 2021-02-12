@@ -1,13 +1,13 @@
 import React from 'react';
 import { Image, StyleSheet, FlatList } from 'react-native'
 import {View, Text, TouchableOpacity, Toast} from 'react-native-ui-lib';
-import Colors from "../Style/Colors";
-import NavBarBack from '../components/NavBarBack';
+import Colors from "../../Style/Colors";
+import NavBarBack from '../../components/NavBarBack';
 import {connect} from 'react-redux';
-import BrandFollowings from '../API/Brand/BrandFollowing';
-import Stars from '../components/StarIconsComponent';
-import CstmShadowView from "../components/CstmShadowView";
-import Loader from '../components/Loader';
+import BrandFollowings from '../../API/Brand/BrandFollowing';
+import Stars from '../../components/StarIconsComponent';
+import CstmShadowView from "../../components/CstmShadowView";
+import Loader from '../../components/Loader';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 
@@ -18,7 +18,7 @@ const FetchBrandFollowings = BrandFollowings.FetchBrandFollowings;
  * @typedef {object} ReduxProps
  * @prop {string} AccessToken
  * @prop {(arg0: boolean) => void} setIsAnyProductInCart
- * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'BrandList'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandList">} ReviewScreenNavigationProps
  * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props
