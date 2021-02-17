@@ -9,7 +9,6 @@ export default class TermsConditionsScreen extends Component {
             <>
                 <NavBarBack Navigation={this.props.navigation.goBack} Title={'Terms and Conditions'}/>
                 <ScrollView
-                    contentContainerStyle={{flex:1}}
                     showsVerticalScrollIndicator={false}
                 >
                     <View flex paddingH-20 paddingV-10>
