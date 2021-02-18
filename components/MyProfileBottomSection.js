@@ -50,7 +50,7 @@ const Type = [
 ]
 
 const ConvertToTime = (TimeString) => {
-	const H = +TimeString.substr(0, 2);
+	const H = +(TimeString.substr(0, 2));
 	const h = H % 12 || 12;
 	const AmPm = (H < 12 || H === 24) ? "AM" : "PM";
 	return h + ":" + TimeString.substr(2, 2) + AmPm;
@@ -60,8 +60,8 @@ class ProfileBottomSection extends React.PureComponent {
 
 	constructor(props) {
 		super(props);
-		this.StudioStartTiming = ConvertToTime(this.props.StudioStartTiming);
-		this.StudioCloseTiming = ConvertToTime(this.props.StudioCloseTiming);
+		this.StudioStartTiming = ConvertToTime(this.props.StudioStartTiming || "0700");
+		this.StudioCloseTiming = ConvertToTime(this.props.StudioCloseTiming || "0800");
 	}
 	navigateMap = async () => {
 
