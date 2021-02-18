@@ -9,8 +9,7 @@ import HandleShareURL from '../../API/Home/HandleShareURL';
 
 class IndexScreen extends React.Component {
 
-	componentDidMount(props) {
-		super(props);
+	componentDidMount() {
 		const { setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart } = this.props;
 
 
