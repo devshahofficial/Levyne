@@ -3,8 +3,39 @@ import { POST } from '../CustomFetch';
 import NewSocket from './NewSocket';
 import FetchChatBuckets from '../Chats/FetchChatBuckets';
 import IsAnyProductInCart from '../Profile/IsAnyProductInCart';
+import { Socket } from 'socket.io-client';
 
-const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart) => {
+interface AuthObject {
+    SkipLogin?: boolean;
+    AccessToken?: string;
+    RefreshToken?: string;
+    Timestamp?: string;
+    Mobile?: string | null;
+    UserID?: string;
+}
+
+interface ProfileObject {
+    ProfileStatus: number;
+    Name?: string | null;
+    Email?: string | null;
+    Address?: string | null;
+    Gender?: number;
+    PinCode?: string | null;
+}
+
+type setAuth = (AuthObject: AuthObject) => void;
+
+type setProfile = (ProfileObject: ProfileObject) => void;
+
+type setSocket = (Socket: Socket) => void;
+
+type setChatList = (ChatList: any[]) => void;
+
+type MarkBucketAsUnRead = (BucketID: number) => void;
+
+type setIsAnyProductInCart = (IsAnyProductInCart: boolean) => void;
+
+const verifyOTP = async (Mobile: number, OTP: string, OTPTokenHash: string, UID: string, FirebaseToken: string, setAuth: setAuth, setProfile: setProfile, setSocket: setSocket, setChatList: setChatList, MarkBucketAsUnRead: MarkBucketAsUnRead, setIsAnyProductInCart: setIsAnyProductInCart) => {
     if(OTP.length != 6)
     {
         throw new Error('Not a valid OTP');
@@ -34,7 +65,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                     AccessToken : json.AccessToken,
                     RefreshToken : json.RefreshToken,
                     Timestamp : Timestamp,
-                    Mobile : Mobile,
+                    Mobile : Mobile.toString(),
                     UserID : json.CustomerID,
                     SkipLogin: false
                 })
@@ -77,7 +108,7 @@ const verifyOTP = async (Mobile, OTP, OTPTokenHash, UID, FirebaseToken, setAuth,
                     AccessToken : json.AccessToken,
                     RefreshToken : json.RefreshToken,
                     Timestamp : Timestamp,
-                    Mobile : Mobile,
+                    Mobile : Mobile.toString(),
                     UserID : json.CustomerID,
                     SkipLogin: false
                 });

@@ -14,7 +14,7 @@ import BrandItemContainer from '../../components/BrandItemContainer';
  * @typedef {object} ReduxProps
  * @prop {string} AccessToken
  * @prop {(arg0: boolean) => void} setIsAnyProductInCart
- * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'BrandListForChat'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandListForChat">} ReviewScreenNavigationProps
  * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

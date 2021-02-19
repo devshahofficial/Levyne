@@ -18,7 +18,7 @@ import RateIcon from "../../assets/images/AppImages/Ratings.svg";
  * @type {React.PureComponent}
  * @typedef {object} AccessTokenProps
  * @prop {string} AccessToken
- * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'AddReview'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "AddReview">} ReviewScreenNavigationProps
  * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

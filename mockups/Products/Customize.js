@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get('window').width;
  * @type {React.PureComponent}
  * @typedef {object} AccessTokenProps
  * @prop {string} AccessToken
- * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'Customize'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "Customize">} ReviewScreenNavigationProps
  * @typedef {AccessTokenProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

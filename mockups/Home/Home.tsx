@@ -32,7 +32,7 @@ import StarIconsWithPress from '../../components/StarIconsWithPress';
 import CloseReviewModal from '../../API/Orders/CloseReviewModal';
 import {CancelIcon} from "../../Icons/Cancel";
 import { Socket } from 'socket.io-client';
-import {HomeStackParamList} from '../../Types/index';
+import {HomeStackParamList} from '../../Types/navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 const {width} = Dimensions.get('window');

@@ -15,7 +15,7 @@ import { RouteProp } from '@react-navigation/native';
  * @typedef {object} ReduxProps
  * @prop {string} AccessToken
  * @prop {(arg0: boolean) => void} setIsAnyProductInCart
- * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'BrandsFor3DCart'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandsFor3DCart">} ReviewScreenNavigationProps
  * @typedef {ReduxProps & { navigation: ReviewScreenNavigationProps, route: ReviewScreenRouteProp }} Props

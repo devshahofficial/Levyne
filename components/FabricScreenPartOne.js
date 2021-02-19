@@ -11,7 +11,7 @@ const defaultColors = ["#ff99cc","#7ac1ff"];
  * @typedef {(FabricID: number, Token: string) => void} AddToWishlistFn
  * @typedef {(FabricID: number, Token: string) => void} RemoveFromWishlistFn
  * @typedef {() => void} NavigateLogin
- * @typedef {import('../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {{FabricWishlist: boolean | 1 | 0, Token: string, FabricID: number, CategoryID: number, Category: string, Title: string, FabricPrice: number, Materials: string[], MaterialIDs: number[]}} FabricPartOneDetails
  * @typedef {{AddToWishlistFn: AddToWishlistFn, RemoveFromWishlistFn: RemoveFromWishlistFn, NavigateLogin: NavigateLogin, navigation: StackNavigationProp<HomeStackParamList, 'Fabric'>}} FabricPartOneNavigation
  * @extends {React.Component<FabricPartOneDetails & FabricPartOneNavigation>}

@@ -7,14 +7,14 @@ import {
     POST
 } from '../CustomFetch';
 
-export default generateOTP = async (Mobile) => {
+const generateOTP = async (Mobile: string) => {
     if (Mobile.length != 10) {
         throw new Error('Not a valid Mobile number');
     } else {
         if (Mobile.toString() === "5555555555") {
             let MobileString = new String("6666666666");
             global.BaseURL = 'https://apitesting603.levyne.com/v1/Users/';
-            global.URL = 'https://apitesting603.levyne.com/';
+            global.MainURL = 'https://apitesting603.levyne.com/';
 
 
             const Hash = (await sha256(MobileString.slice(8, 10) + MobileString.slice(2, 8) + MobileString.slice(0, 2))).slice(50, 64);
@@ -63,3 +63,5 @@ export default generateOTP = async (Mobile) => {
         }
     }
 }
+
+export default generateOTP;

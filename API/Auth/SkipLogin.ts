@@ -1,12 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Constants from '../../assets/constants';
 
-/**
- * @param {(arg0: { SkipLogin: boolean; }) => void} setAuth
- * @param {(arg0: { ProfileStatus: any; }) => void} setProfile
- * @param {number} ProfileStatus
- */
-const SkipLogin = async (setAuth, setProfile, ProfileStatus) => {
+
+const SkipLogin = async (setAuth: (arg0: { SkipLogin: boolean; }) => void, setProfile: (arg0: { ProfileStatus: any; }) => void, ProfileStatus: any) => {
     setAuth({SkipLogin: true});
     setProfile({ProfileStatus: ProfileStatus});
 

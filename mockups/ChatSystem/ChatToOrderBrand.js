@@ -17,7 +17,7 @@ const screenWidth = Dimensions.get('window').width;
  * @type {React.PureComponent}
  * @typedef {object} AccessTokenProps
  * @prop {string} AccessToken
- * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'ChatToOrderBrand'>} ChatToOrderScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "ChatToOrder">} ChatToOrderScreenNavigationProps
  * @typedef {AccessTokenProps & { navigation: ChatToOrderScreenNavigationProps, route: ChatToOrderScreenRouteProp }} Props
@@ -62,7 +62,7 @@ export default class ChatToOrder extends React.Component {
     }
 
     componentDidMount() {
-        fetch(global.URL + 'ProductData.json').then(resp => resp.json()).then(({OccasionList, BudgetList}) => {
+        fetch(global.MainURL + 'ProductData.json').then(resp => resp.json()).then(({OccasionList, BudgetList}) => {
             this.BudgetList = OccasionList,
             this.OccasionList = BudgetList,
             this.setState({

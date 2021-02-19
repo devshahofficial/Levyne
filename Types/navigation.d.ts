@@ -103,9 +103,6 @@ export type HomeStackParamList = {
         BrandImage: string,
         Gender?: number
     },
-    DesignScreen: {
-        DesignID: number
-    },
     BlogPost: {
         PostID: number,
         Title: string,

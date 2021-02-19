@@ -3,7 +3,7 @@ import PushNotification from "react-native-push-notification";
 import {POST} from '../CustomFetch';
 import Constants from '../../assets/constants';
 
-const Logout = (AccessToken) => {
+const Logout = (AccessToken: string) => {
     PushNotification.abandonPermissions();
     POST('Logout', {
         ReturnResponse: false,

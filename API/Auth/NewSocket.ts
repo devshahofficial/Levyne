@@ -1,11 +1,10 @@
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 
 /**
  * @param {string} Token
  */
-export default async (Token) => {
-    // @ts-ignore
-    const socket = await io(global.URL + 'Customers', {
+export default async (Token: string) => {
+    const socket = io(global.MainURL + 'Customers', {
         auth: {
             authentication: Token,
             reconnectionDelay: 3000
@@ -16,17 +15,12 @@ export default async (Token) => {
         console.log('connect');
     });
 
-    socket.on('connect_error', /**
-         * @param {any} data
-         */
- function (data) {
+    socket.on('connect_error', function (data: any) {
         console.log(data || 'connect_failed');
     });
 
     
-    socket.on('error', /**
-    * @param {any} err
-    */(err) => {
+    socket.on('error', (err: any) => {
         console.log('Socket Error', err);
     });
 

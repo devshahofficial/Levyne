@@ -21,7 +21,7 @@ import FetchBrandReviews from "../../API/Brand/FetchBrandReviews";
 
 /**
  * @type {React.Component}
- * @typedef {import('../../Types/index').HomeStackParamList} HomeStackParamList
+ * @typedef {import('../../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {{AccessToken: string, SkipLogin: boolean}} ReduxProps
  * @typedef {RouteProp<HomeStackParamList, 'BrandProfile'>} ReviewScreenRouteProp
  * @typedef {StackNavigationProp<HomeStackParamList, "BrandProfile">} ReviewScreenNavigationProps
