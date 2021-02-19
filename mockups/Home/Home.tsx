@@ -74,7 +74,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
     Page: number;
     NewPageLoading: boolean;
     NewProducts: boolean;
-    BackHandlerTimeOut: null | NodeJS.Timeout;
+    BackHandlerTimeOut: null | number;
     
     constructor(props: HomeScreenProps) {
         super(props);
@@ -481,7 +481,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
                                     pagingEnabled={true}
                                     showsHorizontalScrollIndicator={false}
                                 >
-                                    {this.state.PendingReviews.map((item: { OrderID: { toString: () => string | number | null | undefined; }; Name: string; }, index: string | number) => {
+                                    {this.state.PendingReviews.map((item: { OrderID: number; Name: string; }, index: number) => {
                                         const UpdateRating = (Rating: any) => this.UpdateRating(index, item.OrderID, Rating);
                                         const CloseRatingToast = () => this.CloseRatingToast(index, item.OrderID);
                                         return (
