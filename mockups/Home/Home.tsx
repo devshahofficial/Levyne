@@ -71,11 +71,10 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
     
     backPressed: number;
     abortController: AbortController;
-    timeout: number | null;
     Page: number;
     NewPageLoading: boolean;
     NewProducts: boolean;
-    BackHandlerTimeOut: number | null;
+    BackHandlerTimeOut: null | NodeJS.Timeout;
     
     constructor(props: HomeScreenProps) {
         super(props);
@@ -99,7 +98,6 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
         this.backPressed = 0;
         this.abortController = new AbortController();
         this.props.Socket && this.props.Socket.on('ChatMessage', this.SocketListener);
-        this.timeout = null;
         this.Page = 0;
         this.NewPageLoading = false;
         this.NewProducts = true;
@@ -120,13 +118,13 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
         }
     };
 
-    UpdateRating = (index: any, OrderID: any, Rating: any) => {
+    UpdateRating = (index: number, OrderID: number, Rating: number) => {
         this.state.PendingReviews.splice(index, 1);
         this.setState({PendingReviews: this.state.PendingReviews});
         this.props.navigation.navigate('AddReview', { OrderID, Rating });
     }
 
-    CloseRatingToast = (index: any, OrderID: any) => {
+    CloseRatingToast = (index: number, OrderID: number) => {
         this.state.PendingReviews.splice(index, 1);
         this.setState({PendingReviews: this.state.PendingReviews});
         CloseReviewModal(OrderID, this.props.AccessToken);
@@ -260,9 +258,6 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
         if(this.BackHandlerTimeOut) {
             clearTimeout(this.BackHandlerTimeOut);
         }
-        if(this.timeout) {
-            clearTimeout(this.timeout);
-        }
         this.abortController.abort();
         Linking.removeEventListener('url', this.handleOpenURL);
     }
@@ -331,11 +326,11 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
     }
      */
 
-    navigateBrand = (BrandID: any) => {
+    navigateBrand = (BrandID: number) => {
         this.props.navigation.push('BrandProfile', { BrandID })
     }
 
-    navigateProduct = (ProductID: any) => {
+    navigateProduct = (ProductID: number) => {
         this.props.navigation.push('Product', { ProductID: ProductID })
     }
 
@@ -377,7 +372,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
     }
     */
 
-    NavigateDesign = (DesignID: any) => {
+    NavigateDesign = (DesignID: number) => {
         this.props.navigation.navigate('DesignScreen', { DesignID })
     }
 
@@ -385,7 +380,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
         this.props.navigation.navigate('ChatToOrder')
     }
 
-    NavigateThreeD = (CategoryID: any, Category: any) => {
+    NavigateThreeD = (CategoryID: number, Category: string) => {
         this.props.navigation.push('ThreeD', {
             CategoryID: CategoryID,
             Category: Category
