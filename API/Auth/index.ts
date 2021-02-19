@@ -6,15 +6,37 @@ import { POST } from '../CustomFetch';
 import IsAnyProductInCart from '../Profile/IsAnyProductInCart';
 import { Socket } from 'socket.io-client';
 
-/**
- * @param {(AuthObject: { SkipLogin?: boolean; AccessToken?: string; RefreshToken?: string; Timestamp?: string; Mobile?: string | null; UserID?: string; }) => void} setAuth
- * @param {(ProfileObject: { ProfileStatus: number; Name?: string | null; Email?: string | null; Address?: string | null; Gender?: number; PinCode?: string | null; }) => void} setProfile
- * @param {(Socket: Socket) => void} setSocket
- * @param {(ChatList: any[]) => void} setChatList
- * @param {(BucketID: Number) => void} MarkBucketAsUnRead
- * @param {(IsAnyProductInCart: boolean) => void} setIsAnyProductInCart
- */
-const AuthCheck = async (setAuth, setProfile, setSocket, setChatList, MarkBucketAsUnRead, setIsAnyProductInCart) => {
+interface AuthObject {
+    SkipLogin?: boolean;
+    AccessToken?: string;
+    RefreshToken?: string;
+    Timestamp?: string;
+    Mobile?: string | null;
+    UserID?: string;
+}
+
+interface ProfileObject {
+    ProfileStatus: number;
+    Name?: string | null;
+    Email?: string | null;
+    Address?: string | null;
+    Gender?: number;
+    PinCode?: string | null;
+}
+
+type setAuth = (AuthObject: AuthObject) => void;
+
+type setProfile = (ProfileObject: ProfileObject) => void;
+
+type setSocket = (Socket: Socket) => void;
+
+type setChatList = (ChatList: any[]) => void;
+
+type MarkBucketAsUnRead = (BucketID: number) => void;
+
+type setIsAnyProductInCart = (IsAnyProductInCart: boolean) => void;
+
+const AuthCheck = async (setAuth: setAuth, setProfile: setProfile, setSocket: setSocket, setChatList: setChatList, MarkBucketAsUnRead: MarkBucketAsUnRead, setIsAnyProductInCart: setIsAnyProductInCart) => {
     try {
         const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus', 'Testing']);
         if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
