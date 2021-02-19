@@ -4,28 +4,22 @@ import {View, TouchableOpacity} from 'react-native-ui-lib';
 import Colors from '../Style/Colors';
 import BookMarkIcon from "../Icons/BookMarkIcon";
 import {SearchIcon} from '../Icons/SearchIcon';
-// @ts-ignore
 import Logo from '../assets/images/Logo.svg';
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
 import {QRCodeIcon} from "../Icons/QRCodeIcon";
 
-/**
- * @type {React.PureComponent}
- * @typedef {{navigateQRCode: () => void, navigateSearchText: () => void, navigateBookMark: () => void, navigateOrders: () => void}} HomeNavBarProps
- * @extends {React.PureComponent<HomeNavBarProps>}
- **/
+type HomeNavBarProps = {
+    navigateSearchText: () => void,
+    navigateQRCode: () => void,
+    navigateBookMark: () => void,
+    navigateOrders: () => void,
+}
 
-export default class HomeNavBar extends React.PureComponent {
+class HomeNavBar extends React.PureComponent<HomeNavBarProps> {
 
     render() {
         return (
             <View row centerV style={styles.NavBar}>
-                {/*<TouchableOpacity
-                    marginH-20 br100
-                    onPress={this.props.navigateMenu}
-                >
-                    <MenuIcon size={28} Color={Colors.black}/>
-                </TouchableOpacity>*/}
                 <View marginH-20 row>
                     <Logo width='55%' height='50'/>
                 </View>
@@ -67,3 +61,6 @@ const styles = StyleSheet.create({
         zIndex:100
     },
 });
+
+
+export default HomeNavBar;

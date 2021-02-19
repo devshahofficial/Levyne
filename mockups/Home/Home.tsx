@@ -8,7 +8,7 @@ import {
     Platform,
     Dimensions,
     Image,
-    StyleSheet, Modal
+    StyleSheet
 } from 'react-native';
 import {View, Colors, Text, ConnectionStatusBar, Toast, TouchableOpacity } from 'react-native-ui-lib';
 import { connect } from 'react-redux';
@@ -31,27 +31,68 @@ import FetchBucketsPendingForReview from '../../API/Orders/FetchBucketsPendingFo
 import StarIconsWithPress from '../../components/StarIconsWithPress';
 import CloseReviewModal from '../../API/Orders/CloseReviewModal';
 import {CancelIcon} from "../../Icons/Cancel";
+import { Socket } from 'socket.io-client';
+import {HomeStackParamList} from '../../Types/index';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 const {width} = Dimensions.get('window');
 
+interface Chat {
+    Message: string,
+    Timestamp: string,
+    id: number,
+    unread: 0 | 1,
+    Name: string,
+    ProfileImage: string,
+    BrandID: number,
+    ItemCount: number,
+    Status: number,
+    OrderID: number,
+    BucketID: number
+}
 
-class HomeScreen extends React.Component {
-    constructor(props) {
+type HomeScreenProps = {
+    Socket: Socket,
+    navigation: StackNavigationProp<HomeStackParamList, 'Home'>,
+    AccessToken: String,
+    MarkBucketAsUnRead: (Buckets: number[], EmptyFirst?: boolean) => void,
+    setChatList: (Chats: Chat[], EmptyFirst?: boolean) => void
+}
+
+type HomeScreenState = {
+    showCustomToast: boolean,
+    showContent: string,
+    isConnected: boolean,
+    Rating: number[],
+    PendingReviews: {Name: string, ProfileImage: string, BucketID: number, OrderID: number, BrandID: number}[]
+}
+
+class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
+    
+    backPressed: number;
+    abortController: AbortController;
+    timeout: number | null;
+    Page: number;
+    NewPageLoading: boolean;
+    NewProducts: boolean;
+    BackHandlerTimeOut: number | null;
+    
+    constructor(props: HomeScreenProps) {
         super(props);
         this.state = {
             showCustomToast: false,
             showContent: '',
             isConnected: true,
-            StoryData: [],
-            BlogPosts: [],
-            Recent15Products: [],
-            Recent15Brands: [],
-            modalVisible: false,
-            CurrentStory: null,
-            LevyneProducts: [],
-            LevyneProductsMale: [],
-            LevyneProductsFemale: [],
-            Loading: true,
+            //StoryData: [],
+            //BlogPosts: [],
+            //Recent15Products: [],
+            //Recent15Brands: [],
+            //modalVisible: false,
+            //CurrentStory: null,
+            //LevyneProducts: [],
+            //LevyneProductsMale: [],
+            //LevyneProductsFemale: [],
+            //Loading: true,
             Rating: [0],
             PendingReviews: []
         }
@@ -62,13 +103,14 @@ class HomeScreen extends React.Component {
         this.Page = 0;
         this.NewPageLoading = false;
         this.NewProducts = true;
+        this.BackHandlerTimeOut = null
 
         if(Platform.OS === 'android') {
             PushNotification.configure({
 
                 onNotification: (notification) => {
 
-                    PushNotification.localNotification({ ...notification.data, onlyAlertOnce: true, visibility: 'private', channelId: 'chatmessages' })
+                    PushNotification.localNotification({ ...notification.data, message: notification.data.message, onlyAlertOnce: true, visibility: 'private', channelId: 'chatmessages' })
 
                     notification.finish(PushNotificationIOS.FetchResult.NoData);
                 },
@@ -78,13 +120,13 @@ class HomeScreen extends React.Component {
         }
     };
 
-    UpdateRating = (index, OrderID, Rating) => {
+    UpdateRating = (index: any, OrderID: any, Rating: any) => {
         this.state.PendingReviews.splice(index, 1);
         this.setState({PendingReviews: this.state.PendingReviews});
         this.props.navigation.navigate('AddReview', { OrderID, Rating });
     }
 
-    CloseRatingToast = (index, OrderID) => {
+    CloseRatingToast = (index: any, OrderID: any) => {
         this.state.PendingReviews.splice(index, 1);
         this.setState({PendingReviews: this.state.PendingReviews});
         CloseReviewModal(OrderID, this.props.AccessToken);
@@ -98,11 +140,9 @@ class HomeScreen extends React.Component {
     }
 
     renderCustomContent = () => {
-        const { selectedColor } = this.state;
-        const backgroundColor = selectedColor === 'none' ? undefined : selectedColor;
 
         return (
-            <View flex padding-10 style={{ backgroundColor }}>
+            <View flex padding-10 style={{ backgroundColor: undefined }}>
                 <Text white h1>
                     {this.state.showContent}
                 </Text>
@@ -127,14 +167,14 @@ class HomeScreen extends React.Component {
         }
     }
 
-    /**
-     *
-     * @param {{url: string}} param0
-     */
-    handleOpenURL = ({ url }) => {
+    handleOpenURL = ({ url }: { url: string; }) => {
         if (url && url.includes('https://collections.levyne.com')) {
 
-            const ScreenIDs = {
+            interface Map {
+                [key: string]: 1 | 2 | 3 | 4 | 5
+            }
+              
+            const ScreenIDs : Map = {
                 'p': 1,
                 'P': 1,
                 'f': 2,
@@ -149,6 +189,7 @@ class HomeScreen extends React.Component {
 
             const Paths = url.replace('https://collections.levyne.com', '').split('/');
             if (Paths.length === 3) {
+                
                 HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
             } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
                 HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
@@ -216,8 +257,12 @@ class HomeScreen extends React.Component {
 
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.backButtonHandler);
-        clearTimeout(this.BackHandlerTimeOut);
-        clearTimeout(this.timeout);
+        if(this.BackHandlerTimeOut) {
+            clearTimeout(this.BackHandlerTimeOut);
+        }
+        if(this.timeout) {
+            clearTimeout(this.timeout);
+        }
         this.abortController.abort();
         Linking.removeEventListener('url', this.handleOpenURL);
     }
@@ -233,7 +278,7 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('SearchText');
     }
 
-    navigateSearch(SearchFilter) {
+    navigateSearch(SearchFilter: { Gender?: number; Type: 0 | 1 | 2 | 3 | 4; Label: string; Index?: number; }) {
         this.props.navigation.push('SearchScreen', { SearchFilter });
     }
 
@@ -286,11 +331,11 @@ class HomeScreen extends React.Component {
     }
      */
 
-    navigateBrand = (BrandID) => {
+    navigateBrand = (BrandID: any) => {
         this.props.navigation.push('BrandProfile', { BrandID })
     }
 
-    navigateProduct = (ProductID) => {
+    navigateProduct = (ProductID: any) => {
         this.props.navigation.push('Product', { ProductID: ProductID })
     }
 
@@ -332,7 +377,7 @@ class HomeScreen extends React.Component {
     }
     */
 
-    NavigateDesign = (DesignID) => {
+    NavigateDesign = (DesignID: any) => {
         this.props.navigation.navigate('DesignScreen', { DesignID })
     }
 
@@ -340,7 +385,7 @@ class HomeScreen extends React.Component {
         this.props.navigation.navigate('ChatToOrder')
     }
 
-    NavigateThreeD = (CategoryID, Category) => {
+    NavigateThreeD = (CategoryID: any, Category: any) => {
         this.props.navigation.push('ThreeD', {
             CategoryID: CategoryID,
             Category: Category
@@ -354,8 +399,8 @@ class HomeScreen extends React.Component {
                     navigateSearchText={this.navigateSearchText}
                     navigateBookMark={this.navigateBookMark}
                     navigateOrders={this.navigateOrders}
-                    navigateNotifications={this.navigateNotifications}
-                    navigateCall={this.navigateCall}
+                    //navigateNotifications={this.navigateNotifications}
+                    //navigateCall={this.navigateCall}
                     navigateQRCode={this.navigateQRCode}
                 />
                 <ConnectionStatusBar
@@ -441,8 +486,8 @@ class HomeScreen extends React.Component {
                                     pagingEnabled={true}
                                     showsHorizontalScrollIndicator={false}
                                 >
-                                    {this.state.PendingReviews.map((item, index) => {
-                                        const UpdateRating = (Rating) => this.UpdateRating(index, item.OrderID, Rating);
+                                    {this.state.PendingReviews.map((item: { OrderID: { toString: () => string | number | null | undefined; }; Name: string; }, index: string | number) => {
+                                        const UpdateRating = (Rating: any) => this.UpdateRating(index, item.OrderID, Rating);
                                         const CloseRatingToast = () => this.CloseRatingToast(index, item.OrderID);
                                         return (
                                             <View key={item.OrderID.toString()} style={{width:width}}>
@@ -500,15 +545,15 @@ const styles = StyleSheet.create({
     }
 });
 
-const mapsStateToProps = (state) => ({
+const mapsStateToProps = (state: { Auth: { AccessToken: string; }; Socket: { Socket: Socket; }; }) => ({
     AccessToken: state.Auth.AccessToken,
     Socket: state.Socket.Socket,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch: (arg0: { type: string; value: any; EmptyFirst: any; }) => void) => {
     return {
-        setChatList: (ChatList, EmptyFirst) => dispatch({ type: 'setChatList', value: ChatList, EmptyFirst }),
-        MarkBucketAsUnRead: (Buckets, EmptyFirst) => dispatch({ type: 'MarkBucketAsUnRead', value: Buckets, EmptyFirst }),
+        setChatList: (ChatList: Chat[], EmptyFirst?: boolean) => dispatch({ type: 'setChatList', value: ChatList, EmptyFirst }),
+        MarkBucketAsUnRead: (Buckets: number[], EmptyFirst?: boolean) => dispatch({ type: 'MarkBucketAsUnRead', value: Buckets, EmptyFirst }),
     }
 }
 

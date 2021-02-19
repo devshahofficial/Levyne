@@ -61,7 +61,7 @@ class Review extends React.PureComponent {
 	}
 
 	OpenInAppReview = () => {
-		InAppReview.RequestInAppReview();
+		InAppReview.RequestInAppReview().catch(() => {})
 		AddReviews(
 			this.props.route.params.OrderID,
 			{

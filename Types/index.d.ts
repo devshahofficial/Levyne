@@ -78,8 +78,8 @@ export type HomeStackParamList = {
     Notifications: undefined,
     QRCodeReader: undefined,
     MyFits: undefined,
-    MyOrders: {
-        PaymentSuccess: boolean,
+    MyOrders?: {
+        PaymentSuccess?: boolean,
         OrderID?: number
     },
     CheckOut: {
@@ -116,7 +116,7 @@ export type HomeStackParamList = {
         SearchFilter: {
             Label: string,
             Type: 0 | 1 | 2 | 3 | 4,
-            Index: number,
+            Index?: number,
             Gender?: number
         }
     },
