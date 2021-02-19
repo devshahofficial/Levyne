@@ -74,7 +74,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
     Page: number;
     NewPageLoading: boolean;
     NewProducts: boolean;
-    BackHandlerTimeOut: null | number;
+    BackHandlerTimeOut: null | NodeJS.Timer;
     
     constructor(props: HomeScreenProps) {
         super(props);
@@ -256,7 +256,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
     componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this.backButtonHandler);
         if(this.BackHandlerTimeOut) {
-            clearTimeout(this.BackHandlerTimeOut);
+            global.clearTimeout(this.BackHandlerTimeOut);
         }
         this.abortController.abort();
         Linking.removeEventListener('url', this.handleOpenURL);
