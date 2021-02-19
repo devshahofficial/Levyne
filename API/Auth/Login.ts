@@ -7,7 +7,7 @@ import {
     POST
 } from '../CustomFetch';
 
-const generateOTP = async (Mobile: string) => {
+const generateOTP = async (Mobile: string) : Promise<{ json: any; Mobile: number; }> => {
     if (Mobile.length != 10) {
         throw new Error('Not a valid Mobile number');
     } else {
@@ -58,7 +58,7 @@ const generateOTP = async (Mobile: string) => {
 
             return {
                 json,
-                Mobile
+                Mobile: Number(Mobile)
             };
         }
     }

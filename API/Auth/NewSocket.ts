@@ -1,9 +1,9 @@
-import { io } from "socket.io-client";
+import { io, Socket } from "socket.io-client";
 
 /**
  * @param {string} Token
  */
-export default async (Token: string) => {
+export default async (Token: string) : Promise<Socket> => {
     const socket = io(global.MainURL + 'Customers', {
         auth: {
             authentication: Token,

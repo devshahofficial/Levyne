@@ -35,7 +35,7 @@ type MarkBucketAsUnRead = (BucketID: number) => void;
 
 type setIsAnyProductInCart = (IsAnyProductInCart: boolean) => void;
 
-const verifyOTP = async (Mobile: number, OTP: string, OTPTokenHash: string, UID: string, FirebaseToken: string, setAuth: setAuth, setProfile: setProfile, setSocket: setSocket, setChatList: setChatList, MarkBucketAsUnRead: MarkBucketAsUnRead, setIsAnyProductInCart: setIsAnyProductInCart) => {
+const verifyOTP = async (Mobile: number, OTP: string, OTPTokenHash: string, UID: string, FirebaseToken: string, setAuth: setAuth, setProfile: setProfile, setSocket: setSocket, setChatList: setChatList, MarkBucketAsUnRead: MarkBucketAsUnRead, setIsAnyProductInCart: setIsAnyProductInCart): Promise<string> => {
     if(OTP.length != 6)
     {
         throw new Error('Not a valid OTP');

@@ -36,7 +36,7 @@ type MarkBucketAsUnRead = (BucketID: number) => void;
 
 type setIsAnyProductInCart = (IsAnyProductInCart: boolean) => void;
 
-const AuthCheck = async (setAuth: setAuth, setProfile: setProfile, setSocket: setSocket, setChatList: setChatList, MarkBucketAsUnRead: MarkBucketAsUnRead, setIsAnyProductInCart: setIsAnyProductInCart) => {
+const AuthCheck = async (setAuth: setAuth, setProfile: setProfile, setSocket: setSocket, setChatList: setChatList, MarkBucketAsUnRead: MarkBucketAsUnRead, setIsAnyProductInCart: setIsAnyProductInCart) : Promise<string> => {
     try {
         const SkipLogin = await AsyncStorage.multiGet(['SkipLogin', 'ProfileStatus', 'Testing']);
         if(SkipLogin[0][1] && parseInt(SkipLogin[0][1])) {
