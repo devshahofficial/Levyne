@@ -44,8 +44,20 @@ export default class OrdersContainer extends React.Component {
 
     Process = () => {
         if(this.props.PaymentSuccess) {
-            // @ts-ignore
-            this.props.OrderStatus = 3;
+            return (
+                <View row centerV marginV-15>
+                    <View flex>
+                        <OrderReceivedIcon size={35} Color={Colors.primary}/>
+                    </View>
+                    <Text flex-8 marginL-20 h1 primary>Order placed</Text>
+                    <CstmShadowView style={{marginBottom: 20}}>
+                        <Button
+                            h2 onPress={() => this.props.CancelOrder(this.props.BucketID)}
+                            label="Cancel Order" flex
+                        />
+                    </CstmShadowView>
+                </View>
+            )
         }
         switch(this.props.OrderStatus) {
             case 1:

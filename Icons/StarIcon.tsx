@@ -1,7 +1,7 @@
 import React from 'react';
-import {Svg, G, Path} from 'react-native-svg';
+import {Svg, G, Path, rgbaArray} from 'react-native-svg';
 
-export const StarIcon = (props) => {
+export const StarIcon = (props: { Fill: boolean; width: number; height: number; Color: string | number | rgbaArray | undefined; }) => {
     if (props.Fill === false) {
         return (
             <Svg id="Iconly_Light_Star" data-name="Iconly/Light/Star" width={props.width} height={props.height} viewBox="0 0 24 24">

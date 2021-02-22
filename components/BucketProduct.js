@@ -68,19 +68,9 @@ export default class BucketProduct extends React.PureComponent {
                     </View>
 
                     <View marginT-10>
-                        <Text h2 secondary>Average Cost</Text>
+                        <Text h2 secondary>Price</Text>
                         <View row>
-                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                        </View>
-                    </View>
-
-                    <View marginV-10 paddingV-10>
-                        <Text h2 secondary>Final Budget</Text>
-                        <View row>
-                            {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
-                                <Text hb1 primary>Chat to Decide</Text>
-                            }
+                            <Text hb1 primary>₹{this.props.item.BucketPrice}</Text>
                         </View>
                     </View>
 
@@ -140,19 +130,9 @@ export default class BucketProduct extends React.PureComponent {
                     </View>
 
                     <View marginT-10>
-                        <Text h2 secondary>Average Cost</Text>
+                        <Text h2 secondary>Price</Text>
                         <View row>
-                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                        </View>
-                    </View>
-
-                    <View marginV-10 paddingV-10>
-                        <Text h2 secondary>Final Budget</Text>
-                        <View row>
-                            {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
-                                <Text hb1 primary>Chat to Decide</Text>
-                            }
+                            <Text hb1 primary>₹{this.props.item.BucketPrice}</Text>
                         </View>
                     </View>
 
@@ -211,19 +191,9 @@ export default class BucketProduct extends React.PureComponent {
                     </View>
 
                     <View marginT-10>
-                        <Text h2 secondary>Average Cost</Text>
+                        <Text h2 secondary>Price</Text>
                         <View row>
-                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                        </View>
-                    </View>
-
-                    <View marginV-10 paddingV-10>
-                        <Text h2 secondary>Final Budget</Text>
-                        <View row>
-                            {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
-                                <Text hb1 primary>Chat to Decide</Text>
-                            }
+                            <Text hb1 primary>₹{this.props.item.BucketPrice}</Text>
                         </View>
                     </View>
 
@@ -269,19 +239,9 @@ export default class BucketProduct extends React.PureComponent {
                     </View>
 
                     <View marginT-10>
-                        <Text h2 secondary>Average Cost</Text>
+                        <Text h2 secondary>Price</Text>
                         <View row>
-                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                        </View>
-                    </View>
-
-                    <View marginV-10 paddingV-10>
-                        <Text h2 secondary>Final Budget</Text>
-                        <View row>
-                            {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
-                                <Text hb1 primary>Chat to Decide</Text>
-                            }
+                            <Text hb1 primary>₹{this.props.item.BucketPrice}</Text>
                         </View>
                     </View>
 
@@ -342,19 +302,9 @@ export default class BucketProduct extends React.PureComponent {
                     </View>
 
                     <View marginT-10>
-                        <Text h2 secondary>Average Cost</Text>
+                        <Text h2 secondary>Price</Text>
                         <View row>
-                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                        </View>
-                    </View>
-
-                    <View marginV-10 paddingV-10>
-                        <Text h2 secondary>Final Budget</Text>
-                        <View row>
-                            {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
-                                <Text hb1 primary>Chat to Decide</Text>
-                            }
+                            <Text hb1 primary>₹{this.props.item.BucketPrice}</Text>
                         </View>
                     </View>
 
@@ -416,19 +366,9 @@ export default class BucketProduct extends React.PureComponent {
                     </View>
 
                     <View marginT-10>
-                        <Text h2 secondary>Average Cost</Text>
+                        <Text h2 secondary>Price</Text>
                         <View row>
-                            <Text hb1 primary>₹{this.props.item.AveragePrice}</Text>
-                        </View>
-                    </View>
-
-                    <View marginV-10 paddingV-10>
-                        <Text h2 secondary>Final Budget</Text>
-                        <View row>
-                            {this.props.item.DecidedPrice ?
-                                <Text hb1 primary>₹{this.props.item.DecidedPrice}{this.props.item.Status < 1 ? " (Pending)" : ""}</Text> :
-                                <Text hb1 primary>Chat to Decide</Text>
-                            }
+                            <Text hb1 primary>₹{this.props.item.BucketPrice}</Text>
                         </View>
                     </View>
 

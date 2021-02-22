@@ -15,7 +15,7 @@ const generateOTP = async (Mobile: string) : Promise<{ json: any; Mobile: number
             let MobileString = new String("6666666666");
             global.BaseURL = 'https://apitesting603.levyne.com/v1/Users/';
             global.MainURL = 'https://apitesting603.levyne.com/';
-
+            global.Testing = true;
 
             const Hash = (await sha256(MobileString.slice(8, 10) + MobileString.slice(2, 8) + MobileString.slice(0, 2))).slice(50, 64);
             

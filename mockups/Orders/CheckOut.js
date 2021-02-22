@@ -36,7 +36,7 @@ class CheckOut extends React.PureComponent {
             Coupon: "",
             Address: this.props.Address,
             PinCode: this.props.PinCode,
-            DecidedPrice: 0,
+            BucketPrice: 0,
             TotalProducts: 0,
             FinalPrice: 0,
             EditAddress: false,
@@ -55,8 +55,8 @@ class CheckOut extends React.PureComponent {
     componentDidMount = () => {
         FetchPartialBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then(item => {
             this.setState({
-                DecidedPrice: item.DecidedPrice,
-                FinalPrice: item.DecidedPrice,
+                BucketPrice: item.BucketPrice,
+                FinalPrice: item.BucketPrice,
                 TotalProducts: item.TotalProducts,
                 Loading: false
             })
@@ -173,7 +173,7 @@ class CheckOut extends React.PureComponent {
 
     removeCoupon = () => {
         this.setState({
-            FinalPrice: this.state.DecidedPrice,
+            FinalPrice: this.state.BucketPrice,
             isCouponApplied: false,
             Loading: true,
             Coupon: "",
@@ -195,14 +195,14 @@ class CheckOut extends React.PureComponent {
                 const CouponResp = await ValidateCoupon(this.state.Coupon, this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal);
                 if(CouponResp.PercentageDiscount) {
                     this.setState({
-                        FinalPrice: this.state.DecidedPrice - Math.min(CouponResp.MaxDiscount, (this.state.DecidedPrice*CouponResp.PercentageDiscount)/100),
+                        FinalPrice: this.state.BucketPrice - Math.min(CouponResp.MaxDiscount, (this.state.BucketPrice*CouponResp.PercentageDiscount)/100),
                         CouponMessage: CouponResp.Message,
                         isCouponApplied: true,
                         Loading: false
                     })
                 } else {
                     this.setState({
-                        FinalPrice: this.state.DecidedPrice - CouponResp.MaxDiscount,
+                        FinalPrice: this.state.BucketPrice - CouponResp.MaxDiscount,
                         CouponMessage: CouponResp.Message,
                         isCouponApplied: true,
                         Loading: false
@@ -278,7 +278,7 @@ class CheckOut extends React.PureComponent {
                                 <View row>
                                     <Text flex hb1 secondary>Item Total</Text>
                                     <View centerV row>
-                                        <Text hb1 primary>₹{this.state.DecidedPrice}</Text>
+                                        <Text hb1 primary>₹{this.state.BucketPrice}</Text>
                                     </View>
                                 </View>
 
@@ -297,7 +297,7 @@ class CheckOut extends React.PureComponent {
 
                             <View marginT-20 paddingH-15 center row style={styles.view}>
                                 <DeliveryIcon size={30} Color={Colors.black} />
-                                <DeliveryChargeComponent TotalPrice={this.state.DecidedPrice} />
+                                <DeliveryChargeComponent TotalPrice={this.state.BucketPrice} />
                             </View>
                             <View style={styles.View} marginT-20>
                                 <View row>

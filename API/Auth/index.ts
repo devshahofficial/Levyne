@@ -49,10 +49,9 @@ const AuthCheck = async (setAuth: setAuth, setProfile: setProfile, setSocket: se
 
         // @ts-ignore
         if (+SkipLogin[2][1]) {
-            // @ts-ignore
             global.BaseURL = 'https://apitesting603.levyne.com/v1/Users/';
-            // @ts-ignore
             global.MainURL = 'https://apitesting603.levyne.com/';
+            global.Testing = true;
         }
 
         const Response = await AsyncStorage.multiGet(['AccessToken', 'RefreshToken', 'Timestamp', 'UserID', 'Mobile']);

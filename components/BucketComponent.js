@@ -63,12 +63,10 @@ export default class BucketComponent extends React.PureComponent {
                     <View centerV row marginT-20>
                         <View row flex-2>
                             <View>
-                                <Text secondary hb2>Expected</Text>
-                                <Text secondary hb2>Final</Text>
+                                <Text secondary hb2>Price:</Text>
                             </View>
                             <View marginH-10>
-                                <Text hb1>₹{this.props.item.AveragePrice}</Text>
-                                <Text h3 primary>{this.props.item.Status ? '₹' + this.props.item.DecidedPrice : 'Chat to finalize!'}</Text>
+                                <Text hb2 primary>₹{this.props.item.BucketPrice}</Text>
                             </View>
                         </View>
                         <View flex center marginL-30>
