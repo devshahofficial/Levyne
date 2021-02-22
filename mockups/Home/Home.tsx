@@ -530,13 +530,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 10,
         flex:1
-    },
-    DiscountImage: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center',
     }
 });
 
