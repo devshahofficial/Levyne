@@ -431,7 +431,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
                     <View marginT-120 paddingH-20>
                         <Text b1 secondary>Chat Now</Text>
                     </View>
-                    <Rectangle Image={"https://i.ibb.co/7yTnh0Y/Group-4247.png"} onPress={this.NavigateChatToOrder}/>
+                    <Rectangle Image={"https://d32kprqn8e36ns.cloudfront.net/ChatToPlace.webp"} onPress={this.NavigateChatToOrder}/>
 
                     <View marginT-20 paddingH-20>
                         <Text b1 secondary>Shop Now</Text>
