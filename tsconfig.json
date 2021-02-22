@@ -16,9 +16,5 @@
     "babel.config.js",
     "metro.config.js",
     "jest.config.js"
-  ],
-  "files": [
-    "./Types/custom.d.ts",
-    
   ]
 }
