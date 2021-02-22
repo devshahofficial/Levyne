@@ -46,6 +46,7 @@ class Bucket extends React.Component {
     FatListRenderItem = ({item}) => (
         <BucketProduct
             item={item}
+            BrandImage={{uri: this.props.route.params.ProfileImage}}
             OrderCompleted={true}
             DisplayImageView={this.DisplayImageView}
             navigateProduct={this.navigateProduct}

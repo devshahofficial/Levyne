@@ -2,45 +2,41 @@ import React from 'react';
 import { StyleSheet, Image, Dimensions } from 'react-native';
 import { View, TouchableOpacity, Text, Colors } from 'react-native-ui-lib';
 import { ArchiveIcon } from "../Icons/ArchiveIcon";
-/**
- * @extends {RNView}
- */
-// @ts-ignore
-const ShadowView = require("react-native-simple-shadow-view").default;
-
-
 import WebView from 'react-native-webview';
-
 const windowWidth = Dimensions.get('window').width;
 
-/**
- * @type {React.PureComponent}
- * @typedef {(ProductID: number) => void} navigateProduct
- * @typedef {(Image: string) => void} DisplayImageView
- * @typedef {(FabricID: number) => void} navigateFabric
- * @typedef {(CartID: number) => void} RemoveProductFromCart
- * @typedef {(DesignID: number) => void} navigateDesign
- * @typedef {() => void} navigateChat
- * @typedef {{
- *  ProductImage: string,
- *  FabricImage: string,
- *  DesignImage: string,
- *  AveragePrice: number,
- *  DesignID: number,
- *  DecidedPrice: number,
- *  Status: 0 | 1 | 2,
- *  Quantity: number,
- *  ProductID: number,
- *  FabricID: number,
- *  Category: string,
- *  '3DModel': string | number,
- *  '3DModelID': number
- *  CartID: number
- * }} BucketItem
- * @extends {React.PureComponent<{OrderCompleted: boolean, BrandImage: {uri: string}, item: BucketItem, navigateChat: navigateChat, navigateProduct: navigateProduct,DisplayImageView: DisplayImageView, navigateFabric: navigateFabric, RemoveProductFromCart: RemoveProductFromCart, navigateDesign: navigateDesign}>}
- **/
+//@ts-ignore
+import ShadowView from 'react-native-simple-shadow-view';
 
-export default class BucketProduct extends React.PureComponent {
+type navigateProduct = (ProductID: number) => void;
+
+type DisplayImageView = (Image: string) => void;
+
+type navigateFabric = (FabricID: number) => void;
+
+type RemoveProductFromCart = (CartID: number) => void;
+
+type navigateDesign = (DesignID: number) => void;
+
+type navigateChat = () => void
+
+type BucketItem = {
+    ProductImage: string,
+    FabricImage: string,
+    DesignImage: string,
+    DesignID: number,
+    BucketPrice: number,
+    Status: 0 | 1 | 2,
+    Quantity: number,
+    ProductID: number,
+    FabricID: number,
+    Category: string,
+    '3DModel': string | number,
+    '3DModelID': number
+    CartID: number
+}
+
+export default class BucketProduct extends React.PureComponent<{ OrderCompleted: boolean, BrandImage: { uri: string }, item: BucketItem, navigateChat: navigateChat, navigateProduct: navigateProduct, DisplayImageView: DisplayImageView, navigateFabric: navigateFabric, RemoveProductFromCart: RemoveProductFromCart, navigateDesign: navigateDesign }> {
 
     ProductWithFabric = () => {
         return (
@@ -48,7 +44,7 @@ export default class BucketProduct extends React.PureComponent {
                 <ShadowView style={styles.View}>
                     <View flex row centerH style={{ height: "auto" }}>
                         <TouchableOpacity
-                            flex-6 style={{borderTopLeftRadius:10}}
+                            flex-6 style={{ borderTopLeftRadius: 10 }}
                             onPress={() => this.props.DisplayImageView(this.props.item.ProductImage)}
                         >
                             <Image
@@ -57,12 +53,12 @@ export default class BucketProduct extends React.PureComponent {
                             />
                         </TouchableOpacity>
                         <TouchableOpacity
-                            flex-2 style={{borderTopRightRadius:10}}
+                            flex-2 style={{ borderTopRightRadius: 10 }}
                             onPress={() => this.props.DisplayImageView(this.props.item.FabricImage)}
                         >
                             <Image
                                 style={styles.FabricContainer}
-                                source={{uri: this.props.item.FabricImage}}
+                                source={{ uri: this.props.item.FabricImage }}
                             />
                         </TouchableOpacity>
                     </View>
@@ -94,11 +90,11 @@ export default class BucketProduct extends React.PureComponent {
                             <></>
                             :
 
-                        <View flex style={{ alignItems: "flex-end" }}>
-                            <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
-                                <ArchiveIcon Size={20} Color={Colors.white} />
-                            </TouchableOpacity>
-                        </View>
+                            <View flex style={{ alignItems: "flex-end" }}>
+                                <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
+                                    <ArchiveIcon Size={20} Color={Colors.white} />
+                                </TouchableOpacity>
+                            </View>
                     }
                 </ShadowView>
             </View>
@@ -111,7 +107,7 @@ export default class BucketProduct extends React.PureComponent {
                 <ShadowView style={styles.View}>
                     <View flex row centerH style={{ height: "auto" }}>
                         <View
-                            flex-6 style={{borderTopLeftRadius:10}}
+                            flex-6 style={{ borderTopLeftRadius: 10 }}
                         >
                             <WebView
                                 style={styles.ImageContainer}
@@ -119,12 +115,12 @@ export default class BucketProduct extends React.PureComponent {
                             />
                         </View>
                         <TouchableOpacity
-                            flex-2 style={{borderTopRightRadius:10}}
+                            flex-2 style={{ borderTopRightRadius: 10 }}
                             onPress={() => this.props.DisplayImageView(this.props.item.FabricImage)}
                         >
                             <Image
                                 style={styles.FabricContainer}
-                                source={{uri: this.props.item.FabricImage}}
+                                source={{ uri: this.props.item.FabricImage }}
                             />
                         </TouchableOpacity>
                     </View>
@@ -181,7 +177,7 @@ export default class BucketProduct extends React.PureComponent {
                     <View flex row centerH style={{ height: "auto" }}>
                         <View
                             flex
-                            style={{borderRadius:10}}
+                            style={{ borderRadius: 10 }}
                         >
                             <WebView
                                 style={styles.ImageContainerOnlyProduct}
@@ -209,11 +205,11 @@ export default class BucketProduct extends React.PureComponent {
                             <></>
                             :
 
-                        <View flex style={{ alignItems: "flex-end" }}>
-                            <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
-                                <ArchiveIcon Size={20} Color={Colors.white} />
-                            </TouchableOpacity>
-                        </View>
+                            <View flex style={{ alignItems: "flex-end" }}>
+                                <TouchableOpacity onPress={() => this.props.RemoveProductFromCart(this.props.item.CartID)} activeOpacity={0.8} center style={{ width: 35, height: 35, backgroundColor: "#FF0000", borderRadius: 5 }}>
+                                    <ArchiveIcon Size={20} Color={Colors.white} />
+                                </TouchableOpacity>
+                            </View>
                     }
                 </ShadowView>
             </View>
@@ -224,11 +220,10 @@ export default class BucketProduct extends React.PureComponent {
         return (
             <View padding-15>
                 <ShadowView style={styles.View}>
-
                     <View flex row centerH style={{ height: "auto" }}>
                         <TouchableOpacity
                             flex
-                            style={{borderRadius:10}}
+                            style={{ borderRadius: 10 }}
                             onPress={() => this.props.DisplayImageView(this.props.item.ProductImage)}
                         >
                             <Image
@@ -291,7 +286,7 @@ export default class BucketProduct extends React.PureComponent {
                     <View flex row centerH style={{ height: "auto" }}>
                         <TouchableOpacity
                             flex
-                            style={{borderRadius:10}}
+                            style={{ borderRadius: 10 }}
                             onPress={() => this.props.DisplayImageView(this.props.item.DesignImage)}
                         >
                             <Image
@@ -325,7 +320,7 @@ export default class BucketProduct extends React.PureComponent {
                             <Text h2 secondary flex-15>Visit the Design</Text>
                             <Text h2 secondary flex>{">"}</Text>
                         </TouchableOpacity>
-                        
+
                         {
                             this.props.OrderCompleted ?
                                 <></>
@@ -355,7 +350,7 @@ export default class BucketProduct extends React.PureComponent {
                     <View flex row centerH style={{ height: "auto" }}>
                         <TouchableOpacity
                             flex
-                            style={{borderRadius:10}}
+                            style={{ borderRadius: 10 }}
                             onPress={() => this.props.DisplayImageView(this.props.BrandImage.uri)}
                         >
                             <Image
@@ -389,7 +384,7 @@ export default class BucketProduct extends React.PureComponent {
                             <Text h2 secondary flex-15>See the Chat</Text>
                             <Text h2 secondary flex>{">"}</Text>
                         </TouchableOpacity>
-                        
+
                         {
                             this.props.OrderCompleted ?
                                 <></>
@@ -412,23 +407,23 @@ export default class BucketProduct extends React.PureComponent {
     }
 
     render() {
-        if(this.props.item.ProductID) {
-            if(this.props.item.FabricID) {
-                return <this.ProductWithFabric/>
+        if (this.props.item.ProductID) {
+            if (this.props.item.FabricID) {
+                return <this.ProductWithFabric />
             }
-            return <this.OnlyProduct/>
-        } else if(this.props.item['3DModelID']) {
+            return <this.OnlyProduct />
+        } else if (this.props.item['3DModelID']) {
             //3D Model
-            if(this.props.item.FabricID) {
-                return <this.ThreeDProductMale/>
+            if (this.props.item.FabricID) {
+                return <this.ThreeDProductMale />
             }
-            return <this.ThreeDProductFemale/>
-        } else if(this.props.item['DesignID']) {
+            return <this.ThreeDProductFemale />
+        } else if (this.props.item['DesignID']) {
             //Design By Levyne
-            return <this.DesignByLevyne/>
+            return <this.DesignByLevyne />
         } else {
             //Custom Brand Product
-            return <this.BrandCustomProduct/>
+            return <this.BrandCustomProduct />
         }
     }
 }
@@ -454,18 +449,18 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15
     },
     ImageContainer: {
-        height: windowWidth*0.8,
-        width: windowWidth*0.6,
-        borderTopLeftRadius:10
+        height: windowWidth * 0.8,
+        width: windowWidth * 0.6,
+        borderTopLeftRadius: 10
     },
     ImageContainerOnlyProduct: {
-        height: windowWidth*0.8,
+        height: windowWidth * 0.8,
         width: '100%',
-        borderTopLeftRadius:10
+        borderTopLeftRadius: 10
     },
-    FabricContainer:  {
-        height: windowWidth*0.8,
+    FabricContainer: {
+        height: windowWidth * 0.8,
         width: 'auto',
-        borderTopRightRadius:10
+        borderTopRightRadius: 10
     },
 });
