@@ -89,8 +89,6 @@ class Bucket extends React.Component {
         this.Timeout && clearTimeout(this.Timeout);
     }
 
-    
-
     FlatListRenderItem = ({item}) => (
         <BucketProduct
             item={item}
@@ -167,15 +165,6 @@ class Bucket extends React.Component {
         })
     }
 
-    renderCustomContent = () => {
-
-        return (
-            <View flex padding-10 style={{backgroundColor: 'none'}}>
-                <Text white h1>Price not decided, Chat with brand to finalize the price</Text>
-            </View>
-        );
-    };
-
     setStateForProductDelete = (CartID) => {
         this.setState({
             DeleteModalVisible : !this.state.DeleteModalVisible,
@@ -193,6 +182,21 @@ class Bucket extends React.Component {
             imageSource: this.props.route.params.imageSource,
             initials: AvatarHelper.getInitials(this.props.route.params.BrandName)
         })
+    }
+
+    Footer = ({Status}) => {
+        switch(Status) {
+            case 1 :
+                return <BottomButton
+                    ButtonB={"Checkout"}
+                    ButtonActionB={this.navigateCheckout}
+                />
+            default :
+                return <BottomButton
+                    ButtonB={"Chat"}
+                    ButtonActionB={this.navigateChat}
+                />
+        }
     }
 
     render() {
@@ -222,6 +226,7 @@ class Bucket extends React.Component {
                             keyExtractor={(item) => item.CartID.toString()}
                             renderItem={this.FlatListRenderItem}
                         />
+                        <this.Footer Status={this.state.Buckets[0].Status} />
                     </View>
                 }
                 <ImageView
@@ -235,26 +240,6 @@ class Bucket extends React.Component {
                     modalVisible={this.state.DeleteModalVisible}
                     setModalVisible={this.setDeleteModalVisible}
                 />
-                {!this.state.Loading && this.state.Buckets[0].Status === 1 ?
-                    <BottomButton
-                        ButtonA={"Chat"}
-                        ButtonB={"Checkout"}
-                        ButtonActionA={this.navigateChat}
-                        ButtonActionB={this.navigateCheckout}
-                    />
-                    :
-                    <BottomButton
-                        ButtonB={"Chat"}
-                        ButtonActionB={this.navigateChat}
-                    />
-                }
-                <Toast
-                    visible={this.state.showToast}
-                    position={'bottom'}
-                    backgroundColor={Colors.primary}
-                >
-                    {this.renderCustomContent()}
-                </Toast>
             </>
         );
     }

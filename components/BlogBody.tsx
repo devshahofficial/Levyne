@@ -1,13 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native-ui-lib';
 
-/**
- * @type {React.Component}
- * @typedef {[{textContent: string,type: number, children: RootChildrens}]} RootChildrens
- * @extends {React.PureComponent<{RootChildrens: RootChildrens, isBold: boolean}>}
- **/
 
-class BlogBody extends React.PureComponent {
+type RootChildrens = [{textContent: string,type: number, children: RootChildrens}]
+
+class BlogBody extends React.PureComponent<{RootChildrens: RootChildrens, isBold: boolean}> {
 
     render() {
         return (

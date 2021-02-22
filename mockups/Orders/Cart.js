@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, AvatarHelper, Colors, Toast} from 'react-native-ui-lib';
+import {View, Text, AvatarHelper, Colors} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import BucketComponent from "../../components/BucketComponent";
 import FetchCart from '../../API/Cart/FetchCart';
@@ -66,32 +66,16 @@ class Cart extends React.Component {
     }
 
     navigateCheckout = (BucketID, BrandName, Status) => {
-        if(Status === 0) {
-            this.setState({showToast: true});
-            this.Timeout = setTimeout(() => {
-                this.setState({showToast: false});
-            }, 3000);
+        if(this.props.ProfileCompleted) {
+            this.props.navigation.navigate('CheckOut', { BucketID, BrandName });
         } else {
-            if(this.props.ProfileCompleted) {
-                this.props.navigation.navigate('CheckOut', { BucketID, BrandName });
-            } else {
-                this.props.navigation.navigate('EditProfile');
-            }
+            this.props.navigation.navigate('EditProfile');
         }
     }
 
     navigateBrand = (BrandID) => {
         this.props.navigation.navigate("BrandProfile", {BrandID});
     }
-
-    renderCustomContent = () => {
-
-        return (
-            <View flex padding-10 style={{backgroundColor: 'none'}}>
-                <Text white h1>Price not decided, Chat with brand to finalize the price</Text>
-            </View>
-        );
-    };
 
     navigateChat = (BucketID, Name, BrandID, imageSource) => {
         this.props.navigation.navigate('Chat', {
@@ -110,7 +94,6 @@ class Cart extends React.Component {
             NavigateBucket={this.onBucketPress}
             navigateCheckout={this.navigateCheckout}
             navigateBrand={this.navigateBrand}
-            navigateChat={this.navigateChat}
         />
     )
 
@@ -165,13 +148,6 @@ class Cart extends React.Component {
                                 refreshing={this.state.refreshing}
                                 onRefresh={this.onRefresh}
                             />
-                            <Toast
-                                visible={this.state.showToast}
-                                position={'bottom'}
-                                backgroundColor={Colors.primary}
-                            >
-                                {this.renderCustomContent()}
-                            </Toast>
                         </View>
                         
 
