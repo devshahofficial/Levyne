@@ -44,10 +44,10 @@ export const POST = async (URL: string, Config: { ReturnResponse?: boolean, Thro
     }
 }
 
-export const GET = async (URL: string, Config: { ReturnResponse?: boolean, ThrowError?: boolean, Token?:string, Body?: { [key: string]: any; } }, abortControllerSignal: AbortSignal | undefined = undefined) : Promise<any> => {
+export const GET = async (URL: string, Config: { ReturnResponse?: boolean, ThrowError?: boolean, Token?:string, QueryData?: { [key: string]: any; } }, abortControllerSignal: AbortSignal | undefined = undefined) : Promise<any> => {
 
     // @ts-ignore
-    const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(QueryData, null), {
+    const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(Config.QueryData, null), {
         method: 'GET',
         signal: abortControllerSignal,
         headers: {

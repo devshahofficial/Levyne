@@ -2,18 +2,14 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import IndexScreen from '../mockups/Auth/Index';
-// @ts-ignore
 import LoginScreen from '../mockups/Auth/Login';
-// @ts-ignore
 import OTPScreen from '../mockups/Auth/OTP';
 import HomeScreen from '../mockups/Home/Home';
 import MyProfile from '../mockups/Profile/MyProfile';
 import BrandProfile from '../mockups/Brand/BrandProfile';
 import SearchScreen from '../mockups/Search/SearchScreen';
 import ChatListScreen from '../mockups/ChatSystem/ChatListScreen';
-// @ts-ignore
 import InitialProfile from '../mockups/Auth/InitialProfile';
-// @ts-ignore
 import ChatScreen from '../mockups/ChatSystem/ChatScreen';
 import ProductScreen from '../mockups/Products/ProductScreen';
 import { Colors } from 'react-native-ui-lib';
@@ -26,14 +22,12 @@ import TermsConditionsScreen from '../mockups/Extras/TermsConditionsScreen';
 import InternetConnection from '../mockups/Extras/InternetConnection';
 import Cart from '../mockups/Orders/Cart';
 import Notifications from '../mockups/Home/Notifications';
-// @ts-ignore
 import EditProfile from '../mockups/Profile/EditProfile';
 import Customize from '../mockups/Products/Customize';
 import Bucket from '../mockups/Orders/Bucket';
 import ProductAddToCart from '../mockups/Orders/ProductAddToCart';
 import CheckOut from '../mockups/Orders/CheckOut';
 import MyFashionDesigners from '../mockups/Brand/MyFashionDesigners';
-// @ts-ignore
 import MyFits from '../mockups/Profile/MyFits';
 import FAQscreen from '../mockups/Extras/FAQscreen';
 import MyOrders from '../mockups/Orders/MyOrders';
@@ -56,7 +50,6 @@ import DesignedAtLevyne from '../mockups/Designs/Designed at Levyne';
 import CallToOrder from '../mockups/Home/CallToOrder';
 import AddReview from '../mockups/Orders/AddReviews';
 import FabricsFor3DCart from '../mockups/Fabrics/FabricsFor3DCart';
-// @ts-ignore
 import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
 import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
 import ChatToOrderBrand from "../mockups/ChatSystem/ChatToOrderBrand";
@@ -107,7 +100,7 @@ class BottomTabNavigation extends React.PureComponent {
 					}}
 				/>
 				<Tab.Screen
-					name="My Cart"
+					name="MyCart"
 					component={Cart}
 					options={{
 						tabBarIcon: ({ color }) => (
