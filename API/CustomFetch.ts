@@ -1,14 +1,7 @@
 import _ from 'lodash';
 
-/**
- * 
- * @param {any} obj 
- * @param {?string} prefix
- * @returns {string}
- * 
- */
 
-var encodeQueryData = function (obj, prefix) {
+var encodeQueryData = function (obj: { [key: string]: any; }, prefix: string | null): string {
     let str = [],
         p;
     for (p in obj) {
@@ -25,56 +18,33 @@ var encodeQueryData = function (obj, prefix) {
     return str.join("&");
 };
 
- /**
- * 
- * @param {String} URL 
- * @param {Object} config
- * @param {boolean} [config.ReturnResponse]
- * @param {boolean} [config.ThrowError]
- * @param {string} [config.Token]
- * @param {any} [config.Body]
- * @param {AbortSignal | undefined} abortControllerSignal
- */
 
-
-export const POST = async (URL, { ReturnResponse, ThrowError, Token, Body }, abortControllerSignal = undefined) => {
-    // @ts-ignore
+export const POST = async (URL: string, Config: { ReturnResponse?: boolean, ThrowError?: boolean, Token?:string, Body?: { [key: string]: any; } }, abortControllerSignal: AbortSignal | undefined = undefined) : Promise<any> => {
     const resp = await fetch(global.BaseURL + URL, {
         method: 'POST',
         signal: abortControllerSignal,
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            ...(Token) && { 'Authorization': Token }
+            ...(Config.Token) && { 'Authorization': Config.Token }
         },
-        ...(Body) && { body: JSON.stringify(Body) }
+        ...(Config.Body) && { body: JSON.stringify(Config.Body) }
     });
     if (resp.status != 200) {
-        if (ThrowError) {
+        if (Config.ThrowError) {
             throw await resp.text();
         }
         throw resp.status;
     }
     else {
-        if (ReturnResponse) {
+        if (Config.ReturnResponse) {
             return await resp.json();
         }
         return;
     }
 }
 
-/**
- * 
- * @param {String} URL 
- * @param {Object} config
- * @param {boolean} [config.ReturnResponse]
- * @param {boolean} [config.ThrowError]
- * @param {string} [config.Token]
- * @param {any} [config.QueryData]
- * @param {AbortSignal | undefined} abortControllerSignal
- */
-
-export const GET = async (URL, { ReturnResponse = false, ThrowError = false, Token = "", QueryData = {} }, abortControllerSignal = undefined) => {
+export const GET = async (URL: string, Config: { ReturnResponse?: boolean, ThrowError?: boolean, Token?:string, Body?: { [key: string]: any; } }, abortControllerSignal: AbortSignal | undefined = undefined) : Promise<any> => {
 
     // @ts-ignore
     const resp = await fetch(global.BaseURL + URL + '?' + encodeQueryData(QueryData, null), {
@@ -83,11 +53,11 @@ export const GET = async (URL, { ReturnResponse = false, ThrowError = false, Tok
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            ...(Token) && { 'Authorization': Token }
+            ...(Config.Token) && { 'Authorization': Config.Token }
         },
     });
     if (resp.status != 200) {
-        if(ThrowError) {
+        if(Config.ThrowError) {
             throw {
                 Error: await resp.json(),
                 Status: resp.status
@@ -96,7 +66,7 @@ export const GET = async (URL, { ReturnResponse = false, ThrowError = false, Tok
         throw resp.status;
     }
     else {
-        if (ReturnResponse) {
+        if (Config.ReturnResponse) {
             return await resp.json();
         }
         return;
