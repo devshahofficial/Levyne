@@ -6,6 +6,7 @@ import BookMarkIcon from '../Icons/BookMarkIcon';
 import Colors from '../Style/Colors';
 import StarIconsComponent from "./StarIconsComponent";
 import {DeliveryIcon} from '../Icons/Secondary/DeliveryIcon';
+import analytics from '@react-native-firebase/analytics';
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
 
@@ -58,7 +59,8 @@ export default class ProductScreenPartOne extends React.Component {
 	);
 
 	onShare = () => {
-        Share.share({
+		analytics().logShare({content_type: 'Product', item_id: this.props.ProductID}).catch(console.log);
+		Share.share({
             message: "Hey, I'm sharing an amazing outfit from " + this.props.Title + "'s collection.\n\nCheck out the outfit here: https://collections.levyne.com/p/" + this.props.ProductID
         }).catch(() => {});
     };
