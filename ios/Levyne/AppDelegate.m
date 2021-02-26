@@ -94,10 +94,20 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
   return YES;
 }
 
-//Called when a notification is delivered to a foreground app.
--(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
+// Called when a notification is delivered to a foreground app.
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center
+      willPresentNotification:(UNNotification *)notification
+        withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler
 {
-  completionHandler(UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionBadge);
+  // Still call the JS onNotification handler so it can display the new message right away
+  NSDictionary *userInfo = notification.request.content.userInfo;
+  [RNCPushNotificationIOS didReceiveRemoteNotification:userInfo
+                                fetchCompletionHandler:^void (UIBackgroundFetchResult result){}];
+
+  // allow showing foreground notifications
+  completionHandler(UNNotificationPresentationOptionSound | UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionBadge);
+  // or if you wish to hide all notification while in foreground replace it with 
+  // completionHandler(UNNotificationPresentationOptionNone);
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
