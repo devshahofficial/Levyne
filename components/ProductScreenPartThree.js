@@ -10,7 +10,7 @@ export default class ProductScreenPartThree extends React.PureComponent {
 		return (
 			<View marginT-20 marginH-15>
 				{this.props.EmbroideryImage && (
-					<View>
+					<View marginB-20>
 						<Text hb1 marginB-10>
 							Embroidery Overlook
 						</Text>
