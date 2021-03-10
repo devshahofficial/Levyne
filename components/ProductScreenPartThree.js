@@ -38,17 +38,6 @@ export default class ProductScreenPartThree extends React.PureComponent {
 					Reviews
 				</Text>
 				<ReviewForProducts Reviews={this.props.Reviews} />
-				<View
-					marginT-20
-					center
-					style={{
-						marginLeft: -15,
-						height: 50,
-						backgroundColor: Colors.shadow,
-						width: deviceWidth,
-					}}>
-					<Text h1>Terms and Condition apply.</Text>
-				</View>
 			</View>
 		);
 	}

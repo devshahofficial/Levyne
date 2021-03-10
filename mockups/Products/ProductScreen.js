@@ -3,6 +3,7 @@ import {Modal, SafeAreaView, ScrollView} from "react-native";
 import ProductScreenPartOne from '../../components/ProductScreenPartOne';
 import ProductScreenPartTwo from '../../components/ProductScreenPartTwo';
 import ProductScreenPartThree from '../../components/ProductScreenPartThree';
+import ProductScreenPartFour from "../../components/ProductScreenPartFour";
 import ImageCarouselProduct from "../../components/ImageCarouselProduct";
 import ProductByID from '../../API/Products/ProductByID';
 import FetchBrandReviews from '../../API/Brand/FetchBrandReviews';
@@ -170,6 +171,7 @@ class ProductScreen extends React.Component {
                                 EmbroideryDisplayModal = {this.EmbroideryDisplayModal}
                                 EmbroideryImage = {this.state.ProductObject.EmbroideryImage}
                             />
+                            <ProductScreenPartFour/>
                         </ScrollView>
                         <BottomButton
                             ButtonA={"Visit Brand"}
@@ -181,7 +183,7 @@ class ProductScreen extends React.Component {
                         <Modal visible={false} transparent={true}>
                             <TouchableOpacity flex bottom style={{backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
                                 <View padding-20>
-                                    
+
                                 </View>
                             </TouchableOpacity>
                         </Modal>

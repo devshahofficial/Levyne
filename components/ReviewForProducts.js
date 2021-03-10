@@ -40,7 +40,7 @@ export default class ReviewForProducts extends React.PureComponent {
 							<View center height={width*0.4} width={width}>
 								<Review width={"50%"}/>
 							</View>
-							<Text h1>No reviews yet!</Text>
+							<Text h1>Be the first one to review!</Text>
 						</View>
 				}
 			</View>
