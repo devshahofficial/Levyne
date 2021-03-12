@@ -290,6 +290,8 @@ class ProfileTopSection extends React.Component {
                     {
                         (this.props.ProfileStatus === 2) ? this.LoggedInScreen() : this.UnloggedScreen()
                     }
+                    <Text h2 center secondary>Copyright © 2021 Levyne | Country of Origin: India</Text>
+                    <Text h2 center secondary>Made With ❤, Team Levyne</Text>
                     <View style={{width:deviceWidth, alignSelf: 'flex-end'}}>
                         <MakeInIndia width={"100%"}/>
                     </View>
