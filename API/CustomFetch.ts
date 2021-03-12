@@ -1,7 +1,4 @@
-import _ from 'lodash';
-
-
-var encodeQueryData = function (obj: { [key: string]: any; }, prefix: string | null): string {
+const encodeQueryData = function (obj: { [key: string]: any; }, prefix: string | null): string {
     let str = [],
         p;
     for (p in obj) {
