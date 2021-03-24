@@ -32,14 +32,18 @@ class MyStatusBar extends React.PureComponent {
 	}
 
 	componentDidMount() {
-		StatusBarManager.getHeight(({height}) => {
-			this.setState({height});
-		})
+		if(StatusBarManager.getHeight) {
+			StatusBarManager.getHeight(({height}) => {
+				this.setState({height: height - 10});
+			})
+		} else {
+			this.setState({height: StatusBarManager.HEIGHT});
+		}
 	}
 
 	render() {
 		return (
-			<View style={{ backgroundColor: this.props.backgroundColor, height: this.state.height }}>
+			<View style={{ backgroundColor: this.props.backgroundColor, height: this.state.height}}>
 				<StatusBar translucent {...this.props} />
 			</View>
 		)
