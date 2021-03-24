@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StatusBar, View, NativeModules } from 'react-native';
 const { StatusBarManager } = NativeModules;
 import MainNavigator from './navigations/NavigatorMain';
@@ -23,25 +23,28 @@ if (!__DEV__) {
 	console.warn = () => { };
 }
 
-/**
- * @typedef {{ backgroundColor: string }} MyObj
- * @param {any & MyObj} props
- */
-const MyStatusBar = ({ backgroundColor, ...props }) => {
-	const [height, setHeight] = useState(20);
+class MyStatusBar extends React.PureComponent {
+	constructor(props) {
+		super(props);
+		this.state = {
+			height: 20
+		}
+	}
 
-	useEffect(() => {
+	componentDidMount() {
 		StatusBarManager.getHeight(({height}) => {
-			setHeight(height);
+			this.setState({height});
 		})
-	})
-	return (
-		<View style={{ backgroundColor, height }}>
-			<StatusBar translucent backgroundColor={backgroundColor} {...props} />
-		</View>
-	)
-}
+	}
 
+	render() {
+		return (
+			<View style={{ backgroundColor: this.props.backgroundColor, height: this.state.height }}>
+				<StatusBar translucent {...this.props} />
+			</View>
+		)
+	}
+}
 
 PushNotification.configure({
 
