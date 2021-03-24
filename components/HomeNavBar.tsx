@@ -1,4 +1,4 @@
-import {StyleSheet} from "react-native";
+import {Platform, StyleSheet} from "react-native";
 import React from 'react';
 import {View, TouchableOpacity} from 'react-native-ui-lib';
 import Colors from '../Style/Colors';
@@ -7,6 +7,7 @@ import {SearchIcon} from '../Icons/SearchIcon';
 import Logo from '../assets/images/Logo.svg';
 import {CheckoutIcon} from "../Icons/CheckoutIcon";
 import {QRCodeIcon} from "../Icons/QRCodeIcon";
+import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 type HomeNavBarProps = {
     navigateSearchText: () => void,
@@ -58,9 +59,10 @@ class HomeNavBar extends React.PureComponent<HomeNavBarProps> {
 const styles = StyleSheet.create({
     NavBar:{
         height:50,
+        marginTop: Platform.OS === 'ios' ? 10 : 0,
         zIndex:100
     },
 });
 
 
-export default HomeNavBar;
+export default withSafeAreaInsets(HomeNavBar);
