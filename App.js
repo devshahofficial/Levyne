@@ -1,9 +1,9 @@
 import 'react-native-gesture-handler';
-import React, { useRef } from 'react';
-import { StatusBar, StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StatusBar, View, NativeModules } from 'react-native';
+const { StatusBarManager } = NativeModules;
 import MainNavigator from './navigations/NavigatorMain';
 import { Provider } from 'react-redux';
-import constants from './assets/constants';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { Colors } from 'react-native-ui-lib';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
@@ -27,11 +27,20 @@ if (!__DEV__) {
  * @typedef {{ backgroundColor: string }} MyObj
  * @param {any & MyObj} props
  */
-const MyStatusBar = ({ backgroundColor, ...props }) => (
-	<View style={[styles.statusBar, { backgroundColor }]}>
-		<StatusBar translucent backgroundColor={backgroundColor} {...props} />
-	</View>
-);
+const MyStatusBar = ({ backgroundColor, ...props }) => {
+	const [height, setHeight] = useState(20);
+
+	useEffect(() => {
+		StatusBarManager.getHeight(({height}) => {
+			setHeight(height);
+		})
+	})
+	return (
+		<View style={{ backgroundColor, height }}>
+			<StatusBar translucent backgroundColor={backgroundColor} {...props} />
+		</View>
+	)
+}
 
 
 PushNotification.configure({
@@ -79,9 +88,3 @@ export default class App extends React.Component {
 		);
 	}
 };
-
-const styles = StyleSheet.create({
-	statusBar: {
-		height: constants.StatusBarHeight,
-	},
-});
