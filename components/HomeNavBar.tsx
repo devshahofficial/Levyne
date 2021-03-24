@@ -59,7 +59,6 @@ class HomeNavBar extends React.PureComponent<HomeNavBarProps> {
 const styles = StyleSheet.create({
     NavBar:{
         height:50,
-        marginTop: Platform.OS === 'ios' ? 10 : 0,
         zIndex:100
     },
 });
