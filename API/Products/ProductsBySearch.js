@@ -1,6 +1,6 @@
 import {GET} from '../CustomFetch';
 
-const ProductbySearch = async (Filters, Page, OrderBy, Token, abortControllerSignal) => {
+const ProductBySearch = async (Filters, Page, OrderBy, Token, abortControllerSignal) => {
 
     return await GET('Products/FetchBySearch', {
         ReturnResponse: true,
@@ -14,4 +14,4 @@ const ProductbySearch = async (Filters, Page, OrderBy, Token, abortControllerSig
 
 }
 
-export default ProductbySearch;
+export default ProductBySearch;
