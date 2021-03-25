@@ -5,6 +5,7 @@ import { DeliveryIcon } from "../Icons/Secondary/DeliveryIcon";
 import DeliveryChargeComponent from '../components/DeliveryChargeComponent';
 import StarIconsComponent from "./StarIconsComponent";
 import CstmShadowView from "./CstmShadowView";
+import {CheckoutIcon} from "../Icons/CheckoutIcon";
 const screenWidth = Dimensions.get('window').width;
 
 
@@ -42,7 +43,7 @@ export default class BucketComponent extends React.PureComponent<{ NavigateBucke
                     { uri: this.props.item.ProfileImage }
                 )}
                 marginB-20 paddingH-10
-                activeOpacity={0.8} marginT-10
+                activeOpacity={0.8} marginT-10 
             >
                 <CstmShadowView style={styles.ShadowContainer}>
                     <View row>
@@ -71,7 +72,7 @@ export default class BucketComponent extends React.PureComponent<{ NavigateBucke
                         </View>
                         <View flex center marginL-30>
                             <ImageBackground
-                                source={{ uri: this.props.item.PrimaryImage || "https://geospatialmedia.s3.amazonaws.com/wp-content/uploads/2016/06/3d.png" }}
+                                source={{ uri: this.props.item.PrimaryImage || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUVmqdTj4fr4jTqR3t0EkEm_-YYxGBH9WU9g&usqp=CAU" }}
                                 style={styles.imageBackground}
                                 blurRadius={5}
                             >
@@ -83,14 +84,18 @@ export default class BucketComponent extends React.PureComponent<{ NavigateBucke
                         <DeliveryIcon size={30} Color={Colors.black} />
                         <DeliveryChargeComponent TotalPrice={this.props.item.BucketPrice} />
                     </View>
-                    <View row marginT-20 style={{ marginHorizontal: -15, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
-                        <Button
-                            hb2 flex style={styles.ButtonRight}
-                            label={'Checkout'} color={Colors.white}
-                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
-                        />
-                    </View>
+                    <TouchableOpacity 
+                        flex row marginV-20 center
+                        onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
+                    >
+                        <Text hb2 primary marginR-10 style={{justifyContent: 'flex-start'}}>Checkout</Text>
+                        <View style={{justifyContent: 'flex-end'}}>
+                            <CheckoutIcon size={22} Color={Colors.primary}/>
+                        </View>
+                    </TouchableOpacity>
                 </CstmShadowView>
+                
+                
             </TouchableOpacity>
         )
     }
@@ -108,6 +113,15 @@ const styles = StyleSheet.create({
         marginTop: 10,
         backgroundColor: Colors.shadow,
     },
+    ButtonView :{
+        alignSelf: 'flex-end',
+        alignContent: 'center',
+        justifyContent: 'center',
+        height: 40,
+        marginBottom:15,
+        marginHorizontal: 5
+
+    },
     ShadowContainer: {
         height: "auto",
         width: screenWidth * 0.9,
@@ -115,12 +129,6 @@ const styles = StyleSheet.create({
         paddingTop: 15,
         paddingHorizontal: 15,
         marginTop: 0,
-    },
-    ButtonRight: {
-        backgroundColor: Colors.primary,
-        borderRadius: 0,
-        borderBottomLeftRadius: 10,
-        borderBottomRightRadius: 10
     },
     imageBackground: {
         height: 100,
