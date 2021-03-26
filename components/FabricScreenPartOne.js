@@ -3,54 +3,44 @@ import {View, Text, TouchableOpacity} from 'react-native-ui-lib';
 import BookMarkIcon from "../Icons/BookMarkIcon";
 import Colors from '../Style/Colors';
 import {FlatList,StyleSheet} from "react-native";
-import { StackNavigationProp } from '@react-navigation/stack';
+import { connect } from 'react-redux';
 const defaultColors = ["#ff99cc","#7ac1ff"];
 
-/**
- * @type {React.PureComponent}
- * @typedef {(FabricID: number, Token: string) => void} AddToWishlistFn
- * @typedef {(FabricID: number, Token: string) => void} RemoveFromWishlistFn
- * @typedef {() => void} NavigateLogin
- * @typedef {import('../Types/navigation').HomeStackParamList} HomeStackParamList
- * @typedef {{FabricWishlist: boolean | 1 | 0, Token: string, FabricID: number, CategoryID: number, Category: string, Title: string, FabricPrice: number, Materials: string[], MaterialIDs: number[]}} FabricPartOneDetails
- * @typedef {{AddToWishlistFn: AddToWishlistFn, RemoveFromWishlistFn: RemoveFromWishlistFn, NavigateLogin: NavigateLogin, navigation: StackNavigationProp<HomeStackParamList, 'Fabric'>}} FabricPartOneNavigation
- * @extends {React.Component<FabricPartOneDetails & FabricPartOneNavigation>}
- **/
+class FabricScreenPartOne extends React.Component {
 
-
-export default class FabricScreenPartOne extends React.Component {
-
-    /**
-     * @param {(FabricPartOneDetails & FabricPartOneNavigation) | Readonly<FabricPartOneDetails & FabricPartOneNavigation>} props
-     */
-    constructor(props){
-        super(props);
-        this.state = {
-            FabricWishlist : this.props.FabricWishlist === 1 ? true : false
-        }
-    }
+    constructor(props) {
+		super(props);
+		this.state = {
+			isWishlist: !!this.props.WishlistFabrics.find(item => item === +this.props.FabricID),
+		};
+	}
 
     onBookmarkPress = () => {
 
-        if(this.props.Token) {
-            if(!this.state.FabricWishlist)
-            {
+        if (this.props.Token) {
+            if (!this.state.isWishlist) {
+                this.setState({isWishlist: !this.state.isWishlist});
                 this.props.AddToWishlistFn(this.props.FabricID, this.props.Token);
-                this.setState({
-                    FabricWishlist : !this.state.FabricWishlist
-                })
+                this.props.setFabricWishlist(this.props.FabricID);
             }
-            else
-            {
+            else {
+                this.setState({isWishlist: !this.state.isWishlist});
                 this.props.RemoveFromWishlistFn(this.props.FabricID, this.props.Token);
-                this.setState({
-                    FabricWishlist : !this.state.FabricWishlist
-                })
+                this.props.RemoveFromFabricWishlist(this.props.FabricID);
             }
         } else {
             this.props.NavigateLogin();
         }
-    };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.WishlistFabricsLength !== prevProps.WishlistFabricsLength) {
+            const isWishlist = !!this.props.WishlistFabrics.find(item => item === +this.props.FabricID);
+            if (isWishlist !== this.state.isWishlist) {
+                this.setState({ isWishlist });
+            }
+        }
+    }
 
     navigateCategory = () => {
 		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 0, Index: this.props.CategoryID, Label: this.props.Category}});
@@ -81,7 +71,7 @@ export default class FabricScreenPartOne extends React.Component {
 
                     <View flex-end>
                         <TouchableOpacity flex centerV onPress={this.onBookmarkPress}>
-                            <BookMarkIcon Fill={this.state.FabricWishlist} size={28} Color={Colors.primary}/>
+                            <BookMarkIcon Fill={this.state.isWishlist} size={28} Color={Colors.primary}/>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -121,3 +111,19 @@ const styles = StyleSheet.create({
         marginHorizontal: 6
     },
 })
+
+const mapsStateToProps = ({ Wishlist }) => {
+    return {
+        WishlistFabrics: Wishlist.Fabrics,
+        WishlistFabricsLength: Wishlist.Fabrics.length
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setFabricWishlist: (FabricID) => dispatch({ type: 'setFabricWishlist', value: parseInt(FabricID) }),
+        RemoveFromFabricWishlist: (FabricID) => dispatch({ type: 'RemoveFromFabricWishlist', value: parseInt(FabricID) }),
+    }
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(FabricScreenPartOne);

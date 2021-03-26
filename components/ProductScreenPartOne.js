@@ -7,36 +7,44 @@ import Colors from '../Style/Colors';
 import StarIconsComponent from "./StarIconsComponent";
 import {DeliveryIcon} from '../Icons/Secondary/DeliveryIcon';
 import analytics from '@react-native-firebase/analytics';
+import { connect } from 'react-redux';
 
 const defaultColors = ['#ff99cc', '#7ac1ff'];
 
-export default class ProductScreenPartOne extends React.Component {
+class ProductScreenPartOne extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			ProductWishlist: this.props.ProductWishlist === 1 ? true : false,
-			Fabric: 1,
+			isWishlist: !!this.props.WishlistProducts.find(item => item === +this.props.ProductID),
 		};
 	}
 
-	onBookmarkPress = () => {
+	onBookmarkPress = async () => {
 
-		if(this.props.Token) {
-			if (!this.state.ProductWishlist) {
-				this.props.AddToWishlistFn(this.props.ProductID, this.props.Token);
-				this.setState({
-					ProductWishlist: !this.state.ProductWishlist,
-				});
-			} else {
-				this.props.RemoveFromWishlistFn(this.props.ProductID, this.props.Token);
-				this.setState({
-					ProductWishlist: !this.state.ProductWishlist,
-				});
-			}
-		} else {
-			this.props.NavigateLogin();
-		}
-	};
+        if (this.props.Token) {
+            if (!this.state.isWishlist) {
+                this.setState({isWishlist: !this.state.isWishlist});
+                this.props.AddToWishlistFn(this.props.ProductID, this.props.Token);
+                this.props.setProductWishlist(this.props.ProductID);
+            }
+            else {
+                this.setState({isWishlist: !this.state.isWishlist});
+                this.props.RemoveFromWishlistFn(this.props.ProductID, this.props.Token);
+                this.props.RemoveFromProductWishlist(this.props.ProductID);
+            }
+        } else {
+            this.props.NavigateLogin();
+        }
+    }
+
+	componentDidUpdate(prevProps) {
+        if (this.props.WishlistProductsLength !== prevProps.WishlistProductsLength) {
+            const isWishlist = !!this.props.WishlistProducts.find(item => item === +this.props.ProductID);
+            if (isWishlist !== this.state.isWishlist) {
+                this.setState({ isWishlist });
+            }
+        }
+    }
 
 	NavigateStyle = ({Index, Label}) => {
 		this.props.navigation.push('SearchScreen', {SearchFilter: {Type: 1, Index, Label}});
@@ -101,7 +109,7 @@ export default class ProductScreenPartOne extends React.Component {
 					<View flex-end>
 						<TouchableOpacity marginV-5 onPress={this.onBookmarkPress}>
 							<BookMarkIcon
-								Fill={this.state.ProductWishlist}
+								Fill={this.state.isWishlist}
 								size={28}
 								Color={Colors.primary}
 							/>
@@ -174,3 +182,20 @@ const styles = StyleSheet.create({
 		borderRadius: 10
 	}
 });
+
+
+const mapsStateToProps = ({ Wishlist }) => {
+    return {
+        WishlistProducts: Wishlist.Products,
+		WishlistProductsLength: Wishlist.Products.length
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setProductWishlist: (ProductID) => dispatch({ type: 'setProductWishlist', value: parseInt(ProductID) }),
+        RemoveFromProductWishlist: (ProductID) => dispatch({ type: 'RemoveFromProductWishlist', value: parseInt(ProductID) }),
+    }
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(ProductScreenPartOne);

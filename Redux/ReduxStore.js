@@ -141,9 +141,71 @@ const ChatReducer = (state = InitialChatStates, action) => {
 	}
 };
 
+
+const InitialWishlistState = {
+	Products: [],
+	Fabrics: [],
+};
+
+const WishlistReducer = (state = InitialWishlistState, action) => {
+	switch (action.type) {
+		case 'setWishlist':
+			return action.value;
+		case 'setProductWishlist':
+			//Removing any duplicates 
+			if(action.EmptyFirst) {
+				return {...state, Products: action.value};
+			} else {
+				if(Number.isInteger(action.value)) {
+					return {...state, Products: [...state.Products, action.value]};
+				} else {
+					return state;
+				}
+			}
+		case 'RemoveFromProductWishlist':
+			if(Number.isInteger(action.value)) {
+				let index = state.Products.indexOf(action.value);
+				if (index !== -1) {
+					state.Products.splice(index, 1);
+				}
+				return {...state, Products: [...state.Products]};
+			} else {
+				return state;
+			}
+		case 'setFabricWishlist':
+			//Removing any duplicates 
+			if(action.EmptyFirst) {
+				return {...state, Fabrics: action.value};
+			} else {	
+				if(Number.isInteger(action.value)) {
+					return {...state, Fabrics: [...state.Fabrics, action.value]};
+				} else {
+					return state;
+				}
+			}
+		case 'RemoveFromFabricWishlist':
+			if(Number.isInteger(action.value)) {
+				let index = state.Fabrics.indexOf(action.value);
+				if (index !== -1) {
+					state.Fabrics.splice(index, 1);
+				}
+				return {...state, Fabrics: [...state.Fabrics]};
+			} else {
+				return state;
+			}
+		case 'ResetWishlist':
+			return InitialWishlistState;
+		default:
+			return state;
+	}
+};
+
+
+
 export default createStore(combineReducers({
     Auth: AuthReducer,
     Profile: ProfileReducer,
     Socket: SocketReducer,
     Chat: ChatReducer,
+	Wishlist: WishlistReducer,
 }));

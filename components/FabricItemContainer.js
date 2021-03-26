@@ -7,50 +7,41 @@ import AddWishlistFabricByID from '../API/Fabrics/AddWishlistFabricByID';
 import RemoveWishlistFabricByID from '../API/Fabrics/RemoveWishlistFabricByID';
 import CstmShadowView from "./CstmShadowView";
 import BookMarkIcon from '../Icons/BookMarkIcon';
+import { connect } from 'react-redux';
 
-/**
- * @type {React.PureComponent}
- * @typedef {{IsWishlist: 1 | 0 | boolean, FabricID: number, FabricImage: string, Category: string, FabricPrice: number, Name: string}} FabricItem
- * @typedef {{item: FabricItem, navigateFabric: (FabricID: number) => void, Token: string, NavigateLogin: () => void}} FabricItemContainerProps
- * @extends {React.Component<FabricItemContainerProps>}
- **/
+class FabricItemContainer extends React.Component {
 
-export default class FabricItemContainer extends React.Component {
-
-    /**
-     * @param {FabricItemContainerProps | Readonly<FabricItemContainerProps>} props
-     */
     constructor(props) {
         super(props);
         this.state = {
-            addToWishlist: this.props.item.IsWishlist === 1 ? true : false
+            isWishlist: !!this.props.WishlistFabrics.find(item => item === +this.props.item.FabricID)
         }
     }
 
     onBookmarkPress = () => {
 
         if (this.props.Token) {
-            if (!this.state.addToWishlist) {
-                try {
-                    AddWishlistFabricByID(this.props.item.FabricID, this.props.Token)
-                }
-                catch (err) {
-                    //console.log(err);
-                    this.setState({ addToWishlist: !this.state.addToWishlist });
-                }
-                this.setState({ addToWishlist: !this.state.addToWishlist });
+            if (!this.state.isWishlist) {
+                this.setState({isWishlist: !this.state.isWishlist});
+                AddWishlistFabricByID(this.props.item.FabricID, this.props.Token);
+                this.props.setFabricWishlist(this.props.item.FabricID);
             }
             else {
-                try {
-                    RemoveWishlistFabricByID(this.props.item.FabricID, this.props.Token)
-                }
-                catch (err) {
-                    this.setState({ addToWishlist: !this.state.addToWishlist });
-                }
-                this.setState({ addToWishlist: !this.state.addToWishlist });
+                this.setState({isWishlist: !this.state.isWishlist});
+                RemoveWishlistFabricByID(this.props.item.FabricID, this.props.Token);
+                this.props.RemoveFromFabricWishlist(this.props.item.FabricID);
             }
         } else {
             this.props.NavigateLogin();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.WishlistFabricsLength !== prevProps.WishlistFabricsLength) {
+            const isWishlist = !!this.props.WishlistFabrics.find(item => item === +this.props.item.FabricID);
+            if (isWishlist !== this.state.isWishlist) {
+                this.setState({ isWishlist });
+            }
         }
     }
 
@@ -82,7 +73,7 @@ export default class FabricItemContainer extends React.Component {
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
-                            <BookMarkIcon Fill={this.state.addToWishlist} Color={Colors.primary} size={25} />
+                            <BookMarkIcon Fill={this.state.isWishlist} Color={Colors.primary} size={25} />
                         </TouchableOpacity>
                     </View>
                 </TouchableOpacity>
@@ -120,3 +111,18 @@ const styles = StyleSheet.create({
 })
 
 
+const mapsStateToProps = ({ Wishlist }) => {
+    return {
+        WishlistFabrics: Wishlist.Fabrics,
+        WishlistFabricsLength: Wishlist.Fabrics.length
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setFabricWishlist: (FabricID) => dispatch({ type: 'setFabricWishlist', value: parseInt(FabricID) }),
+        RemoveFromFabricWishlist: (FabricID) => dispatch({ type: 'RemoveFromFabricWishlist', value: parseInt(FabricID) }),
+    }
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(FabricItemContainer);

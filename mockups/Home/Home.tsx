@@ -34,6 +34,7 @@ import {CancelIcon} from "../../Icons/Cancel";
 import { Socket } from 'socket.io-client';
 import {HomeStackParamList} from '../../Types/navigation';
 import { StackNavigationProp } from '@react-navigation/stack';
+import ListWishlistProductIDs from '../../API/Products/ListWishlistProductIDs';
 
 const {width} = Dimensions.get('window');
 
@@ -51,12 +52,18 @@ interface Chat {
     BucketID: number
 }
 
+interface Wishlist {
+    Products: Number[],
+    Fabrics: Number[]
+}
+
 type HomeScreenProps = {
     Socket: Socket,
     navigation: StackNavigationProp<HomeStackParamList, 'Home'>,
     AccessToken: String,
     MarkBucketAsUnRead: (Buckets: number[], EmptyFirst?: boolean) => void,
-    setChatList: (Chats: Chat[], EmptyFirst?: boolean) => void
+    setChatList: (Chats: Chat[], EmptyFirst?: boolean) => void,
+    setWishlist: (Wishlist: Wishlist) => void
 }
 
 type HomeScreenState = {
@@ -207,6 +214,9 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
             console.log(err);
         })
 
+        ListWishlistProductIDs(this.props.AccessToken).then((Wishlist: Wishlist) => {
+            this.props.setWishlist(Wishlist);
+        }).catch(console.log);
         /*
         FetchStories(this.props.AccessToken, this.abortController.signal).then(StoryData => {
             this.setState({ StoryData })
@@ -538,9 +548,10 @@ const mapsStateToProps = (state: { Auth: { AccessToken: string; }; Socket: { Soc
     Socket: state.Socket.Socket,
 });
 
-const mapDispatchToProps = (dispatch: (arg0: { type: string; value: any; EmptyFirst: any; }) => void) => {
+const mapDispatchToProps = (dispatch: (arg0: { type: string; value: any; EmptyFirst?: any; }) => void) => {
     return {
         setChatList: (ChatList: Chat[], EmptyFirst?: boolean) => dispatch({ type: 'setChatList', value: ChatList, EmptyFirst }),
+        setWishlist: (Wishlist: Wishlist) => dispatch({ type: 'setWishlist', value: Wishlist }),
         MarkBucketAsUnRead: (Buckets: number[], EmptyFirst?: boolean) => dispatch({ type: 'MarkBucketAsUnRead', value: Buckets, EmptyFirst }),
     }
 }
