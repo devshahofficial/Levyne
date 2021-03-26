@@ -46,6 +46,7 @@ class FabricItemContainer extends React.Component {
     }
 
     render() {
+        console.log(this.props.item);
         return (
             <CstmShadowView style={styles.shadow}>
                 <TouchableOpacity
@@ -61,15 +62,10 @@ class FabricItemContainer extends React.Component {
 
                     <View row marginL-10 marginT-15>
                         <View style={{ flex: 0.8 }}>
-                            <Text hb1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
+                            <Text h1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name} </Text>
+                            <Text hb2 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Category}</Text>
 
-                            <View padding-5 marginV-10 center style={{ backgroundColor: Colors.shadow, borderRadius: 5 }}>
-                                <Text h2 black>
-                                    {this.props.item.Category}
-                                </Text>
-                            </View>
-
-                            <Text primary hb1 marginB-5>₹{this.props.item.FabricPrice}</Text>
+                            <Text primary hb1 marginB-5 marginT-10>₹{this.props.item.FabricPrice}</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
