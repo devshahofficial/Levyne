@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { Dimensions, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { View, Text, TouchableOpacity, Toast } from 'react-native-ui-lib';
 import { connect } from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
@@ -20,6 +20,8 @@ import { CancelIcon } from "../../Icons/Cancel";
 import { RightIcon } from "../../Icons/RightIcon";
 import CstmShadowView from "../../components/CstmShadowView";
 import ValidateCoupon from '../../API/Cart/ValidateCoupon';
+import HandlePaymentResponse from '../../API/Cart/HandlePayment';
+import HandleFailedPaymentResponse from '../../API/Cart/HandlePaymentFailed';
 
 
 
@@ -69,7 +71,7 @@ class CheckOut extends React.PureComponent {
         this.setState({ Checkout: !this.state.Checkout });
         this.setState({ Loading: true });
         try {
-            const {OrderID, RazorPayOrderID, TotalAmount} = await CheckoutAPI(
+            const {RazorPayOrderID, TotalAmount} = await CheckoutAPI(
                 this.state.Address,
                 this.state.PinCode,
                 this.state.Comment,
@@ -78,12 +80,13 @@ class CheckOut extends React.PureComponent {
                 this.props.AccessToken,
                 this.abortController.signal
             )
+
             IsAnyProductInCartAPI(this.props.AccessToken).then(({IsAnyProductInCart}) => {
                 this.props.setIsAnyProductInCart(IsAnyProductInCart);
             }).catch(() => {});
 
             try {
-                await RazorpayCheckout.open({
+                const RazorPayPaymentResp = await RazorpayCheckout.open({
                     image: 'https://levyne.com/images/favicon.png',
                     currency: 'INR',
                     key: config.RazorPayKeyID, // Your api key
@@ -97,6 +100,9 @@ class CheckOut extends React.PureComponent {
                     },
                     theme: { color: Colors.primary,backdrop_color:Colors.black }
                 });
+
+                const {OrderID} = await HandlePaymentResponse(RazorPayOrderID, RazorPayPaymentResp.razorpay_payment_id, RazorPayPaymentResp.razorpay_order_id, RazorPayPaymentResp.razorpay_signature, this.abortController.signal)
+
                 this.setState({Loading: false});
                 this.props.navigation.dispatch(
                     CommonActions.reset({
@@ -124,6 +130,7 @@ class CheckOut extends React.PureComponent {
                     })
                 );
             } catch(err) {
+                await HandleFailedPaymentResponse(RazorPayOrderID, this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal);
                 this.setState({Loading: false});
                 console.log(err);
                 //Handle Payment Failure.
@@ -269,7 +276,7 @@ class CheckOut extends React.PureComponent {
                 {this.state.Loading ?
                     <Loader />
                     :
-                    <>
+                    <SafeAreaView style={{flex: 1}}>
                         <ScrollView
                             showsVerticalScrollIndicator={false}
                             contentContainerStyle={{ backgroundColor: Colors.white }}
@@ -382,7 +389,7 @@ class CheckOut extends React.PureComponent {
                                 Place an Order
                             </Text>
                         </TouchableOpacity>
-                    </>
+                    </SafeAreaView>
                 }
             </>
         );

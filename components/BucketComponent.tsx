@@ -61,12 +61,22 @@ export default class BucketComponent extends React.PureComponent<{ NavigateBucke
                         </View>
                     </View>
                     <View centerV row marginT-20>
-                        <View row flex-2>
-                            <View>
-                                <Text secondary hb2>Price:</Text>
+                        <View flex-2>
+                            <View row>
+                                <View>
+                                    <Text secondary hb2>Price:</Text>
+                                </View>
+                                <View marginH-10>
+                                    <Text hb2 primary>₹{this.props.item.BucketPrice}</Text>
+                                </View>
                             </View>
-                            <View marginH-10>
-                                <Text hb2 primary>₹{this.props.item.BucketPrice}</Text>
+                            <View row marginT-10>
+                                <View>
+                                    <Text secondary hb2>Products :</Text>
+                                </View>
+                                <View marginH-10>
+                                    <Text hb2 primary>{this.props.item.ProductsCount}</Text>
+                                </View>
                             </View>
                         </View>
                         <View flex center marginL-30>
