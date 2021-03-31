@@ -62,7 +62,7 @@ class ProductItemContainer extends React.Component {
                     <View row marginL-10 marginT-15>
                         <View style={{ flex: 0.8 }}>
                             <Text h1 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.ShortDescription} </Text>
-                            <Text hb2 numberOfLines={1} secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
+                            <Text hb2 numberOfLines={1} marginT-5 secondary ellipsizeMode='tail'>{this.props.item.Name}</Text>
                         </View>
 
                         <TouchableOpacity onPress={this.onBookmarkPress} style={styles.heartIconStyle}>
@@ -71,14 +71,11 @@ class ProductItemContainer extends React.Component {
 
                     </View>
                     <View row>
-                        <View marginL-10 flex>
+                        <View marginL-10 marginT-15 flex>
                             <View row>
-                                <Text marginT-2 h2 secondary>min</Text>
+                                <Text marginT-2 h2 secondary>Price: </Text>
                                 <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.MinPrice}</Text>
-                            </View>
-                            <View row>
-                                <Text marginT-2 h2 secondary>max</Text>
-                                <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.MaxPrice}</Text>
+                                <Text marginT-2 hb2 secondary marginL-5 style={{textDecorationLine: 'line-through'}}>₹{this.props.item.MaxPrice}</Text>
                             </View>
                         </View>
                     </View>

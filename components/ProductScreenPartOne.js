@@ -101,8 +101,9 @@ class ProductScreenPartOne extends React.Component {
 
 						<View row bottom>
 							<Text b1 primary>
-								₹{this.props.MinPrice} - ₹{this.props.MaxPrice}
+								₹{this.props.MinPrice}
 							</Text>
+							<Text marginL-10 b1 secondary style={{textDecorationLine: 'line-through'}}>₹{this.props.MaxPrice}</Text>
 						</View>
 					</View>
 

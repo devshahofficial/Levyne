@@ -333,12 +333,32 @@ export default class OrdersContainer extends React.Component {
                         <DeliveryIcon size={30} Color={Colors.black} />
                         <DeliveryChargeComponent TotalPrice={this.props.FinalAmount} />
                     </View>
-
-                    <View row marginV-20>
-                        <Text h2 secondary>Total Amount</Text>
-                        <Text hb1 marginL-20>₹{this.props.FinalAmount}</Text>
-                    </View>
-
+                    {
+                        this.props.BucketPrice - this.props.FinalAmount ? (
+                            <View row flex spread>
+                                <View>
+                                    <Text h2 secondary marginT-20>Total Amount</Text>
+                                    <Text h2 secondary marginT-20>Discount ({this.props.CouponCode})</Text>
+                                    <Text h2 secondary marginT-20>Final Amount</Text>
+                                </View>
+                                <View>
+                                    <Text hb1 secondary marginT-20>₹{this.props.BucketPrice}</Text>
+                                    <Text hb1 secondary marginT-20>-₹{this.props.BucketPrice - this.props.FinalAmount}</Text>
+                                    <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
+                                </View>
+                            </View>
+                        ) :
+                        (
+                            <View row flex spread>
+                                <View>
+                                    <Text h2 secondary marginT-20>Final Amount</Text>
+                                </View>
+                                <View>
+                                    <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
+                                </View>
+                            </View>
+                        )
+                    }
                     <this.Process/>
 
                 </TouchableOpacity>
