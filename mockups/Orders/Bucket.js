@@ -25,7 +25,6 @@ class Bucket extends React.Component {
             Loading: true,
             ImageViewVisible: false,
             ImageViewImage: {},
-            CheckoutActive: false,
             CartIDForDeletion: undefined,
             ProductTypeForDeletion: undefined,
             DeleteModalVisible: false,
@@ -52,14 +51,9 @@ class Bucket extends React.Component {
                 this.props.navigation.goBack();
             }
 
-            let CheckoutActive = false;
-            if(Buckets[0].Status === 1) {
-                CheckoutActive = true;
-            }
             this.setState({
                 Buckets,
-                Loading: false,
-                CheckoutActive
+                Loading: false
             });
         }).catch(() => {});
 
@@ -115,11 +109,12 @@ class Bucket extends React.Component {
     }
 
     navigateCheckout = () => {
-        if(this.state.CheckoutActive && !this.state.Loading) {
+        if(!this.state.Loading) {
             if(this.props.ProfileCompleted) {
                 this.props.navigation.navigate('CheckOut', {
                     BucketID: this.props.route.params.BucketID,
-                    BrandName: this.props.route.params.BrandName
+                    BrandName: this.props.route.params.BrandName,
+                    Status: this.state.Buckets[0].Status
                 });
             } else {
                 this.props.navigation.navigate('EditProfile');
@@ -193,8 +188,8 @@ class Bucket extends React.Component {
                 />
             default :
                 return <BottomButton
-                    ButtonB={"Chat"}
-                    ButtonActionB={this.navigateChat}
+                    ButtonB={"Retry Payment"}
+                    ButtonActionB={this.navigateCheckout}
                 />
         }
     }

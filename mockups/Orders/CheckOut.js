@@ -22,6 +22,7 @@ import CstmShadowView from "../../components/CstmShadowView";
 import ValidateCoupon from '../../API/Cart/ValidateCoupon';
 import HandlePaymentResponse from '../../API/Cart/HandlePayment';
 import HandleFailedPaymentResponse from '../../API/Cart/HandlePaymentFailed';
+import RetryPayment from '../../API/Cart/RetryPayment';
 
 
 
@@ -54,17 +55,24 @@ class CheckOut extends React.PureComponent {
         this.Timeouts = [];
     }
 
-    componentDidMount = () => {
-        FetchPartialBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal).then(item => {
+    componentDidMount = async () => {
+
+        try {
+            if(this.props.route.params.Status === 2) {
+                await RetryPayment(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal)
+            }
+        
+            const item = await FetchPartialBucket(this.props.route.params.BucketID, this.props.AccessToken, this.abortController.signal);
+    
             this.setState({
                 BucketPrice: item.BucketPrice,
                 FinalPrice: item.BucketPrice,
                 TotalProducts: item.TotalProducts,
                 Loading: false
             })
-        }).catch(err => {
+        } catch(err) {
             console.log(err);
-        })
+        }
     }
 
     CheckoutOnPress = async () => {

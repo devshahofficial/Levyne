@@ -96,7 +96,7 @@ export default class BucketComponent extends React.PureComponent<{ NavigateBucke
                     <View row marginT-20 style={{ marginHorizontal: -15, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
                         <Button
                             hb2 flex style={styles.ButtonRight}
-                            label={'Checkout'} color={Colors.white}
+                            label={this.props.item.Status === 1 ? 'Checkout' : 'Retry Payment'} color={Colors.white}
                             onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
                         />
                     </View>

@@ -67,10 +67,11 @@ class Cart extends React.Component {
 
     navigateCheckout = (BucketID, BrandName, Status) => {
         if(this.props.ProfileCompleted) {
-            this.props.navigation.navigate('CheckOut', { BucketID, BrandName });
+            this.props.navigation.navigate('CheckOut', { BucketID, BrandName, Status });
         } else {
             this.props.navigation.navigate('EditProfile');
         }
+        
     }
 
     navigateBrand = (BrandID) => {
