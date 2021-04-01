@@ -1,6 +1,6 @@
 import { POST } from "../CustomFetch";
 
-const Checkout = async (Address, PinCode, Comment, CouponCode, BucketID, Token, abortControllerSignal) => {
+const Checkout = async (Address, PinCode, Comment, Name, Email, Mobile, CouponCode, BucketID, Token, abortControllerSignal) => {
     return await POST("Orders/CheckoutWithRazorPay", {
         ReturnResponse: true,
         ThrowError: true,
@@ -10,6 +10,7 @@ const Checkout = async (Address, PinCode, Comment, CouponCode, BucketID, Token, 
             PinCode,
             Comment,
             BucketID,
+            Name, Email, Mobile,
             ...(CouponCode ? {CouponCode}: {})
         }
     }, abortControllerSignal)
