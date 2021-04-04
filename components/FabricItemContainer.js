@@ -46,7 +46,6 @@ class FabricItemContainer extends React.Component {
     }
 
     render() {
-        console.log(this.props.item);
         return (
             <CstmShadowView style={styles.shadow}>
                 <TouchableOpacity
