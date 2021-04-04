@@ -1,6 +1,6 @@
 import config from '../../assets/constants';
 
-const ProductSearchByFilter = (FilterObject, Page, OrderBy, Token, abortControllerSignal) => {
+const ProductSearchByFilter = (FilterObject, Page, OrderBy, abortControllerSignal) => {
     return new Promise(async (resolve, reject) => {
         var FetchUrl = global.BaseURL + `Products/FetchByFilter/?`;
         FilterObject.forEach(function(item) {
@@ -19,8 +19,7 @@ const ProductSearchByFilter = (FilterObject, Page, OrderBy, Token, abortControll
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': Token
+                    'Content-Type': 'application/json'
                 },
                 signal: abortControllerSignal
             });

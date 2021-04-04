@@ -1,10 +1,9 @@
 import {GET} from '../CustomFetch';
 
-const FabricByID = async (FabricID, Token, abortControllerSignal) => {
+const FabricByID = async (FabricID, abortControllerSignal) => {
 
     return await GET('Fabrics/FetchByFabricID', {
         ReturnResponse: true,
-        Token,
         QueryData: {FabricID}
     }, abortControllerSignal)
 

@@ -234,7 +234,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
             console.log(err);
         });
 
-        Recent15Products(this.props.AccessToken, this.abortController.signal).then(Recent15Products => {
+        Recent15Products(this.abortController.signal).then(Recent15Products => {
             this.setState({ Recent15Products });
         }).catch(err => {
             console.log(err);

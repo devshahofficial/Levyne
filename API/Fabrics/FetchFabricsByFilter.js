@@ -1,10 +1,9 @@
 import {GET} from '../CustomFetch';
 
-const FetchFabricByFilter = async (Filters, Page, Token, abortControllerSignal) => {
+const FetchFabricByFilter = async (Filters, Page, abortControllerSignal) => {
 
     return await GET('Fabrics/FetchByFilters', {
         ReturnResponse: true,
-        Token,
         QueryData: {Filters, Page}
     }, abortControllerSignal)
 

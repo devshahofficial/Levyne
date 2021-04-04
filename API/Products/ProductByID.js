@@ -1,9 +1,8 @@
 import { GET } from '../CustomFetch';
 
-const ProductbyID = (ProductID, Token, abortControllerSignal) => {
+const ProductbyID = (ProductID, abortControllerSignal) => {
     return new GET('Products/FetchByProductID', {
         ReturnResponse: true,
-        Token,
         QueryData: {
             ProductID
         }

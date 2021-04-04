@@ -23,7 +23,6 @@ const BrandBySearch = async (SearchKey, Page, OrderBy, Gender, Token, abortContr
 
     return await GET('Brand/SearchBrandProfile', {
         ReturnResponse: true,
-        Token,
         QueryData
     }, abortControllerSignal)
 }

@@ -121,7 +121,7 @@ class BrandProfile extends Component {
         }).catch(() => {})
 
 
-        FetchBrandProducts(this.props.route.params.BrandID, this.ProductPage, this.props.AccessToken, this.abortController.signal).then(rows => {
+        FetchBrandProducts(this.props.route.params.BrandID, this.ProductPage, this.abortController.signal).then(rows => {
             this.TotalProducts = rows.Total;
             this.setState({
                 BrandProducts : rows.Products,
@@ -129,7 +129,7 @@ class BrandProfile extends Component {
             })
         }).catch(() => {});
 
-        FetchBrandFabrics(this.props.route.params.BrandID, this.FabricPage, this.props.AccessToken, this.abortController.signal).then(rows => {
+        FetchBrandFabrics(this.props.route.params.BrandID, this.FabricPage, this.abortController.signal).then(rows => {
             this.TotalFabrics = rows.Total;
             this.setState({
                 BrandFabrics : rows.Fabrics,

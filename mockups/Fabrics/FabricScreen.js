@@ -33,7 +33,7 @@ class FabricScreen extends React.Component {
         if(!this.props.route.params.FabricID) {
             return this.props.navigation.goBack();
         }
-        FabricByID(this.props.route.params.FabricID, this.props.AccessToken, this.abortController.signal).then(resp => {
+        FabricByID(this.props.route.params.FabricID, this.abortController.signal).then(resp => {
             this.setState({
                 FabricObject : resp,
                 loading : false

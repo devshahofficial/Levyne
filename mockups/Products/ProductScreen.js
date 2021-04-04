@@ -38,7 +38,7 @@ class ProductScreen extends React.Component {
             return this.props.navigation.goBack();
         }
         try {
-            const ProductObject = await ProductByID(this.props.route.params.ProductID, this.props.AccessToken, this.abortController.signal);
+            const ProductObject = await ProductByID(this.props.route.params.ProductID, this.abortController.signal);
             this.setState({ ProductObject, loading : false })
 
             const Reviews = await FetchBrandReviews({BrandID: ProductObject.BrandID, Limit: 10});

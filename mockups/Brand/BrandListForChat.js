@@ -40,7 +40,7 @@ class BrandList extends React.PureComponent {
 	}
 
     componentDidMount() {
-        BrandBySearch('a v', ++this.Page, 0, this.props.route.params.Gender, this.props.AccessToken, this.abortController.signal).then(({Brands, Total}) => {
+        BrandBySearch('a v', ++this.Page, 0, this.props.route.params.Gender, this.abortController.signal).then(({Brands, Total}) => {
 			this.setState({
 				BrandList: Brands,
 				Loading: false
@@ -79,7 +79,7 @@ class BrandList extends React.PureComponent {
 
     onBrandEndReached = () => {
         if(this.state.BrandList.length < this.Total) {
-            BrandBySearch('v', ++this.Page, 0, this.props.AccessToken, this.abortController.signal).then(({Brands, Total}) => {
+            BrandBySearch('v', ++this.Page, 0, this.abortController.signal).then(({Brands, Total}) => {
 				this.setState({
 					BrandList: [...this.state.BrandList, ...Brands],
 					Loading: false

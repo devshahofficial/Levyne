@@ -61,7 +61,7 @@ class Search extends React.Component {
     }
 
     SearchProduct = (ProductSort) => {
-        ProductBySearch(this.Filter, ++this.ProductPage, ProductSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+        ProductBySearch(this.Filter, ++this.ProductPage, ProductSort, this.abortController.signal).then(resp => {
             this.setState({
                 ProductsData: [...this.state.ProductsData, ...resp.Products],
                 LoadingProduct: false
@@ -73,7 +73,7 @@ class Search extends React.Component {
     }
 
     SearchBrand = (BrandSort) => {
-        BrandBySearch(this.props.route.params.SearchFilter.Label, ++this.BrandPage, BrandSort, this.props.AccessToken, this.abortController.signal).then(resp => {
+        BrandBySearch(this.props.route.params.SearchFilter.Label, ++this.BrandPage, BrandSort, this.abortController.signal).then(resp => {
             this.setState({
                 BrandData : [...this.state.BrandData, ...resp.Brands],
                 LoadingBrands: false
