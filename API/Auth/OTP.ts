@@ -48,6 +48,9 @@ const verifyOTP = async (Mobile: number, OTP: string, OTPTokenHash: string, UID:
         
 	    const Timestamp = date.toISOString().split('T')[0] + ' '  + date.toTimeString().split(' ')[0];
 
+        if(!json.Address) {
+            json.ProfileStatus = 1;
+        }
         switch(json.ProfileStatus) {
             case 1 :
                 await AsyncStorage.multiSet([
