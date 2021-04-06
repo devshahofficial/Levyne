@@ -1,11 +1,11 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StatusBar, View, NativeModules } from 'react-native';
+import { StatusBar, NativeModules } from 'react-native';
 const { StatusBarManager } = NativeModules;
 import MainNavigator from './navigations/NavigatorMain';
 import { Provider } from 'react-redux';
-import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { Colors } from 'react-native-ui-lib';
+import { DefaultTheme, NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
+import { Colors, View } from 'react-native-ui-lib';
 import PushNotificationIOS from "@react-native-community/push-notification-ios";
 import PushNotification from "react-native-push-notification";
 import analytics from '@react-native-firebase/analytics';
@@ -24,17 +24,15 @@ if (!__DEV__) {
 }
 
 class MyStatusBar extends React.PureComponent {
-	constructor(props) {
-		super(props);
-		this.state = {
-			height: 20
-		}
+	
+	state = {
+		height: 20
 	}
 
 	componentDidMount() {
 		if(StatusBarManager.getHeight) {
-			StatusBarManager.getHeight(({height}) => {
-				this.setState({height: height - 10});
+			StatusBarManager.getHeight((resp : {height: number}) => {
+				this.setState({height: resp.height - 10});
 			})
 		} else {
 			this.setState({height: StatusBarManager.HEIGHT});
@@ -43,8 +41,8 @@ class MyStatusBar extends React.PureComponent {
 
 	render() {
 		return (
-			<View style={{ backgroundColor: this.props.backgroundColor, height: this.state.height}}>
-				<StatusBar translucent {...this.props} />
+			<View style={{ backgroundColor: '#FFFFFF', height: this.state.height}}>
+				<StatusBar translucent barStyle="dark-content" />
 			</View>
 		)
 	}
@@ -73,18 +71,22 @@ const MyTheme = {
 
 export default class App extends React.Component {
 
-	navigationRef = React.createRef();
+	navigationRef = React.createRef<NavigationContainerRef>();
 
 	render() {
 		return (
 			<>
 				<Provider store={ReduxStore}>
-					<MyStatusBar backgroundColor={'#FFFFFF'} barStyle="dark-content" />
+					<MyStatusBar />
 					<NavigationContainer
 						ref={this.navigationRef}
 						onStateChange={() => {
-							const currentRouteName = this.navigationRef.current.getCurrentRoute();
-							analytics().logEvent(currentRouteName.name, currentRouteName.params).catch(console.log);
+							if(this.navigationRef && this.navigationRef.current) {
+								const currentRouteName = this.navigationRef?.current.getCurrentRoute();
+								if(currentRouteName) {
+									analytics().logEvent(currentRouteName.name, currentRouteName.params).catch(console.log);
+								}
+							}
 						}}
 						theme={MyTheme}
 					>

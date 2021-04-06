@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
+import {Colors, Text, AnimatedImage, View, TouchableOpacity, Modal} from "react-native-ui-lib";
 import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions, KeyboardAvoidingView} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";

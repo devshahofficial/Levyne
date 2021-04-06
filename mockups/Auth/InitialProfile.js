@@ -135,7 +135,7 @@ class InitialProfile extends React.Component {
         return (
             <>
                 <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"}/>
-                <KeyboardAvoidingView
+                    <KeyboardAvoidingView
                         behavior={ 'padding' }
                         style={styles.container}
                         keyboardVerticalOffset={35}

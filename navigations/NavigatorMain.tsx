@@ -60,80 +60,75 @@ const HomeStack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-class BottomTabNavigation extends React.PureComponent {
-	render() {
-		return (
-			<Tab.Navigator
-				initialRouteName="HomeTab"
-				tabBarOptions={{
-					activeTintColor: Colors.primary,
-					inactiveTintColor: Colors.grey40,
-					labelStyle: {
-						fontFamily: 'Mulish-Regular',
-						fontSize: 12,
-					},
-				}}>
-				<Tab.Screen
-					name="Home"
-					component={HomeScreen}
-					options={{
-						tabBarIcon: ({ color }) => <HomeIcon Color={color} />,
-					}}
-				/>
-				<Tab.Screen
-					name="Messages"
-					component={ChatListScreen}
-					options={{
-						tabBarIcon: ({ color }) => (
-							<ChatIcon
-								Color={color}
-								IsAnyUnreadMessage={this.props.IsAnyUnreadMessage}
-							/>
-						),
-					}}
-				/>
-				<Tab.Screen
-					name="Customize"
-					component={Customize}
-					options={{
-						tabBarIcon: ({ color }) => <CustomizeIcon size={28} Color={color} />,
-					}}
-				/>
-				<Tab.Screen
-					name="MyCart"
-					component={Cart}
-					options={{
-						tabBarIcon: ({ color }) => (
-							<OrdersIcon
-								Color={color}
-								IsAnyProductInCart={this.props.IsAnyProductInCart}
-							/>
-						),
-					}}
-				/>
-				<Tab.Screen
-					name="Profile"
-					component={MyProfile}
-					options={{
-						tabBarIcon: ({ color }) => <ProfileIcon Color={color} />,
-					}}
-				/>
-			</Tab.Navigator>
-		);
-	}
+const BottomTabNavigation = ({ IsAnyUnreadMessage, IsAnyProductInCart }: { IsAnyUnreadMessage: boolean, IsAnyProductInCart: boolean }) => {
+	return (
+		<Tab.Navigator
+			initialRouteName="HomeTab"
+			tabBarOptions={{
+				activeTintColor: Colors.primary,
+				inactiveTintColor: Colors.grey40,
+				labelStyle: {
+					fontFamily: 'Mulish-Regular',
+					fontSize: 12,
+				},
+			}}>
+			<Tab.Screen
+				name="Home"
+				component={HomeScreen}
+				options={{
+					tabBarIcon: ({ color }) => <HomeIcon Color={color} />,
+				}}
+			/>
+			<Tab.Screen
+				name="Messages"
+				component={ChatListScreen}
+				options={{
+					tabBarIcon: ({ color }) => (
+						<ChatIcon
+							Color={color}
+							IsAnyUnreadMessage={IsAnyUnreadMessage}
+						/>
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Customize"
+				component={Customize}
+				options={{
+					tabBarIcon: ({ color }) => <CustomizeIcon size={28} Color={color} />,
+				}}
+			/>
+			<Tab.Screen
+				name="MyCart"
+				component={Cart}
+				options={{
+					tabBarIcon: ({ color }) => (
+						<OrdersIcon
+							Color={color}
+							IsAnyProductInCart={IsAnyProductInCart}
+						/>
+					),
+				}}
+			/>
+			<Tab.Screen
+				name="Profile"
+				component={MyProfile}
+				options={{
+					tabBarIcon: ({ color }) => <ProfileIcon Color={color} />,
+				}}
+			/>
+		</Tab.Navigator>
+	);
 }
 
-/**
- * @param {{ Chat: { UnreadBuckets: string | any[]; IsAnyProductInCart: boolean; }; }} state
- */
-const mapsStateToProps = (state) => ({
-	IsAnyUnreadMessage: state.Chat.UnreadBuckets.length,
+
+
+const mapsStateToProps = (state: { Chat: { UnreadBuckets: number[]; IsAnyProductInCart: boolean; }; }) => ({
+	IsAnyUnreadMessage: !!state.Chat.UnreadBuckets.length,
 	IsAnyProductInCart: state.Chat.IsAnyProductInCart,
 });
 
-const BottomTabNavigationConnect = connect(mapsStateToProps)(
-	BottomTabNavigation,
-);
+const BottomTabNavigationConnect = connect(mapsStateToProps)(BottomTabNavigation);
 
 class MainHomeStack extends React.PureComponent {
 	render() {
@@ -238,8 +233,8 @@ export default class NavigationMain extends React.PureComponent {
 				screenOptions={{
 					gestureEnabled: false,
 				}}>
-				<MainStack.Screen name="Auth" component={NavigationAuth}/>
-				<MainStack.Screen name="MainHomeStack" component={MainHomeStack}/>
+				<MainStack.Screen name="Auth" component={NavigationAuth} />
+				<MainStack.Screen name="MainHomeStack" component={MainHomeStack} />
 			</MainStack.Navigator>
 		);
 	}
