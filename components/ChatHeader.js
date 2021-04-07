@@ -19,11 +19,9 @@ export default class ChatHeader extends React.PureComponent {
      */
     renderStatus(BucketStatus) {
         switch(BucketStatus) {
-            case 0:
-                return 'Bucket added, waiting for final budget.';
-            case 1:
-                return 'Price Decided successfully, waiting for Check out.';
-            case 2:
+            case -1:
+                return 'Waiting for final budget.';
+            default :
                 return 'Order placed successfully, Status available.';
         }
     }
@@ -60,7 +58,6 @@ export default class ChatHeader extends React.PureComponent {
                 <View center style={styles.Header}>
                     <Text hb2>{this.renderStatus(this.props.Status)}</Text>
                 </View>
-
             </>
         )
     }

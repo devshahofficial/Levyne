@@ -32,7 +32,7 @@ import MyFits from '../mockups/Profile/MyFits';
 import FAQscreen from '../mockups/Extras/FAQscreen';
 import MyOrders from '../mockups/Orders/MyOrders';
 import BrandList from '../mockups/Brand/BrandList';
-//import BrandListForChat from '../mockups/Brand/BrandListForChat';
+import BrandListForChat from '../mockups/Brand/BrandListForChat';
 import OrderScreen from '../mockups/Orders/OrderScreen';
 import ChatIcon from '../Icons/ChatIcon';
 import { OrdersIcon } from '../Icons/OrdersIcon';
@@ -52,7 +52,6 @@ import AddReview from '../mockups/Orders/AddReviews';
 import FabricsFor3DCart from '../mockups/Fabrics/FabricsFor3DCart';
 //import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
 import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
-import ChatToOrderBrand from "../mockups/ChatSystem/ChatToOrderBrand";
 import QRCodeReader from '../mockups/Home/QRCodeReader';
 import { AuthStackParamList, BottomTabParamList, HomeStackParamList, MainStackParamList } from '../Types/navigation';
 
@@ -154,7 +153,7 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="SearchText" component={SearchText} />
 				<HomeStack.Screen name="Help" component={Help} />
 				<HomeStack.Screen name="Bucket" component={Bucket} />
-				{/*<HomeStack.Screen name="BrandListForChat" component={BrandListForChat} />*/}
+				<HomeStack.Screen name="BrandListForChat" component={BrandListForChat} />
 				<HomeStack.Screen
 					name="MyFashionDesigners"
 					component={MyFashionDesigners}
@@ -184,7 +183,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="BrandList" component={BrandList} />
 				<HomeStack.Screen name="Order" component={OrderScreen} />
 				<HomeStack.Screen name="ChatToOrder" component={ChatToOrder} />
-				<HomeStack.Screen name="ChatToOrderBrand" component={ChatToOrderBrand} />
 				<HomeStack.Screen
 					name="DesignScreen"
 					component={DesignScreen}

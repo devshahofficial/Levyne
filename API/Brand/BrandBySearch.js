@@ -5,17 +5,18 @@ import { GET } from '../CustomFetch';
  * @param {number} Page
  * @param {number} OrderBy
  * @param {0|1} Gender
- * @param {string} Token
  * @param {AbortSignal | undefined} abortControllerSignal
  * @returns {Promise<{Brands: {ProfileImage: string, BrandID: number, About: string, Name: string, Rating: 0 | 1 | 2 | 3 | 4 | 5}[], Total: number, From: number}>}
  */
-const BrandBySearch = async (SearchKey, Page, OrderBy, Gender, Token, abortControllerSignal) => {
+const BrandBySearch = async (SearchKey, Page, OrderBy, Gender, abortControllerSignal) => {
 
     const QueryData = {
-        SearchKey,
         Page,
         OrderBy
     };
+    if(SearchKey) {
+        QueryData.SearchKey = SearchKey;
+    }
     if(typeof Gender === 'number') {
         // @ts-ignore
         QueryData.Gender = Gender;

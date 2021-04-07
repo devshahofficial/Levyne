@@ -22,7 +22,6 @@ export default class ChatInputBar extends PureComponent {
                     <CstmShadowView style={styles.ShadowViewInput}>
                         <View centerV marginL-10 flex-10 style={styles.TextArea}>
                             <TextArea
-                                // @ts-ignore
                                 hideUnderline h1
                                 blurOnSubmit={true}
                                 placeholder={"Type message..."}

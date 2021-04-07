@@ -211,7 +211,7 @@ class BrandProfile extends Component {
     }
 
     ChatToOrderBrand = () => {
-        this.props.navigation.push('ChatToOrderBrand', {
+        this.props.navigation.push('ChatToOrder', {
             BrandID: this.props.route.params.BrandID,
             BrandImage: this.state.ProfileImage,
             BrandName: this.state.Name,

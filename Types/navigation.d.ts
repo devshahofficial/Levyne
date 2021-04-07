@@ -42,26 +42,16 @@ export type HomeStackParamList = {
     Chat: {
         BucketID: number,
         ItemCount?: number,
-        ShowBrandID: boolean | number,
+        ShowBrandID?: boolean | number,
         Status: number,
         BrandID?: number,
         Name: string,
+        Message?: string,
         imageSource: {
             uri: string
         },
-        initials: string
+        ImagePath: string
     },
-    /*ChatWhenNoBucketID: {
-        BucketID?: number,
-        Message?: string,
-        Status?: number,
-        ImagePath?: string,
-        BrandID: number,
-        Name: string,
-        imageSource: {
-            uri: string
-        }
-    },*/
     BookMark: undefined,
     SearchText: undefined,
     Help: undefined,
@@ -105,8 +95,7 @@ export type HomeStackParamList = {
         BrandID: number,
         BucketID: number,
     },
-    ChatToOrder: undefined,
-    ChatToOrderBrand: {
+    ChatToOrder?: {
         BrandID: number,
         BrandName: string,
         BrandImage: string,
@@ -154,8 +143,8 @@ export type HomeStackParamList = {
         Gender: 0 | 1,
         Budget: string,
         Occasion: string,
-        Description: string,
-        Image: string
+        Description?: string,
+        Image?: string
     },
     FabricsFor3DCart: undefined
 };

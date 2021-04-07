@@ -35,14 +35,14 @@ const windowHeight = Dimensions.get('window').height;
 class ChatScreenIos extends Component {
 
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
             Messages: [],
             LoadingMessages: true,
             ImageToDisplay: [],
             ModalVisible: false,
             ImagePickerModalVisible: false,
-            TextInput: '',
+            TextInput: this.props.route.params.Message ? this.props.route.params.Message : "",
             TextInputKey: Math.random(),
             ImageSent: {},
             BucketInfo: {}
@@ -391,7 +391,7 @@ class ChatScreenIos extends Component {
                     <ChatInputBar
                         DisplayImagePicker = {this.ImagePickerModalSwitchVisibility}
                         SendMessage = {this.SendMessage}
-                        value = {this.state.InputText}
+                        value = {this.state.TextInput}
                         onChangeText={this.onChangeTextInput}
                         TextInputKey={this.state.TextInputKey}
                     />

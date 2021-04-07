@@ -8,11 +8,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import BrandBySearch from '../../API/Brand/BrandBySearch';
 import BrandItemContainer from '../../components/BrandItemContainer';
+import CreateChatBucket from '../../API/Chats/CreateNewChatBucket';
 
 /**
  * @type {React.PureComponent}
- * @typedef {object} ReduxProps
- * @prop {string} AccessToken
  * @prop {(arg0: boolean) => void} setIsAnyProductInCart
  * @typedef {import('../../Types/navigation').HomeStackParamList} HomeStackParamList
  * @typedef {RouteProp<HomeStackParamList, 'BrandListForChat'>} ReviewScreenRouteProp
@@ -40,7 +39,7 @@ class BrandList extends React.PureComponent {
 	}
 
     componentDidMount() {
-        BrandBySearch('a v', ++this.Page, 0, this.props.route.params.Gender, this.abortController.signal).then(({Brands, Total}) => {
+        BrandBySearch(undefined, ++this.Page, 0, this.props.route.params.Gender, this.abortController.signal).then(({Brands, Total}) => {
 			this.setState({
 				BrandList: Brands,
 				Loading: false
@@ -58,23 +57,34 @@ class BrandList extends React.PureComponent {
 	 * @param {string} BrandName
 	 * @param {string} ProfileImage
 	 */
-    navigateBrand = (BrandID, BrandName, ProfileImage) => {
+    navigateBrand = async (BrandID, BrandName, ProfileImage) => {
 
-        let Message = `Gender: ${this.props.route.params.Gender ? "Male" : "Female"}\nBudget: ${this.props.route.params.Budget}\nOccasion: ${this.props.route.params.Occasion}\n`;
+        this.setState({Loading: true});
 
-        if(this.props.route.params.Description) {
-            Message += `Description: ${this.props.route.params.Description}`;
+        try {
+            const {BucketID} = await CreateChatBucket(BrandID, this.props.AccessToken, this.abortController.signal);
+            let Message = `Gender: ${this.props.route.params.Gender ? "Male" : "Female"}\nBudget: ${this.props.route.params.Budget}\nOccasion: ${this.props.route.params.Occasion}\n`;
+
+            if(this.props.route.params.Description) {
+                Message += `Description: ${this.props.route.params.Description}`;
+            }
+
+            this.setState({
+                Loading: false
+            });
+
+            this.props.navigation.navigate('Chat', {
+                BucketID: BucketID,
+                BrandID: BrandID,
+                Name: BrandName,
+                Status: -1,
+                imageSource: {uri: ProfileImage},
+                Message: Message,
+                ImagePath: this.props.route.params.Image
+            })
+        } catch(err) {
+            this.setState({Loading: false});
         }
-
-        //this.props.navigation.navigate("BrandProfile", {BrandID});
-		this.props.navigation.navigate('ChatWhenNoBucketID', {
-			BrandID: BrandID,
-			Name: BrandName,
-			Status: 0,
-			imageSource: {uri: ProfileImage},
-			Message: Message,
-			ImagePath: this.props.route.params.Image
-		})
     }
 
     onBrandEndReached = () => {
@@ -118,11 +128,8 @@ class BrandList extends React.PureComponent {
 	}
 }
 
-/**
- * @param {{ Auth: { AccessToken: string; }; }} state
- */
 const mapsStateToProps = state => ({
-	AccessToken : state.Auth.AccessToken
+    AccessToken: state.Auth.AccessToken
 });
 
 export default connect(mapsStateToProps)(BrandList)
