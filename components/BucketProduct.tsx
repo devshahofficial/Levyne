@@ -29,6 +29,7 @@ type BucketItem = {
     Status: 0 | 1 | 2,
     Quantity: number,
     ProductID: number,
+    Size: 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'C',
     FabricID: number,
     Category: string,
     '3DModel': string | number,
@@ -72,8 +73,8 @@ export default class BucketProduct extends React.PureComponent<{ OrderCompleted:
 
                     <View flex marginV-20>
                         <View row>
-                            <Text flex hb2 secondary>Quantity</Text>
-                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                            <Text flex hb2 secondary>Size</Text>
+                            <Text flex-2 h1>{this.props.item.Size}</Text>
                         </View>
                     </View>
 
@@ -134,8 +135,8 @@ export default class BucketProduct extends React.PureComponent<{ OrderCompleted:
 
                     <View flex marginV-20>
                         <View row>
-                            <Text flex hb2 secondary>Quantity</Text>
-                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                            <Text flex hb2 secondary>Size</Text>
+                            <Text flex-2 h1>{this.props.item.Size}</Text>
                         </View>
                     </View>
 
@@ -195,8 +196,8 @@ export default class BucketProduct extends React.PureComponent<{ OrderCompleted:
 
                     <View flex marginV-20>
                         <View row>
-                            <Text flex hb2 secondary>Quantity</Text>
-                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                            <Text flex hb2 secondary>Size</Text>
+                            <Text flex-2 h1>{this.props.item.Size}</Text>
                         </View>
                     </View>
 
@@ -242,8 +243,8 @@ export default class BucketProduct extends React.PureComponent<{ OrderCompleted:
 
                     <View flex marginV-10>
                         <View row>
-                            <Text flex hb2 secondary>Quantity</Text>
-                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                            <Text flex hb2 secondary>Size</Text>
+                            <Text flex-2 h1>{this.props.item.Size}</Text>
                         </View>
                     </View>
 
@@ -305,8 +306,8 @@ export default class BucketProduct extends React.PureComponent<{ OrderCompleted:
 
                     <View flex marginV-10>
                         <View row>
-                            <Text flex hb2 secondary>Quantity</Text>
-                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                            <Text flex hb2 secondary>Size</Text>
+                            <Text flex-2 h1>{this.props.item.Size}</Text>
                         </View>
                     </View>
 
@@ -369,8 +370,8 @@ export default class BucketProduct extends React.PureComponent<{ OrderCompleted:
 
                     <View flex marginV-10>
                         <View row>
-                            <Text flex hb2 secondary>Quantity</Text>
-                            <Text flex-2 h1>{this.props.item.Quantity}</Text>
+                            <Text flex hb2 secondary>Size</Text>
+                            <Text flex-2 h1>{this.props.item.Size}</Text>
                         </View>
                     </View>
 

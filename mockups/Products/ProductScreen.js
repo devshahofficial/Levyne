@@ -17,15 +17,22 @@ import BottomButton from "../../components/BottomButtons";
 import ImageView from "react-native-image-viewing";
 import Loader from '../../components/Loader';
 
+const SizeCircle = ({onPress, Size}) => (
+    <TouchableOpacity onPress={onPress} marginH-5 center style={{borderColor: Colors.primary, borderRadius: 50, borderWidth: 1, minWidth: 40, height: 40, padding: 10}}>
+        <Text>{Size}</Text>
+    </TouchableOpacity>
+)
+
 class ProductScreen extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            loading : true,
+            Loading : true,
             ProductObject : {},
             success : true,
             ModalVisible: false,
+            SizeModalVisible: false,
             ImageIndex: 0,
             EmbroideryModalVisible: false,
             Reviews: [],
@@ -39,7 +46,7 @@ class ProductScreen extends React.Component {
         }
         try {
             const ProductObject = await ProductByID(this.props.route.params.ProductID, this.abortController.signal);
-            this.setState({ ProductObject, loading : false })
+            this.setState({ ProductObject, Loading : false })
 
             const Reviews = await FetchBrandReviews({BrandID: ProductObject.BrandID, Limit: 10});
             this.setState({ Reviews });
@@ -65,26 +72,33 @@ class ProductScreen extends React.Component {
         RemoveWishlistProductByID(ProductID, Token).catch(err => {console.log(err)});
     }
 
-    AddToCart = () => {
+    OpenSizeModal = () => {
         if(this.props.SkipLogin) {
             this.props.navigation.navigate("Login");
         } else {
             this.setState({
-                loading: true
+                SizeModalVisible: true
             });
-            AddProductToCartAPI(
-                this.props.route.params.ProductID,
-                undefined,
-                this.props.AccessToken,
-                this.abortController.signal
-            ).then(() => {
-                this.props.setIsAnyProductInCart(true);
-                this.setState({
-                    loading: false
-                });
-                this.props.navigation.push('Cart');
-            }).catch(console.log)
         }
+    }
+
+    AddToCart = (Size) => {
+        this.setState({
+            SizeModalVisible: false,
+            Loading: true
+        });
+        AddProductToCartAPI(
+            this.props.route.params.ProductID,
+            Size,
+            this.props.AccessToken,
+            this.abortController.signal
+        ).then(() => {
+            this.props.setIsAnyProductInCart(true);
+            this.setState({
+                Loading: false
+            });
+            this.props.navigation.push('Cart');
+        }).catch(console.log)
     }
 
     CloseModal = () => {
@@ -103,6 +117,10 @@ class ProductScreen extends React.Component {
         this.setState({ModalVisible: true, ImageIndex})
     }
 
+    ToggleSizeModal = () => {
+        this.setState({SizeModalVisible: !this.state.SizeModalVisible})
+    }
+
     NavigateLogin = () => {
         this.props.navigation.push("Auth", {screen: 'Login'});
     }
@@ -118,8 +136,8 @@ class ProductScreen extends React.Component {
     render() {
         return (
             <SafeAreaView style={{backgroundColor: Colors.white, flex:1}}>
-                <NavBarBack Navigation={this.NavBarBackNavigation} Title={this.state.loading ? 'Product' : this.state.ProductObject.Name}/>
-                {!this.state.loading && this.state.success ?
+                <NavBarBack Navigation={this.NavBarBackNavigation} Title={this.state.Loading ? 'Product' : this.state.ProductObject.Name}/>
+                {!this.state.Loading && this.state.success ?
                     <>
                         <ImageView
                             images={this.state.ProductObject.ProductImages.map(item => {return {uri: item}})}
@@ -176,15 +194,23 @@ class ProductScreen extends React.Component {
                         <BottomButton
                             ButtonA={"Visit Brand"}
                             ButtonB={"Add to Cart"}
-                            ButtonActionB={this.AddToCart}
+                            ButtonActionB={this.OpenSizeModal}
                             ButtonActionA={this.BrandNavigation}
                             BrandID={this.state.ProductObject.BrandID}
                         />
-                        <Modal visible={false} transparent={true}>
-                            <TouchableOpacity flex bottom style={{backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
-                                <View padding-20>
-
-                                </View>
+                        <Modal visible={this.state.SizeModalVisible} transparent={true}>
+                            <TouchableOpacity onPress={this.ToggleSizeModal} flex bottom style={{backgroundColor: 'rgba(52, 52, 52, 0.8)'}}>
+                                <SafeAreaView style={{backgroundColor: 'white'}}>
+                                    <Text secondary margin-20 hb1>Select Size</Text>
+                                    <View row margin-20 marginT-0>
+                                        <SizeCircle onPress={() => this.AddToCart('S')} Size="S" />
+                                        <SizeCircle onPress={() => this.AddToCart('M')} Size="M" />
+                                        <SizeCircle onPress={() => this.AddToCart('L')} Size="L" />
+                                        <SizeCircle onPress={() => this.AddToCart('XL')} Size="XL" />
+                                        <SizeCircle onPress={() => this.AddToCart('XXL')} Size="XXL" />
+                                        <SizeCircle onPress={() => this.AddToCart('C')} Size="Custom" />
+                                    </View>
+                                </SafeAreaView>
                             </TouchableOpacity>
                         </Modal>
                     </> :
