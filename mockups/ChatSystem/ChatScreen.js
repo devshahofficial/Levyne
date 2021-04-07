@@ -62,6 +62,20 @@ class ChatScreenIos extends Component {
                 Timestamp: 'now'
             });
 
+            //If brand added any product that means now the bucket is not just a chat only, but now it is actual bucket where user can checkout.
+            if(Message.type === 9) {
+                for (let index in this.props.ChatList) {
+                    if(this.props.ChatList[index].BucketID === Message.BucketID) {
+                        if(this.props.ChatList[index].Status < 0) {
+                            this.props.ChatList[index].Status = 1;
+                            this.props.ChatList[index] = {...this.props.ChatList[index]};
+                            this.props.setChatList(this.props.ChatList);
+                        }
+                        break;
+                    }
+                }
+            }
+
             this.setState({Messages: this.state.Messages});
         }
     }
@@ -441,7 +455,15 @@ const styles = StyleSheet.create({
 const mapsStateToProps = state => ({
     AccessToken : state.Auth.AccessToken,
     Socket: state.Socket.Socket,
-    UserID: state.Auth.UserID
+    UserID: state.Auth.UserID,
+    ChatList: state.Chat.ChatList,
 });
 
-export default connect(mapsStateToProps)(ChatScreenIos);
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setChatList: (ChatList) => dispatch({ type: 'setChatList', value: ChatList })
+	}
+}
+
+export default connect(mapsStateToProps, mapDispatchToProps)(ChatScreenIos);
