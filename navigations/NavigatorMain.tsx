@@ -32,7 +32,7 @@ import MyFits from '../mockups/Profile/MyFits';
 import FAQscreen from '../mockups/Extras/FAQscreen';
 import MyOrders from '../mockups/Orders/MyOrders';
 import BrandList from '../mockups/Brand/BrandList';
-import BrandListForChat from '../mockups/Brand/BrandListForChat';
+//import BrandListForChat from '../mockups/Brand/BrandListForChat';
 import OrderScreen from '../mockups/Orders/OrderScreen';
 import ChatIcon from '../Icons/ChatIcon';
 import { OrdersIcon } from '../Icons/OrdersIcon';
@@ -50,20 +50,21 @@ import DesignedAtLevyne from '../mockups/Designs/Designed at Levyne';
 import CallToOrder from '../mockups/Home/CallToOrder';
 import AddReview from '../mockups/Orders/AddReviews';
 import FabricsFor3DCart from '../mockups/Fabrics/FabricsFor3DCart';
-import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
+//import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
 import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
 import ChatToOrderBrand from "../mockups/ChatSystem/ChatToOrderBrand";
 import QRCodeReader from '../mockups/Home/QRCodeReader';
+import { AuthStackParamList, BottomTabParamList, HomeStackParamList, MainStackParamList } from '../Types/navigation';
 
-const MainStack = createStackNavigator();
-const HomeStack = createStackNavigator();
-const AuthStack = createStackNavigator();
-const Tab = createBottomTabNavigator();
+const MainStack = createStackNavigator<MainStackParamList>();
+const HomeStack = createStackNavigator<HomeStackParamList>();
+const AuthStack = createStackNavigator<AuthStackParamList>();
+const Tab = createBottomTabNavigator<BottomTabParamList>();
 
 const BottomTabNavigation = ({ IsAnyUnreadMessage, IsAnyProductInCart }: { IsAnyUnreadMessage: boolean, IsAnyProductInCart: boolean }) => {
 	return (
 		<Tab.Navigator
-			initialRouteName="HomeTab"
+			initialRouteName="Home"
 			tabBarOptions={{
 				activeTintColor: Colors.primary,
 				inactiveTintColor: Colors.grey40,
@@ -142,19 +143,18 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="Fabric" component={FabricScreen} />
 				<HomeStack.Screen name="FAQs" component={FAQscreen} />
 				<HomeStack.Screen name="MyProfile" component={MyProfile} />
-				<HomeStack.Screen name="InitialProfile" component={InitialProfile} />
 				<HomeStack.Screen name="BrandProfile" component={BrandProfile} />
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
-				<HomeStack.Screen
+				{/*<HomeStack.Screen
 					name="ChatWhenNoBucketID"
 					component={ChatScreenWhenNoBucketID}
-				/>
+				/>*/}
 				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
 				<HomeStack.Screen name="SearchText" component={SearchText} />
 				<HomeStack.Screen name="Help" component={Help} />
 				<HomeStack.Screen name="Bucket" component={Bucket} />
-				<HomeStack.Screen name="BrandListForChat" component={BrandListForChat} />
+				{/*<HomeStack.Screen name="BrandListForChat" component={BrandListForChat} />*/}
 				<HomeStack.Screen
 					name="MyFashionDesigners"
 					component={MyFashionDesigners}

@@ -1,49 +1,57 @@
-export type HomeStackParamList = {
-    Customize: {
-        Rating: number,
-        OrderID: number
-    },
-    DesignScreen: {
-        DesignID: number
-    },
-    AddReview: {
-        Rating: number,
-        OrderID: number
-    },
-    BrandListForChat: {
-        Gender: 0 | 1,
-        Budget: string,
-        Occasion: string,
-        Description: string,
-        Image: string
-    },
-    ThreeD: {
-        CategoryID: number,
-        Category: string
-    },
+export type MainStackParamList = {
+    Auth: undefined,
+    MainHomeStack: undefined,
+}
+
+export type BottomTabParamList = {
     Home: undefined,
+    Messages: undefined,
+    Customize: undefined,
+    MyCart: undefined,
+    Profile: undefined,
+}
+
+export type AuthStackParamList = {
+    Index: undefined,
+    Login: undefined,
+    OTP: {
+        OTP?: number,
+        Mobile: number | string,
+        OTPTokenHash: string,
+        UUID: string
+    },
+    EditProfileAuth: undefined
+}
+
+export type HomeStackParamList = {
+    Home: undefined,
+    Customize: undefined,
     Product: {
-        ProductID: number
+        ProductID: number,
+        onBackHome?: boolean
     },
     Fabric: {
         FabricID: number
     },
     FAQs: undefined,
     MyProfile: undefined,
-    InitialProfile: undefined,
     BrandProfile: {
         BrandID: number
     },
     EditProfile: undefined,
     Chat: {
         BucketID: number,
+        ItemCount?: number,
+        ShowBrandID: boolean | number,
+        Status: number,
         BrandID?: number,
         Name: string,
         imageSource: {
             uri: string
-        }
+        },
+        initials: string
     },
-    ChatWhenNoBucketID: {
+    /*ChatWhenNoBucketID: {
         BucketID?: number,
         Message?: string,
         Status?: number,
@@ -53,7 +61,7 @@ export type HomeStackParamList = {
         imageSource: {
             uri: string
         }
-    },
+    },*/
     BookMark: undefined,
     SearchText: undefined,
     Help: undefined,
@@ -78,18 +86,19 @@ export type HomeStackParamList = {
     Notifications: undefined,
     QRCodeReader: undefined,
     MyFits: undefined,
-    MyOrders?: {
+    MyOrders: {
         PaymentSuccess?: boolean,
         OrderID?: number
-    },
+    } | undefined,
     CheckOut: {
+        Status: number,
         BrandName: string,
         BucketID: string,
     },
     BrandList: {
         BrandID: number
     },
-    OrderScreen: {
+    Order: {
         DecidedPrice: number,
         BrandName: number,
         ProfileImage: string,
@@ -102,6 +111,9 @@ export type HomeStackParamList = {
         BrandName: string,
         BrandImage: string,
         Gender?: number
+    },
+    DesignScreen: {
+        DesignID: number
     },
     BlogPost: {
         PostID: number,
@@ -117,12 +129,20 @@ export type HomeStackParamList = {
             Gender?: number
         }
     },
+    ThreeD: {
+        CategoryID: number,
+        Category: string
+    },
     ThreeDModel: {
         BrandUserName: string,
         ModelID: number
     },
     FabricInThreeD: undefined,
     Call: undefined,
+    AddReview: {
+        Rating: number,
+        OrderID: number
+    },
     BrandsFor3DCart: {
         ThreeDModel: number,
         CategoryID: number
@@ -130,7 +150,12 @@ export type HomeStackParamList = {
     BrandsForDesignByLevyne: {
         DesignID: number
     },
-    Auth: {
-        screen: string
-    }
+    BrandListForChat: {
+        Gender: 0 | 1,
+        Budget: string,
+        Occasion: string,
+        Description: string,
+        Image: string
+    },
+    FabricsFor3DCart: undefined
 };
