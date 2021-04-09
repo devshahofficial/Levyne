@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, SafeAreaView, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, ScrollView, SafeAreaView } from 'react-native';
 import { Button, Text, View, Colors, Toast } from 'react-native-ui-lib';
 import CstmInput from '../../components/input';
 // @ts-ignore
@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 import CstmShadowView from "../../components/CstmShadowView";
 import PushNotification from "react-native-push-notification";
 import Loader from '../../components/Loader';
+import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
 
 class OTPScreen extends React.Component {
 
@@ -157,7 +158,7 @@ class OTPScreen extends React.Component {
                 {this.state.LoaderVisible ?
                     <Loader /> :
                     <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
-                        <KeyboardAvoidingView
+                        <KeyboardAvoidingViewCstm
                             behavior={'padding'}
                             style={{ flex: 1 }}
                             keyboardVerticalOffset={95}
@@ -193,7 +194,7 @@ class OTPScreen extends React.Component {
                                     {this.renderCustomContent()}
                                 </Toast>
                             </View>
-                        </KeyboardAvoidingView>
+                        </KeyboardAvoidingViewCstm>
                     </SafeAreaView>
                 }
             </ScrollView>

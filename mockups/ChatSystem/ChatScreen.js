@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
-import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions, KeyboardAvoidingView} from "react-native";
+import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
 import GetChatMessage from '../../API/Chats/GetChatMessage';
@@ -12,6 +12,7 @@ import Hyperlink from 'react-native-hyperlink';
 import {GalleryIcon} from "../../Icons/GalleryIcon";
 import {CameraIcon} from "../../Icons/CameraIcon";
 import UpdateReadTimestamp from '../../API/Chats/UpdateReadTimestamp';
+import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
 const windowHeight = Dimensions.get('window').height;
 
 /**
@@ -316,7 +317,7 @@ class ChatScreenIos extends Component {
 	render() {
 	    return (
             <SafeAreaView style={styles.container}>
-                <KeyboardAvoidingView
+                <KeyboardAvoidingViewCstm
                     behavior={ 'padding' }
                     style={ { flex: 1 } }
                     keyboardVerticalOffset={35}
@@ -405,7 +406,7 @@ class ChatScreenIos extends Component {
                         onChangeText={this.onChangeTextInput}
                         TextInputKey={this.state.TextInputKey}
                     />
-                </KeyboardAvoidingView>
+                </KeyboardAvoidingViewCstm>
             </SafeAreaView>
         )
     }
