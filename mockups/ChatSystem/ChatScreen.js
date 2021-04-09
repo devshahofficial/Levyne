@@ -57,7 +57,7 @@ class ChatScreenIos extends Component {
     SocketListener = (Message) => {
         if(Message.BucketID === this.props.route.params.BucketID) {
             this.state.Messages.unshift({
-                Message,
+                ...Message,
                 BucketMessagesID: Math.random(),
                 Timestamp: 'now'
             });
@@ -216,11 +216,9 @@ class ChatScreenIos extends Component {
         });
 
         this.state.Messages.unshift({
-            Message: {
-                Type: 2,
-                Sender: 1,
-                ImageURL: `data:${response.mime};base64,${response.data}`,
-            },
+            Type: 2,
+            Sender: 1,
+            ImageURL: `data:${response.mime};base64,${response.data}`,
             BucketMessagesID,
             Timestamp: 'now'
         });
@@ -290,11 +288,9 @@ class ChatScreenIos extends Component {
             });
 
             this.state.Messages.unshift({
-                Message: {
-                    Type: 1,
-                    Sender: 1,
-                    Text: this.state.TextInput,
-                },
+                Type: 1,
+                Sender: 1,
+                Text: this.state.TextInput,
                 BucketMessagesID: Math.random(),
                 Timestamp: 'now'
             });
@@ -369,17 +365,17 @@ class ChatScreenIos extends Component {
                             data = {this.state.Messages}
                             inverted={true}
                             renderItem = {({item}) => {
-                                switch(item.Message.Type) {
+                                switch(item.Type) {
                                     case 1 :
-                                        return item.Message.Sender ?
-                                            <this.RightText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                        return item.isSentByCustomer ?
+                                            <this.RightText TextInput={item.Text} Timestamp={item.Timestamp} />
                                             :
-                                            <this.LeftText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                            <this.LeftText TextInput={item.Text} Timestamp={item.Timestamp} />
                                     case 2 :
-                                        return item.Message.Sender ?
-                                            <this.RightImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                        return item.isSentByCustomer ?
+                                            <this.RightImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} />
                                             :
-                                            <this.LeftImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                            <this.LeftImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} />
                                     case 3 :
                                         return <this.CenterText TextInput={'Brand has decided the price'}/>
                                     case 4 :

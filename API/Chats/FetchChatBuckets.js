@@ -3,7 +3,6 @@ import timeAgo from './timeAgo';
 
 
 const GetLastMessage = (Message) => {
-    Message = JSON.parse(Message);
     switch(Message.Type) {
         case 1 :
             return Message.Text;
@@ -24,7 +23,7 @@ const GetLastMessage = (Message) => {
         case 9:
             return 'Brand added the product to the Bucket';
         default : 
-            return Message.Text;
+            return Message.Text || "";
 
         //More cases here
     }
@@ -46,7 +45,9 @@ const GetChatLists = async (Token, Page, abortController) => {
             if(item.unread) {
                 unreadBuckets.push(item.BucketID);
             }
-            item.Message = GetLastMessage(item.Message);
+            item.Message = GetLastMessage(item),
+            delete item.Type;
+            delete item.Text;
             item.Timestamp = timeAgo(item.Timestamp);
             return item;
         });
