@@ -9,18 +9,10 @@ const GetLastMessage = (Message) => {
         case 2 :
             return '📷 Photo';
         case 3 :
-            return 'Brand has decided the price';
-        case 4 :
-            return 'You added the product in the cart';
-        case 5 :
-            return 'You removed the product from the cart';
-        case 6 :
-            return 'Brand Removed the product from the cart';
-        case 7:
             return 'You placed an order';
-        case 8:
+        case 4 :
             return 'You cancelled an order';
-        case 9:
+        case 5 :
             return 'Brand added the product to the Bucket';
         default : 
             return Message.Text || "";
