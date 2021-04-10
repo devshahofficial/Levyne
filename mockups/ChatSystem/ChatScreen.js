@@ -13,6 +13,7 @@ import {GalleryIcon} from "../../Icons/GalleryIcon";
 import {CameraIcon} from "../../Icons/CameraIcon";
 import UpdateReadTimestamp from '../../API/Chats/UpdateReadTimestamp';
 import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
+import {MileStonePay} from "./MileStonePay";
 const windowHeight = Dimensions.get('window').height;
 
 /**
@@ -361,6 +362,8 @@ class ChatScreenIos extends Component {
                         NavigateBrandProfile={this.NavigateBrandProfile}
                         NavigateBucket={this.NavigateBucket}
                     />
+
+                    <MileStonePay/>
                     {this.state.LoadingMessages ? <LoaderScreen /> :
                         <FlatList
                             data = {this.state.Messages}
