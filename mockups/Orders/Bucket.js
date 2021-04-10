@@ -179,18 +179,28 @@ class Bucket extends React.Component {
         })
     }
 
-    Footer = ({Status}) => {
+    Footer = ({Status, OrderCreatedDifference}) => {
         switch(Status) {
             case 1 :
-                return <BottomButton
-                    ButtonB={"Checkout"}
-                    ButtonActionB={this.navigateCheckout}
-                />
-            default :
+                if(!OrderCreatedDifference) {
+                    return <BottomButton
+                        ButtonB={"Checkout"}
+                        ButtonActionB={this.navigateCheckout}
+                    />
+                }
+                if(OrderCreatedDifference < 15) {
+                    return <BottomButton
+                        ButtonB={"Payment Pending"}
+                        disabled={true}
+                        ButtonActionB={this.navigateCheckout}
+                    />
+                }
                 return <BottomButton
                     ButtonB={"Retry Payment"}
                     ButtonActionB={this.navigateCheckout}
                 />
+            default :
+                return <></>
         }
     }
 
@@ -221,7 +231,7 @@ class Bucket extends React.Component {
                             keyExtractor={(item) => item.CartID.toString()}
                             renderItem={this.FlatListRenderItem}
                         />
-                        <this.Footer Status={this.state.Buckets[0].Status} />
+                        <this.Footer OrderCreatedDifference={this.state.Buckets[0].OrderCreatedDifference} Status={this.state.Buckets[0].Status} />
                     </View>
                 }
                 <ImageView

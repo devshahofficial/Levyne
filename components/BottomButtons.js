@@ -26,6 +26,7 @@ export default class ConstBottomButton extends React.PureComponent {
                 <ShadowView style={styles.ShadowView}>
                     <Button
                         onPress={this.props.ButtonActionB}
+                        disabled={this.props.disabled}
                         style={[styles.Button,{backgroundColor: Colors.primary}]}
                         h1 label={this.props.ButtonB} color={Colors.white}
                     />
