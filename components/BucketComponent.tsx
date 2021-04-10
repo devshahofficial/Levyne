@@ -20,7 +20,8 @@ type item = {
     Status: 1 | 0 | boolean,
     BucketPrice: number,
     PrimaryImage: string,
-    ProductsCount: number
+    ProductsCount: number,
+    OrderCreatedDifference: null | number,
 }
 
 type navigateChat = (BucketID: number, BrandName: string, BrandID: number, ChatProfileImage: { uri: string }) => void;
@@ -94,11 +95,26 @@ export default class BucketComponent extends React.PureComponent<{ NavigateBucke
                         <DeliveryChargeComponent TotalPrice={this.props.item.BucketPrice} />
                     </View>
                     <View row marginT-20 style={{ marginHorizontal: -15, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
-                        <Button
-                            hb2 flex style={styles.ButtonRight}
-                            label={this.props.item.Status === 1 ? 'Checkout' : 'Retry Payment'} color={Colors.white}
-                            onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
-                        />
+                        {this.props.item.OrderCreatedDifference ?
+                            this.props.item.OrderCreatedDifference < 15 ?
+                                <Button
+                                    hb2 disabled flex style={styles.ButtonRight}
+                                    label={'Payment Pending'} color={Colors.white}
+                                    onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
+                                />
+                                :
+                                <Button
+                                    hb2 flex style={styles.ButtonRight}
+                                    label={'Retry Payment'} color={Colors.white}
+                                    onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
+                                />
+                            :
+                            <Button
+                                hb2 flex style={styles.ButtonRight}
+                                label={'Checkout'} color={Colors.white}
+                                onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
+                            />
+                        }
                     </View>
                 </CstmShadowView>
             </TouchableOpacity>
