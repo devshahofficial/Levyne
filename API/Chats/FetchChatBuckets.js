@@ -13,7 +13,9 @@ const GetLastMessage = (Message) => {
         case 4 :
             return 'You cancelled an order';
         case 5 :
-            return 'Brand added the product to the Bucket';
+            return 'Brand added customization charge';
+        case 6 :
+            return 'You Paid an customization charge';
         default : 
             return Message.Text || "";
 
