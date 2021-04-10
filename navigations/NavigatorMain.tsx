@@ -91,13 +91,13 @@ const BottomTabNavigation = ({ IsAnyUnreadMessage, IsAnyProductInCart }: { IsAny
 					),
 				}}
 			/>
-			<Tab.Screen
+			{/*<Tab.Screen
 				name="Customize"
 				component={Customize}
 				options={{
 					tabBarIcon: ({ color }) => <CustomizeIcon size={28} Color={color} />,
 				}}
-			/>
+			/>*/}
 			<Tab.Screen
 				name="MyCart"
 				component={Cart}

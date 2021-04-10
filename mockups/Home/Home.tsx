@@ -75,14 +75,14 @@ type HomeScreenState = {
 }
 
 class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
-    
+
     backPressed: number;
     abortController: AbortController;
     Page: number;
     NewPageLoading: boolean;
     NewProducts: boolean;
     BackHandlerTimeOut: null | NodeJS.Timer;
-    
+
     constructor(props: HomeScreenProps) {
         super(props);
         this.state = {
@@ -178,7 +178,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
             interface Map {
                 [key: string]: 1 | 2 | 3 | 4 | 5
             }
-              
+
             const ScreenIDs : Map = {
                 'p': 1,
                 'P': 1,
@@ -194,7 +194,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
 
             const Paths = url.replace('https://collections.levyne.com', '').split('/');
             if (Paths.length === 3) {
-                
+
                 HandleShareURL(ScreenIDs[Paths[1]], parseInt(Paths[2]), this.props.navigation);
             } else if(ScreenIDs[Paths[1]] === 4 && Paths.length === 4) {
                 HandleShareURL(ScreenIDs[Paths[1]], Paths[3], this.props.navigation, Paths[2]);
@@ -438,12 +438,12 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
                     bounces={false}
                     onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: this.scrollY } } }], { useNativeDriver: true })}
                 >
-                    <View marginT-120 paddingH-20>
+                    {/*<View marginT-120 paddingH-20>
                         <Text b1 secondary>Chat Now</Text>
                     </View>
-                    <Rectangle Image={"https://d32kprqn8e36ns.cloudfront.net/ChatToPlace.webp"} onPress={this.NavigateChatToOrder}/>
+                    <Rectangle Image={"https://d32kprqn8e36ns.cloudfront.net/ChatToPlace.webp"} onPress={this.NavigateChatToOrder}/>*/}
 
-                    <View marginT-20 paddingH-20>
+                    <View marginT-120 paddingH-20>
                         <Text b1 secondary>Shop Now</Text>
                     </View>
                     <View row>
@@ -461,7 +461,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
                     <Square NavigateThreeD={this.NavigateThreeD}/>
 
                     <View marginB-10 marginT-20 paddingH-20>
-                        <Text b1 secondary>Shop Now</Text>
+                        <Text b1 secondary>Premium Collections</Text>
                     </View>
                     <Rectangle onPress={() => this.navigateSearch({ Index: 5, Type: 0, Label: 'Blazers' })} Image={"https://d32kprqn8e36ns.cloudfront.net/BlazersHPImages.webp"}/>
                     <Rectangle onPress={() => this.navigateSearch({ Index: 6, Type: 0, Label: 'Lehenga' })} Image={"https://d32kprqn8e36ns.cloudfront.net/LehngaHPImages.webp"}/>
