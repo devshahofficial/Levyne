@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, Toast } from 'react-native-ui-lib';
-import { StyleSheet, SectionList, SafeAreaView, KeyboardAvoidingView } from "react-native";
+import { StyleSheet, SectionList, SafeAreaView } from "react-native";
 import {connect} from 'react-redux';
 import Input from "../../components/input"
 import Colors from '../../Style/Colors';
@@ -12,6 +12,7 @@ import FitsFemale from '../../assets/FitsFemale';
 import FitsMale from '../../assets/FitsMale';
 import InsertFitsAndSizes from '../../API/Profile/InsertFitsAndSizes';
 import Loader from '../../components/Loader';
+import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
 
 
 class MyFits extends Component {
@@ -192,11 +193,7 @@ class MyFits extends Component {
                         {this.renderCustomContent()}
                     </Toast>
                     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                        <KeyboardAvoidingView
-                            behavior={ 'padding' }
-                            style={ { flex: 1 } }
-                            keyboardVerticalOffset={95}
-                        >
+                        <KeyboardAvoidingViewCstm>
                             <SectionList
                                 showsVerticalScrollIndicator ={false}
                                 sections={this.Fits}
@@ -212,7 +209,7 @@ class MyFits extends Component {
                             >
                                 <Text h1 secondary center>Customers are requested to share exact measurements measured by a local tailor.</Text>
                             </View>
-                        </KeyboardAvoidingView>
+                        </KeyboardAvoidingViewCstm>
                     </SafeAreaView>
                 </>
             )
