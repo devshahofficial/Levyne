@@ -24,15 +24,18 @@ if (!__DEV__) {
 }
 
 class MyStatusBar extends React.PureComponent {
-	
-	state = {
-		height: 20
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			height: 20
+		}
 	}
 
 	componentDidMount() {
 		if(StatusBarManager.getHeight) {
-			StatusBarManager.getHeight((resp : {height: number}) => {
-				this.setState({height: resp.height - 10});
+			StatusBarManager.getHeight(({height}) => {
+				this.setState({height: height - 10});
 			})
 		} else {
 			this.setState({height: StatusBarManager.HEIGHT});
@@ -41,8 +44,8 @@ class MyStatusBar extends React.PureComponent {
 
 	render() {
 		return (
-			<View style={{ backgroundColor: '#FFFFFF', height: this.state.height}}>
-				<StatusBar translucent barStyle="dark-content" />
+			<View style={{ backgroundColor: this.props.backgroundColor, height: this.state.height}}>
+				<StatusBar translucent {...this.props} />
 			</View>
 		)
 	}
@@ -77,7 +80,7 @@ export default class App extends React.Component {
 		return (
 			<>
 				<Provider store={ReduxStore}>
-					<MyStatusBar />
+					<MyStatusBar backgroundColor={'#FFFFFF'} barStyle="dark-content" />
 					<NavigationContainer
 						ref={this.navigationRef}
 						onStateChange={() => {
