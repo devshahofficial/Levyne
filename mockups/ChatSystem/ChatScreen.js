@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
 import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
-import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions, KeyboardAvoidingView} from "react-native";
+import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
 import GetChatMessage from '../../API/Chats/GetChatMessage';
@@ -12,6 +12,7 @@ import Hyperlink from 'react-native-hyperlink';
 import {GalleryIcon} from "../../Icons/GalleryIcon";
 import {CameraIcon} from "../../Icons/CameraIcon";
 import UpdateReadTimestamp from '../../API/Chats/UpdateReadTimestamp';
+import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
 const windowHeight = Dimensions.get('window').height;
 
 /**
@@ -57,7 +58,7 @@ class ChatScreenIos extends Component {
     SocketListener = (Message) => {
         if(Message.BucketID === this.props.route.params.BucketID) {
             this.state.Messages.unshift({
-                Message,
+                ...Message,
                 BucketMessagesID: Math.random(),
                 Timestamp: 'now'
             });
@@ -216,11 +217,9 @@ class ChatScreenIos extends Component {
         });
 
         this.state.Messages.unshift({
-            Message: {
-                Type: 2,
-                Sender: 1,
-                ImageURL: `data:${response.mime};base64,${response.data}`,
-            },
+            Type: 2,
+            Sender: 1,
+            ImageURL: `data:${response.mime};base64,${response.data}`,
             BucketMessagesID,
             Timestamp: 'now'
         });
@@ -290,11 +289,9 @@ class ChatScreenIos extends Component {
             });
 
             this.state.Messages.unshift({
-                Message: {
-                    Type: 1,
-                    Sender: 1,
-                    Text: this.state.TextInput,
-                },
+                Type: 1,
+                Sender: 1,
+                Text: this.state.TextInput,
                 BucketMessagesID: Math.random(),
                 Timestamp: 'now'
             });
@@ -320,7 +317,7 @@ class ChatScreenIos extends Component {
 	render() {
 	    return (
             <SafeAreaView style={styles.container}>
-                <KeyboardAvoidingView
+                <KeyboardAvoidingViewCstm
                     behavior={ 'padding' }
                     style={ { flex: 1 } }
                     keyboardVerticalOffset={35}
@@ -369,17 +366,17 @@ class ChatScreenIos extends Component {
                             data = {this.state.Messages}
                             inverted={true}
                             renderItem = {({item}) => {
-                                switch(item.Message.Type) {
+                                switch(item.Type) {
                                     case 1 :
-                                        return item.Message.Sender ?
-                                            <this.RightText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                        return item.isSentByCustomer ?
+                                            <this.RightText TextInput={item.Text} Timestamp={item.Timestamp} />
                                             :
-                                            <this.LeftText TextInput={item.Message.Text} Timestamp={item.Timestamp} />
+                                            <this.LeftText TextInput={item.Text} Timestamp={item.Timestamp} />
                                     case 2 :
-                                        return item.Message.Sender ?
-                                            <this.RightImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                        return item.isSentByCustomer ?
+                                            <this.RightImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} />
                                             :
-                                            <this.LeftImage Source={{uri: item.Message.ImageURL}} Timestamp={item.Timestamp} />
+                                            <this.LeftImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} />
                                     case 3 :
                                         return <this.CenterText TextInput={'Brand has decided the price'}/>
                                     case 4 :
@@ -409,7 +406,7 @@ class ChatScreenIos extends Component {
                         onChangeText={this.onChangeTextInput}
                         TextInputKey={this.state.TextInputKey}
                     />
-                </KeyboardAvoidingView>
+                </KeyboardAvoidingViewCstm>
             </SafeAreaView>
         )
     }

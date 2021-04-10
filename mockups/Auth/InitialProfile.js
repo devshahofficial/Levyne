@@ -1,29 +1,29 @@
 import React from 'react';
-import {StyleSheet, ScrollView, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
-import {connect} from 'react-redux';
+import { StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
 import EditProfileAPI from '../../API/Profile/EditProfile';
 import CstmInput from "../../components/input";
-import {Text, TouchableOpacity, Button, Colors, View, Toast} from 'react-native-ui-lib';
+import { Text, TouchableOpacity, Button, Colors, View, Toast } from 'react-native-ui-lib';
 import CstmShadowView from '../../components/CstmShadowView';
 import NavBarBack from "../../components/NavBarBack";
-import {EmailValidator} from 'commons-validator-js';
+import { EmailValidator } from 'commons-validator-js';
+import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
 
 
 class InitialProfile extends React.Component {
 
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
 
         this.state = {
-            Name : '',
-            Email : '',
-            Address : '',
-            PinCode : '',
+            Name: '',
+            Email: '',
+            Address: '',
+            PinCode: '',
             Female: true,
-            Loading : false,
-            ShowToast : false,
-            ToastContent : 'Oops! Something went wrong',
+            Loading: false,
+            ShowToast: false,
+            ToastContent: 'Oops! Something went wrong',
         }
         this.timeouts = [];
     }
@@ -41,16 +41,16 @@ class InitialProfile extends React.Component {
     }
 
     setPinCode = (PinCode) => {
-        this.setState({PinCode});
+        this.setState({ PinCode });
     }
 
     setAddress = (Address) => {
-        this.setState({Address});
+        this.setState({ Address });
     }
 
     renderCustomContent = () => {
         return (
-            <View flex padding-10 paddingB-30 style={{backgroundColor : Colors.primary}}>
+            <View flex padding-10 paddingB-30 style={{ backgroundColor: Colors.primary }}>
                 <Text white h1>{this.state.ToastContent}</Text>
             </View>
         );
@@ -67,34 +67,34 @@ class InitialProfile extends React.Component {
         const PinCode = this.state.PinCode.toString();
         const Token = this.props.AccessToken;
 
-        if(!Name) {
-            this.setState({Loading : false, ShowToast : true, ToastContent : 'Please Enter your Name !'});
+        if (!Name) {
+            this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter your Name !' });
             this.timeouts.push(setTimeout(() => {
-                this.setState({ShowToast : false});
+                this.setState({ ShowToast: false });
             }, 3000));
             return
         }
 
-        if(!(new EmailValidator({allowLocal: true, allowTld: true}).isValid(Email))) {
-            this.setState({Loading : false, ShowToast : true, ToastContent : 'Please Enter a valid Email !'});
+        if (!(new EmailValidator({ allowLocal: true, allowTld: true }).isValid(Email))) {
+            this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter a valid Email !' });
             this.timeouts.push(setTimeout(() => {
-                this.setState({ShowToast : false});
+                this.setState({ ShowToast: false });
             }, 3000));
             return
         }
 
-        if(!Address) {
-            this.setState({Loading : false, ShowToast : true, ToastContent : 'Please Enter your Address !'});
+        if (!Address) {
+            this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter your Address !' });
             this.timeouts.push(setTimeout(() => {
-                this.setState({ShowToast : false});
+                this.setState({ ShowToast: false });
             }, 3000));
             return
         }
 
-        if(PinCode.length !== 6) {
-            this.setState({Loading : false, ShowToast : true, ToastContent : 'Please Enter valid PinCode !'});
+        if (PinCode.length !== 6) {
+            this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter valid PinCode !' });
             this.timeouts.push(setTimeout(() => {
-                this.setState({ShowToast : false});
+                this.setState({ ShowToast: false });
             }, 3000));
             return;
         }
@@ -108,12 +108,12 @@ class InitialProfile extends React.Component {
                 ProfileStatus: 2,
                 Gender: this.state.Female ? 0 : 1
             });
-            this.setState({ Loading : false});
+            this.setState({ Loading: false });
             this.props.navigation.navigate('MainHomeStack');
         }).catch(err => {
-            this.setState({Loading : false, ShowToast : true, ToastContent : err});
+            this.setState({ Loading: false, ShowToast: true, ToastContent: err });
             setTimeout(() => {
-                this.setState({ShowToast : false});
+                this.setState({ ShowToast: false });
             }, 3000);
         })
     }
@@ -134,14 +134,14 @@ class InitialProfile extends React.Component {
 
         return (
             <>
-                <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"}/>
-                    <KeyboardAvoidingView
-                        behavior={ 'padding' }
-                        style={styles.container}
-                        keyboardVerticalOffset={35}
-                    >
+                <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"} />
+                <KeyboardAvoidingViewCstm
+                    behavior={'padding'}
+                    style={styles.container}
+                    keyboardVerticalOffset={35}
+                >
                     <ScrollView
-                        style={ { flex: 1 } }
+                        style={{ flex: 1 }}
                         showsVerticalScrollIndicator={false}
                     >
                         <View paddingH-20 marginB-20>
@@ -167,14 +167,14 @@ class InitialProfile extends React.Component {
                                 <TouchableOpacity
                                     center
                                     onPress={this.setGender}
-                                    style={this.state.Female === true ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                                    style={this.state.Female === true ? [styles.Gender, { borderColor: Colors.primary }] : styles.Gender}
                                 >
                                     <Text h1 secondary>Female</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                     center
                                     onPress={this.setGender}
-                                    style={this.state.Female === false ? [styles.Gender,{borderColor: Colors.primary}] : styles.Gender}
+                                    style={this.state.Female === false ? [styles.Gender, { borderColor: Colors.primary }] : styles.Gender}
                                 >
                                     <Text h1 secondary>Male</Text>
                                 </TouchableOpacity>
@@ -182,7 +182,7 @@ class InitialProfile extends React.Component {
 
                             <Text h1 marginT-30>Address</Text>
                             <CstmInput
-                                style={{height:100,borderRadius:20}}
+                                style={{ height: 100, borderRadius: 20 }}
                                 placeholder='Address'
                                 value={this.state.Address}
                                 onChangeText={this.setAddress}
@@ -190,7 +190,7 @@ class InitialProfile extends React.Component {
 
                             <Text h1 marginT-30>Pin Code</Text>
                             <CstmInput
-                                style={{marginBottom: 20}}
+                                style={{ marginBottom: 20 }}
                                 placeholder='Pin Code'
                                 value={this.state.PinCode}
                                 keyboardType='number-pad'
@@ -207,7 +207,7 @@ class InitialProfile extends React.Component {
                             </CstmShadowView>
                         </View>
                     </ScrollView>
-                </KeyboardAvoidingView>
+                </KeyboardAvoidingViewCstm>
                 <Toast
                     visible={this.state.ShowToast}
                     position={'bottom'}
@@ -216,7 +216,7 @@ class InitialProfile extends React.Component {
                     {this.renderCustomContent()}
                 </Toast>
                 {this.state.Loading ? <View style={styles.overlayContainer}>
-                    <ActivityIndicator color={Colors.primary} />      
+                    <ActivityIndicator color={Colors.primary} />
                 </View> : <></>}
             </>
         )
@@ -226,31 +226,31 @@ class InitialProfile extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor : Colors.white
+        backgroundColor: Colors.white
     },
     Gender: {
-        flex:1,
+        flex: 1,
         borderWidth: 1,
         borderColor: Colors.shadow,
-        height:50
+        height: 50
     },
-    overlayContainer:{
+    overlayContainer: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: "#707070",
         opacity: 0.6,
         flex: 1,
-        justifyContent:"center",
-        alignItems:"center" 
+        justifyContent: "center",
+        alignItems: "center"
     }
 });
 
 const mapsStateToProps = state => ({
-    AccessToken : state.Auth.AccessToken,
+    AccessToken: state.Auth.AccessToken,
 })
 
 const mapDispatchToProps = dispatch => {
     return {
-        setProfile : (Profile) => dispatch({type: 'setProfile', value: Profile}),
+        setProfile: (Profile) => dispatch({ type: 'setProfile', value: Profile }),
     }
 }
 

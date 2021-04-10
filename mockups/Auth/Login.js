@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, ScrollView, KeyboardAvoidingView } from 'react-native';
+import {StyleSheet, ScrollView } from 'react-native';
 import {Button, View, Text, Toast, Colors} from 'react-native-ui-lib';
 import CstmInput from '../../components/input';
 // @ts-ignore
@@ -9,6 +9,7 @@ import SkipLogin from '../../API/Auth/SkipLogin';
 import CstmShadowView from "../../components/CstmShadowView";
 import Constants from '../../assets/constants';
 import {connect} from 'react-redux';
+import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
 
 class LoginScreen extends React.Component {
 
@@ -72,7 +73,7 @@ class LoginScreen extends React.Component {
 				showsVerticalScrollIndicator={false}
 				contentContainerStyle={{flex:1}}
 			>
-				<KeyboardAvoidingView
+				<KeyboardAvoidingViewCstm
 					behavior={ 'padding' }
 					style={ { flex: 1, backgroundColor: 'white' } }
 					keyboardVerticalOffset={95}
@@ -115,7 +116,7 @@ class LoginScreen extends React.Component {
 						</CstmShadowView>
 
 					</View>
-				</KeyboardAvoidingView>
+				</KeyboardAvoidingViewCstm>
             </ScrollView>
 		);
 	}

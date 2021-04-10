@@ -13,7 +13,6 @@ const GetChatMessages = async (BucketID, Page, Token) => {
     })
     
     ChatMessages.Messages = ChatMessages.Messages.map(item => {
-        item.Message = JSON.parse(item.Message);
         item.Timestamp = timeAgo(item.Timestamp);
         return item;
     });
