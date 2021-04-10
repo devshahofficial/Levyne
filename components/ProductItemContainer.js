@@ -70,14 +70,9 @@ class ProductItemContainer extends React.Component {
                         </TouchableOpacity>
 
                     </View>
-                    <View row>
-                        <View marginL-10 marginT-15 flex>
-                            <View row>
-                                <Text marginT-2 h2 secondary>Price: </Text>
-                                <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.MinPrice}</Text>
-                                <Text marginT-2 hb2 secondary marginL-5 style={{textDecorationLine: 'line-through'}}>₹{this.props.item.MaxPrice}</Text>
-                            </View>
-                        </View>
+                    <View marginL-10 row marginT-5>
+                        <Text marginT-2 hb2 primary marginL-5>₹{this.props.item.MinPrice}</Text>
+                        <Text marginT-2 h3 secondary marginL-5 style={{textDecorationLine: 'line-through'}}>₹{this.props.item.MaxPrice}</Text>
                     </View>
                 </TouchableOpacity>
 
@@ -90,7 +85,7 @@ class ProductItemContainer extends React.Component {
 
 const styles = StyleSheet.create({
     shadow: {
-        height: deviceHeight * 0.50,
+        height: deviceHeight * 0.48,
         width: deviceWidth * 0.45,
         margin: 8,
         borderRadius: 10,
