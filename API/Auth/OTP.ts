@@ -53,7 +53,8 @@ const verifyOTP = async (Mobile: number, OTP: string, OTPTokenHash: string, UID:
         }
         switch(json.ProfileStatus) {
             case 1 :
-                await AsyncStorage.multiSet([
+
+                const AsyncStorageData = [
                     ['AccessToken', json.AccessToken],
                     ['RefreshToken', json.RefreshToken],
                     ['Timestamp', Timestamp],
@@ -61,8 +62,16 @@ const verifyOTP = async (Mobile: number, OTP: string, OTPTokenHash: string, UID:
                     ['ProfileStatus', '1'],
                     ['UserID', json.CustomerID.toString()],
                     ['SkipLogin', '0']
-                ]);
+                ]
+                if(json.Name) {
+                    AsyncStorageData.push(
+                        ['Name', json.Name],
+                        ['Email', json.Email],
+                        ['Gender', json.Gender.toString()],
+                    )
+                }
 
+                await AsyncStorage.multiSet(AsyncStorageData);
 
                 setAuth({
                     AccessToken : json.AccessToken,
@@ -72,6 +81,17 @@ const verifyOTP = async (Mobile: number, OTP: string, OTPTokenHash: string, UID:
                     UserID : json.CustomerID,
                     SkipLogin: false
                 })
+
+                if(json.Name) {
+                    setProfile({
+                        Name : json.Name,
+                        Email : json.Email,
+                        Address : json.Address,
+                        PinCode : json.PinCode,
+                        Gender : json.Gender,
+                        ProfileStatus: 2
+                    });
+                }
 
                 NewSocket(json.AccessToken).then(Socket => {
                     setSocket(Socket);
