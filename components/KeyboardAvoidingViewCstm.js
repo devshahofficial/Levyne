@@ -1,3 +1,4 @@
+import React from 'react';
 import {Platform, KeyboardAvoidingView} from 'react-native';
 
 const KeyboardAvoidingViewCstm = ({children, ...props}) => {

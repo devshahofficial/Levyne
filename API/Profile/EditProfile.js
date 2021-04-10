@@ -12,9 +12,9 @@ const EditProfile = async (Name, Email, Address, Gender, PinCode, Token) => {
         const AsyncData = [
             ['Name', Name],
             ['Email', Email],
-            ['Address', Address],
+            ['Address', Address || ""],
             ['Gender', Gender],
-            ['PinCode', PinCode],
+            ['PinCode', PinCode || ""],
             ['ProfileStatus', '2']
         ];
         AsyncStorage.multiSet(AsyncData).catch(() => {});

@@ -16,11 +16,11 @@ class InitialProfile extends React.Component {
         super(props);
 
         this.state = {
-            Name: '',
-            Email: '',
+            Name: this.props.Profile.Name || "",
+            Email: this.props.Profile.Email || "",
             Address: '',
             PinCode: '',
-            Female: true,
+            Female: !this.props.Profile.Gender,
             Loading: false,
             ShowToast: false,
             ToastContent: 'Oops! Something went wrong',
@@ -83,20 +83,22 @@ class InitialProfile extends React.Component {
             return
         }
 
-        if (!Address) {
-            this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter your Address !' });
-            this.timeouts.push(setTimeout(() => {
-                this.setState({ ShowToast: false });
-            }, 3000));
-            return
-        }
-
-        if (PinCode.length !== 6) {
-            this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter valid PinCode !' });
-            this.timeouts.push(setTimeout(() => {
-                this.setState({ ShowToast: false });
-            }, 3000));
-            return;
+        if(Address) {
+            if (PinCode.length !== 6) {
+                this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter valid PinCode !' });
+                this.timeouts.push(setTimeout(() => {
+                    this.setState({ ShowToast: false });
+                }, 3000));
+                return;
+            }
+        } else {
+            if (PinCode) {
+                this.setState({ Loading: false, ShowToast: true, ToastContent: 'Please Enter valid Address !' });
+                this.timeouts.push(setTimeout(() => {
+                    this.setState({ ShowToast: false });
+                }, 3000));
+                return;
+            }
         }
 
         EditProfileAPI(Name, Email, Address, Gender, PinCode, Token).then(() => {
@@ -146,7 +148,7 @@ class InitialProfile extends React.Component {
                     >
                         <View paddingH-20 marginB-20>
 
-                            <Text h1 marginT-10>Name</Text>
+                            <Text h1 marginT-10>Name*</Text>
                             <CstmInput
                                 placeholder='Name'
                                 value={this.state.Name}
@@ -154,7 +156,7 @@ class InitialProfile extends React.Component {
                                 textContentType={'name'}
                             />
 
-                            <Text h1 marginT-30>Email</Text>
+                            <Text h1 marginT-30>Email*</Text>
                             <CstmInput
                                 placeholder='Email'
                                 value={this.state.Email}
@@ -246,6 +248,7 @@ const styles = StyleSheet.create({
 
 const mapsStateToProps = state => ({
     AccessToken: state.Auth.AccessToken,
+    Profile : state.Profile
 })
 
 const mapDispatchToProps = dispatch => {

@@ -378,18 +378,10 @@ class ChatScreenIos extends Component {
                                             :
                                             <this.LeftImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} />
                                     case 3 :
-                                        return <this.CenterText TextInput={'Brand has decided the price'}/>
-                                    case 4 :
-                                        return <this.CenterText TextInput={'You added the product in the cart'}/>
-                                    case 5 :
-                                        return <this.CenterText TextInput={'You removed the product from the cart'}/>
-                                    case 6 :
-                                        return <this.CenterText TextInput={'Brand removed the product from the cart'}/>
-                                    case 7 :
                                         return <this.CenterText TextInput={'You placed an order'}/>
-                                    case 8 :
+                                    case 4 :
                                         return <this.CenterText TextInput={'You cancelled an order'}/>
-                                    case 9 :
+                                    case 5 :
                                         return <this.CenterText TextInput={'Brand added the product to the Bucket'}/>
                                     default :
                                         return <></>
