@@ -22,7 +22,7 @@ export default class ChatHeader extends React.PureComponent {
             case -1:
                 return 'Waiting for final budget.';
             default :
-                return 'Order placed successfully, Status available.';
+                return 'Order placed successfully.';
         }
     }
 

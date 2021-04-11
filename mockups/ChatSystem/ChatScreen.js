@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
 import {connect} from "react-redux";
-import {Colors, Text, AnimatedImage, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
-import {SafeAreaView, StyleSheet, ActivityIndicator, FlatList, Dimensions} from "react-native";
+import {Colors, Text, View, LoaderScreen, TouchableOpacity, Modal} from "react-native-ui-lib";
+import {SafeAreaView, StyleSheet, FlatList, Dimensions} from "react-native";
 import ChatHeader from "../../components/ChatHeader";
 import ChatInputBar from "../../components/ChatInputBar";
 import GetChatMessage from '../../API/Chats/GetChatMessage';
 import CstmShadowView from '../../components/CstmShadowView';
 import ImagePicker from 'react-native-image-crop-picker';
 import ImageView from "react-native-image-viewing";
-import Hyperlink from 'react-native-hyperlink';
 import {GalleryIcon} from "../../Icons/GalleryIcon";
 import {CameraIcon} from "../../Icons/CameraIcon";
 import UpdateReadTimestamp from '../../API/Chats/UpdateReadTimestamp';
 import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm';
-import {MileStonePay} from "./MileStonePay";
+import MilestonePaymentDetails from '../../components/ChatComponents/MilestonePaymentDetails';
+import MilestonePaymentCompleted from '../../components/ChatComponents/MilestonePaymentCompleted';
+import { CenterText, LeftImage, LeftText, RightImage, RightText } from '../../components/ChatComponents/OtherChatMessages';
 const windowHeight = Dimensions.get('window').height;
 
 /**
  * Status
- *      0: Added to cart, price not decided
- *      1: Price Decided, but order not placed
+ *      -1: Waiting for final budget.
  *      2: Order Placed, Order Status available
  *
  * Order Status
@@ -135,69 +135,9 @@ class ChatScreenIos extends Component {
         }
     }
 
-    RightText = ({TextInput, Timestamp}) => (
-        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end', paddingTop: 10}}>
-            <Hyperlink linkDefault={ true }  linkStyle = {{ color: Colors.blue10 }}>
-                <Text h1>{TextInput}</Text>
-            </Hyperlink>
-            <Text secondary h3 style={{alignSelf: 'flex-end'}}>{Timestamp}</Text>
-        </CstmShadowView>
-    )
-
-    LeftText = ({TextInput, Timestamp}) => (
-        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-start', paddingTop: 10}}>
-            <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
-                <Text h1>{TextInput}</Text>
-            </Hyperlink>
-            <Text h3 secondary>{Timestamp}</Text>
-        </CstmShadowView>
-    )
-
-    CenterText = ({TextInput}) => (
-        <View style={styles.CenterText} center>
-            <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
-                <Text center h3>{TextInput}</Text>
-            </Hyperlink>
-        </View>
-    )
-
-    LeftImage = ({Source, Timestamp}) => (
-        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-start'}}>
-            <TouchableOpacity onPress={() => {
-                this.setState({
-                    ImageToDisplay: Source,
-                    ModalVisible: true
-                })
-            }}>
-                <AnimatedImage
-                    loader={<ActivityIndicator />}
-                    containerStyle={{backgroundColor: Colors.secondary, marginBottom: 5}}
-                    style={{height: 250, width:250, resizeMode: 'cover'}}
-                    source={Source}
-                />
-            </TouchableOpacity>
-            <Text h3 secondary>{Timestamp}</Text>
-        </CstmShadowView>
-    )
-
-    RightImage = ({Source, Timestamp}) => (
-        <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end'}}>
-            <TouchableOpacity onPress={() => {
-                this.setState({
-                    ImageToDisplay: Source,
-                    ModalVisible: true
-                })
-            }} activeOpacity={0.90}>
-                <AnimatedImage
-                    loader={<ActivityIndicator />}
-                    containerStyle={{backgroundColor: Colors.secondary, marginBottom: 5}}
-                    style={{height: 250, resizeMode: 'cover', width:250}}
-                    source={Source}
-                />
-            </TouchableOpacity>
-            <Text h3 secondary style={{alignSelf: 'flex-end'}}>{Timestamp}</Text>
-        </CstmShadowView>
-    )
+    openRazorPayWindow = (Price, RazorpayOrderID) => {
+        console.log(Price, RazorpayOrderID);
+    }
 
     CloseModal = () => {
         this.setState({ModalVisible: false})
@@ -355,6 +295,7 @@ class ChatScreenIos extends Component {
                             </View>
                         </CstmShadowView>
                     </Modal>
+                    
                     <ChatHeader
                         {...this.props.route.params}
                         BucketInfo={this.state.BucketInfo}
@@ -363,7 +304,6 @@ class ChatScreenIos extends Component {
                         NavigateBucket={this.NavigateBucket}
                     />
 
-                    <MileStonePay/>
                     {this.state.LoadingMessages ? <LoaderScreen /> :
                         <FlatList
                             data = {this.state.Messages}
@@ -372,20 +312,32 @@ class ChatScreenIos extends Component {
                                 switch(item.Type) {
                                     case 1 :
                                         return item.isSentByCustomer ?
-                                            <this.RightText TextInput={item.Text} Timestamp={item.Timestamp} />
+                                            <RightText TextInput={item.Text} Timestamp={item.Timestamp} />
                                             :
-                                            <this.LeftText TextInput={item.Text} Timestamp={item.Timestamp} />
+                                            <LeftText TextInput={item.Text} Timestamp={item.Timestamp} />
                                     case 2 :
                                         return item.isSentByCustomer ?
-                                            <this.RightImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} />
+                                            <RightImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} onPress={() => {
+                                                this.setState({
+                                                    ImageToDisplay: Source,
+                                                    ModalVisible: true
+                                                })
+                                            }} />
                                             :
-                                            <this.LeftImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} />
+                                            <LeftImage Source={{uri: item.ImageURL}} Timestamp={item.Timestamp} onPress={() => {
+                                                this.setState({
+                                                    ImageToDisplay: Source,
+                                                    ModalVisible: true
+                                                })
+                                            }} />
                                     case 3 :
-                                        return <this.CenterText TextInput={'You placed an order'}/>
+                                        return <CenterText TextInput={'You placed an order'}/>
                                     case 4 :
-                                        return <this.CenterText TextInput={'You cancelled an order'}/>
+                                        return <CenterText TextInput={'You cancelled an order'}/>
                                     case 5 :
-                                        return <this.CenterText TextInput={'Brand added the product to the Bucket'}/>
+                                        return <MilestonePaymentDetails Price={item.Price} Note={item.Note} isPaymentDone={item.isPaymentDone} onPress={() => this.openRazorPayWindow(item.Price, item.RazorpayOrderID)} />
+                                    case 6 :
+                                        return <MilestonePaymentCompleted Price={item.Price} />
                                     default :
                                         return <></>
                                 }
@@ -411,24 +363,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.white
-    },
-    Msg: {
-        margin: 10,
-        padding: 10,
-        borderRadius: 5,
-        height: 'auto',
-        minWidth: '25%',
-        maxWidth: 270,
-    },
-    CenterText: {
-        margin: 10,
-        padding: 10,
-        height: 'auto',
-        minWidth: 150,
-        maxWidth: 200,
-        alignSelf: 'center',
-        backgroundColor: Colors.shadow,
-        borderRadius: 10
     },
     SafeAreaViewCenter: {
         flex: 1,
