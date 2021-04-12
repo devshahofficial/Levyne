@@ -80,9 +80,8 @@ class MyOrders extends Component {
         this.props.navigation.navigate('AddReview', { OrderID, Rating: BrandRating });
     }
 
-    TrackOrder = (TrackingWebsite) => {
-        console.log(TrackingWebsite);
-        Linking.openURL(TrackingWebsite).catch(console.log);
+    TrackOrder = (Slug, TrackingID) => {
+        Linking.openURL(`https://track.aftership.com/trackings?courier=${Slug}&tracking-numbers=${TrackingID}`).catch(console.log);
     }
 
     FlatListRenderItem = ({item}) => (

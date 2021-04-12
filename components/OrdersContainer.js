@@ -156,7 +156,7 @@ export default class OrdersContainer extends React.Component {
                         </View>
                         <CstmShadowView style={{marginBottom: 20}}>
                             <Button
-                                h2 onPress={() => this.props.TrackOrder(this.props.TrackingWebsite)}
+                                h2 onPress={() => this.props.TrackOrder(this.props.Slug, this.props.TrackingID)}
                                 label="Track Order" flex
                             />
                         </CstmShadowView>
@@ -191,7 +191,7 @@ export default class OrdersContainer extends React.Component {
                         </View>
                         <CstmShadowView style={{marginBottom: 20}}>
                             <Button
-                                h2 onPress={() => this.props.TrackOrder(this.props.TrackingWebsite)}
+                                h2 onPress={() => this.props.TrackOrder(this.props.Slug, this.props.TrackingID)}
                                 label="Track Order" flex
                             />
                         </CstmShadowView>
