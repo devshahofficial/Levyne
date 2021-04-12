@@ -154,6 +154,12 @@ export default class OrdersContainer extends React.Component {
                             </View>
                             <Text flex-8 marginL-20 h1 primary>Order Shipped</Text>
                         </View>
+                        <CstmShadowView style={{marginBottom: 20}}>
+                            <Button
+                                h2 onPress={() => this.props.TrackOrder(this.props.TrackingWebsite)}
+                                label="Track Order" flex
+                            />
+                        </CstmShadowView>
                     </>
                 )
             case 9:
@@ -183,6 +189,12 @@ export default class OrdersContainer extends React.Component {
                             </View>
                             <Text flex-8 marginL-20 h1 primary>Order Out of delivery</Text>
                         </View>
+                        <CstmShadowView style={{marginBottom: 20}}>
+                            <Button
+                                h2 onPress={() => this.props.TrackOrder(this.props.TrackingWebsite)}
+                                label="Track Order" flex
+                            />
+                        </CstmShadowView>
                     </>
                 )
             case 10: 
@@ -303,6 +315,14 @@ export default class OrdersContainer extends React.Component {
                                         :
                                         <></>
                                     }
+                                    {this.props.TrackingID ?
+                                        <>
+                                            <Text h2 secondary marginT-20>Courier Partner</Text>
+                                            <Text h2 secondary marginT-20>Tracking ID</Text>
+                                        </>
+                                        :
+                                        <></>
+                                    }
                                 </View>
                                 <View>
                                     <Text hb1 secondary marginT-20>₹{this.props.BucketPrice}</Text>
@@ -310,6 +330,14 @@ export default class OrdersContainer extends React.Component {
                                     <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
                                     {this.props.ExtraCharges ?
                                         <Text hb1 secondary marginT-20>₹{this.props.ExtraCharges}</Text>
+                                        :
+                                        <></>
+                                    }
+                                    {this.props.TrackingID ?
+                                        <>
+                                            <Text hb1 secondary marginT-20>{this.props.CourierPartnerName}</Text>
+                                            <Text hb1 secondary marginT-20>{this.props.TrackingID}</Text>
+                                        </>
                                         :
                                         <></>
                                     }
@@ -325,11 +353,27 @@ export default class OrdersContainer extends React.Component {
                                         :
                                         <></>
                                     }
+                                    {this.props.TrackingID ?
+                                        <>
+                                            <Text h2 secondary marginT-20>Courier Partner</Text>
+                                            <Text h2 secondary marginT-20>Tracking ID</Text>
+                                        </>
+                                        :
+                                        <></>
+                                    }
                                 </View>
                                 <View>
                                     <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
                                     {this.props.ExtraCharges ?
                                         <Text hb1 secondary marginT-20>₹{this.props.ExtraCharges}</Text>
+                                        :
+                                        <></>
+                                    }
+                                    {this.props.TrackingID ?
+                                        <>
+                                            <Text hb1 secondary marginT-20>{this.props.CourierPartnerName}</Text>
+                                            <Text hb1 secondary marginT-20>{this.props.TrackingID}</Text>
+                                        </>
                                         :
                                         <></>
                                     }

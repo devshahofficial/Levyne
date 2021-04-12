@@ -4,11 +4,9 @@ import NavBarBack from '../../components/NavBarBack';
 import OrdersContainer from "../../components/OrdersContainer";
 import {connect} from 'react-redux';
 import FetchOrders from '../../API/Orders/FetchOrders';
-import {FlatList, Modal, StyleSheet, TouchableHighlight} from 'react-native';
+import {FlatList, Linking, Modal, StyleSheet, TouchableHighlight} from 'react-native';
 import Loader from '../../components/Loader';
 import CancelOrder from '../../API/Orders/CancelOrder';
-import RazorpayCheckout from 'react-native-razorpay';
-import config from '../../assets/constants';
 
 class MyOrders extends Component {
 
@@ -82,9 +80,15 @@ class MyOrders extends Component {
         this.props.navigation.navigate('AddReview', { OrderID, Rating: BrandRating });
     }
 
+    TrackOrder = (TrackingWebsite) => {
+        console.log(TrackingWebsite);
+        Linking.openURL(TrackingWebsite).catch(console.log);
+    }
+
     FlatListRenderItem = ({item}) => (
         <OrdersContainer
             {...item}
+            TrackOrder={this.TrackOrder}
             NavigateBrand={this.NavigateBrand}
             NavigateOrder={this.NavigateOrder}
             CancelOrder={this.CancelOrder}
