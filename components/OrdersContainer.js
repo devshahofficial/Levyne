@@ -43,49 +43,7 @@ export default class OrdersContainer extends React.Component {
 
 
     Process = () => {
-        if(this.props.PaymentSuccess) {
-            return (
-                <View row centerV marginV-15>
-                    <View flex>
-                        <OrderReceivedIcon size={35} Color={Colors.primary}/>
-                    </View>
-                    <Text flex-8 marginL-20 h1 primary>Order placed</Text>
-                    <CstmShadowView style={{marginBottom: 20}}>
-                        <Button
-                            h2 onPress={() => this.props.CancelOrder(this.props.BucketID)}
-                            label="Cancel Order" flex
-                        />
-                    </CstmShadowView>
-                </View>
-            )
-        }
         switch(this.props.OrderStatus) {
-            case 1:
-                return (
-                    <View row centerV marginV-15>
-                        <View flex>
-                            <OrderReceivedIcon size={35} Color={Colors.primary}/>
-                        </View>
-                        <Text flex-8 marginL-20 h1 primary>Payment Pending.</Text>
-                    </View>
-                )
-            case 2:
-                return (
-                    <View flex>
-                        <View row centerV marginV-15>
-                            <View flex>
-                                <OrderReceivedIcon size={35} Color={Colors.primary}/>
-                            </View>
-                            <Text flex-8 marginL-20 h1 primary>Payment Declined.</Text>
-                        </View>
-                        <CstmShadowView style={{flex: 1, marginBottom: 20}}>
-							<Button
-								h2 onPress={() => this.props.RetryPayment(this.props)}
-								label="Retry Payment" flex
-							/>
-						</CstmShadowView>
-                    </View>
-                )
             case 3:
                 return (
                     <View row centerV marginV-15>
@@ -340,11 +298,21 @@ export default class OrdersContainer extends React.Component {
                                     <Text h2 secondary marginT-20>Total Amount</Text>
                                     <Text h2 secondary marginT-20>Discount ({this.props.CouponCode})</Text>
                                     <Text h2 secondary marginT-20>Final Amount</Text>
+                                    {this.props.ExtraCharges ?
+                                        <Text h2 secondary marginT-20>Extra Charges</Text>
+                                        :
+                                        <></>
+                                    }
                                 </View>
                                 <View>
                                     <Text hb1 secondary marginT-20>₹{this.props.BucketPrice}</Text>
                                     <Text hb1 secondary marginT-20>-₹{this.props.BucketPrice - this.props.FinalAmount}</Text>
                                     <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
+                                    {this.props.ExtraCharges ?
+                                        <Text hb1 secondary marginT-20>₹{this.props.ExtraCharges}</Text>
+                                        :
+                                        <></>
+                                    }
                                 </View>
                             </View>
                         ) :
@@ -352,9 +320,19 @@ export default class OrdersContainer extends React.Component {
                             <View row flex spread>
                                 <View>
                                     <Text h2 secondary marginT-20>Final Amount</Text>
+                                    {this.props.ExtraCharges ?
+                                        <Text h2 secondary marginT-20>Extra Charges</Text>
+                                        :
+                                        <></>
+                                    }
                                 </View>
                                 <View>
                                     <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
+                                    {this.props.ExtraCharges ?
+                                        <Text hb1 secondary marginT-20>₹{this.props.ExtraCharges}</Text>
+                                        :
+                                        <></>
+                                    }
                                 </View>
                             </View>
                         )

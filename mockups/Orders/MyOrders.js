@@ -64,44 +64,6 @@ class MyOrders extends Component {
     }
 
     /**
-     * @param {any} OrderItem
-     */
-    RetryPayment = async (OrderItem) => {
-        this.setState({ Loading: true });
-        this.Page = 0;
-        try {
-            await RazorpayCheckout.open({
-                image: 'https://levyne.com/images/favicon.png',
-                currency: 'INR',
-                key: config.RazorPayKeyID, // Your api key
-                amount: OrderItem.FinalAmount*100,
-                name: 'Levyne',
-                order_id: OrderItem.RazorPayOrderID,
-                prefill: {
-                    email: this.props.Email,
-                    contact: this.props.Mobile,
-                    name: this.props.Name
-                },
-                theme: {color: Colors.primary,backdrop_color:Colors.black}
-            });
-
-            FetchOrders(this.props.AccessToken, this.props.route.params.OrderID, ++this.Page, this.abortController.signal).then(Orders => {
-                // @ts-ignore
-                Orders.forEach(item => {
-                    if(item.OrderID === OrderItem.OrderID) {
-                        item.OrderStatus = 3;
-                    }
-                });
-                this.setState({
-                    Orders,
-                    Loading: false
-                })
-            }).catch(console.log);
-
-        } catch(err) {}
-    }
-
-    /**
      * @param {any} BucketID
      */
     CancelOrder = (BucketID) => {
@@ -123,10 +85,8 @@ class MyOrders extends Component {
     FlatListRenderItem = ({item}) => (
         <OrdersContainer
             {...item}
-            PaymentSuccess={this.props.route.params.PaymentSuccess}
             NavigateBrand={this.NavigateBrand}
             NavigateOrder={this.NavigateOrder}
-            RetryPayment={this.RetryPayment}
             CancelOrder={this.CancelOrder}
             RateExperience={this.RateExperience}
         />
