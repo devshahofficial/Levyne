@@ -143,7 +143,7 @@ class ChatScreenIos extends Component {
                 image: 'https://levyne.com/images/favicon.png',
                 currency: 'INR',
                 key: config.RazorPayKeyID, // Your api key
-                amount: Price,
+                amount: Price*100,
                 name: 'Levyne',
                 order_id: RazorpayOrderID,
                 prefill: {
@@ -159,6 +159,15 @@ class ChatScreenIos extends Component {
                         item.PaymentTimestamp = new Date().toISOString();
                     }
                 });
+
+                this.state.Messages.unshift({
+                    Type: 6,
+                    Sender: 1,
+                    Price: Price,
+                    BucketMessagesID: Math.random().toString(),
+                    Timestamp: 'now'
+                });
+
                 this.setState({Messages: [...this.state.Messages]});
             }
         } catch(err) {}
@@ -360,7 +369,7 @@ class ChatScreenIos extends Component {
                                     case 4 :
                                         return <CenterText TextInput={'You cancelled an order'}/>
                                     case 5 :
-                                        return <MilestonePaymentDetails Price={item.Price} Note={item.Note} PaymentTimestamp={item.PaymentTimestamp} onPress={() => this.openRazorPayWindow(item.Price*100, item.RazorpayOrderID)} />
+                                        return <MilestonePaymentDetails Price={item.Price} Note={item.Note} PaymentTimestamp={item.PaymentTimestamp} onPress={() => this.openRazorPayWindow(item.Price, item.RazorpayOrderID)} />
                                     case 6 :
                                         return <MilestonePaymentCompleted Price={item.Price} />
                                     default :
