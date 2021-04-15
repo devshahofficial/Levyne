@@ -424,7 +424,9 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
                         horizontal={true} style={{ height: 90, alignContent: "center" }}
                         showsHorizontalScrollIndicator={false}
                     >
+{/*
                         <Category title={'Levyne'} NavigateSearch={() => this.props.navigation.navigate('DesignedAtLevyne')} Image={"https://d32kprqn8e36ns.cloudfront.net/NB0003%20(3).webp"} />
+*/}
                         <Category title={'Men'} NavigateSearch={() => this.navigateSearch({ Gender: 1, Type: 4, Label: 'Men' })} Image={"https://d32kprqn8e36ns.cloudfront.net/SJ0001.webp"} />
                         <Category title={'Women'} NavigateSearch={() => this.navigateSearch({ Gender: 0, Type: 4, Label: 'Women' })} Image={"https://d32kprqn8e36ns.cloudfront.net/FemaleHP.webp"} />
                         <Category title={'Fusion'} NavigateSearch={() => this.navigateSearch({ Index: 14, Type: 1, Label: 'Fusion' })} Image={"https://d32kprqn8e36ns.cloudfront.net/HA0003.webp"} />
