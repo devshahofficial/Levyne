@@ -1,6 +1,6 @@
 import React from 'react';
 import { Dimensions, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
-import { View, Text, TouchableOpacity, Toast } from 'react-native-ui-lib';
+import { View, Text, TouchableOpacity, Toast, Button } from 'react-native-ui-lib';
 import { connect } from 'react-redux';
 import NavBarBack from '../../components/NavBarBack';
 import Colors from "../../Style/Colors";
@@ -23,6 +23,7 @@ import ValidateCoupon from '../../API/Cart/ValidateCoupon';
 import HandlePaymentResponse from '../../API/Cart/HandlePayment';
 import HandleFailedPaymentResponse from '../../API/Cart/HandlePaymentFailed';
 import RetryPayment from '../../API/Cart/RetryPayment';
+import { EmailValidator } from 'commons-validator-js';
 
 
 
@@ -37,8 +38,12 @@ class CheckOut extends React.PureComponent {
             Loading: true,
             Comment: "",
             Coupon: "",
+            Name: this.props.Name,
             Address: this.props.Address,
             PinCode: this.props.PinCode,
+            Mobile: this.props.Mobile,
+            Email: this.props.Email,
+            BackupDetails: {},
             BucketPrice: 0,
             TotalProducts: 0,
             FinalPrice: 0,
@@ -83,9 +88,9 @@ class CheckOut extends React.PureComponent {
                 this.state.Address,
                 this.state.PinCode,
                 this.state.Comment,
-                this.props.Name,
-                this.props.Email,
-                this.props.Mobile,
+                this.state.Name,
+                this.state.Email,
+                this.state.Mobile,
                 this.state.isCouponApplied ? this.state.Coupon : undefined,
                 this.props.route.params.BucketID,
                 this.props.AccessToken,
@@ -170,6 +175,30 @@ class CheckOut extends React.PureComponent {
             this.setState({ Address });
         } else {
             this.setState({ Address: this.props.Address });
+        }
+    }
+
+    setName = (Name) => {
+        if (Name) {
+            this.setState({ Name });
+        } else {
+            this.setState({ Name: this.props.Name });
+        }
+    }
+
+    setMobile = (Mobile) => {
+        if (Mobile) {
+            this.setState({ Mobile });
+        } else {
+            this.setState({ Mobile: this.props.Mobile });
+        }
+    }
+
+    setEmail = (Email) => {
+        if (Email) {
+            this.setState({ Email });
+        } else {
+            this.setState({ Name: this.props.Email });
         }
     }
 
@@ -262,7 +291,59 @@ class CheckOut extends React.PureComponent {
     }
 
     setEditAddress = () => {
-        this.setState({ EditAddress: !this.state.EditAddress });
+        if(!this.state.EditAddress) {
+            this.setState({
+                EditAddress: !this.state.EditAddress,
+                Name: "",
+                Email: "",
+                Address: "",
+                PinCode: "",
+                Mobile: "",
+                BackupDetails: {
+                    Name: this.state.Name,
+                    Email: this.state.Email,
+                    Address: this.state.Address,
+                    PinCode: this.state.PinCode,
+                    Mobile: this.state.Mobile,
+                }
+            })
+        } else {
+            this.setState({
+                EditAddress: !this.state.EditAddress,
+                ...this.state.BackupDetails
+            });
+        }
+    }
+
+    SubmitEditAddress = () => {
+
+        this.Timeouts.push(setTimeout(() => (
+            this.setState({showCustomToast: false})
+        ), 3000));
+
+        if(!this.state.Name) {
+            return this.setState({showCustomToast: true, ToastMessage: "Please Enter a valid Name"})
+        }
+
+        if(this.state.Address.length < 5) {
+            return this.setState({showCustomToast: true, ToastMessage: "Please Enter a valid Address"})
+        }
+
+        if(this.state.PinCode.length !== 6) {
+            return this.setState({showCustomToast: true, ToastMessage: "Please Enter a valid PinCode"})
+        }
+
+        if(this.state.Mobile.length !== 10) {
+            return this.setState({showCustomToast: true, ToastMessage: "Please Enter a valid Mobile Number"})
+        }
+
+        if(this.state.Email) {
+            if(!(new EmailValidator({ allowLocal: true, allowTld: true }).isValid(this.state.Email))) {
+                return this.setState({showCustomToast: true, ToastMessage: "Please Enter a valid Email Address"})
+            }
+        }
+
+        this.setState({EditAddress: false});
     }
 
     setCheckout = () => {
@@ -319,7 +400,7 @@ class CheckOut extends React.PureComponent {
                             </View>
                             <View style={styles.View} marginT-20>
                                 <View row>
-                                    <Text flex hb1 secondary>Address</Text>
+                                    <Text flex hb1 secondary>Shipping Details</Text>
                                     {
                                         !this.state.EditAddress ?
                                         <TouchableOpacity flex right onPress={this.setEditAddress}>
@@ -339,6 +420,11 @@ class CheckOut extends React.PureComponent {
                                         this.state.EditAddress ?
                                             <>
                                                 <CstmInput
+                                                    placeholder='Name'
+                                                    value={this.state.Name}
+                                                    onChangeText={this.setName}
+                                                />
+                                                <CstmInput
                                                     style={{ height: 100, borderRadius: 15 }}
                                                     placeholder='Address'
                                                     value={this.state.Address}
@@ -349,9 +435,30 @@ class CheckOut extends React.PureComponent {
                                                     value={this.state.PinCode}
                                                     onChangeText={this.setPinCode}
                                                 />
+                                                <CstmInput
+                                                    placeholder='Mobile Number'
+                                                    value={this.state.Mobile}
+                                                    onChangeText={this.setMobile}
+                                                />
+                                                <CstmInput
+                                                    placeholder='Email Address (Optional)'
+                                                    value={this.state.Email}
+                                                    onChangeText={this.setEmail}
+                                                />
+                                                <CstmShadowView style={{marginTop:30}}>
+                                                    <Button
+                                                        hb2 flex
+                                                        onPress={this.SubmitEditAddress}
+                                                        label="Save"
+                                                    />
+                                                </CstmShadowView>
                                             </>
                                             :
-                                            <Text h1 secondary>{this.state.Address + "-" + this.state.PinCode}</Text>
+                                            <>
+                                                <Text h1 secondary>{this.state.Name}</Text>
+                                                <Text h1 secondary>{this.state.Address}</Text>
+                                                <Text h1 secondary>{this.state.PinCode}</Text>
+                                            </>
                                     }
                                 </View>
                             </View>
