@@ -15,6 +15,8 @@ import KeyboardAvoidingViewCstm from '../../components/KeyboardAvoidingViewCstm'
 import MilestonePaymentDetails from '../../components/ChatComponents/MilestonePaymentDetails';
 import MilestonePaymentCompleted from '../../components/ChatComponents/MilestonePaymentCompleted';
 import { CenterText, LeftImage, LeftText, RightImage, RightText } from '../../components/ChatComponents/OtherChatMessages';
+import RazorpayCheckout from 'react-native-razorpay';
+import config from '../../assets/constants';
 const windowHeight = Dimensions.get('window').height;
 
 /**
@@ -135,8 +137,40 @@ class ChatScreenIos extends Component {
         }
     }
 
-    openRazorPayWindow = (Price, RazorpayOrderID) => {
-        console.log(Price, RazorpayOrderID);
+    openRazorPayWindow = async (Price, RazorpayOrderID) => {
+        try {
+            const RazorPayPaymentResp = await RazorpayCheckout.open({
+                image: 'https://levyne.com/images/favicon.png',
+                currency: 'INR',
+                key: config.RazorPayKeyID, // Your api key
+                amount: Price*100,
+                name: 'Levyne',
+                order_id: RazorpayOrderID,
+                prefill: {
+                    email: this.props.Email,
+                    contact: this.props.Mobile,
+                    name: this.props.Name
+                },
+                theme: { color: Colors.primary, backdrop_color:Colors.black }
+            });
+            if(RazorPayPaymentResp && RazorPayPaymentResp.razorpay_payment_id) {
+                this.state.Messages.forEach(item => {
+                    if(item.RazorpayOrderID === RazorpayOrderID) {
+                        item.PaymentTimestamp = new Date().toISOString();
+                    }
+                });
+
+                this.state.Messages.unshift({
+                    Type: 6,
+                    Sender: 1,
+                    Price: Price,
+                    BucketMessagesID: Math.random().toString(),
+                    Timestamp: 'now'
+                });
+
+                this.setState({Messages: [...this.state.Messages]});
+            }
+        } catch(err) {}
     }
 
     CloseModal = () => {
@@ -335,7 +369,7 @@ class ChatScreenIos extends Component {
                                     case 4 :
                                         return <CenterText TextInput={'You cancelled an order'}/>
                                     case 5 :
-                                        return <MilestonePaymentDetails Price={item.Price} Note={item.Note} isPaymentDone={item.isPaymentDone} onPress={() => this.openRazorPayWindow(item.Price, item.RazorpayOrderID)} />
+                                        return <MilestonePaymentDetails Price={item.Price} Note={item.Note} PaymentTimestamp={item.PaymentTimestamp} onPress={() => this.openRazorPayWindow(item.Price, item.RazorpayOrderID)} />
                                     case 6 :
                                         return <MilestonePaymentCompleted Price={item.Price} />
                                     default :
@@ -383,12 +417,15 @@ const mapsStateToProps = state => ({
     Socket: state.Socket.Socket,
     UserID: state.Auth.UserID,
     ChatList: state.Chat.ChatList,
+    Name: state.Profile.Name,
+    Email: state.Profile.Email,
+    Mobile: state.Auth.Mobile,
 });
 
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setChatList: (ChatList) => dispatch({ type: 'setChatList', value: ChatList })
+		setChatList: (ChatList) => dispatch({ type: 'setChatList', value: ChatList }),
 	}
 }
 
