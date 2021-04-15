@@ -6,7 +6,7 @@ const {height} = Dimensions.get('window');
 
 /**
  * @type {React.PureComponent}
- * @extends {React.PureComponent<{NavigateThreeD: (Type: number, Label: string) => void}>}
+ * @extends {React.PureComponent<{navigateSearch: (SearchFilter: Object) => void}>}
  **/
 
 export default class Square extends React.PureComponent {
@@ -14,18 +14,18 @@ export default class Square extends React.PureComponent {
         return (
             <View>
                 <View row>
-                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(1, "Pants")} flex style={styles.msgLeft}>
+                    <TouchableOpacity onPress={() => this.props.navigateSearch({Type: 0, Index: 1, Label: "Pants"})} flex style={styles.msgLeft}>
                         <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/TrousersHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(0, "Shirt")} flex style={styles.msgRight}>
+                    <TouchableOpacity onPress={() => this.props.navigateSearch({Type: 0, Index: 0, Label: "Shirts"})} flex style={styles.msgRight}>
                         <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/ShirtHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                 </View>
                 <View row>
-                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(3, "Kurti")} flex style={styles.msgLeft}>
+                    <TouchableOpacity onPress={() => this.props.navigateSearch({Type: 0, Index: 3, Label: "Kurtis"})} flex style={styles.msgLeft}>
                         <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/KurtiHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.props.NavigateThreeD(4, "Choli")} flex style={styles.msgRight}>
+                    <TouchableOpacity onPress={() => this.props.navigateSearch({Type: 0, Index: 4, Label: "Choli"})} flex style={styles.msgRight}>
                         <Image source={{uri: "https://d32kprqn8e36ns.cloudfront.net/CholiHPDiscount.webp"}} style={styles.img} />
                     </TouchableOpacity>
                 </View>

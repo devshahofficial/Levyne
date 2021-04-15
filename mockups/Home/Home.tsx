@@ -283,7 +283,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
         this.props.navigation.navigate('SearchText');
     }
 
-    navigateSearch(SearchFilter: { Gender?: number; Type: 0 | 1 | 2 | 3 | 4; Label: string; Index?: number; }) {
+    navigateSearch = (SearchFilter: { Gender?: number; Type: 0 | 1 | 2 | 3 | 4; Label: string; Index?: number; }) => {
         this.props.navigation.push('SearchScreen', { SearchFilter });
     }
 
@@ -460,7 +460,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
                     <View marginB-10 marginT-20 paddingH-20>
                         <Text b1 secondary>Customize Now</Text>
                     </View>
-                    <Square NavigateThreeD={this.NavigateThreeD}/>
+                    <Square navigateSearch={this.navigateSearch}/>
 
                     <View marginB-10 marginT-20 paddingH-20>
                         <Text b1 secondary>Premium Collections</Text>

@@ -73,7 +73,7 @@ class Search extends React.Component {
     }
 
     SearchBrand = (BrandSort) => {
-        BrandBySearch(this.props.route.params.SearchFilter.Label, ++this.BrandPage, BrandSort, this.abortController.signal).then(resp => {
+        BrandBySearch(this.props.route.params.SearchFilter.Label, ++this.BrandPage, BrandSort, undefined, this.abortController.signal).then(resp => {
             this.setState({
                 BrandData : [...this.state.BrandData, ...resp.Brands],
                 LoadingBrands: false

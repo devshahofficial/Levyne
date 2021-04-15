@@ -114,15 +114,8 @@ class ThreeD extends Component {
                             <ShadowView style={styles.ShadowView}>
                                 <Button
                                     onPress={() => Linking.openURL('tel:+91 9819 077182')}
-                                    style={[styles.Button,{borderColor: Colors.white}]}
-                                    h1 label={"Enquire"}
-                                />
-                            </ShadowView>
-                            <ShadowView style={styles.ShadowView}>
-                                <Button
-                                    onPress={this.Navigate3DCart}
                                     style={[styles.Button,{backgroundColor: Colors.primary}]}
-                                    h1 label={"Add to Cart"} color={Colors.white}
+                                    h1 label={"Enquire"} color={Colors.white}
                                 />
                             </ShadowView>
                         </View>
