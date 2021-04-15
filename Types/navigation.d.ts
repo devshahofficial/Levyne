@@ -1,7 +1,4 @@
-export type MainStackParamList = {
-    Auth: undefined,
-    MainHomeStack: undefined,
-}
+import { NavigatorScreenParams } from "@react-navigation/core";
 
 export type BottomTabParamList = {
     Home: undefined,
@@ -24,7 +21,7 @@ export type AuthStackParamList = {
 }
 
 export type HomeStackParamList = {
-    Home: undefined,
+    Home: NavigatorScreenParams<BottomTabParamList>,
     Customize: undefined,
     Product: {
         ProductID: number,
@@ -148,3 +145,8 @@ export type HomeStackParamList = {
     },
     FabricsFor3DCart: undefined
 };
+
+export type MainStackParamList = {
+    Auth: NavigatorScreenParams<AuthStackParamList>;
+    MainHomeStack: NavigatorScreenParams<HomeStackParamList>;
+}
