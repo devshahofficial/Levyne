@@ -193,7 +193,11 @@ class MyFits extends Component {
                         {this.renderCustomContent()}
                     </Toast>
                     <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
-                        <KeyboardAvoidingViewCstm>
+                        <KeyboardAvoidingViewCstm
+                            behavior={'padding'}
+                            style={styles.container}
+                            keyboardVerticalOffset={35}
+                        >
                             <SectionList
                                 showsVerticalScrollIndicator ={false}
                                 sections={this.Fits}

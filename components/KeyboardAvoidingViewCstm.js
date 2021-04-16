@@ -5,11 +5,7 @@ const KeyboardAvoidingViewCstm = ({children, ...props}) => {
     if(Platform.OS === 'android') {
         return children;
     } else {
-        return(
-            <KeyboardAvoidingView {...props}>
-                {children}
-            </KeyboardAvoidingView>
-        )
+        return <KeyboardAvoidingView {...props}>{children}</KeyboardAvoidingView>
     }
 }
 

@@ -142,7 +142,11 @@ class EditProfile extends React.Component {
         return (
             <>
                 <NavBarBack Navigation={this.navigateHome} Title={"Edit Profile"} />
-                <KeyboardAvoidingViewCstm>
+                <KeyboardAvoidingViewCstm
+                    behavior={'padding'}
+                    style={styles.container}
+                    keyboardVerticalOffset={35}
+                >
                     <ScrollView
                         style={styles.container}
                         showsVerticalScrollIndicator={false}
