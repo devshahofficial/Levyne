@@ -134,8 +134,8 @@ android {
         missingDimensionStrategy 'react-native-camera', 'general'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
-        versionName "1.3"
+        versionCode 10
+        versionName "2.0"
         vectorDrawables.useSupportLibrary = true
     }
     splits {
