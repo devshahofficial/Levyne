@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import { Text, View, AnimatedImage, Colors } from 'react-native-ui-lib';
 import { StyleSheet, Dimensions, ScrollView } from 'react-native';
@@ -5,9 +6,28 @@ import NavBarBack from '../../components/NavBarBack';
 const deviceHeight = Dimensions.get('window').height;
 import FetchBlogByID from '../../API/Blogs/FetchBlogByID';
 import BlogBody from '../../components/BlogBody';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { HomeStackParamList } from '../../Types/navigation';
+import { RouteProp } from '@react-navigation/core';
 
-class BlogPost extends React.Component {
-	constructor(props) {
+type BlogPostPropType = {
+	navigation: StackNavigationProp<HomeStackParamList, 'BlogPost'>;
+	route: RouteProp<HomeStackParamList, 'BlogPost'>;
+};
+
+type RootChildrens = {
+	textContent: string;
+	type: number;
+	children: RootChildrens;
+}[];
+
+type BlogPostStateType = {
+	BlogBodyChildren: RootChildrens;
+};
+
+class BlogPost extends React.Component<BlogPostPropType, BlogPostStateType> {
+	abortController: AbortController;
+	constructor(props: BlogPostPropType) {
 		super(props);
 		this.state = {
 			BlogBodyChildren: [],
