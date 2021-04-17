@@ -36,7 +36,7 @@ import BrandListForChat from '../mockups/Brand/BrandListForChat';
 import OrderScreen from '../mockups/Orders/OrderScreen';
 import ChatIcon from '../Icons/ChatIcon';
 import { OrdersIcon } from '../Icons/OrdersIcon';
-import { CustomizeIcon } from '../Icons/CustomizeIcon';
+//import { CustomizeIcon } from '../Icons/CustomizeIcon';
 import DesignScreen from '../mockups/Designs/DesignScreen';
 import { connect } from 'react-redux';
 import BrandsFor3DCart from '../mockups/Brand/BrandsFor3DCart';
@@ -51,16 +51,27 @@ import CallToOrder from '../mockups/Home/CallToOrder';
 import AddReview from '../mockups/Orders/AddReviews';
 import FabricsFor3DCart from '../mockups/Fabrics/FabricsFor3DCart';
 //import ChatScreenWhenNoBucketID from '../mockups/ChatSystem/ChatScreenWhenNoBucketID';
-import ChatToOrder from "../mockups/ChatSystem/ChatToOrder";
+import ChatToOrder from '../mockups/ChatSystem/ChatToOrder';
 import QRCodeReader from '../mockups/Home/QRCodeReader';
-import { AuthStackParamList, BottomTabParamList, HomeStackParamList, MainStackParamList } from '../Types/navigation';
+import {
+	AuthStackParamList,
+	BottomTabParamList,
+	HomeStackParamList,
+	MainStackParamList,
+} from '../Types/navigation';
 
 const MainStack = createStackNavigator<MainStackParamList>();
 const HomeStack = createStackNavigator<HomeStackParamList>();
 const AuthStack = createStackNavigator<AuthStackParamList>();
 const Tab = createBottomTabNavigator<BottomTabParamList>();
 
-const BottomTabNavigation = ({ IsAnyUnreadMessage, IsAnyProductInCart }: { IsAnyUnreadMessage: boolean, IsAnyProductInCart: boolean }) => {
+const BottomTabNavigation = ({
+	IsAnyUnreadMessage,
+	IsAnyProductInCart,
+}: {
+	IsAnyUnreadMessage: boolean;
+	IsAnyProductInCart: boolean;
+}) => {
 	return (
 		<Tab.Navigator
 			initialRouteName="Home"
@@ -119,41 +130,53 @@ const BottomTabNavigation = ({ IsAnyUnreadMessage, IsAnyProductInCart }: { IsAny
 			/>
 		</Tab.Navigator>
 	);
-}
+};
 
-
-
-const mapsStateToProps = (state: { Chat: { UnreadBuckets: number[]; IsAnyProductInCart: boolean; }; }) => ({
+const mapsStateToProps = (state: {
+	Chat: { UnreadBuckets: number[]; IsAnyProductInCart: boolean };
+}) => ({
 	IsAnyUnreadMessage: !!state.Chat.UnreadBuckets.length,
 	IsAnyProductInCart: state.Chat.IsAnyProductInCart,
 });
 
-const BottomTabNavigationConnect = connect(mapsStateToProps)(BottomTabNavigation);
+const BottomTabNavigationConnect = connect(mapsStateToProps)(
+	BottomTabNavigation,
+);
 
 class MainHomeStack extends React.PureComponent {
 	render() {
 		return (
-			<HomeStack.Navigator
-				headerMode="none"
-			>
-				<HomeStack.Screen name="Home" component={BottomTabNavigationConnect} />
+			<HomeStack.Navigator headerMode="none">
+				<HomeStack.Screen
+					name="Home"
+					component={BottomTabNavigationConnect}
+				/>
 				<HomeStack.Screen name="Customize" component={Customize} />
 				<HomeStack.Screen name="Product" component={ProductScreen} />
 				<HomeStack.Screen name="Fabric" component={FabricScreen} />
 				<HomeStack.Screen name="FAQs" component={FAQscreen} />
 				<HomeStack.Screen name="MyProfile" component={MyProfile} />
-				<HomeStack.Screen name="BrandProfile" component={BrandProfile} />
+				<HomeStack.Screen
+					name="BrandProfile"
+					component={BrandProfile}
+				/>
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
 				{/*<HomeStack.Screen
 					name="ChatWhenNoBucketID"
 					component={ChatScreenWhenNoBucketID}
 				/>*/}
-				<HomeStack.Screen name="BookMark" component={BookmarkProducts} />
+				<HomeStack.Screen
+					name="BookMark"
+					component={BookmarkProducts}
+				/>
 				<HomeStack.Screen name="SearchText" component={SearchText} />
 				<HomeStack.Screen name="Help" component={Help} />
 				<HomeStack.Screen name="Bucket" component={Bucket} />
-				<HomeStack.Screen name="BrandListForChat" component={BrandListForChat} />
+				<HomeStack.Screen
+					name="BrandListForChat"
+					component={BrandListForChat}
+				/>
 				<HomeStack.Screen
 					name="MyFashionDesigners"
 					component={MyFashionDesigners}
@@ -175,8 +198,14 @@ class MainHomeStack extends React.PureComponent {
 					name="DesignedAtLevyne"
 					component={DesignedAtLevyne}
 				/>
-				<HomeStack.Screen name="Notifications" component={Notifications} />
-				<HomeStack.Screen name="QRCodeReader" component={QRCodeReader} />
+				<HomeStack.Screen
+					name="Notifications"
+					component={Notifications}
+				/>
+				<HomeStack.Screen
+					name="QRCodeReader"
+					component={QRCodeReader}
+				/>
 				<HomeStack.Screen name="MyFits" component={MyFits} />
 				<HomeStack.Screen name="MyOrders" component={MyOrders} />
 				<HomeStack.Screen name="CheckOut" component={CheckOut} />
@@ -188,14 +217,26 @@ class MainHomeStack extends React.PureComponent {
 					component={DesignScreen}
 				/>
 				<HomeStack.Screen name="BlogPost" component={BlogPost} />
-				<HomeStack.Screen name="SearchScreen" component={SearchScreen} />
+				<HomeStack.Screen
+					name="SearchScreen"
+					component={SearchScreen}
+				/>
 				<HomeStack.Screen name="ThreeD" component={ThreeD} />
 				<HomeStack.Screen name="ThreeDModel" component={ThreeDModel} />
-				<HomeStack.Screen name="FabricInThreeD" component={FabricIn3D} />
+				<HomeStack.Screen
+					name="FabricInThreeD"
+					component={FabricIn3D}
+				/>
 				<HomeStack.Screen name="Call" component={CallToOrder} />
 				<HomeStack.Screen name="AddReview" component={AddReview} />
-				<HomeStack.Screen name="BrandsFor3DCart" component={BrandsFor3DCart} />
-				<HomeStack.Screen name="BrandsForDesignByLevyne" component={BrandsForDesignByLevyne} />
+				<HomeStack.Screen
+					name="BrandsFor3DCart"
+					component={BrandsFor3DCart}
+				/>
+				<HomeStack.Screen
+					name="BrandsForDesignByLevyne"
+					component={BrandsForDesignByLevyne}
+				/>
 				<HomeStack.Screen
 					name="FabricsFor3DCart"
 					component={FabricsFor3DCart}
@@ -216,7 +257,10 @@ class NavigationAuth extends React.PureComponent {
 				<AuthStack.Screen name="Index" component={IndexScreen} />
 				<AuthStack.Screen name="Login" component={LoginScreen} />
 				<AuthStack.Screen name="OTP" component={OTPScreen} />
-				<AuthStack.Screen name="EditProfileAuth" component={InitialProfile} />
+				<AuthStack.Screen
+					name="EditProfileAuth"
+					component={InitialProfile}
+				/>
 			</AuthStack.Navigator>
 		);
 	}
@@ -232,7 +276,10 @@ export default class NavigationMain extends React.PureComponent {
 					gestureEnabled: false,
 				}}>
 				<MainStack.Screen name="Auth" component={NavigationAuth} />
-				<MainStack.Screen name="MainHomeStack" component={MainHomeStack} />
+				<MainStack.Screen
+					name="MainHomeStack"
+					component={MainHomeStack}
+				/>
 			</MainStack.Navigator>
 		);
 	}
