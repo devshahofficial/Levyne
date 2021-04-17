@@ -473,9 +473,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
 						horizontal={true}
 						style={{ height: 90, alignContent: 'center' }}
 						showsHorizontalScrollIndicator={false}>
-						{/*
-                        <Category title={'Levyne'} NavigateSearch={() => this.props.navigation.navigate('DesignedAtLevyne')} Image={"https://d32kprqn8e36ns.cloudfront.net/NB0003%20(3).webp"} />
-*/}
+						{/* <Category title={'Levyne'} NavigateSearch={() => this.props.navigation.navigate('DesignedAtLevyne')} Image={"https://d32kprqn8e36ns.cloudfront.net/NB0003%20(3).webp"} />*/}
 						<Category
 							title={'Men'}
 							NavigateSearch={() =>
@@ -545,12 +543,19 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
 						],
 						{ useNativeDriver: true },
 					)}>
-					{/*<View marginT-120 paddingH-20>
-                        <Text b1 secondary>Chat Now</Text>
-                    </View>
-                    <Rectangle Image={"https://d32kprqn8e36ns.cloudfront.net/ChatToPlace.webp"} onPress={this.NavigateChatToOrder}/>*/}
-
 					<View marginT-120 paddingH-20>
+						<Text b1 secondary>
+							Chat Now
+						</Text>
+					</View>
+					<Rectangle
+						Image={
+							'https://d32kprqn8e36ns.cloudfront.net/ChatToPlace.webp'
+						}
+						onPress={this.NavigateChatToOrder}
+					/>
+
+					<View marginT-20 paddingH-20>
 						<Text b1 secondary>
 							Shop Now
 						</Text>
