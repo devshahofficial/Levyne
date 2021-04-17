@@ -1,6 +1,6 @@
 import { CommonActions } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthStackParamList } from '../../Types/navigation';
+import { AuthStackParamList, HomeStackParamList } from '../../Types/navigation';
 
 const RoutesType = {
 	1: ['Product', 'ProductID'],
@@ -20,7 +20,9 @@ const RoutesType = {
 const HandleShareURL = (
 	Type: 1 | 2 | 3 | 4 | 5,
 	TypeID: string | number,
-	navigation: StackNavigationProp<AuthStackParamList, 'Index'>,
+	navigation:
+		| StackNavigationProp<AuthStackParamList, 'Index'>
+		| StackNavigationProp<HomeStackParamList, 'Home'>,
 	BrandUserName?: string,
 ) => {
 	if (Type && TypeID) {
