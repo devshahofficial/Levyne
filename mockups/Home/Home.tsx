@@ -182,8 +182,8 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
 				this.setState({ showCustomToast: !this.state.showCustomToast });
 				this.setState({ showContent: 'Press Again To Exit' });
 				this.BackHandlerTimeOut = setTimeout(() => {
-					(this.backPressed = 0),
-						this.setState({ showCustomToast: false });
+					this.backPressed = 0;
+					this.setState({ showCustomToast: false });
 				}, 2000);
 				return true;
 			}
