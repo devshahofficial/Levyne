@@ -524,22 +524,25 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 											/>
 										);
 									case 5:
-										return (
-											<MilestonePaymentDetails
-												Price={item.Price}
-												Note={item.Note}
-												PaymentTimestamp={
-													item.PaymentTimestamp
-												}
-												onPress={() =>
-													this.PayMilestonePayment(
-														item.Price,
-														item.RazorpayOrderID,
-														item.SubOrderID,
-													)
-												}
-											/>
-										);
+										if (item.Price && item.Note) {
+											return (
+												<MilestonePaymentDetails
+													Price={item.Price}
+													Note={item.Note}
+													PaymentTimestamp={
+														item.PaymentTimestamp
+													}
+													onPress={() =>
+														this.PayMilestonePayment(
+															item.Price,
+															item.RazorpayOrderID,
+															item.SubOrderID,
+														)
+													}
+												/>
+											);
+										}
+										return <></>;
 									case 6:
 										return (
 											<MilestonePaymentCompleted

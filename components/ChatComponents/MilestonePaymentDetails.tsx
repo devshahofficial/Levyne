@@ -12,7 +12,7 @@ const MilestonePaymentDetails = ({
 }: {
 	Price: number;
 	Note: string;
-	PaymentTimestamp: string;
+	PaymentTimestamp: string | number | Date | undefined;
 	onPress?: (props: TouchableOpacityProps | any) => void;
 }) => (
 	<CstmShadowView
