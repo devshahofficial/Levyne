@@ -74,16 +74,12 @@ export type HomeStackParamList = {
 	Notifications: undefined;
 	QRCodeReader: undefined;
 	MyFits: undefined;
-	MyOrders:
-		| {
-				PaymentSuccess?: boolean;
-				OrderID?: number;
-		  }
-		| undefined;
+	MyOrders: { PaymentSuccess?: boolean; OrderID?: number } | undefined;
 	CheckOut: {
 		Status: number;
 		BrandName: string;
-		BucketID: string;
+		BucketID: number;
+		SubOrderID?: number;
 	};
 	BrandList: {
 		BrandID: number;

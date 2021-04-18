@@ -13,6 +13,7 @@ export type ChatMessage = {
 	PaymentTimestamp?: string | number | Date;
 	Timestamp: string | number | Date;
 	BucketID?: number;
+	SubOrderID?: number;
 };
 
 export type BucketInfo = {

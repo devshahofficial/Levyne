@@ -85,7 +85,7 @@ interface ChatScreenState {
 
 class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 	Page: number;
-	FlatListRef: React.RefObject<unknown>;
+	FlatListRef: React.RefObject<FlatList>;
 	TimeOutArray: NodeJS.Timeout[];
 	NewChatLoading: boolean;
 
@@ -204,11 +204,19 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 		}
 	};
 
-	openRazorPayWindow = async (
+	PayMilestonePayment = async (
 		Price: number | undefined,
 		RazorpayOrderID?: string,
+		SubOrderID?: number,
 	) => {
-		if (Price && RazorpayOrderID) {
+		if (this.props.route.params.Status === -1) {
+			this.props.navigation.navigate('CheckOut', {
+				Status: this.props.route.params.Status,
+				SubOrderID: SubOrderID,
+				BrandName: this.props.route.params.Name,
+				BucketID: this.props.route.params.BucketID,
+			});
+		} else if (Price && RazorpayOrderID) {
 			try {
 				const RazorPayPaymentResp = await RazorpayCheckout.open({
 					image: 'https://levyne.com/images/favicon.png',
@@ -524,9 +532,10 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 													item.PaymentTimestamp
 												}
 												onPress={() =>
-													this.openRazorPayWindow(
+													this.PayMilestonePayment(
 														item.Price,
 														item.RazorpayOrderID,
+														item.SubOrderID,
 													)
 												}
 											/>
@@ -580,10 +589,10 @@ const styles = StyleSheet.create({
 });
 
 const mapsStateToProps = (state: {
-	Auth: { AccessToken: any; UserID: any; Mobile: any };
-	Socket: { Socket: any };
-	Chat: { ChatList: any };
-	Profile: { Name: any; Email: any };
+	Auth: { AccessToken: string; UserID: number; Mobile: number };
+	Socket: { Socket: Socket };
+	Chat: { ChatList: ChatItemType[] };
+	Profile: { Name: string; Email: string };
 }) => ({
 	AccessToken: state.Auth.AccessToken,
 	Socket: state.Socket.Socket,
