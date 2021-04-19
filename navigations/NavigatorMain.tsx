@@ -32,7 +32,7 @@ import MyFits from '../mockups/Profile/MyFits';
 import FAQscreen from '../mockups/Extras/FAQscreen';
 import MyOrders from '../mockups/Orders/MyOrders';
 import BrandList from '../mockups/Brand/BrandList';
-import BrandListForChat from '../mockups/Brand/BrandListForChat';
+import BrandListForChat from '../mockups/ChatSystem/BrandListForChat';
 import OrderScreen from '../mockups/Orders/OrderScreen';
 import ChatIcon from '../Icons/ChatIcon';
 import { OrdersIcon } from '../Icons/OrdersIcon';
@@ -106,7 +106,9 @@ const BottomTabNavigation = ({
 				name="Customize"
 				component={ChatToOrder}
 				options={{
-					tabBarIcon: ({ color }) => <CustomizeIcon size={28} Color={color} />,
+					tabBarIcon: ({ color }) => (
+						<CustomizeIcon size={28} Color={color} />
+					),
 				}}
 			/>
 			<Tab.Screen
@@ -211,7 +213,6 @@ class MainHomeStack extends React.PureComponent {
 				<HomeStack.Screen name="CheckOut" component={CheckOut} />
 				<HomeStack.Screen name="BrandList" component={BrandList} />
 				<HomeStack.Screen name="Order" component={OrderScreen} />
-				<HomeStack.Screen name="ChatToOrder" component={ChatToOrder} />
 				<HomeStack.Screen
 					name="DesignScreen"
 					component={DesignScreen}

@@ -430,7 +430,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
 	};
 
 	NavigateChatToOrder = () => {
-		this.props.navigation.navigate('ChatToOrder');
+		this.props.navigation.navigate('Customize');
 	};
 
 	NavigateThreeD = (CategoryID: number, CategoryArgs: string) => {

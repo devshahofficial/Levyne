@@ -16,7 +16,6 @@ import {
 	Toast,
 	AvatarHelper,
 } from 'react-native-ui-lib';
-import NavBarBack from '../../components/NavBarBack';
 import CstmInput from '../../components/input';
 import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-ui-lib';
@@ -29,8 +28,7 @@ import { connect } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { HomeStackParamList } from '../../Types/navigation';
 import { RouteProp } from '@react-navigation/core';
-import TextNavBar from "../../components/TextNavBar";
-import {EditIcon} from "../../Icons/EditIcon";
+import TextNavBar from '../../components/TextNavBar';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -266,7 +264,7 @@ class ChatToOrder extends React.Component<ChatToOrderProps, ChatToOrderState> {
 	render() {
 		return (
 			<>
-				<TextNavBar Title={"Customize Now"}/>
+				<TextNavBar Title={'Customize Now'} />
 
 				<SafeAreaView style={{ flex: 1 }}>
 					{this.state.Loading ? (
