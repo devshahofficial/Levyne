@@ -347,11 +347,18 @@ export default class OrdersContainer extends React.Component {
                         (
                             <View row flex spread>
                                 <View>
-                                    <Text h2 secondary marginT-20>Final Amount</Text>
-                                    {this.props.ExtraCharges ?
-                                        <Text h2 secondary marginT-20>Extra Charges</Text>
+                                    {this.props.FinalAmount ?
+                                        <>
+                                            <Text h2 secondary marginT-20>Final Amount</Text>
+                                            {
+                                                this.props.ExtraCharges ?
+                                                    <Text h2 secondary marginT-20>Extra Charges</Text>
+                                                :
+                                                <></>
+                                            }
+                                        </>
                                         :
-                                        <></>
+                                        <Text h2 secondary marginT-20>Final Amount</Text>
                                     }
                                     {this.props.TrackingID ?
                                         <>
@@ -363,11 +370,18 @@ export default class OrdersContainer extends React.Component {
                                     }
                                 </View>
                                 <View>
-                                    <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
-                                    {this.props.ExtraCharges ?
-                                        <Text hb1 secondary marginT-20>₹{this.props.ExtraCharges}</Text>
+                                    {this.props.FinalAmount ?
+                                        <>
+                                            <Text hb1 secondary marginT-20>₹{this.props.FinalAmount}</Text>
+                                            {
+                                                this.props.ExtraCharges ?
+                                                    <Text hb1 secondary marginT-20>₹{this.props.ExtraCharges}</Text>
+                                                :
+                                                <></>
+                                            }
+                                        </>
                                         :
-                                        <></>
+                                        <Text hb1 secondary marginT-20>₹{this.props.ExtraCharges}</Text>
                                     }
                                     {this.props.TrackingID ?
                                         <>

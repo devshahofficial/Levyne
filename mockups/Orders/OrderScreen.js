@@ -11,7 +11,8 @@ import { TimerIcon } from '../../Icons/Secondary/TimerIcon';
 import FetchBucket from '../../API/Cart/FetchBucket';
 import DeliveryChargeComponent from '../../components/DeliveryChargeComponent';
 import ImageView from 'react-native-image-viewing';
-import ShadowView from 'react-native-simple-shadow-view/src/ShadowView';
+//@ts-ignore
+import ShadowView from 'react-native-simple-shadow-view';
 import Loader from '../../components/Loader';
 
 class Bucket extends React.Component {
