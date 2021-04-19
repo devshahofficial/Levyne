@@ -1,13 +1,13 @@
 import React from 'react';
 import {Colors, Text, AnimatedImage, View, TouchableOpacity} from "react-native-ui-lib";
 import {ActivityIndicator, StyleSheet} from "react-native";
-import CstmShadowView from '../../components/CstmShadowView';
+import CstmShadowView from '../CstmShadowView';
 import Hyperlink from 'react-native-hyperlink';
 
 
 export const RightText = ({TextInput, Timestamp}) => (
-    <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end', paddingTop: 10}}>
-        <Hyperlink linkDefault={ true }  linkStyle = {{ color: Colors.blue10 }}>
+    <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end', paddingTop: 10, backgroundColor:'#FFF7FB'}}>
+        <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
             <Text h1>{TextInput}</Text>
         </Hyperlink>
         <Text secondary h3 style={{alignSelf: 'flex-end'}}>{Timestamp}</Text>
