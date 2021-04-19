@@ -30,15 +30,20 @@ const GetChatMessages = async (
 	BucketID: number,
 	Page: number,
 	Token: string,
+	abortController?: AbortSignal,
 ) => {
-	let ChatMessages: ChatMessages = await POST('Chat/FetchBucketMessages', {
-		ReturnResponse: true,
-		Token,
-		Body: {
-			Page,
-			BucketID,
+	let ChatMessages: ChatMessages = await POST(
+		'Chat/FetchBucketMessages',
+		{
+			ReturnResponse: true,
+			Token,
+			Body: {
+				Page,
+				BucketID,
+			},
 		},
-	});
+		abortController,
+	);
 
 	ChatMessages.Messages = ChatMessages.Messages.map((item: ChatMessage) => {
 		item.Timestamp = timeAgo(item.Timestamp);

@@ -88,6 +88,7 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 	FlatListRef: React.RefObject<FlatList>;
 	TimeOutArray: NodeJS.Timeout[];
 	NewChatLoading: boolean;
+	abortController: AbortController;
 
 	constructor(props: ChatScreenProps) {
 		super(props);
@@ -109,6 +110,8 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 		this.props.Socket?.on('ChatMessage', this.SocketListener);
 		this.TimeOutArray = [];
 		this.NewChatLoading = true;
+		// eslint-disable-next-line no-undef
+		this.abortController = new AbortController();
 	}
 
 	SocketListener = (Message: ChatMessage) => {
@@ -128,6 +131,7 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 			this.props.route.params.BucketID,
 			++this.Page,
 			this.props.AccessToken,
+			this.abortController.signal,
 		)
 			.then((Resp) => {
 				this.setState({
@@ -143,6 +147,7 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 
 	componentWillUnmount = () => {
 		this.props.Socket?.off('ChatMessage', this.SocketListener);
+		this.abortController.abort();
 		UpdateReadTimestamp(
 			this.props.route.params.BucketID,
 			this.props.AccessToken,
