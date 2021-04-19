@@ -5,7 +5,7 @@ import CstmShadowView from '../CstmShadowView';
 import Hyperlink from 'react-native-hyperlink';
 
 
-export const RightText = ({TextInput, Timestamp}) => (
+export const RightText = ({TextInput, Timestamp}: {TextInput: string | undefined, Timestamp: string | number | Date}) => (
     <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end', paddingTop: 10, backgroundColor:'#FFF7FB'}}>
         <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
             <Text h1>{TextInput}</Text>
@@ -14,7 +14,7 @@ export const RightText = ({TextInput, Timestamp}) => (
     </CstmShadowView>
 )
 
-export const LeftText = ({TextInput, Timestamp}) => (
+export const LeftText = ({TextInput, Timestamp}: {TextInput: string | undefined, Timestamp: string | number | Date}) => (
     <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-start', paddingTop: 10}}>
         <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
             <Text h1>{TextInput}</Text>
@@ -23,7 +23,7 @@ export const LeftText = ({TextInput, Timestamp}) => (
     </CstmShadowView>
 )
 
-export const CenterText = ({TextInput}) => (
+export const CenterText = ({TextInput}: {TextInput: string | undefined}) => (
     <View style={styles.CenterText} center>
         <Hyperlink linkDefault={ true } linkStyle = {{ color: Colors.blue10 }}>
             <Text center h3>{TextInput}</Text>
@@ -31,7 +31,7 @@ export const CenterText = ({TextInput}) => (
     </View>
 )
 
-export const LeftImage = ({Source, Timestamp, onPress}) => (
+export const LeftImage = ({Source, Timestamp, onPress}: {Timestamp: string | number | Date, Source: {uri: string | undefined}, onPress: () => void}) => (
     <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-start'}}>
         <TouchableOpacity onPress={onPress}>
             <AnimatedImage
@@ -45,7 +45,7 @@ export const LeftImage = ({Source, Timestamp, onPress}) => (
     </CstmShadowView>
 )
 
-export const RightImage = ({Source, Timestamp, onPress}) => (
+export const RightImage = ({Source, Timestamp, onPress}: {Timestamp: string | number | Date, Source: {uri: string | undefined}, onPress: () => void}) => (
     <CstmShadowView style={{...styles.Msg, alignSelf: 'flex-end'}}>
         <TouchableOpacity onPress={onPress} activeOpacity={0.90}>
             <AnimatedImage
