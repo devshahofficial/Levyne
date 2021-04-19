@@ -177,7 +177,9 @@ const AuthCheck = async (
 				return 'MainHomeStack';
 		}
 	} catch (err) {
-		console.log(err);
+		if(err instanceof TypeError && err.message === 'Network request failed') {
+			throw new Error('No Internet');
+		}
 		throw new Error('Login');
 	}
 };

@@ -115,6 +115,8 @@ class ChatScreen extends Component<ChatScreenProps, ChatScreenState> {
 	}
 
 	SocketListener = (Message: ChatMessage) => {
+		console.log("Message Received on Chat Screen");
+		console.log(Message);
 		if (Message.BucketID === this.props.route.params.BucketID) {
 			this.state.Messages.unshift({
 				...Message,

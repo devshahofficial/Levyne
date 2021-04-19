@@ -13,10 +13,10 @@ import AuthCheck, {
 } from '../../API/Auth/index';
 import { connect } from 'react-redux';
 import { Colors, AvatarHelper } from 'react-native-ui-lib';
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions, CompositeNavigationProp } from '@react-navigation/native';
 import HandleShareURL from '../../API/Home/HandleShareURL';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { AuthStackParamList } from '../../Types/navigation';
+import { AuthStackParamList, HomeStackParamList, MainStackParamList } from '../../Types/navigation';
 import { Socket as SocketType } from 'socket.io-client';
 import { ChatItemType } from '../../Redux/ReduxStore';
 
@@ -27,7 +27,13 @@ interface IndexProps {
 	setChatList: setChatListType;
 	MarkBucketAsUnRead: MarkBucketAsUnReadType;
 	setIsAnyProductInCart: setIsAnyProductInCartType;
-	navigation: StackNavigationProp<AuthStackParamList, 'Index'>;
+	navigation: CompositeNavigationProp<
+	StackNavigationProp<AuthStackParamList, 'Index'>,
+		CompositeNavigationProp<
+			StackNavigationProp<MainStackParamList>,
+			StackNavigationProp<HomeStackParamList>
+		>
+	>
 }
 
 class IndexScreen extends React.Component<IndexProps> {
@@ -129,9 +135,12 @@ class IndexScreen extends React.Component<IndexProps> {
 						.catch(() => {});
 				}
 			})
-			.catch((err) => {
-				console.log(err);
-				this.props.navigation.navigate('Login');
+			.catch((err: Error) => {
+				if(err.message === 'No Internet') {
+					this.props.navigation.navigate('InternetConnection');
+				} else {
+					this.props.navigation.navigate('Login');
+				}
 			});
 	}
 

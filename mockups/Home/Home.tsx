@@ -155,6 +155,7 @@ class HomeScreen extends React.Component<HomeScreenProps, HomeScreenState> {
 	};
 
 	SocketListener = () => {
+		console.log('Received Message');
 		FetchChatBuckets(this.props.AccessToken, 1, this.abortController.signal)
 			.then((rows) => {
 				this.props.MarkBucketAsUnRead(rows[1], true);
