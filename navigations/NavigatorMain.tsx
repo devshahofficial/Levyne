@@ -164,6 +164,7 @@ class MainHomeStack extends React.PureComponent {
 				/>
 				<HomeStack.Screen name="EditProfile" component={EditProfile} />
 				<HomeStack.Screen name="Chat" component={ChatScreen} />
+				<HomeStack.Screen name="ChatToOrder" component={ChatToOrder} />
 				{/*<HomeStack.Screen
 					name="ChatWhenNoBucketID"
 					component={ChatScreenWhenNoBucketID}

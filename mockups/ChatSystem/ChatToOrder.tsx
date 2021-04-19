@@ -29,6 +29,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { HomeStackParamList } from '../../Types/navigation';
 import { RouteProp } from '@react-navigation/core';
 import TextNavBar from '../../components/TextNavBar';
+import NavBarBack from '../../components/NavBarBack';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -264,7 +265,14 @@ class ChatToOrder extends React.Component<ChatToOrderProps, ChatToOrderState> {
 	render() {
 		return (
 			<>
-				<TextNavBar Title={'Customize Now'} />
+				{this.props.route.params?.BrandID ? (
+					<NavBarBack
+						Title={'Customize Now'}
+						Navigation={this.props.navigation.goBack}
+					/>
+				) : (
+					<TextNavBar Title={'Customize Now'} />
+				)}
 
 				<SafeAreaView style={{ flex: 1 }}>
 					{this.state.Loading ? (
@@ -384,15 +392,27 @@ class ChatToOrder extends React.Component<ChatToOrderProps, ChatToOrderState> {
 									</Text>
 								</TouchableOpacity>
 							)}
-							<CstmShadowView
-								style={{ marginBottom: 20, marginTop: 20 }}>
-								<Button
-									onPress={this.selectBrand}
-									flex
-									h2
-									label="Select Brand"
-								/>
-							</CstmShadowView>
+							{this.props.route.params?.BrandID ? (
+								<CstmShadowView
+									style={{ marginBottom: 20, marginTop: 20 }}>
+									<Button
+										onPress={this.selectBrand}
+										flex
+										h2
+										label="Chat"
+									/>
+								</CstmShadowView>
+							) : (
+								<CstmShadowView
+									style={{ marginBottom: 20, marginTop: 20 }}>
+									<Button
+										onPress={this.selectBrand}
+										flex
+										h2
+										label="Select Brand"
+									/>
+								</CstmShadowView>
+							)}
 						</ScrollView>
 					)}
 					<Toast
