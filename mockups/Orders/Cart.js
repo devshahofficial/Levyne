@@ -71,7 +71,7 @@ class Cart extends React.Component {
         } else {
             this.props.navigation.navigate('EditProfile');
         }
-        
+
     }
 
     navigateBrand = (BrandID) => {
@@ -143,14 +143,14 @@ class Cart extends React.Component {
                                 showsVerticalScrollIndicator={false}
                                 ListEmptyComponent={
                                     <View flex centerV centerH style={{height:655}} paddingH-40>
-                                        <Text center b1 grey40>Make a wish and we'll make sure that it comes true.</Text>
+                                        <Text center b1 grey40>We didn't find anything in your cart.</Text>
                                     </View>
                                 }
                                 refreshing={this.state.refreshing}
                                 onRefresh={this.onRefresh}
                             />
                         </View>
-                        
+
 
                 }
             </>

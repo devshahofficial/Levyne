@@ -36,7 +36,7 @@ import BrandListForChat from '../mockups/Brand/BrandListForChat';
 import OrderScreen from '../mockups/Orders/OrderScreen';
 import ChatIcon from '../Icons/ChatIcon';
 import { OrdersIcon } from '../Icons/OrdersIcon';
-//import { CustomizeIcon } from '../Icons/CustomizeIcon';
+import { CustomizeIcon } from '../Icons/CustomizeIcon';
 import DesignScreen from '../mockups/Designs/DesignScreen';
 import { connect } from 'react-redux';
 import BrandsFor3DCart from '../mockups/Brand/BrandsFor3DCart';
@@ -102,13 +102,13 @@ const BottomTabNavigation = ({
 					),
 				}}
 			/>
-			{/*<Tab.Screen
+			<Tab.Screen
 				name="Customize"
-				component={Customize}
+				component={ChatToOrder}
 				options={{
 					tabBarIcon: ({ color }) => <CustomizeIcon size={28} Color={color} />,
 				}}
-			/>*/}
+			/>
 			<Tab.Screen
 				name="MyCart"
 				component={Cart}

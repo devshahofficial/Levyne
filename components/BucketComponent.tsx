@@ -80,26 +80,32 @@ export default class BucketComponent extends React.PureComponent<{ NavigateBucke
                         <DeliveryIcon size={30} Color={Colors.black} />
                         <DeliveryChargeComponent TotalPrice={this.props.item.BucketPrice} />
                     </View>
-                    <View row marginT-20 style={{ marginHorizontal: -15, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}>
+                    <View paddingH-10 paddingV-20 center>
                         {this.props.item.OrderCreatedDifference ?
                             this.props.item.OrderCreatedDifference < 15 ?
-                                <Button
-                                    hb2 disabled flex style={styles.ButtonRight}
-                                    label={'Payment Pending'} color={Colors.white}
-                                    onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
-                                />
+                                <CstmShadowView style={{width:"80%"}}>
+                                    <Button
+                                        hb2 disabled flex
+                                        label={'Payment Pending'}
+                                        onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
+                                    />
+                                </CstmShadowView>
                                 :
+                                <CstmShadowView>
+                                    <Button
+                                        hb2 flex
+                                        label={'Retry Payment'}
+                                        onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
+                                    />
+                                </CstmShadowView>
+                            :
+                            <CstmShadowView style={{width:"80%"}}>
                                 <Button
-                                    hb2 flex style={styles.ButtonRight}
-                                    label={'Retry Payment'} color={Colors.white}
+                                    hb2 flex
+                                    label={'Checkout'}
                                     onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
                                 />
-                            :
-                            <Button
-                                hb2 flex style={styles.ButtonRight}
-                                label={'Checkout'} color={Colors.white}
-                                onPress={() => this.props.navigateCheckout(this.props.item.BucketID, this.props.item.Name, this.props.item.Status)}
-                            />
+                            </CstmShadowView>
                         }
                     </View>
                 </CstmShadowView>
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingTop: 15,
         paddingHorizontal: 15,
-        marginTop: 0,
+        marginTop: 0
     },
     ButtonRight: {
         backgroundColor: Colors.primary,

@@ -29,6 +29,8 @@ import { connect } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { HomeStackParamList } from '../../Types/navigation';
 import { RouteProp } from '@react-navigation/core';
+import TextNavBar from "../../components/TextNavBar";
+import {EditIcon} from "../../Icons/EditIcon";
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -264,10 +266,7 @@ class ChatToOrder extends React.Component<ChatToOrderProps, ChatToOrderState> {
 	render() {
 		return (
 			<>
-				<NavBarBack
-					Title={'Tell us more about your taste'}
-					Navigation={this.props.navigation.goBack}
-				/>
+				<TextNavBar Title={"Customize Now"}/>
 
 				<SafeAreaView style={{ flex: 1 }}>
 					{this.state.Loading ? (
