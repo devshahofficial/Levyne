@@ -8,7 +8,7 @@
 
     $ git init
 
-    $ git remote add origin https://github.com/vikasg603/Levyne.git
+    $ git remote add origin https://github.com/devshahofficial/Levyne.git
 
     $ git pull origin master
 
